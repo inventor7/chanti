@@ -1,0 +1,426 @@
+[
+  {
+    "keyword": "accessorizingAndStyling",
+    "val": "Accessoirisation et stylisme"
+  },
+  {
+    "keyword": "additionsAndRemodels",
+    "val": "Additions et rénovations"
+  },
+  {
+    "keyword": "airConditioningInstallationAndRepair",
+    "val": "Installation et réparation de climatisation"
+  },
+  {
+    "keyword": "already_have_account",
+    "val": "Vous avez déjà un compte ?"
+  },
+  {
+    "keyword": "carpentryAndWoodworking",
+    "val": "Menuiserie et travail du bois"
+  },
+  {
+    "keyword": "Choose",
+    "val": " Choisissez"
+  },
+  {
+    "keyword": "chooseField",
+    "val": "Choisissez votre domaine"
+  },
+  {
+    "keyword": "chooseServices",
+    "val": "Choisissez les services"
+  },
+  {
+    "keyword": "circuitBreakerAndFuseServices",
+    "val": "Services de disjoncteur et de fusible"
+  },
+  {
+    "keyword": "Cleaning&Housekeeping",
+    "val": "Nettoyage et entretien ménager"
+  },
+  {
+    "keyword": "client",
+    "val": "Client"
+  },
+  {
+    "keyword": "colourConsultation",
+    "val": "Consultation de couleur"
+  },
+  {
+    "keyword": "commercialCleaning",
+    "val": "Nettoyage commercial"
+  },
+  {
+    "keyword": "concreteBrickAndStone",
+    "val": "Béton, brique et pierre"
+  },
+  {
+    "keyword": "Construction&Remodelling",
+    "val": "Construction et rénovation"
+  },
+  {
+    "keyword": "corporateRelocationServices",
+    "val": "Services de relocalisation d'entreprise"
+  },
+  {
+    "keyword": "darkMode",
+    "val": "Mode sombre"
+  },
+  {
+    "keyword": "deepCleaning",
+    "val": "Nettoyage en profondeur"
+  },
+  {
+    "keyword": "Demande",
+    "val": " Demande "
+  },
+  {
+    "keyword": "DemandeQuote",
+    "val": " la catégorie de service que vous recherchez"
+  },
+  {
+    "keyword": "demolitionServices",
+    "val": "Services de démolition"
+  },
+  {
+    "keyword": "descP3",
+    "val": "sélectionnez votre wilaya et votre commune pour que nous puissions vous fournir les clients dans votre région"
+  },
+  {
+    "keyword": "descSP1",
+    "val": "Après vous être inscrit sur chanti, vous serez prêt à recevoir les demandes des utilisateurs et à travailler"
+  },
+  {
+    "keyword": "descSP2",
+    "val": "choisissez votre domaine professionnel et commencez à travailler"
+  },
+  {
+    "keyword": "descSP3",
+    "val": "choisissez les services que vous pouvez fournir à vos clients"
+  },
+  {
+    "keyword": "descSP5",
+    "val": "remplissez vos informations personnelles pour que les clients puissent vous contacter"
+  },
+  {
+    "keyword": "descSP6",
+    "val": "dernière étape pour accéder à notre application à partir de n'importe où et à tout moment"
+  },
+  {
+    "keyword": "designAndBuildServices",
+    "val": "Services de conception et de construction"
+  },
+  {
+    "keyword": "dont_have_account",
+    "val": "Vous n'avez pas de compte ?"
+  },
+  {
+    "keyword": "drywall&PlasterRepair",
+    "val": "Réparation de cloisons sèches et de plâtre"
+  },
+  {
+    "keyword": "ductCleaningAndRepair",
+    "val": "Nettoyage et réparation de conduits"
+  },
+  {
+    "keyword": "Electrical&HVAC",
+    "val": "Électricité et HVAC"
+  },
+  {
+    "keyword": "electricalWiringAndRepairs",
+    "val": "Câblage électrique et réparations"
+  },
+  {
+    "keyword": "email_or_phone",
+    "val": "Email ou Téléphone"
+  },
+  {
+    "keyword": "endTitle",
+    "val": "Une clic"
+  },
+  {
+    "keyword": "energyEfficiency",
+    "val": "Efficacité énergétique"
+  },
+  {
+    "keyword": "exteriorPainting",
+    "val": "Peinture extérieure"
+  },
+  {
+    "keyword": "forgot_password",
+    "val": "Mot de passe oublié ?"
+  },
+  {
+    "keyword": "generalContracting",
+    "val": "Contractant général"
+  },
+  {
+    "keyword": "greenCleaning",
+    "val": "Nettoyage écologique"
+  },
+  {
+    "keyword": "greenHomeImprovementProjects",
+    "val": "Projets d'amélioration écologique de la maison"
+  },
+  {
+    "keyword": "handymanServices",
+    "val": "Services de bricolage"
+  },
+  {
+    "keyword": "hardscapingAndPavingServices",
+    "val": "Services de pavage et d'aménagement dur"
+  },
+  {
+    "keyword": "heatingSystemInstallationAndRepair",
+    "val": "Installation et réparation de systèmes de chauffage"
+  },
+  {
+    "keyword": "HomeImprovement&Maintenance",
+    "val": "Amélioration de la maison et entretien"
+  },
+  {
+    "keyword": "HomeInspection&Appraisal",
+    "val": "Inspection et évaluation de la maison"
+  },
+  {
+    "keyword": "homeWinterization",
+    "val": "Hivernisation de la maison"
+  },
+  {
+    "keyword": "householdChores",
+    "val": "Tâches ménagères"
+  },
+  {
+    "keyword": "howItWorks",
+    "val": "Comment ça marche"
+  },
+  {
+    "keyword": "id",
+    "val": "3"
+  },
+  {
+    "keyword": "interiorDecorating",
+    "val": "Décoration d'intérieur"
+  },
+  {
+    "keyword": "InteriorDesign&Decorating",
+    "val": "Design d'intérieur et décoration"
+  },
+  {
+    "keyword": "interiorPainting",
+    "val": "Peinture intérieure"
+  },
+  {
+    "keyword": "irrigationSystemInstallationAndRepair",
+    "val": "Installation et réparation de système d'irrigation"
+  },
+  {
+    "keyword": "Landscape&OutdoorLiving",
+    "val": "Aménagement paysager et vie en plein air"
+  },
+  {
+    "keyword": "landscapeDesignAndPlanning",
+    "val": "Conception et planification de l'aménagement paysager"
+  },
+  {
+    "keyword": "lang",
+    "val": "language"
+  },
+  {
+    "keyword": "langCode",
+    "val": "fr"
+  },
+  {
+    "keyword": "langDir",
+    "val": "ltr"
+  },
+  {
+    "keyword": "langFlag",
+    "val": "fr"
+  },
+  {
+    "keyword": "langName",
+    "val": "French"
+  },
+  {
+    "keyword": "lawnAndGardenMaintenance",
+    "val": "Entretien de pelouse et de jardin"
+  },
+  {
+    "keyword": "lightingDesign",
+    "val": "Conception d'éclairage"
+  },
+  {
+    "keyword": "lightingInstallation",
+    "val": "Installation d'éclairage"
+  },
+  {
+    "keyword": "lightMode",
+    "val": "Mode normale"
+  },
+  {
+    "keyword": "localMovingServices",
+    "val": "Services de déménagement local"
+  },
+  {
+    "keyword": "login",
+    "val": "S'identifier"
+  },
+  {
+    "keyword": "logout",
+    "val": "Se déconnecter"
+  },
+  {
+    "keyword": "longDistanceMovingServices",
+    "val": "Services de déménagement longue distance"
+  },
+  {
+    "keyword": "moveInAndMoveOutCleaning",
+    "val": "Nettoyage d'entrée et de sortie"
+  },
+  {
+    "keyword": "Moving&StorageServices",
+    "val": "Services de déménagement et de stockage"
+  },
+  {
+    "keyword": "organizationServices",
+    "val": "Services d'organisation"
+  },
+  {
+    "keyword": "outdoorLighting",
+    "val": "Éclairage extérieur"
+  },
+  {
+    "keyword": "packingAndUnpackingServices",
+    "val": "Services d'emballage et de déballage"
+  },
+  {
+    "keyword": "Painting&Finishing",
+    "val": "Peinture et finition"
+  },
+  {
+    "keyword": "password",
+    "val": "Mot de passe"
+  },
+  {
+    "keyword": "PersonalInfo",
+    "val": "Informations personnelles"
+  },
+  {
+    "keyword": "pipeInspectionAndRepair",
+    "val": "Inspection et réparation des tuyaux"
+  },
+  {
+    "keyword": "Plumbing&WaterManagement",
+    "val": "Plomberie et gestion de l'eau"
+  },
+  {
+    "keyword": "plumbingRepairsAndInstallations",
+    "val": "Réparations et installations de plomberie"
+  },
+  {
+    "keyword": "poolAndSpaInstallationAndMaintenance",
+    "val": "Installation et entretien de piscine et spa"
+  },
+  {
+    "keyword": "projectManagement",
+    "val": "Gestion de projet"
+  },
+  {
+    "keyword": "provider",
+    "val": "Fournisseur"
+  },
+  {
+    "keyword": "register",
+    "val": "S'inscrire"
+  },
+  {
+    "keyword": "residentialCleaning",
+    "val": "Nettoyage résidentiel"
+  },
+  {
+    "keyword": "Search",
+    "val": " Rechercher"
+  },
+  {
+    "keyword": "searchButton",
+    "val": "trouver pro"
+  },
+  {
+    "keyword": "searchPlaceHolder",
+    "val": "Rechercher des catégories, des services ..."
+  },
+  {
+    "keyword": "SearchQuote",
+    "val": " la catégorie de service que vous recherchez"
+  },
+  {
+    "keyword": "Select",
+    "val": " Sélectionner "
+  },
+  {
+    "keyword": "selectLocation",
+    "val": "Sélectionnez votre emplacement"
+  },
+  {
+    "keyword": "SelectQuote",
+    "val": " la catégorie de service que vous recherchez"
+  },
+  {
+    "keyword": "seniorMovingServices",
+    "val": "Services de déménagement pour personnes âgées"
+  },
+  {
+    "keyword": "septicSystemServices",
+    "val": "Services de système septique"
+  },
+  {
+    "keyword": "sewerAndDrainCleaning",
+    "val": "Nettoyage des égouts et des drains"
+  },
+  {
+    "keyword": "sign_in",
+    "val": "S'identifier"
+  },
+  {
+    "keyword": "sign_up",
+    "val": "S'inscrire"
+  },
+  {
+    "keyword": "spacePlanningAndFurnitureLayout",
+    "val": "Planification d'espace et disposition de meubles"
+  },
+  {
+    "keyword": "storageSolutions",
+    "val": "Solutions de stockage"
+  },
+  {
+    "keyword": "stuccoRepair&Painting",
+    "val": "Réparation et peinture de stuc"
+  },
+  {
+    "keyword": "title",
+    "val": "Solutions faciles pour les problèmes de maison gratuits avec"
+  },
+  {
+    "keyword": "wallpaperRemoval&Installation",
+    "val": "Enlèvement et installation de papier peint"
+  },
+  {
+    "keyword": "waterFiltrationAndPurification",
+    "val": "Filtration et purification de l'eau"
+  },
+  {
+    "keyword": "waterHeaterRepairAndReplacement",
+    "val": "Réparation et remplacement de chauffe-eau"
+  },
+  {
+    "keyword": "windowTreatmentsAndCoverings",
+    "val": "Traitements et revêtements de fenêtres"
+  },
+  {
+    "keyword": "woodStaining&Refinishing",
+    "val": "Teinture et rénovation du bois"
+  }
+]
