@@ -1,27 +1,27 @@
-name: Deploy to GitHub Pages
+name: Deploy to Github Pages
 
 on:
   push:
     branches:
-      - master
+      - master  # replace with your default branch
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build
-        run: npm run build
+    - name: Build project
+      run: npm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          branch: deploying
-          folder: dist
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy to Github Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        branch: deploying  # replace with your deployment branch
+        folder: dist  # replace with the directory that contains your built project
+        token: ${{ secrets.GITHUB_TOKEN }}  # required for authentication
