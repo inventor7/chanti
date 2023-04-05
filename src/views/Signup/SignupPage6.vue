@@ -215,7 +215,7 @@ export default {
 
         // check if password and confirmation password are the same
         let t4 = computed(() => {
-            return password.value === passwordC.value && passwordC.value.length > 0
+            return password.value === passwordC.value
         })
 
 
@@ -262,7 +262,7 @@ export default {
                         }
                     }
 
-                }
+                
                 
                 if (userStore.user.userType == 'client') {
                     if (userStore.isEmptyClient) { //check if all the fields are not empty else return it to the beggining
@@ -285,6 +285,7 @@ export default {
                             })
                         }
                 }
+            }
                 }
                 
 
@@ -311,13 +312,13 @@ export default {
 
         //toggle show password by a eyeIconC value
         const togglePasswordC = () => {
-            const passwordC = document.querySelector('#passwordC');
+            const passwordCC = document.querySelector('#passwordC');
             eyeIconC.value = !eyeIconC.value
-            if (passwordC.type === 'password') {
-                passwordC.type = 'text';
+            if (passwordCC.type === 'password') {
+                passwordCC.type = 'text';
                 console.log(eyeIconC.value)
             } else {
-                passwordC.type = 'password';
+                passwordCC.type = 'password';
                 console.log(eyeIconC.value)
             }
         }
