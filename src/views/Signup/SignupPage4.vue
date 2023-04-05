@@ -93,7 +93,7 @@
                             </div>
                             <!-- List -->
                             <transition>
-                                <div v-if="(!communeValidate && wilayassStore.selectedWilaya)"
+                                <div v-if="(!communeValidate && wilayassStore.selectedWilaya) && openC"
                                     class="overflow-x-hidden  ">
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
@@ -103,7 +103,8 @@
                                         <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
                                             @click="selectCommune(commune)"
                                             v-for="commune in wilayassStore.filteredCommunes" :key="commune.id">
-                                            <a>{{ commune.CityNameAscii }}</a>
+                                            <span v-if="userStore.user.language==='ar'" >{{ commune.CityName}}</span>
+                                            <span v-else >{{ commune.CityNameAscii }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -241,7 +242,10 @@ export default {
 
 
         return {
+            //store
             wilayassStore,
+            userStore,
+
             openC, openW,
             pNumber, buttonDisabled,
             searchedWilaya, searchedCommune,
