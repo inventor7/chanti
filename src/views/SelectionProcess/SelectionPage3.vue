@@ -16,7 +16,7 @@
                                 
                             </li>
                             <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   ">
-                                <a class="text-primary" >in 48 hours</a>
+                                <a class="text-primary" >in 2 days</a>
                                 
                             </li>
                             <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   ">
