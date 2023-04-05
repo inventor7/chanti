@@ -119,8 +119,7 @@ import { useLanguageStore } from "../store/languageStore.js"
 import { useThemeStore } from "../store/themeStore";
 import { useUserStore } from "../store/userStore";
 import { useAuthStore } from "../store/authStore";
-import { computed, ref, onBeforeMount } from "vue";
-import { timeout } from "rxjs";
+import { computed, ref } from "vue";
 export default {
     name: "LoginModal",
     components: {
