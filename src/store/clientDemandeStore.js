@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-
-export const useClientRequestStore = defineStore("clientRequestStore", {
-  id: "clientRequest",
+import axios from "axios";
+export const useClientRequestStore = defineStore("clientDemandeStore", {
+  id: "clientDemande",
   state: () => ({
     loading: false,
     errorClientRequestStore: {

@@ -213,7 +213,7 @@ export default {
                     notSelectedError.value = true
                 } else {
                     notSelectedError.value = false
-                    router.replace({ name: 'idendity' })
+                    router.replace({ name: 'emergency' })
                     userStore.user.wilaya = wilayassStore.selectedWilaya
                     userStore.user.commune = wilayassStore.selectedCommune
                 }

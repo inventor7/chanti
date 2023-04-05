@@ -10,7 +10,7 @@ import SignupPage6 from '../views/Signup/SignupPage6.vue'
 
 import SelectionPage1 from '../views/SelectionProcess/SelectionPage1.vue'
 import SelectionPage2 from '../views/SelectionProcess/SelectionPage2.vue'
-// import SelectionPage3 from '../views/SelectionProcess/SelectionPage3.vue'
+import SelectionPage3 from '../views/SelectionProcess/SelectionPage3.vue'
 // import SelectionPage4 from '../views/SelectionProcess/SelectionPage4.vue'
 // import SelectionPage5 from '../views/SelectionProcess/SelectionPage5.vue'
 // import SelectionPage6 from '../views/SelectionProcess/SelectionPage6.vue'
@@ -77,11 +77,11 @@ const router = createRouter({
       name: 'selection-location',
       component: SelectionPage2
     },
-    // {
-    //   path: '/selection/emergency',
-    //   name: 'emergency',
-    //   component: SelectionPage3
-    // },
+    {
+      path: '/selection/emergency',
+      name: 'emergency',
+      component: SelectionPage3
+    },
     // {
     //   path: '/selection/desc',
     //   name: 'desc',
