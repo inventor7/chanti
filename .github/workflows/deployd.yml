@@ -24,4 +24,5 @@ jobs:
       with:
         branch: deploying  # replace with your deployment branch
         folder: dist  # replace with the directory that contains your built project
-        token: ${{ secrets.GITHUB_TOKEN }}  # required for authentication
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # required for authentication
