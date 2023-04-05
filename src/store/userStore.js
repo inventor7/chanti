@@ -28,7 +28,7 @@ export const useUserStore = defineStore("userStore", {
   getters: {
 
     // return if one of the fields is empty and specify which one
-    isEmpty() {
+    isEmptyProvider() {
       if (this.user.firstName === "") {
         return "firstName"; // first name is empty
       } else if (this.user.lastName === "") {
@@ -41,14 +41,31 @@ export const useUserStore = defineStore("userStore", {
         return "wilaya"; // wilaya is empty
       } else if (this.user.commune === "") {
         return "commune"; // commune is empty
-      } else if (this.user.email === "") {
-        return "email"; // email is empty
       } else if (this.user.phoneNumber === "") {
         return "phoneNumber"; // phone number is empty
       } else if (this.user.password === "") {
         return "password"; // password is empty
       } else return false; // all fields are filled
   },
+
+    // return if one of the fields is empty and specify which one
+    isEmptyClient() {
+      if (this.user.firstName === "") {
+        return "firstName"; // first name is empty
+      } else if (this.user.lastName === "") {
+        return "lastName"; // last name is empty
+      } else if (this.user.wilaya === "") {
+        return "wilaya"; // wilaya is empty
+      } else if (this.user.commune === "") {
+        return "commune"; // commune is empty
+      } else if (this.user.phoneNumber === "") {
+        return "phoneNumber"; // phone number is empty
+      } else if (this.user.password === "") {
+        return "password"; // password is empty
+      } else return false; // all fields are filled
+    }
+
+
 
   },
   actions: {

@@ -186,17 +186,18 @@ export default {
 
                 if (phone.value.includes('@')) { // if phone is an email
                     authStore.login('', phone.value, password.value).then(() => {
-                        phone.value = ''
-                        password.value = ''
                         if (userStore.isloggedin) {
                             modalStore.toggleModalLogin();
+                        } else {
+                            toggleError.value = true
+                            setTimeout(() => {
+                                toggleError.value = false
+                            }, 3000);
                         }
                     })
                 } else { // if phone is a phone number
                     authStore.login(phone.value, '', password.value).then(() => {
-                        phone.value = ''
-                        password.value = ''
-                        
+
                         if (userStore.isloggedin) {
                             modalStore.toggleModalLogin();
                         } else {
@@ -207,6 +208,9 @@ export default {
                         }
                     })
                 }
+
+                phone.value = ''
+                password.value = ''
 
             }
 

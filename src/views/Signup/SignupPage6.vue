@@ -13,7 +13,8 @@
                         <Error :error="userStore.error.message" />
                     </div>
                     <!-- when there's no error  -->
-                    <form v-else class=" flex flex-col justify-center items-center px-4   sm:px-10 md:px-10    w-full h-full ">
+                    <form v-else
+                        class=" flex flex-col justify-center items-center px-4   sm:px-10 md:px-10    w-full h-full ">
                         <img v-if="userStore.$state.user.userType == 'client'" class="rounded-full w-24 md:pb-10 "
                             src="../../assets/patient.png" alt="">
                         <img v-else class="rounded-full w-24 md:pb-10  " src="../../assets/handyman.png" alt="">
@@ -132,7 +133,6 @@
                                     :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPasswordC, 'block': !isValidPasswordC }">
                                     <Error error="Confirmation password doesn't match the password" />
                                 </div>
-
                             </div>
                         </div>
 
@@ -215,7 +215,7 @@ export default {
 
         // check if password and confirmation password are the same
         let t4 = computed(() => {
-            return password.value === passwordC.value && passwordC.value.length>0
+            return password.value === passwordC.value && passwordC.value.length > 0
         })
 
 
@@ -239,35 +239,57 @@ export default {
 
                 if (isValidEmail.value && isValidPhone.value && isValidPassword.value && isValidPasswordC.value) {
                     notSelectedError.value = false
-                    if (userStore.isEmpty) { //check if all the fields are not empty else return it to the beggining
-                        notSelectedError.value = true
-                        msg.value = 'we will redirect you to fill all the fields'
-                        setTimeout(() => {
-                            router.replace({ name: 'howitworks' })
-                        }, 5000);
-                    }
-                    else {
-                        if (userStore.user.userType == 'client' && (userStore.user.subCategories.length == 0 || userStore.user.subCategories == null || userStore.user.category == null || userStore.user.category == '')) {
+                    if (userStore.user.userType == 'provider') {
+                        if (userStore.isEmptyProvider) { //check if all the fields are not empty else return it to the beggining
                             notSelectedError.value = true
-                            msg.value = 'you should select at least one subcategory'
-                            return
+                            msg.value = 'we will redirect you to fill all the fields'
+                            setTimeout(() => {
+                                router.replace({ name: 'howitworks' })
+                            }, 5000);
                         }
-                        userStore.extractSubCategoriesIds()
-                        userStore.signup().then(() => {
-                            if (userStore.$state.isloggedin) {
-                                router.replace({ name: 'home' })
-                            } else {
-                                notSelectedError.value = true
-                                msg.value = userStore.error.message
-                            }
+                        else {
+                            userStore.extractSubCategoriesIds()
+                            userStore.signup().then(() => {
+                                if (userStore.$state.isloggedin) {
+                                    userStore.emptyFields()
+                                    router.replace({ name: 'home' })
+                                } else {
+                                    notSelectedError.value = true
+                                    msg.value = userStore.error.message
+                                }
 
-                        })
+                            })
+                        }
                     }
 
                 }
+                
+                if (userStore.user.userType == 'client') {
+                    if (userStore.isEmptyClient) { //check if all the fields are not empty else return it to the beggining
+                            notSelectedError.value = true
+                            msg.value = 'we will redirect you to fill all the fields'
+                            setTimeout(() => {
+                                router.replace({ name: 'howitworks' })
+                            }, 5000);
+                        }
+                        else {
+                            userStore.signup().then(() => {
+                                if (userStore.$state.isloggedin) {
+                                    userStore.emptyFields()
+                                    router.replace({ name: 'home' })
+                                } else {
+                                    notSelectedError.value = true
+                                    msg.value = userStore.error.message
+                                }
+
+                            })
+                        }
+                }
+                }
+                
 
             }
-        }
+        
 
 
 
@@ -366,4 +388,5 @@ export default {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
-}</style>
+}
+</style>

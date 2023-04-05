@@ -22,6 +22,7 @@ export const useAuthStore = defineStore("authStore", {
       useUserStore().userAuth = {};
       useUserStore().user = {};
       useUserStore().isloggedin = false;
+      window.location.reload();
     },
 
     async logout2() {
@@ -86,7 +87,6 @@ export const useAuthStore = defineStore("authStore", {
         useUserStore().userAuth = response.data.result.user;
         useUserStore().user = response.data.result.user;
         useUserStore().isloggedin = true;
-        console.log(response);
         this.loading = false;
         return response;
       } catch (error) {
