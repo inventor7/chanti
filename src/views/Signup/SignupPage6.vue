@@ -1,6 +1,6 @@
 <template>
     <div>
-        <SignupLayout :pageNumber="pNumber" nextBtnText="Done" :isError="notSelectedError" :errorText="msg"
+        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="Done" :isError="notSelectedError" :errorText="msg"
             @handle="handleClick" @handleBack="handleBack" pageTitle=" Register "
             pageDesc=" so you can login to our platform wherever you are whenever you want ">
             <div class=" flex flex-col  justify-center py-2 items-center font-semibold text-md w-full min-h-full ">
@@ -166,7 +166,6 @@ export default {
         const msg = ref('')
 
         // inputs
-        const pNumber = 6
         const email = ref('')
         const phone = ref('')
         const password = ref('')
@@ -232,6 +231,7 @@ export default {
         // check if all inputs are valid
         const handleClick = (clicked) => {
             if (clicked) {
+                
                 isValidEmail.value = t1.value
                 isValidPhone.value = t2.value
                 isValidPassword.value = t3.value
@@ -336,8 +336,7 @@ export default {
 
         return {
 
-            //Props to the child component
-            pNumber,
+            //Props 
             notSelectedError,
             msg,
 

@@ -135,11 +135,11 @@ export const useCategoriesStore = defineStore("categoriesStore", {
     },
 
     //fetch sub-categories by id from the server with axios
-    async fetchSubCategories() {
+    async fetchSubCategories(selectedCategory) {
       this.loading = true;
       try {
         const response = await axios.get(
-          `https://chanti-dz-backend.herokuapp.com/sub-categories/${this.selectedCategory.id}`,
+          `https://chanti-dz-backend.herokuapp.com/sub-categories/${selectedCategory.id}`,
           { timeout: 12000 }
         );
         if (response.status !== 200) {

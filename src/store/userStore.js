@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useRoute } from "vue-router";
 export const useUserStore = defineStore("userStore", {
   id: "user",
   state: () => ({
     userAuth: {},
     user: {
-      userType:"" ,
+      userType: "",
       firstName: "",
       lastName: "",
       category: "",
@@ -18,15 +19,15 @@ export const useUserStore = defineStore("userStore", {
       subCategoriesIds: [],
       language: "",
     },
-    isloggedin:false,
+    isloggedin: false,
     error: {
       status: false,
       message: "",
     },
     loading: false,
+    pNumber: 0,
   }),
   getters: {
-
     // return if one of the fields is empty and specify which one
     isEmptyProvider() {
       if (this.user.firstName === "") {
@@ -46,7 +47,7 @@ export const useUserStore = defineStore("userStore", {
       } else if (this.user.password === "") {
         return "password"; // password is empty
       } else return false; // all fields are filled
-  },
+    },
 
     // return if one of the fields is empty and specify which one
     isEmptyClient() {
@@ -63,10 +64,7 @@ export const useUserStore = defineStore("userStore", {
       } else if (this.user.password === "") {
         return "password"; // password is empty
       } else return false; // all fields are filled
-    }
-
-
-
+    },
   },
   actions: {
     async signup() {
@@ -77,7 +75,7 @@ export const useUserStore = defineStore("userStore", {
           url: "https://chanti-dz-backend.herokuapp.com/auth/signup",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
           },
           data: {
             userType: this.user.userType,
@@ -95,21 +93,28 @@ export const useUserStore = defineStore("userStore", {
           timeout: 13000, // 13 seconds
         });
 
-        localStorage.setItem("userId", JSON.stringify(response.data.result.user.id));
-        localStorage.setItem("token",JSON.stringify(response.data.result.token));
+        localStorage.setItem(
+          "userId",
+          JSON.stringify(response.data.result.user.id)
+        );
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.data.result.token)
+        );
         this.isloggedin = true;
         this.userAuth = response.data.result.user;
-       
+
         this.loading = false;
         return response;
       } catch (error) {
         this.loading = false;
-        
+
         if (error.response) {
           this.error.message = error.response.data.message;
         } else if (error.request) {
           this.error.status = true;
-          this.error.message ="Network error: please check your internet connection and try again";
+          this.error.message =
+            "Network error: please check your internet connection and try again";
         }
       }
     },
@@ -132,25 +137,20 @@ export const useUserStore = defineStore("userStore", {
       this.user.email = "";
       this.user.phoneNumber = "";
       this.user.password = "";
-    }
+    },
+   
   },
-  persist:[
-      {
-        key: "userInfo",
-        storage: localStorage,
-        paths: [
-          "userAuth",
-          "user.language",
-          "isloggedin",
-          "user.userType",
-        ],
-      },
-      {
-        key: "userToken",
-        storage: sessionStorage,
-        paths: ["token"],
-      },
-    
-    ],
 
-}); 
+  persist: [
+    {
+      key: "userInfo",
+      storage: localStorage,
+      paths: ["userAuth", "user.language", "isloggedin", "user.userType"],
+    },
+    {
+      key: "userToken",
+      storage: sessionStorage,
+      paths: ["token"],
+    },
+  ],
+});

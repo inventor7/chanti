@@ -1,6 +1,6 @@
 <template>
     <div>
-        <SignupLayout prevLink="home"  :pageNumber="pNumber" 
+        <SignupLayout prevLink="home"  :pageNumber="1"
             @handle="handleClick" :backBtnVisibility="true" :pageTitle="languageStore.getWord('howItWorks')"
             :pageDesc="  languageStore.getWord('descSP1')  ">
            
@@ -33,9 +33,6 @@ export default {
     name: 'SignupPage1',
     components: { SignupLayout },
     setup() {
-        //props
-        const pNumber = 1
-
         //stores
         const userStore = useUserStore()
         const languageStore = useLanguageStore()
@@ -52,7 +49,7 @@ export default {
             }
         }
 
-        return { pNumber, handleClick , languageStore }
+        return {handleClick , languageStore ,userStore }
     }
 }
 

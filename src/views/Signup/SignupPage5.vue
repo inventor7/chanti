@@ -1,6 +1,6 @@
 <template>
     <div>
-        <SignupLayout :pageNumber="pNumber" nextBtnText="Next" @handle="handleClick" @handleBack="handleBack"
+        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 5 : 3" nextBtnText="Next" @handle="handleClick" @handleBack="handleBack"
             pageTitle="Idendity" pageDesc=" Enter your full name so we can ensure your idendity for clients ">
             <div class=" flex flex-col  justify-center px-4 sm:px-8 pt-3 sm:pt-1 items-center font-semibold text-md w-full min-h-full ">
                 <img v-if="userStore.$state.user.userType=='client'" class="rounded-full w-24  " src="../../assets/patient.png" alt="">
@@ -87,7 +87,6 @@ export default {
         const userStore = useUserStore()
         const router = useRouter()
 
-        const pNumber = 5
         const firstName = ref("")
         const lastName = ref("")
         const validF = ref(true)
@@ -98,8 +97,8 @@ export default {
 
 
         let t1 = computed(() => {
-            const nameRegex = /^[a-zA-Z]+$/;
-            validF.value = nameRegex.test(firstName.value) && firstName.value.length > 2
+            const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
+            validF.value = nameRegex.test(firstName.value.trim()) && firstName.value.trim().length > 2
             if (validF.value) {
                 userStore.user.firstName = firstName.value
             }
@@ -110,8 +109,8 @@ export default {
 
 
         let t2 = computed(() => {
-            const nameRegex = /^[a-zA-Z]+$/;
-            let validL = nameRegex.test(lastName.value) && lastName.value.length > 2
+            const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
+            let validL = nameRegex.test(lastName.value.trim()) && lastName.value.trim().length > 2
             if (validL) {
                 userStore.user.lastName = lastName.value
             }
@@ -145,7 +144,6 @@ export default {
         })
 
         return {
-            pNumber,
             firstName,
             lastName,
             isValidFirstName,

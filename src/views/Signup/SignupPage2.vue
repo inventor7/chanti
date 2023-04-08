@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <SignupLayout prevLink="howitworks" :pageNumber="pNumber"
+        <SignupLayout prevLink="howitworks" :pageNumber="userStore.user.userType === 'provider' ? 2 : 0"
             :isError="notSelectedError" errorText="Please select a Category" 
             @handle="handleClick"
             :pageTitle="languageStore.getWord('Choose')" :pageDesc="languageStore.getWord('chooseField')">
@@ -28,7 +28,6 @@ export default {
     name: 'SignupPage2',
     components: { SignupLayout, Category, CategoriesList },
     setup() {
-        const pNumber = 2
         const buttonDisabled = ref(true)
         const notSelectedError = ref(false)
 
@@ -43,7 +42,7 @@ export default {
             if (Object.keys(categoriesStore.selectedCategory).length !== 0 ) {
                 // if category is selected
                 userStore.user.category = categoriesStore.selectedCategory
-                categoriesStore.fetchSubCategories()
+                categoriesStore.fetchSubCategories(categoriesStore.selectedCategory)
                 if (categoriesStore.subCategories.length < 0) {
                     // pass error to the next page
                     categoriesStore.error.message = ' Something went wrong , please back and try again '
@@ -64,7 +63,6 @@ export default {
 
         return {
             // props
-            pNumber,
             buttonDisabled,
             notSelectedError,
 
@@ -77,6 +75,7 @@ export default {
             // store
             categoriesStore,
             languageStore,
+            userStore
         }
     }
 

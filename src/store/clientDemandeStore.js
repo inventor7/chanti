@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-export const useClientRequestStore = defineStore("clientDemandeStore", {
+export const useclientDemandeStore = defineStore("clientDemandeStore", {
   id: "clientDemande",
   state: () => ({
     loading: false,
-    errorClientRequestStore: {
+    errorClientDemande: {
       message: "",
       status: false,
     },
@@ -14,24 +14,31 @@ export const useClientRequestStore = defineStore("clientDemandeStore", {
       subCategoryId: {},
       stateId: {},
       cityId: {},
-      emergencyId: {},
+      urgency: {},
       images: [],
-      desc: "",
+      description: "",
     },
   }),
   actions: {
-    async postClientRequest() {
+    async postClientDemande() {
       try {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: `https://chanti-dz-backend.herokuapp.com/clientRequest/${this.request.clientId}`,
+          url: `https://chanti-dz-backend.herokuapp.com/clientpost`,
           headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
+            "Content-Type": "multipart/form-data",
+             "Accept": "application/json"
           },
           data: {
-            'clientRequest':this.request
+            "clientId": this.request.clientId,
+            "categoryId": this.request.categoryId,
+            "subCategoryId": this.request.subCategoryId,
+            "stateId": this.request.stateId,
+            "cityId": this.request.cityId,
+            "urgency": this.request.urgency,
+            "images": this.request.images,
+            "description": this.request.description,
           },
           timeout: 13000, // 13 seconds
         });
@@ -40,19 +47,13 @@ export const useClientRequestStore = defineStore("clientDemandeStore", {
         this.loading = false;
       } catch (error) {
         this.loading = false;
-        this.errorClientRequestStore.status = true;
-        //from the response
+
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response + "error res");
-          console.log(error.response.status + " status erorr res ");
-          console.log(error.response.headers + " headers error res ");
-          this.errorClientRequestStore.message = 'server error, please try again later';
-          //from the request
+          this.errorClientDemande.message = error.response.data.message;
         } else if (error.request) {
-          console.log(error.request + " error requesrt ");
-          this.error.message ="Network error: please check your internet connection";
+          this.errorClientDemande.status = true;
+          this.errorClientDemande.message =
+            "Network error: please check your internet connection and try again";
         }
       }
     },

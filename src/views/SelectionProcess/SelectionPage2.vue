@@ -1,8 +1,7 @@
 <template>
     <div>
-        <SignupLayout prevLink="services" :pageNumber="pNumber" :isError="notSelectedError"
-            errorText="please select a wilaya and commune" 
-            @handle="handleClick" @handleBack="handleBack"
+        <SignupLayout :pageNumber="2" :isError="notSelectedError"
+            errorText="please select a wilaya and commune" @handle="handleClick" @handleBack="handleBack"
             pageTitle=" Select location "
             pageDesc=" select your wilaya and commune so we can provide you with the clients in your area ">
             <div class=" flex flex-col sm:flex-row justify-around w-full  h-full flex-1 gap-3  items-start ">
@@ -49,7 +48,8 @@
                                         <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   "
                                             @click="selectWilaya(wilaya)" v-for="wilaya in wilayassStore.filteredWilayas"
                                             :key="wilaya.id">
-                                            <a>{{ wilaya.id }} {{ wilaya.name }}</a>
+                                            <span v-if="userStore.user.language==='ar'" >{{ wilaya.id }} {{ wilaya.ascciName }}</span>
+                                            <span v-else >{{ wilaya.id }} {{ wilaya.name }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -73,7 +73,7 @@
                                     class=" input focus:border-none border-none outline-none focus:outline-none input-md w-full input-primary text-lg font-semibold text-black"
                                     type="text" placeholder="Choose a commune"
                                     oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
-                                    @focus="openC = true" @blur="openC = false">
+                                    @focus="openC = true">
 
                                 <span
                                     :class="{ 'material-icons pr-1 text-primary font-semibold ': true, 'hidden': searchedCommune.length > 0 }">
@@ -93,17 +93,17 @@
                             </div>
                             <!-- List -->
                             <transition>
-                                <div v-if="(!communeValidate && wilayassStore.selectedWilaya)"
-                                    class="overflow-x-hidden  ">
+                                <div v-if=" openC && !communeValidate  " class="overflow-x-hidden  ">
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                         <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
                                             :class="{ 'hidden': wilayassStore.filteredCommunes.length !== 0 }"><a>No such
                                                 communes with this name </a></li>
-                                        <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
+                                        <li class=" dropdown-open  z-10  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
                                             @click="selectCommune(commune)"
                                             v-for="commune in wilayassStore.filteredCommunes" :key="commune.id">
-                                            <a>{{ commune.CityNameAscii }}</a>
+                                            <span v-if="userStore.user.language==='ar'" >{{ commune.CityName }}</span>
+                                            <span v-else>{{ commune.CityNameAscii }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -113,11 +113,13 @@
                     </div>
 
 
+
                     <div v-else class=" box h-full w-full flex flex-col justify-center items-center ">
                         <Error class="  text-center text-xl font-semibold  " :error="wilayassStore.error.message" />
                     </div>
-                </transition>
 
+
+                </transition>
             </div>
         </SignupLayout>
     </div>
@@ -127,23 +129,24 @@
 import SignupLayout from '../Layouts/SignupLayout.vue';
 import { useWilayasStore } from '../../store/wilayasStore.js'
 import { useUserStore } from '../../store/userStore';
-import { computed, ref, onBeforeMount, watchEffect } from 'vue';
+import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { computed, ref, onBeforeMount, watchEffect, onMounted } from 'vue';
 import Error from '../../components/Error.vue'
 import { useRouter } from 'vue-router';
 
 export default {
-    name: 'SelectionPage2',
+    name: 'SignupPage4',
     components: { SignupLayout, Error },
     setup() {
 
         //initialize the  store
         const wilayassStore = useWilayasStore()
         const userStore = useUserStore()
+        const clientDemandeStore = useclientDemandeStore()
         const router = useRouter()
 
-        const buttonDisabled = ref(true)
+        //vars and props
         const notSelectedError = ref(false)
-        const pNumber = 4
         const searchedWilaya = ref("")
         const searchedCommune = ref("")
         const openW = ref(false)
@@ -151,29 +154,52 @@ export default {
 
 
 
-
         //wilayas
         const selectWilaya = (wilaya) => {
             wilayassStore.selectedWilaya = wilaya
-            searchedWilaya.value = wilaya.name
+            if (userStore.user.language == "ar") {
+                searchedWilaya.value = wilaya.ascciName
+            } else {
+                searchedWilaya.value = wilaya.name
+            }
+
 
         }
 
         let wilayaValidate = computed(() => {
-            if (searchedWilaya.value.includes(wilayassStore.selectedWilaya.name)) {
-                return true
+            if (userStore.user.language == "ar") {
+                if (searchedWilaya.value.includes(wilayassStore.selectedWilaya.ascciName)) {
+                    return true
+                } else {
+                    return false
+                }
             } else {
-                return false
+                if (searchedWilaya.value.includes(wilayassStore.selectedWilaya.name)) {
+                    return true
+                } else {
+                    return false
+                } 
             }
+
         })
 
 
         let communeValidate = computed(() => {
-            if (searchedCommune.value.includes(wilayassStore.selectedCommune.CityNameAscii) && wilayaValidate.value) {
+            if (userStore.user.language == "ar") 
+            {
+                if (searchedCommune.value.includes(wilayassStore.selectedCommune.CityName)) {
                 return true
             } else {
                 return false
             }
+            } else {
+                if (searchedCommune.value.includes(wilayassStore.selectedCommune.CityNameAscii)) {
+                return true
+            } else {
+                return false
+            }
+            }
+            
         })
 
         onBeforeMount(() => {
@@ -197,7 +223,11 @@ export default {
         //communes
         const selectCommune = (commune) => {
             wilayassStore.selectedCommune = commune
-            searchedCommune.value = commune.CityNameAscii
+            if (userStore.user.language == "ar") {
+                searchedCommune.value = commune.CityName
+            } else {
+                searchedCommune.value = commune.CityNameAscii
+        }
         }
 
         watchEffect(() => {
@@ -207,15 +237,15 @@ export default {
 
         const handleClick = (clicked) => {
             if (clicked) {
-
+                console.log(userStore.pNumber)
                 //make sure when click on next btn that wilaya and commune are filled,else  error to props
                 if (!wilayaValidate.value || !communeValidate.value) {
                     notSelectedError.value = true
                 } else {
+                    clientDemandeStore.request.stateId = wilayassStore.selectedWilaya.id
+                    clientDemandeStore.request.cityId = wilayassStore.selectedCommune.id
                     notSelectedError.value = false
                     router.replace({ name: 'emergency' })
-                    userStore.user.wilaya = wilayassStore.selectedWilaya
-                    userStore.user.commune = wilayassStore.selectedCommune
                 }
 
                 //end if
@@ -226,29 +256,24 @@ export default {
 
         // check if the user type is client or a provider
         //to redirect him to the right "back btn"
-        // const handleBack = (clicked) => {
-        //     if (clicked) {
-        //         if (userStore.user.userType === "provider") {
-        //             router.replace({ name: 'profession' })
-        //         }
-        //         else {
-        //             router.replace({ name: 'howitworks' })
-        //             console.log('location')
-        //         }
-                
-        //     }
-        // }
+        const handleBack = (clicked) => {
+            if (clicked) {
+                router.replace({ name: 'services' })
+            }
+        }
 
 
 
         return {
+            //store
             wilayassStore,
+            userStore,
+
             openC, openW,
-            pNumber, buttonDisabled,
             searchedWilaya, searchedCommune,
             selectCommune, selectWilaya,
             wilayaValidate, communeValidate,
-            handleClick,
+            handleClick, handleBack,
             notSelectedError
         }
     },

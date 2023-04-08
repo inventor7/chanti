@@ -1,5 +1,5 @@
 <template>
-    <SignupLayout prevLink="selection-location" :pageNumber="pNumber" :isError="notSelectedError"
+    <SignupLayout prevLink="selection-location" :pageNumber="3" :isError="notSelectedError"
         errorText="Please select a service" nextBtnText="Next" @handle="handleClick" pageTitle=" Choose Services"
         pageDesc=" select the multiple services that you can provide for your clients ">
 
@@ -54,7 +54,6 @@ export default {
     setup() {
 
         //props
-        const pNumber = 3
         const buttonDisabled = ref(true)
         const notSelectedError = ref(false)
 
@@ -77,7 +76,6 @@ export default {
 
         return {
             //props
-            pNumber,
             buttonDisabled,
             notSelectedError,
 

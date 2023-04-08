@@ -5,7 +5,8 @@
 
             <div class=" relative flex flex-col justify-between w-full h-[35vh] sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
                 <!-- add an overlay image -->
-                <img src="../assets/OIG.jpg" class="w-full absolute top-0 left-0 -z-20  h-full object-cover sm:object-cotain rounded-2xl " />
+                <img src="../assets/OIG.jpg"
+                    class="w-full absolute top-0 left-0 -z-20  h-full object-cover sm:object-cotain rounded-2xl " />
 
                 <!-- add a gradient -->
                 <div class="absolute top-0 left-0 -z-10 w-full h-full  bg-black opacity-40 rounded-2xl "></div>
@@ -27,15 +28,17 @@
                             </span>
                         </h1>
 
-                        <SearchBar  componentLocation="home" class=" w-full  shadow-black shadow-lg" />
+                        <SearchBar componentLocation="home" class=" w-full  shadow-black shadow-lg" />
                     </div>
                 </div>
 
-                <div class="md:hidden flex flex-row justify-between bg-primary/70 rounded-b-xl px-2 md:p-1.5 items-center w-full h-fit ">
+                <div
+                    class="md:hidden flex flex-row justify-between bg-primary/70 rounded-b-xl px-2 md:p-1.5 items-center w-full h-fit ">
                     <span class="text-white text-sm md:text-xl  font-semibold ">
                         are you a pro ?
                     </span>
-                    <div @click="handleJoinNetwork" class="flex  flex-row justify-between  items-center w-fit cursor-pointer ">
+                    <div @click="handleJoinNetwork"
+                        class="flex  flex-row justify-between  items-center w-fit cursor-pointer ">
                         <span class="text-white underline-offset-1 text-sm md:text-xl  font-semibold ">
                             join our network
                         </span>
@@ -54,7 +57,16 @@
 
         <div class="h-full w-full pt-8  px-2 md:p-6 lg:p-8 flex flex-col justify-center items-start gap-4  ">
             <h2 class=" text-xl md:text-4xl font-bold ">Browse categories</h2>
-            <CategoriesList usageOfPage="SelectionProcess" />
+            <div
+                class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1">
+                <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
+                    @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
+                    :isActive="category === selectedCategory && categoriesStore.getIsActiveDecoration"
+                    :iconName="category.iconName"
+                    :class="{ 'bg-primary shadow-2xl  text-white scale-[103%]   ': category === categoriesStore.selectedCategory && categoriesStore.getIsActiveDecoration }"
+                    class=" text-center cursor-pointer rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400    transition-all duration-300 ease-in-out">
+                </Category>
+            </div>
         </div>
 
         <Howitworks />
@@ -88,16 +100,18 @@ import Howitworks from '../components/Howitworks.vue'
 import SearchPage from '../components/SearchPage.vue'
 import Modal from '../components/Modal.vue'
 import LoginModal from '../components/LoginModal.vue'
-import Card from '../components/Crad.vue'
+import Card from '../components/Crad.vue' 
+import Category from '../components/Category/Category.vue'
 import CategoriesList from '../components/Category/CategoriesList.vue'
 import { useCategoriesStore } from '../store/categoriesStore'
 import { useLanguageStore } from '../store/languageStore'
 import { useModalStore } from '../store/modaleStore'
 import { useThemeStore } from '../store/themeStore.js'
 import { useUserStore } from '../store/userStore.js'
+import { useclientDemandeStore } from '../store/clientDemandeStore.js'
 import { useAuthStore } from '../store/authStore.js'
 import { useRouter } from 'vue-router'
-import { computed, watchEffect } from 'vue'
+import { computed, watchEffect , ref } from 'vue'
 
 
 
@@ -105,7 +119,7 @@ import { computed, watchEffect } from 'vue'
 
 export default {
     name: 'Home',
-    components: { Navbar, Modal, CategoriesList, LoginModal, Footer, SearchBar, Card, Howitworks, SearchPage },
+    components: { Navbar, Modal, CategoriesList, LoginModal, Category , Footer, SearchBar, Card, Howitworks, SearchPage },
     setup() {
         //initialisation the store
         const languageStore = useLanguageStore()
@@ -114,7 +128,11 @@ export default {
         const modalStore = useModalStore()
         const userStore = useUserStore()
         const authStore = useAuthStore()
+        const clientDemandeStore = useclientDemandeStore()
         const router = useRouter()
+
+        //props
+        const notSelectedError= ref(false)
 
         const toggleModalLogin = (theme, userType) => {
             modalStore.toggleModalLogin()
@@ -125,11 +143,10 @@ export default {
 
 
         const selectCategory = (category) => {
-            categoriesStore.selectedSubCategories = []
-            categoriesStore.selectedCategory = category
+            clientDemandeStore.request.categoryId = category.id
+            categoriesStore.fetchSubCategories(category)
+            router.replace({name:'services'})
             notSelectedError.value = false
-            console.log(category)
-
         }
 
         let selectedCategory = computed(() => {
@@ -180,5 +197,4 @@ export default {
 
 ::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.1);
-}
-</style>
+}</style>

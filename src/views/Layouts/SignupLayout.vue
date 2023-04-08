@@ -1,7 +1,8 @@
 <template>
     <div class=" h-screen " :data-theme="themeStore.theme">
         <div class=" md:flex md:flex-col md:justify-center md:items-center    md:py-6 max-h-screen  h-full w-full ">
-            <div class=" flex flex-col  justify-start items-start w-full md:w-11/12  h-full  gap-2 sm:pb-2  rounded-2xl sm:shadow-2xl ">
+            <div
+                class=" flex flex-col  justify-start items-start w-full md:w-11/12  h-full  gap-2 sm:pb-2  rounded-2xl sm:shadow-2xl ">
                 <!-- Title and description -->
                 <div class="w-full bg-primary relative md:rounded-t-2xl gap-1 sm:gap-2  px-3 py-1 ">
                     <h2 class="text-2xl font-bold text-white "> {{ pageTitle }}</h2>
@@ -9,8 +10,7 @@
                         pageDesc }} </p>
 
                     <!-- go home -->
-                    <div class="absolute  top-1 right-2  block  text-white text-xl sm:text-base  "
-                     @click="handleGoHome"   >
+                    <div class="absolute  top-1 right-2 cursor-pointer  block  text-white text-xl sm:text-base  " @click="handleGoHome">
                         <span class="material-icons text-2xl ">
                             cancel
                         </span>
@@ -25,7 +25,8 @@
 
 
 
-                <div dir="ltr" class=" flex  flex-row  w-full justify-center items-center pb-1 sm:pb-1  px-2 sm:px-3  gap-2  ">
+                <div dir="ltr"
+                    class=" flex  flex-row  w-full justify-center items-center pb-1 sm:pb-1  px-2 sm:px-3  gap-2  ">
 
                     <!-- the back button ((off at first page)) -->
                     <router-link class=" flex-1 flex-grow " :class="{ 'opacity-0  btn-disabled  ': backBtnVisibility }"
@@ -56,7 +57,10 @@
                     <ul v-else
                         class=" box flex flex-1 border-gray-300  felx-row justify-between items-center border-2 gap-1 sm:gap-2 text-w  px-1 sm:px-2 py-[3px]  sm:py-1 rounded-2xl sm:border-2  "
                         ref="steps">
-                        <NavigationNumber v-for=" one in 6 " :num="one" :pageNumber="pageNumber" />
+                        <NavigationNumber v-if="userStore.user.userType === 'provider'" v-for=" one in 6 " :num="one"
+                            :pageNumber="pageNumber" />
+                        <NavigationNumber v-else v-for=" one in 4 " :num="one" :pageNumber="pageNumber" />
+
                     </ul>
 
                     <!--  The Next button -->
@@ -88,7 +92,7 @@ import { useThemeStore } from '../../store/themeStore';
 import { useCategoriesStore } from '../../store/categoriesStore';
 import { useUserStore } from '../../store/userStore';
 import { useWilayasStore } from '../../store/wilayasStore';
-import { ref, onBeforeMount , onUpdated } from 'vue'
+import { ref, onBeforeMount, onUpdated } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
     name: 'Signup',
@@ -161,7 +165,7 @@ export default {
         const userStore = useUserStore()
         const wilayasStore = useWilayasStore()
 
-        
+
         const handleNext = () => {
             context.emit('handle', true);
         }
@@ -181,7 +185,21 @@ export default {
 
 
         return {
-            themeStore, handleNext, handleBack, transition,handleGoHome
+            //store
+            categoriesStore,
+            userStore,
+            wilayasStore,
+            
+            //props
+            themeStore,
+
+            //vars 
+            transition,
+
+            //methods
+            handleNext,
+            handleBack,
+            handleGoHome
         }
     },
 
