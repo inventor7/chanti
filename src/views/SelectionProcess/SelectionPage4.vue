@@ -7,9 +7,9 @@
                 <!-- a select component with modern design to select multiple emergency status as urgent , not urgent , etc -->
                 <transition name="fade">
                     <!--  select images -->
-                    <div class=" flex flex-row w-4/5 h-full rounded-2xl p-2 gap-2 font-semibold ">
+                    <div class=" flex flex-col md:flex-row w-4/5 h-full rounded-2xl p-2 gap-2 font-semibold ">
                         <div 
-                            class="flex flex-col border-2 border-dashed  justify-center items-center w-full rounded-2xl h-full  ">
+                            class="flex  flex-col border-2 border-dashed  justify-center items-center w-full rounded-2xl h-full  ">
                             <span @click="handleFileClick" class="material-icons text-4xl">
                                 upload_file
                             </span>
@@ -78,7 +78,7 @@ export default {
         const errorText = ref('')
 
         const handleClick = () => {
-            router.replace({ name: 'home' }) 
+            router.replace({ name: 'desc' }) 
         }
 
 

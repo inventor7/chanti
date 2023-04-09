@@ -12,7 +12,7 @@ import SelectionPage1 from '../views/SelectionProcess/SelectionPage1.vue'
 import SelectionPage2 from '../views/SelectionProcess/SelectionPage2.vue'
 import SelectionPage3 from '../views/SelectionProcess/SelectionPage3.vue'
 import SelectionPage4 from '../views/SelectionProcess/SelectionPage4.vue'
-// import SelectionPage5 from '../views/SelectionProcess/SelectionPage5.vue'
+import SelectionPage5 from '../views/SelectionProcess/SelectionPage5.vue'
 // import SelectionPage6 from '../views/SelectionProcess/SelectionPage6.vue'
 // import SelectionPage7 from '../views/SelectionProcess/SelectionPage7.vue'
 // import SelectionPage8 from '../views/SelectionProcess/SelectionPage8.vue'
@@ -87,11 +87,11 @@ const router = createRouter({
       name: 'images',
       component: SelectionPage4
     },
-    // {
-    //   path: '/selection/desc',
-    //   name: 'desc',
-    //   component: SelectionPage5
-    // },
+    {
+      path: '/selection/desc',
+      name: 'desc',
+      component: SelectionPage5
+    },
     // {
     //   path: '/selection/location2',
     //   name: 'location2',
