@@ -3,7 +3,7 @@
     <div class="main-content flex flex-col justify-center items-start w-full mt-[5rem] ">
         <div class="grid place-items-center rounded-2xl w-full h-full px-2   ">
 
-            <div class=" relative flex flex-col justify-between w-full h-[35vh] sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
+            <div class=" relative flex flex-col justify-between w-full h-fit sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
                 <!-- add an overlay image -->
                 <img src="../assets/OIG.jpg"
                     class="w-full absolute top-0 left-0 -z-20  h-full object-cover sm:object-cotain rounded-2xl " />
@@ -33,7 +33,7 @@
                 </div>
 
                 <div
-                    class="md:hidden flex flex-row justify-between bg-primary/70 rounded-b-xl px-2 md:p-1.5 items-center w-full h-fit ">
+                    class="md:hidden flex flex-row justify-between bg-primary rounded-b-xl px-2 md:p-1.5 items-center w-full  ">
                     <span class="text-white text-sm md:text-xl  font-semibold ">
                         are you a pro ?
                     </span>

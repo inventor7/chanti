@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-
+import { useThemeStore } from "./themeStore";
 export const useModalStore = defineStore('modalStore', {
   id: "modal",
   state: () => ({
@@ -9,9 +9,11 @@ export const useModalStore = defineStore('modalStore', {
   actions: {
     toggleModal() {
       this.modalVisible = !this.modalVisible;
+      useThemeStore().theme = "clientTheme";
     },
     toggleModalLogin() {
       this.modalVisibleLogin = !this.modalVisibleLogin;
+      useThemeStore().theme = "clientTheme";  
     },
   }
 });

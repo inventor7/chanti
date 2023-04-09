@@ -18,6 +18,36 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
       images: [],
       description: "",
     },
+    urgencyState: [
+      {
+        id: 1,
+        name: "urgent",
+        description: "in 24 hours",
+        color: "red",
+        isSelected: false,
+      },
+      {
+        id: 2,
+        name: "normal",
+        description: "in 48 hours",
+        color: "green",
+        isSelected: false,
+      },
+      {
+        id: 3,
+        name: "low",
+        description: "this month",
+        color: "yellow",
+        isSelected: false,
+      },
+      {
+        id: 4,
+        name: "unplanned",
+        description: "it doesn't matter",
+        color: "blue",
+        isSelected: false,
+      },
+    ],
   }),
   actions: {
     async postClientDemande() {
@@ -57,5 +87,8 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         }
       }
     },
+    uploadFiles(files) {
+      this.request.images = files;
+    }
   },
 });

@@ -28,7 +28,7 @@
           <span class="material-icons text-[18px] hidden sm:block ">
             login
           </span>
-          <p class=""> {{ languageStore.getWord('login') }} </p>
+         {{ languageStore.getWord('login') }} 
         </button>
 
         <button v-else @click="logout()" class=" btn btn-primary btn-xs gap-2 sm:btn-sm btn-outline ">

@@ -135,7 +135,7 @@ import Error from '../../components/Error.vue'
 import { useRouter } from 'vue-router';
 
 export default {
-    name: 'SignupPage4',
+    name: 'SelectionPage2',
     components: { SignupLayout, Error },
     setup() {
 
