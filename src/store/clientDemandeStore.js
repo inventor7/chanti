@@ -115,6 +115,23 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
     uploadFiles(files) {
       this.request.images = files;
     },
+
+    emptyFields() {
+      this.request = {
+        clientId: "",
+        categoryId: {},
+        subCategoryId: {},
+        stateId: {},
+        cityId: {},
+        urgency: "",
+        images: [],
+        description: "",
+      };
+      this.providers = [];
+      this.providerProfile = {};
+      this.selectedProvider = {};
+      this.requestResponse = {};
+    },
   },
   persist: [
     {

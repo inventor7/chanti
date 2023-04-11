@@ -1,6 +1,13 @@
 <template>
     <Loading v-if="loading" />
     <div v-else class="w-full h-full">
+        <!-- go home -->
+        <div class="absolute  top-1 right-2 cursor-pointer  block  text-primary text-xl sm:text-base  " @click="handleGoHome">
+            <span class="material-icons text-2xl ">
+                cancel
+            </span>
+        </div>
+
         <Error v-if="providerStore.errorrProvider.status" :errorText="providerStore.errorrProvider.message" />
         <div v-else class="max-w-4xl  p-3 sm:py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
             <div class=" sm:pt-10">
@@ -85,7 +92,7 @@
                         </div>
 
                         <!-- rating component -->
-                        
+
 
 
 
@@ -97,8 +104,7 @@
                                     <!-- Tab 1 -->
                                     <button
                                         class="flex items-center justify-center w-full h-full py-2 text-sm font-medium text-gray-500 rounded-t-xl hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:text-gray-700 focus:bg-gray-100"
-                                        :class="{ 'text-gray-900 bg-white ': selectedTab === 2 }"
-                                        @click="selectedTab = 2">
+                                        :class="{ 'text-gray-900 bg-white ': selectedTab === 2 }" @click="selectedTab = 2">
                                         <span class="material-icons">
                                             work
                                         </span>
@@ -108,8 +114,7 @@
                                     <!-- Tab 2 -->
                                     <button
                                         class="flex items-center justify-center w-full h-full py-2 text-sm font-medium text-gray-500 rounded-t-xl hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:text-gray-700 focus:bg-gray-100"
-                                        :class="{ 'text-gray-900 bg-white ': selectedTab === 1 }"
-                                        @click="selectedTab = 1">
+                                        :class="{ 'text-gray-900 bg-white ': selectedTab === 1 }" @click="selectedTab = 1">
                                         <span class="material-icons">
                                             reviews
                                         </span>
@@ -128,7 +133,7 @@
                                         <span class="ml-2">About</span>
                                     </button> -->
 
-                                    
+
                                 </nav>
                             </div>
 
@@ -166,7 +171,9 @@ import Tab3 from "../components/Tab3.vue";
 import Rating from "../components/Rating.vue";
 import { useclientDemandeStore } from "../store/clientDemandeStore";
 import { useProviderStore } from "../store/providerStore";
+import { useRouter } from "vue-router";
 import { ref } from "vue";
+import router from "../router";
 export default {
     name: "Profile",
     components: {
@@ -182,6 +189,9 @@ export default {
         //store
         const clientDemandeStore = useclientDemandeStore()
         const providerStore = useProviderStore()
+        const router = useRouter()
+
+        //computed
         let provider = computed(() => clientDemandeStore.$state.providerProfile)
         let loading = computed(() => providerStore.loading)
 
@@ -191,6 +201,13 @@ export default {
             selectedTab.value = tab;
         };
 
+        const handleGoHome = () => {
+            clientDemandeStore.emptyFields()
+            providerStore.$state.provider = null
+            router.replace({ name: "home" })
+        }
+
+
 
         return {
             clientDemandeStore,
@@ -198,7 +215,8 @@ export default {
             providerStore,
             loading,
             selectedTab,
-            selectTab
+            selectTab,
+            handleGoHome
         };
     },
 };
