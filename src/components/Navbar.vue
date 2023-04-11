@@ -74,7 +74,7 @@ export default {
 
     const logout = () => {
       console.log(localStorage.getItem('token'))
-      authStore.logout()
+      authStore.logout2()
 
     }
     return {

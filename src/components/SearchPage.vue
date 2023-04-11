@@ -28,9 +28,9 @@
                 </div>
                 <div v-else class="h-full mt-16 md:mt-24 ">
                     <!-- show errors if somthing wrong happend -->
-                    <div v-if="searchStore.error.status">
+                    <div v-if="searchStore.errorSearch.status">
                         <h1 class="text-2xl  text-center text-red-500   ">
-                            {{ searchStore.error.message }}
+                            {{ searchStore.errorSearch.message }}
                         </h1>
                     </div>
                     <!-- show the results if there is no errors -->

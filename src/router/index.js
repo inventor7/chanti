@@ -13,8 +13,8 @@ import SelectionPage2 from '../views/SelectionProcess/SelectionPage2.vue'
 import SelectionPage3 from '../views/SelectionProcess/SelectionPage3.vue'
 import SelectionPage4 from '../views/SelectionProcess/SelectionPage4.vue'
 import SelectionPage5 from '../views/SelectionProcess/SelectionPage5.vue'
-// import SelectionPage6 from '../views/SelectionProcess/SelectionPage6.vue'
-// import SelectionPage7 from '../views/SelectionProcess/SelectionPage7.vue'
+import SelectionPage6 from '../views/SelectionProcess/SelectionPage6.vue'
+import SelectionPage7 from '../views/SelectionProcess/SelectionPage7.vue'
 // import SelectionPage8 from '../views/SelectionProcess/SelectionPage8.vue'
 
 import ErrorPage from '../views/ErrorPage.vue'
@@ -92,21 +92,27 @@ const router = createRouter({
       name: 'desc',
       component: SelectionPage5
     },
+    {
+      path: '/selection/login',
+      name: 'loginSelection',
+      component: SelectionPage6
+    },
+    {
+      path: '/selection/results',
+      name: 'results',
+      component: SelectionPage7
+    },
     // {
     //   path: '/selection/location2',
     //   name: 'location2',
     //   component: SelectionPage6
     // },
-    // {
-    //   path: '/selection/login',
-    //   name: 'login',
-    //   component: SelectionPage7
-    // },
-    // {
-    //   path: '/selection/providers',
-    //   name: 'providers',
-    //   component: SelectionPage8
-    // },
+
+    {
+      path: '/profile/:name',
+      name: 'profile',
+      component: () => import('../views/Profile.vue')
+    },
     
 
 

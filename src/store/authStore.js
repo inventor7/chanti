@@ -9,7 +9,10 @@ export const useAuthStore = defineStore("authStore", {
       message: "",
     },
     loading: false,
+    baseUrl: "/api",
+    baseUrl2: 'https://chanti-dz-backend.herokuapp.com',
   }),
+  
 
   actions: {
     // logout
@@ -20,18 +23,16 @@ export const useAuthStore = defineStore("authStore", {
       localStorage.removeItem("userInfo");
       localStorage.setItem("isloggedin", false);
       useUserStore().userAuth = {};
-      useUserStore().user = {};
-      useUserStore().isloggedin = false;
-      window.location.reload();
+      
     },
 
     async logout2() {
       try {
         const response = await axios({
           method: "get",
-          url: "https://chanti-dz-backend.herokuapp.com/auth/logout",
+          url: `${this.baseUrl}/auth/logout`,
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
           timeout: 13000, // 13 seconds
         });
@@ -39,6 +40,11 @@ export const useAuthStore = defineStore("authStore", {
         localStorage.removeItem("userId");
         localStorage.removeItem("userInfo");
         localStorage.setItem("isloggedin", false);
+        if(response.status === 200)
+        {
+          useUserStore().userAuth = {};
+        }
+        window.location.reload();
         return response;
       } catch (error) {
         if (error.response) {
@@ -60,7 +66,7 @@ export const useAuthStore = defineStore("authStore", {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: "https://chanti-dz-backend.herokuapp.com/auth/login",
+          url: `${useAuthStore().baseUrl}/auth/login`,
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",

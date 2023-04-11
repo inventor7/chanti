@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useAuthStore } from "./authStore";
 export const useclientDemandeStore = defineStore("clientDemandeStore", {
   id: "clientDemande",
   state: () => ({
@@ -8,16 +9,23 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
       message: "",
       status: false,
     },
+
+    requestResponse: {},
     request: {
-      clientId: null,
+      clientId: "",
       categoryId: {},
       subCategoryId: {},
       stateId: {},
       cityId: {},
-      urgency: {},
+      urgency: "",
       images: [],
       description: "",
     },
+
+    providers: [],
+    providerProfile: {},
+    selectedProvider: {},
+
     urgencyState: [
       {
         id: 1,
@@ -47,39 +55,56 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         color: "blue",
         isSelected: false,
       },
-    ],
+],
   }),
   actions: {
-    async postClientDemande() {
+    createTheformData() {
+      let formData = new FormData();
+      formData.append("clientId", this.request.clientId);
+      formData.append("categoryId", this.request.categoryId);
+      formData.append("subCategoryId", this.request.subCategoryId);
+      formData.append("stateId", this.request.stateId);
+      formData.append("cityId", this.request.cityId);
+      formData.append("urgency", this.request.urgency);
+      formData.append("description", this.request.description);
+      for (let i = 0; i < this.request.images.length; i++) {
+        formData.append("images", this.request.images[i]);
+      }
+      console.log(formData);
+      return formData;
+    },
+    async postClientDemande(data) {
       try {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: `https://chanti-dz-backend.herokuapp.com/clientpost`,
+          url: `${useAuthStore().baseUrl}/client-post/save`,
           headers: {
             "Content-Type": "multipart/form-data",
-             "Accept": "application/json"
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
-          data: {
-            "clientId": this.request.clientId,
-            "categoryId": this.request.categoryId,
-            "subCategoryId": this.request.subCategoryId,
-            "stateId": this.request.stateId,
-            "cityId": this.request.cityId,
-            "urgency": this.request.urgency,
-            "images": this.request.images,
-            "description": this.request.description,
-          },
+          data: data,
           timeout: 13000, // 13 seconds
         });
-        console.log(response.status);
-        console.log(response);
+        console.log(response.data);
         this.loading = false;
+        this.errorClientDemande.status = false;
+        this.errorClientDemande.message = "";
+        this.requestResponse = response.data.result;
+        this.providers = response.data.result.providers;
+        // Add "isvisible" attribute to each provider object
+        this.providers.forEach(provider => {
+        provider.BtnVisible = true; 
+        provider.RequestisLoading=false;
+        });
+        console.log(providers);
+        console.log(response.data.result);
+        return response;
       } catch (error) {
         this.loading = false;
-
         if (error.response) {
-          this.errorClientDemande.message = error.response.data.message;
+          this.errorClientDemande.status = true;
+          this.errorClientDemande.message = "Server error: please try again later"
         } else if (error.request) {
           this.errorClientDemande.status = true;
           this.errorClientDemande.message =
@@ -89,6 +114,13 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
     },
     uploadFiles(files) {
       this.request.images = files;
-    }
+    },
   },
+  persist: [
+    {
+      key: "clientRequest",
+      storage: localStorage,
+      paths: ["requestResponse","providers","request","selectedProvider","providerProfile"],
+    },
+  ],
 });

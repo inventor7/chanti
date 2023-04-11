@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useRoute } from "vue-router";
+import { useAuthStore } from "./authStore";
 export const useUserStore = defineStore("userStore", {
   id: "user",
   state: () => ({
@@ -24,6 +25,7 @@ export const useUserStore = defineStore("userStore", {
       status: false,
       message: "",
     },
+    token: "",
     loading: false,
     pNumber: 0,
   }),
@@ -65,6 +67,9 @@ export const useUserStore = defineStore("userStore", {
         return "password"; // password is empty
       } else return false; // all fields are filled
     },
+    getUserId() {
+      return localStorage.getItem("userId");
+    }
   },
   actions: {
     async signup() {
@@ -72,10 +77,10 @@ export const useUserStore = defineStore("userStore", {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: "https://chanti-dz-backend.herokuapp.com/auth/signup",
+          url: `${useAuthStore().baseUrl}/auth/signup`,
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
+            "Accept": "application/json",
           },
           data: {
             userType: this.user.userType,
@@ -93,14 +98,9 @@ export const useUserStore = defineStore("userStore", {
           timeout: 13000, // 13 seconds
         });
 
-        localStorage.setItem(
-          "userId",
-          JSON.stringify(response.data.result.user.id)
-        );
-        localStorage.setItem(
-          "token",
-          JSON.stringify(response.data.result.token)
-        );
+        localStorage.setItem("userId", response.data.result.user.id);
+        localStorage.setItem("token", response.data.result.token);
+        this.token = response.data.result.token
         this.isloggedin = true;
         this.userAuth = response.data.result.user;
 
@@ -108,7 +108,6 @@ export const useUserStore = defineStore("userStore", {
         return response;
       } catch (error) {
         this.loading = false;
-
         if (error.response) {
           this.error.message = error.response.data.message;
         } else if (error.request) {
@@ -138,7 +137,6 @@ export const useUserStore = defineStore("userStore", {
       this.user.phoneNumber = "";
       this.user.password = "";
     },
-   
   },
 
   persist: [

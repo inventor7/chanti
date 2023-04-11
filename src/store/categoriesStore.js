@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "./authStore";
 export const useCategoriesStore = defineStore("categoriesStore", {
   id: "categories",
   state: () => ({
@@ -139,7 +140,7 @@ export const useCategoriesStore = defineStore("categoriesStore", {
       this.loading = true;
       try {
         const response = await axios.get(
-          `https://chanti-dz-backend.herokuapp.com/sub-categories/${selectedCategory.id}`,
+          `${useAuthStore().baseUrl}/sub-categories/${selectedCategory.id}`,
           { timeout: 12000 }
         );
         if (response.status !== 200) {

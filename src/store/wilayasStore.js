@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios"; 
 import { useUserStore } from "./userStore";
+import { useAuthStore } from "./authStore";
 export const useWilayasStore = defineStore("wilayasStore", {
   id: "wilayas",
   actions: {
@@ -40,7 +41,7 @@ export const useWilayasStore = defineStore("wilayasStore", {
       this.loading = true;
       try {
         const response = await axios.get(
-          `https://chanti-dz-backend.herokuapp.com/address/cities/${id}`
+          `${useAuthStore().baseUrl}/address/cities/${id}`
         );
         if (response.status !== 200) {
           throw new Error("An error has occurred, please refresh the page");

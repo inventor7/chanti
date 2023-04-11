@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
 import  axios  from 'axios'
+import { useAuthStore } from "./authStore";
 export const useSearchStore = defineStore("searchStore", {
   id: "search",
   state: () => ({
@@ -10,7 +11,7 @@ export const useSearchStore = defineStore("searchStore", {
     isClicked: false,
     pageNumber: 1,
     loading: false,
-    error: {
+    errorSearch: {
         status: false,
         message: "",
     },
@@ -21,7 +22,7 @@ export const useSearchStore = defineStore("searchStore", {
       this.loading = true;
       try {
         const response = await axios.get(
-          `https://chanti-dz-backend.herokuapp.com/search/${this.searchInput}/${this.pageNumber}/${useUserStore().user.language}`,
+          `${useAuthStore().baseUrl}/search/${this.searchInput}/${this.pageNumber}/${useUserStore().user.language}`,
           { timeout: 15000 }
         );
         if (response.status !== 200) {
@@ -30,22 +31,14 @@ export const useSearchStore = defineStore("searchStore", {
         if(response.data.result)this.searchResults = response.data.result;
         this.loading = false;
         this.error.status = false;
-      } catch (err) {
+      } catch (error) {
         this.loading = false;
-        this.error.status = true;
-        if (err.code === "ECONNABORTED") {
-            // timeout
-          this.error.message = "Check your internet connection and try again";
-        } else if (err.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-          this.error.message = `HTTP error: ${err.response.status}`;
-        } else if (err.message.startsWith("Data error")) {
-            // The request was made but no response was received
-          this.error.message = err.message;
-        } else {
-            // Something happened in setting up the request that triggered an Error
-          this.error.message ="Network error: please check your internet connection";
+        if (error.response) {
+          this.errorSearch.message = error.response.data.message;
+        } else if (error.request) {
+          this.error.status = true;
+          this.errorSearch.message =
+            "Network error: please check your internet connection and try again";
         }
       }
     },
