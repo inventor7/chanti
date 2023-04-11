@@ -9,7 +9,7 @@ export const useAuthStore = defineStore("authStore", {
       message: "",
     },
     loading: false,
-    baseUrl: "/api",
+    baseUrl: "https://chanti-dz-backend.herokuapp.com",
     baseUrl2: 'https://chanti-dz-backend.herokuapp.com',
   }),
   

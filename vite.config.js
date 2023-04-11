@@ -13,12 +13,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
-        target: 'https://chanti-dz-backend.herokuapp.com',
+      "/api": {
+        target: "https://chanti-dz-backend.herokuapp.com",
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, ''),
-        
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
-  },
+  }, 
 });
