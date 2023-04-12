@@ -1,8 +1,8 @@
 <template>
     <div>
-        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="Done" :isError="notSelectedError" :errorText="msg"
-            @handle="handleClick" @handleBack="handleBack" pageTitle=" Register "
-            pageDesc=" so you can login to our platform wherever you are whenever you want ">
+        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="Done"
+            :isError="notSelectedError" :errorText="msg" @handle="handleClick" @handleBack="handleBack"
+            pageTitle=" Register " pageDesc=" so you can login to our platform wherever you are whenever you want ">
             <div class=" flex flex-col  justify-center py-2 items-center font-semibold text-md w-full min-h-full ">
                 <!-- when it's loading -->
                 <Loading v-if="userStore.loading" />
@@ -231,7 +231,7 @@ export default {
         // check if all inputs are valid
         const handleClick = (clicked) => {
             if (clicked) {
-                
+
                 isValidEmail.value = t1.value
                 isValidPhone.value = t2.value
                 isValidPassword.value = t3.value
@@ -252,7 +252,11 @@ export default {
                             userStore.signup().then(() => {
                                 if (userStore.$state.isloggedin) {
                                     userStore.emptyFields()
-                                    router.replace({ name: 'home' })
+                                    if (userStore.$state.userType === 'provider') {
+                                        router.replace({ name: 'providerHome' })
+                                    } else {
+                                        router.replace({ name: 'home' })
+                                    }
                                 } else {
                                     notSelectedError.value = true
                                     msg.value = userStore.error.message
@@ -262,10 +266,10 @@ export default {
                         }
                     }
 
-                
-                
-                if (userStore.user.userType == 'client') {
-                    if (userStore.isEmptyClient) { //check if all the fields are not empty else return it to the beggining
+
+
+                    if (userStore.user.userType == 'client') {
+                        if (userStore.isEmptyClient) { //check if all the fields are not empty else return it to the beggining
                             notSelectedError.value = true
                             msg.value = 'we will redirect you to fill all the fields'
                             setTimeout(() => {
@@ -284,13 +288,13 @@ export default {
 
                             })
                         }
+                    }
                 }
             }
-                }
-                
 
-            }
-        
+
+        }
+
 
 
 
@@ -326,11 +330,6 @@ export default {
         const handleBack = () => {
             router.replace({ name: 'idendity' })
         }
-
-
-
-
-
 
 
 

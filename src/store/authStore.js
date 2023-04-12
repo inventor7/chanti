@@ -9,24 +9,15 @@ export const useAuthStore = defineStore("authStore", {
       message: "",
     },
     loading: false,
-    baseUrl: "/api",
+    baseUrl: "https://chanti-dz-backend.herokuapp.com",
     baseUrl2: 'https://chanti-dz-backend.herokuapp.com',
   }),
   
 
   actions: {
     // logout
-    logout()
-    {
-      localStorage.removeItem("token");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("userInfo");
-      localStorage.setItem("isloggedin", false);
-      useUserStore().userAuth = {};
-      
-    },
 
-    async logout2() {
+    async logout() {
       try {
         const response = await axios({
           method: "get",
@@ -43,6 +34,7 @@ export const useAuthStore = defineStore("authStore", {
         if(response.status === 200)
         {
           useUserStore().userAuth = {};
+
         }
         window.location.reload();
         return response;

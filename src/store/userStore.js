@@ -20,6 +20,7 @@ export const useUserStore = defineStore("userStore", {
       subCategoriesIds: [],
       language: "",
     },
+    userType: "",
     isloggedin: false,
     error: {
       status: false,
@@ -103,7 +104,6 @@ export const useUserStore = defineStore("userStore", {
         this.token = response.data.result.token
         this.isloggedin = true;
         this.userAuth = response.data.result.user;
-
         this.loading = false;
         return response;
       } catch (error) {
@@ -143,12 +143,7 @@ export const useUserStore = defineStore("userStore", {
     {
       key: "userInfo",
       storage: localStorage,
-      paths: ["userAuth", "user.language", "isloggedin", "user.userType"],
-    },
-    {
-      key: "userToken",
-      storage: sessionStorage,
-      paths: ["token"],
+      paths: ["userAuth", "user.language", "isloggedin","userType","token"],
     },
   ],
 });

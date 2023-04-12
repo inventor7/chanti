@@ -62,7 +62,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
       let formData = new FormData();
       formData.append("clientId", this.request.clientId);
       formData.append("categoryId", this.request.categoryId);
-      formData.append("subCategoryId", this.request.subCategoryId);
+      formData.append("subcategoryId", this.request.subCategoryId);
       formData.append("stateId", this.request.stateId);
       formData.append("cityId", this.request.cityId);
       formData.append("urgency", this.request.urgency);

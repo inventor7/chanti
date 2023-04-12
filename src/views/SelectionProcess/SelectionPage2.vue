@@ -39,7 +39,7 @@
                             </div>
                             <!-- List -->
                             <transition name="fade">
-                                <div v-if="openW && !wilayaValidate" class="overflow-x-hidden">
+                                <div v-if="openW && !wilayaValidate  " class="overflow-x-hidden">
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                         <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
@@ -93,7 +93,7 @@
                             </div>
                             <!-- List -->
                             <transition>
-                                <div v-if=" openC && !communeValidate  " class="overflow-x-hidden  ">
+                                <div v-if=" openC && !communeValidate " class="overflow-x-hidden  ">
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                         <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "

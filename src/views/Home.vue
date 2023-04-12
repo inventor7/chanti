@@ -139,6 +139,7 @@ export default {
             modalStore.toggleModal()
             themeStore.theme = theme
             userStore.user.userType = userType
+            userStore.userType = userType
         }
 
 

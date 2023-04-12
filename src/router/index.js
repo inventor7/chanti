@@ -102,17 +102,22 @@ const router = createRouter({
       name: 'results',
       component: SelectionPage7
     },
-    // {
-    //   path: '/selection/location2',
-    //   name: 'location2',
-    //   component: SelectionPage6
-    // },
+
+
+    // ///////////////Profile Pages///////////////
 
     {
       path: '/profile/:name',
       name: 'profile',
       component: () => import('../views/Profile.vue')
     },
+    {
+      path: '/home',
+      name: 'providerHome',
+      //lazy loading
+      component: () => import('../views/Provider/Home.vue')
+    },
+
     
 
 

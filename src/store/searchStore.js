@@ -1,10 +1,13 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
-import  axios  from 'axios'
+import axios from "axios";
 import { useAuthStore } from "./authStore";
+import { useclientDemandeStore } from "./clientDemandeStore";
+
 export const useSearchStore = defineStore("searchStore", {
   id: "search",
   state: () => ({
+
     searchInput: "",
     searchResults: [],
     searchPageVisibility: false,
@@ -12,8 +15,8 @@ export const useSearchStore = defineStore("searchStore", {
     pageNumber: 1,
     loading: false,
     errorSearch: {
-        status: false,
-        message: "",
+      status: false,
+      message: "",
     },
   }),
   actions: {
@@ -22,13 +25,16 @@ export const useSearchStore = defineStore("searchStore", {
       this.loading = true;
       try {
         const response = await axios.get(
-          `${useAuthStore().baseUrl}/search/${this.searchInput}/${this.pageNumber}/${useUserStore().user.language}`,
+          `${useAuthStore().baseUrl}/search/${this.searchInput}/${
+            this.pageNumber
+          }/${useUserStore().user.language}`,
           { timeout: 15000 }
         );
+        console.log(response);
         if (response.status !== 200) {
           throw new Error("An error has occurred, please refresh the page");
         }
-        if(response.data.result)this.searchResults = response.data.result;
+        if (response.data.result) this.searchResults = response.data.result;
         this.loading = false;
         this.error.status = false;
       } catch (error) {

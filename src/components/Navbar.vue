@@ -50,6 +50,7 @@ import { useLanguageStore } from '../store/languageStore'
 import { useThemeStore } from '../store/themeStore.js'
 import { useUserStore } from '../store/userStore'
 import { useAuthStore } from '../store/authStore'
+import  { useRouter } from 'vue-router'
 import { computed, onBeforeMount } from 'vue'
 import DropDownLangVue from './DropDownLang.vue'
 
@@ -70,12 +71,13 @@ export default {
     const themeStore = useThemeStore()
     const userStore = useUserStore()
     const authStore = useAuthStore()
+    const router = useRouter()
     const languageStore = useLanguageStore()
 
     const logout = () => {
-      console.log(localStorage.getItem('token'))
-      authStore.logout2()
-
+      authStore.logout().then(()=> {
+        router.replace({name: 'home'})
+      })
     }
     return {
 

@@ -36,7 +36,7 @@
                     <!-- show the results if there is no errors -->
                     <div v-else class="h-full ">
                         <!-- show the results if there is results from the response -->
-                        <div v-if="  searchStore.searchResults.length > 0">
+                        <div v-if="searchStore.searchResults.length > 0">
                             <div v-for="result in searchStore.searchResults" :key="result.id"
                                 class="flex flex-col justify-start items-center gap-0   w-full  ">
                                 <div
@@ -44,7 +44,7 @@
                                     <span class="material-icons  ">
                                         search
                                     </span>
-                                    <span class="flex-1 text-start">
+                                    <span @click="handleSearchRedirect(result)" class="flex-1 text-start">
                                         {{ languageStore.getWord(result.name) }}
                                     </span>
                                 </div>
@@ -69,6 +69,8 @@ import { useSearchStore } from '../store/searchStore'
 import { useLanguageStore } from '../store/languageStore'
 import SearchBar from '../components/SearchBar.vue'
 import loading from '../components/Loading.vue'
+import { useclientDemandeStore } from '../store/clientDemandeStore'
+import { useRouter } from 'vue-router'
 export default {
     name: "SearchPage",
     components: { SearchBar, loading },
@@ -76,6 +78,7 @@ export default {
         //initialisation the store
         const searchStore = useSearchStore()
         const languageStore = useLanguageStore()
+        const router = useRouter()
 
         //handle the exit arrow
         const handleExitArrow = () => {
@@ -85,11 +88,34 @@ export default {
         }
 
 
+        //handle the search redirect
+        const handleSearchRedirect = (result) => {
+            searchStore.searchPageVisibility = false
+            searchStore.searchResults = []
+            searchStore.searchInput = ''
+            //check if the result object has an categoryId property if it does then redirect to the category page
+            if (result.categoryId) {
+                router.replace({
+                    name: "selection-location",
+                });
+                useclientDemandeStore().request.categoryId = result.categoryId;
+                useclientDemandeStore().request.subCategoryId = result.id;
+            } else {
+                // if it doesn't then redirect to the product page
+                router.replace({
+                    name: "services",
+                });
+                useclientDemandeStore().request.categoryId = result.id;
+            }
+        }
+
+
         return {
             //store
             searchStore,
             languageStore,
-            handleExitArrow
+            handleExitArrow,
+            handleSearchRedirect
         }
     }
 }

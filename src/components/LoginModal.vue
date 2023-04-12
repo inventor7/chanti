@@ -119,6 +119,7 @@ import { useLanguageStore } from "../store/languageStore.js"
 import { useThemeStore } from "../store/themeStore";
 import { useUserStore } from "../store/userStore";
 import { useAuthStore } from "../store/authStore";
+import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
 export default {
     name: "LoginModal",
@@ -133,6 +134,7 @@ export default {
         const languageStore = useLanguageStore()
         const userStore = useUserStore()
         const authStore = useAuthStore()
+        const router = useRouter()
 
         //vars 
         const phone = ref('')
@@ -187,6 +189,9 @@ export default {
                     authStore.login('', phone.value, password.value).then(() => {
                         if (userStore.isloggedin) {
                             modalStore.toggleModalLogin();
+                            if(userStore.$state.userType==='provider'){
+                                router.replace({ name: 'providerHome' })
+                            }
                         } else {
                             toggleError.value = true
                             setTimeout(() => {

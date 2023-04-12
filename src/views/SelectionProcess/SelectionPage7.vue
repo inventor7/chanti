@@ -152,11 +152,9 @@ export default {
                 name: 'profile',
                 params: { name: provider.firstName + '-' + provider.lastName }
             })
-            providerStore.getProviderData(provider.id).then((res) => {
+            providerStore.getProviderData(provider).then((res) => {
                 if (res.status == 200) {
                    console.log(res)
-                } else {
-                    console.log('error')
                 }
             })
 

@@ -67,7 +67,7 @@ export default {
                 for (let pair of formData.entries()) {
                     console.log(pair[0] + ', ' + pair[1]);
                 }
-                console.log(formData)
+                console.log(localStorage.getItem('token'))
                 clientDemandeStore.postClientDemande(formData)
                 router.replace({ name: 'results' })
 

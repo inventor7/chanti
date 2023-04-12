@@ -8,6 +8,12 @@
             </span>
         </div>
 
+        <div class="absolute  top-1 right-8 cursor-pointer  block  text-primary text-xl sm:text-base  " @click="handleGoBack">
+            <span class="material-icons text-2xl ">
+                arrow_back
+            </span>
+        </div>
+
         <Error v-if="providerStore.errorrProvider.status" :errorText="providerStore.errorrProvider.message" />
         <div v-else class="max-w-4xl  p-3 sm:py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
             <div class=" sm:pt-10">
@@ -192,7 +198,7 @@ export default {
         const router = useRouter()
 
         //computed
-        let provider = computed(() => clientDemandeStore.$state.providerProfile)
+        let provider = computed(() => providerStore.$state.provider)
         let loading = computed(() => providerStore.loading)
 
         //tab
@@ -207,6 +213,10 @@ export default {
             router.replace({ name: "home" })
         }
 
+        const handleGoBack = () => {
+            router.replace({ name: "results" })
+        }
+
 
 
         return {
@@ -216,7 +226,8 @@ export default {
             loading,
             selectedTab,
             selectTab,
-            handleGoHome
+            handleGoHome,
+            handleGoBack
         };
     },
 };
