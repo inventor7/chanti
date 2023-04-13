@@ -75,9 +75,7 @@ export default {
     const languageStore = useLanguageStore()
 
     const logout = () => {
-      authStore.logout().then(()=> {
-        router.replace({name: 'home'})
-      })
+      authStore.logout()
     }
     return {
 

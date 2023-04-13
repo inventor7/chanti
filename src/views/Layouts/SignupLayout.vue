@@ -1,5 +1,5 @@
 <template>
-    <div class=" h-screen " :data-theme="themeStore.theme">
+    <div class=" h-screen " :data-theme="themeStore.$state.theme">
         <div class=" md:flex md:flex-col md:justify-center md:items-center    md:py-6 max-h-screen  h-full w-full ">
             <div
                 class=" flex flex-col  justify-start items-start w-full md:w-11/12  h-full  gap-2 sm:pb-2  rounded-2xl sm:shadow-2xl ">
@@ -19,24 +19,24 @@
 
                 <!-- the content -->
 
-                <div ref="content" class=" next bg-white flex-1 w-full slide  px-2 sm:px-4 ">
+                <div ref="content" class=" next  h-fit  flex-1 w-full slide  px-2 sm:px-4 ">
                     <slot></slot>
                 </div>
 
 
 
-                <div dir="ltr"
-                    class=" flex  flex-row  w-full justify-center items-center pb-1 sm:pb-1  px-2 sm:px-3  gap-2  ">
+                <div dir="ltr" v-if="navigationVisibility"
+                    class=" flex md:static fixed bottom-0 right-0 left-0 bg-white md:py-0 py-2 md:border-0 border-2 flex-row  w-full justify-center items-center pb-1 sm:pb-1  px-2 sm:px-3  gap-2  ">
 
                     <!-- the back button ((off at first page)) -->
                     <router-link class=" flex-1 flex-grow " :class="{ 'opacity-0  btn-disabled  ': backBtnVisibility }"
                         :to="{ name: prevLink }">
                         <button @click="handleBack"
-                            class="btn text-white btn-sm  whitespace-nowrap sm:btn-md btn-secondary btn-outline w-fit  gap-0 ">
+                            class="btn h-10 sm:h-0 text-white btn-sm  whitespace-nowrap sm:btn-md btn-secondary btn-outline w-fit  gap-0 ">
                             <span class="material-icons -xs sm:text-lg hidden sm:block ">
                                 chevron_left
                             </span>
-                            Back
+                            {{ languageStore.getWord('back') }}
                         </button>
                     </router-link>
 
@@ -54,8 +54,9 @@
                         </div>
                     </div>
 
+                    <!-- the progress bar -->
                     <ul v-else
-                        class=" box flex flex-1 border-gray-300  felx-row justify-between items-center border-2 gap-1 sm:gap-2 text-w  px-1 sm:px-2 py-[3px]  sm:py-1 rounded-2xl sm:border-2  "
+                        class=" box  flex flex-1 border-gray-300  felx-row justify-between items-center border-2 gap-1 sm:gap-2 text-w  px-1 sm:px-2 py-[3px]  sm:py-1 rounded-2xl sm:border-2  "
                         ref="steps">
                         <NavigationNumber v-if="userStore.user.userType === 'provider'" v-for=" one in 6 " :num="one"
                             :pageNumber="pageNumber" />
@@ -66,9 +67,9 @@
                     <!--  The Next button -->
                     <router-link class=" flex-1 flex-grow flex bg-white felx-row justify-end   " :to="{ name: nextLink }">
                         <button @click="handleNext"
-                            class=" btn  text-white btn-sm whitespace-nowrap  sm:btn-md  btn-primary gap-0  ">
-                            {{ nextBtnText }}
-                            <span v-show="nextBtnText == 'Next'"
+                            class=" btn h-10 sm:h-0  text-white btn-sm whitespace-nowrap  sm:btn-md  btn-primary gap-0  ">
+                            {{ languageStore.getWord('next') }}
+                            <span v-show="nextBtnText == 'next'"
                                 class="material-icons text-sm sm:text-lg hidden sm:block  ">
                                 navigate_next
                             </span>
@@ -91,6 +92,7 @@ import NavigationNumber from '../../components/NavigationNumber.vue'
 import { useThemeStore } from '../../store/themeStore';
 import { useCategoriesStore } from '../../store/categoriesStore';
 import { useUserStore } from '../../store/userStore';
+import { useLanguageStore } from '../../store/languageStore';
 import { useWilayasStore } from '../../store/wilayasStore';
 import { ref, onBeforeMount, onUpdated } from 'vue'
 import { useRouter } from 'vue-router'
@@ -131,7 +133,7 @@ export default {
         //to change the "next" btn to "done" btn
         nextBtnText: {
             type: String,
-            default: 'Next'
+            default: 'next'
         },
 
         //the second button on the next which fires handle function
@@ -149,6 +151,14 @@ export default {
         },
         pageDesc: {
             type: String
+        },
+        componentLocation: {
+            type: String,
+            default: 'signup'
+        },
+        navigationVisibility: {
+            type: Boolean,
+            default: true
         }
 
     },
@@ -163,6 +173,7 @@ export default {
         //store
         const categoriesStore = useCategoriesStore()
         const userStore = useUserStore()
+        const languageStore = useLanguageStore()
         const wilayasStore = useWilayasStore()
 
 
@@ -182,6 +193,12 @@ export default {
             router.push({ name: 'home' })
         }
 
+        onBeforeMount(() => {
+            if(props.componentLocation == 'selectionProcess'){
+                themeStore.theme = 'clientTheme'
+            }
+        })
+
 
 
         return {
@@ -189,6 +206,7 @@ export default {
             categoriesStore,
             userStore,
             wilayasStore,
+            languageStore,
             
             //props
             themeStore,

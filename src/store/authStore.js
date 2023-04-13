@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("authStore", {
           method: "get",
           url: `${this.baseUrl}/auth/logout`,
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${useUserStore().$state.token}`,
           },
           timeout: 13000, // 13 seconds
         });
@@ -81,7 +81,7 @@ export const useAuthStore = defineStore("authStore", {
           "token",
           JSON.stringify(response.data.result.token)
         );
-
+        useUserStore().token = response.data.result.token;
         useUserStore().userAuth = response.data.result.user;
         useUserStore().user = response.data.result.user;
         useUserStore().isloggedin = true;

@@ -1,5 +1,5 @@
 <template>
-    <div v-show="isVisible" class=" box toast toast-top toast-center w-fit whitespace-nowrap ">
+    <div v-show="isVisible" class="  z-20 box toast toast-top toast-center w-fit whitespace-nowrap ">
         <div 
         class="alert text-white  shadow-lg"
         :class="{

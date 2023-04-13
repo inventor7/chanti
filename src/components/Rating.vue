@@ -1,12 +1,8 @@
 <template>
   <div class="px-1  star-rating">
-    <span v-for="n in maxStars"><i class="material-icons "
-      :style="{ fontSize: size + 'px' }"
-      >star_border</i></span>
-    <div class="star-rating__current" :style="{ width: getRating + '%' }">
-      <span v-for="n in getRating "><i class="material-icons "
-        :style="{ fontSize: size + 'px' }"
-        >star</i></span>
+    <span v-for="n in maxStars"><i class="material-icons " :style="{ fontSize: size + 'px' }">star_border</i></span>
+    <div class="star-rating__current self-center " :style="{ width: getRating + '%' }">
+      <span v-for="n in getRating "><i class="material-icons" :style="{ fontSize: size + 'px' }">star</i></span>
     </div>
   </div>
 </template>
@@ -48,25 +44,25 @@ export default {
 <style>
 .star-rating {
   color: #ff8800;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
- 
 }
+
 
 
 
 .star-rating__max,
 .star-rating__current {
   position: absolute;
-  top: 0;
- 
- 
+  top: 0
 }
 
 .star-rating__current {
   overflow: hidden;
   white-space: nowrap;
-  
+
 }
 
 .star-rating i.material-icons {

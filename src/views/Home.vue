@@ -1,5 +1,5 @@
 <template>
-    <Navbar data-theme="mytheme" :showLogin="true" />
+    <Navbar data-theme="clientTheme" :showLogin="true" />
     <div class="main-content flex flex-col justify-center items-start w-full mt-[5rem] ">
         <div class="grid place-items-center rounded-2xl w-full h-full px-2   ">
 

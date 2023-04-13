@@ -1,9 +1,10 @@
 <template>
     <SignupLayout prevLink="emergency" :pageNumber="6" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle="Write a Description" pageDesc=" Write a description of your request ">
+        @handle="handleClick" pageTitle="Write a Description" pageDesc=" Write a description of your request "
+        componentLocation = "selectionProcess">
 
-        <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-start ">
-            <div class=" flex flex-col  justify-center items-center gap-3 w-full h-full ">
+        <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-center ">
+            <div class=" flex flex-col  justify-center items-center gap-3 w-full h-fit mb-16 md:mb-20  ">
               
 
                     <h2 class=" text-2xl md:text-4xl font-bold text-start pb-5 pt-2 ">{{ languageStore.getWord('login') }} </h2>

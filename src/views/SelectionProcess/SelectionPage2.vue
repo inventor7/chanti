@@ -3,13 +3,15 @@
         <SignupLayout :pageNumber="2" :isError="notSelectedError"
             errorText="please select a wilaya and commune" @handle="handleClick" @handleBack="handleBack"
             pageTitle=" Select location "
-            pageDesc=" select your wilaya and commune so we can provide you with the clients in your area ">
-            <div class=" flex flex-col sm:flex-row justify-around w-full  h-full flex-1 gap-3  items-start ">
+            pageDesc=" select your wilaya and commune so we can provide you with the clients in your area "
+            componentLocation = "selectionProcess">
+            <div class=" flex overflow-y-scroll flex-row justify-start w-full h-full  flex-1 gap-3  items-start ">
+                <div class=" flex flex-col sm:flex-row   justify-start items-start w-full mb-20 md:mb-0  sm:gap-2 h-[70%] md:h-1/2 ">
 
                 <!-- wilayas -->
                 <transition>
                     <div v-if="!wilayassStore.error.status"
-                        class=" box flex flex-col  justify-start items-start gap-3 w-full h-full ">
+                    class=" box flex flex-col  justify-center  items-center gap-3 w-full h-full ">
                         <h2 class="text-2xl font-bold"> Wilaya </h2>
                         <div class="dropdown   dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
@@ -61,9 +63,9 @@
 
 
                 <!-- communes -->
-                <transition>
-                    <div v-if="!wilayassStore.error.status"
-                        class=" box flex flex-col  justify-start items-start w-full h-full gap-3 ">
+             
+                    <div v-show="!wilayassStore.error.status && wilayaValidate"
+                    class=" box flex flex-col  justify-center items-center w-full h-full gap-3 ">
                         <h2 class="text-2xl font-bold "> City</h2>
                         <div class="dropdown  dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
@@ -114,13 +116,14 @@
 
 
 
-                    <div v-else class=" box h-full w-full flex flex-col justify-center items-center ">
+                    <div v-show="wilayassStore.error.status || !wilayaValidate" class=" box h-full w-full flex flex-col justify-center items-center ">
                         <Error class="  text-center text-xl font-semibold  " :error="wilayassStore.error.message" />
                     </div>
 
 
-                </transition>
+               
             </div>
+        </div>
         </SignupLayout>
     </div>
 </template>

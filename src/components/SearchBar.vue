@@ -44,8 +44,6 @@ export default {
         })
 
 
-
-
         const handleSearchClick = () => {
             searchStore.searchPageVisibility = true
             searchStore.isClicked = true
@@ -67,6 +65,20 @@ export default {
                 searchStore.searchPageVisibility = true
             }
         }
+
+        //showing results when the user write for a 1.5 second
+        watch(searchInput, (newInput) => {
+            if (props.componentLocation == 'searchPage')
+            {
+                if (newInput.length > 0) {
+                searchStore.searchPageVisibility = true
+                searchStore.isClicked = false
+                setTimeout(() => {
+                    searchStore.fetchSearchResults()
+                }, 1000)
+            }
+            }
+        })
 
 
 

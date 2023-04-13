@@ -27,19 +27,29 @@
 
         <ul tabindex="0" class="p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
             <li selected="true" @click="changeLang('en')">
-                <a>English
+                <span class="">English
                     <img src="https://flagcdn.com/16x12/us.png"
                         srcset="https://flagcdn.com/32x24/us.png 2x, https://flagcdn.com/48x36/us.png 3x" width="16"
                         height="12" alt="United States">
-                </a>
+                    <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
+                        v-if="languageStore.$state.lang === 'en'">
+                        check_circle
+                    </span>
+                </span>
             </li>
+
 
             <li @click="changeLang('ar')">
                 <a>العربية
                     <img src="https://flagcdn.com/40x30/dz.png"
                         srcset="https://flagcdn.com/80x60/dz.png 2x, https://flagcdn.com/120x90/dz.png 3x" width="20"
                         height="24" alt="Algeria">
+                    <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
+                        v-if="languageStore.$state.lang === 'ar'">
+                        check_circle
+                    </span>
                 </a>
+
             </li>
 
             <li @click="changeLang('fr')">
@@ -47,7 +57,12 @@
                     <img src="https://flagcdn.com/16x12/fr.png"
                         srcset="https://flagcdn.com/32x24/fr.png 2x, https://flagcdn.com/48x36/fr.png 3x" width="16"
                         height="12" alt="France">
+                    <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
+                        v-if="languageStore.$state.lang === 'fr'">
+                        check_circle
+                    </span>
                 </a>
+
             </li>
 
         </ul>
@@ -68,27 +83,28 @@ export default defineComponent({
         showLogin: {
             type: Boolean,
             default: false,
-        }},
-        setup() {
-            const modalStore = useModalStore()
-            const languageStore = useLanguageStore()
-            const themeStore = useThemeStore()
-            const userStore = useUserStore()
+        }
+    },
+    setup() {
+        const modalStore = useModalStore()
+        const languageStore = useLanguageStore()
+        const themeStore = useThemeStore()
+        const userStore = useUserStore()
 
-            const changeLang = (lang) => {
-                languageStore.lang=lang
-                userStore.user.language =languageStore.lang
-                languageStore.getLang()
-            }
+        const changeLang = (lang) => {
+            languageStore.lang = lang
+            userStore.user.language = languageStore.lang
+            languageStore.getLang()
+        }
 
-            return {
-                modalStore,
-                languageStore,
-                themeStore,
-                userStore,
-                changeLang,
-            }
-        },
-    })
+        return {
+            modalStore,
+            languageStore,
+            themeStore,
+            userStore,
+            changeLang,
+        }
+    },
+})
 
 </script>

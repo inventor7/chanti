@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./authStore";
+import { useUserStore } from "./userStore";
 export const useclientDemandeStore = defineStore("clientDemandeStore", {
   id: "clientDemande",
   state: () => ({
@@ -81,12 +82,13 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
           url: `${useAuthStore().baseUrl}/client-post/save`,
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${useUserStore().$state.token}`,
           },
           data: data,
           timeout: 13000, // 13 seconds
         });
         console.log(response.data);
+        console.log(localStorage);
         this.loading = false;
         this.errorClientDemande.status = false;
         this.errorClientDemande.message = "";

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="Done"
+        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="next"
             :isError="notSelectedError" :errorText="msg" @handle="handleClick" @handleBack="handleBack"
             pageTitle=" Register " pageDesc=" so you can login to our platform wherever you are whenever you want ">
-            <div class=" flex flex-col  justify-center py-2 items-center font-semibold text-md w-full min-h-full ">
+            <div class=" flex flex-col   justify-center py-2 items-center font-semibold text-md w-full h-full ">
                 <!-- when it's loading -->
                 <Loading v-if="userStore.loading" />
                 <!-- the loading has stopped -->
@@ -14,13 +14,13 @@
                     </div>
                     <!-- when there's no error  -->
                     <form v-else
-                        class=" flex flex-col justify-center items-center px-4   sm:px-10 md:px-10    w-full h-full ">
+                        class=" flex flex-col md:justify-start md:h-full md:gap-4 overflow-scroll  justify-between items-center px-4   sm:px-10 md:px-10    w-full h-[70vh] ">
                         <img v-if="userStore.$state.user.userType == 'client'" class="rounded-full w-24 md:pb-10 "
                             src="../../assets/patient.png" alt="">
                         <img v-else class="rounded-full w-24 md:pb-10  " src="../../assets/handyman.png" alt="">
 
                         <div
-                            class=" flex flex-col md:flex-row md:justify-between justify-center items-center w-full h-full gap-4 ">
+                            class=" flex flex-col md:flex-row md:justify-between justify-center items-center w-full h-fit gap-4 ">
                             <!-- Phone Number -->
                             <div class=" w-full h-fit ">
                                 <label class="block text-[16px] font-semibold mb-2 ">Phone</label>
@@ -75,7 +75,7 @@
                         </div>
 
                         <div
-                            class=" flex flex-col md:flex-row md:justify-between justify-center items-center w-full h-full gap-4 ">
+                            class=" flex flex-col md:flex-row md:justify-between justify-center items-center w-full h-fit gap-4 ">
                             <!-- Password -->
                             <div class=" w-full h-fit ">
                                 <label class="block  text-[16px]  font-semibold mb-2 ">Password</label>

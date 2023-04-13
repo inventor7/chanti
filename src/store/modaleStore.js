@@ -13,7 +13,6 @@ export const useModalStore = defineStore('modalStore', {
     },
     toggleModalLogin() {
       this.modalVisibleLogin = !this.modalVisibleLogin;
-      useThemeStore().theme = "clientTheme";  
     },
   }
 });

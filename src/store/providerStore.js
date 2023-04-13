@@ -35,6 +35,7 @@ export const useProviderStore = defineStore("providerStore", {
 
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
+        this.provider = response.data.result.provider;
         this.portfolioPost= response.data.result.portfolioPosts;
         return response;
       } catch (error) {

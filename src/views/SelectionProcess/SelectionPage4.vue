@@ -1,9 +1,10 @@
 <template>
     <SignupLayout prevLink="emergency" :pageNumber="4" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle=" Choose Urgency" pageDesc=" select the urgency of your request ">
+        @handle="handleClick" pageTitle=" Choose Urgency" pageDesc=" select the urgency of your request "
+        componentLocation = "selectionProcess">
 
-        <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-start ">
-            <div class=" flex flex-col  justify-center items-center gap-3 w-full h-full ">
+        <div class=" flex flex-row justify-around w-full overflow-y-scroll   h-full flex-1 gap-3  items-start ">
+            <div class=" flex flex-col  justify-center items-center gap-3 w-full md:mb-0 mb-20 h-full ">
                 <!-- a select component with modern design to select multiple emergency status as urgent , not urgent , etc -->
                 <transition name="fade">
                     <!--  select images -->
@@ -43,6 +44,7 @@
                         </div>
                     </div>
                 </transition>
+                
 
             </div>
         </div>

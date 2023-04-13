@@ -1,9 +1,12 @@
 <template>
     <div>
-        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 5 : 3" nextBtnText="Next" @handle="handleClick" @handleBack="handleBack"
-            pageTitle="Idendity" pageDesc=" Enter your full name so we can ensure your idendity for clients ">
-            <div class=" flex flex-col  justify-center px-4 sm:px-8 pt-3 sm:pt-1 items-center font-semibold text-md w-full min-h-full ">
-                <img v-if="userStore.$state.user.userType=='client'" class="rounded-full w-24  " src="../../assets/patient.png" alt="">
+        <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 5 : 3" nextBtnText="Next" @handle="handleClick"
+            @handleBack="handleBack" pageTitle="Idendity"
+            pageDesc=" Enter your full name so we can ensure your idendity for clients ">
+            <div
+                class=" flex flex-col  justify-center px-4 sm:px-8 pt-3 sm:pt-1 items-center font-semibold text-md w-full h-full ">
+                <img v-if="userStore.$state.user.userType == 'client'" class="rounded-full w-24  "
+                    src="../../assets/patient.png" alt="">
                 <img v-else class="rounded-full w-24   " src="../../assets/handyman.png" alt="">
                 <div class=" flex flex-col   sm:w-3/5 lg:w-3/6  sm:gap-x-2   w-full h-full ">
                     <!-- input for the first name of the user -->

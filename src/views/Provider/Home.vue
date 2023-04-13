@@ -1,63 +1,9 @@
 <template>
-    <Navbar data-theme="providerTheme" :showLogin="true" />
-    <div data-theme="providerTheme" class="main-content flex flex-col justify-center items-start w-full mt-[5rem] ">
-        <div class="grid place-items-center rounded-2xl w-full h-full px-2   ">
+    <Navbar2 data-theme="providerTheme" :showLogin="true" />
+    <Navbar3 data-theme="providerTheme" class=" fixed left-0 right-0 bottom-0" :showLogin="true" />
+    <div data-theme="providerTheme" class="main-content flex flex-col justify-center mt-[5rem] items-start w-full ">
 
-            <div class=" relative flex flex-col justify-between w-full h-fit sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
-                <!-- add an overlay image -->
-                <img src="../../assets/OIG.jpg"
-                    class="w-full absolute top-0 left-0 -z-20  h-full object-cover sm:object-cotain rounded-2xl " />
-                <!-- add a gradient -->
-                <div class="absolute top-0 left-0 -z-10 w-full h-full  bg-black opacity-90 rounded-2xl "></div>
-
-                <div class="px-2 flex-1  sm:px-4 w-full h-fit  flex flex-row justify-start items-center py-0  ">
-                    <div class="w-flex max-w-5xl  flex-col py-4 md:gap-6 justify-between items-start ">
-                        <h1 v-if="userStore.$state.isloggedin == false || authStore.$state.isloggedin == false"
-                            class="  text-2xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-black whitespace-normal mb-5 font-bold">
-                            {{ languageStore.getWord('title') }}
-                            <span class="underline underline-offset-4 text-primary">
-                                {{ languageStore.getWord('endTitle') }}
-                            </span>
-                        </h1>
-                        <h1 v-else
-                            class="  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-black whitespace-normal mb-5 font-bold">
-                            Welcome
-                            <span class="underline underline-offset-4 text-primary">
-                                {{ userStore.$state.userAuth.lastName.toUpperCase() }}
-                            </span>
-                        </h1>
-
-                    </div>
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-
-
-        <Modal class=" flex flex-col justify-center items-center gap-4  sm:gap-8 md:gap-10  h-full ">
-            <div class=" flex flex-col items-end justify-end w-full  px-2 sm:px-10 md:px-20 lg:px-32 ">
-                <label @click="modalStore.toggleModal"
-                    class="btn btn-error place text-sm md:text-lg btn-sm md:btn-md btn-circle right-[20%] top-[10%] ">✕</label>
-            </div>
-
-            <div
-                class=" grid grid-cols-2 px-2     items-center bg-transparent sm:gap-8  md:gap-12 lg:gap-16  max-w-lg     gap-4 ">
-                <Card @click="toggleModalLogin('clientTheme', 'client')" :title="languageStore.getWord('client')"
-                    iconName="person" class=" hover:bg-[#db4024]/90  sm:p-12 md:p-14     p-10 w-full " />
-                <Card @click="toggleModalLogin('providerTheme', 'provider')" :title="languageStore.getWord('provider')"
-                    iconName="engineering" class=" hover:bg-[#2c5cc5]/90  sm:p-12 md:p-14  p-10 w-full " />
-            </div>
-        </Modal>
-
-    </div>
+  
 
     <div class="flex flex-col gap-2   justify-center items-center w-full h-full " >
         <div class="w-10/12 border-2 p-2 rounded-2xl  h-full ">
@@ -110,13 +56,14 @@
         </button>
     </div>
 
-    <Image />
+    
 
     <Footer  class="mt-[1000px]" />
+</div>2
 </template>
 
 <script>
-import Navbar from '../../components/Navbar.vue'
+import Navbar2 from '../../components/Navbar2.vue'
 import Footer from '../../components/Footer.vue'
 import SearchBar from '../../components/SearchBar.vue'
 import Howitworks from '../../components/Howitworks.vue'
@@ -137,6 +84,7 @@ import { useclientDemandeStore } from '../../store/clientDemandeStore.js'
 import { useAuthStore } from '../../store/authStore.js'
 import { useRouter } from 'vue-router'
 import { computed, watchEffect, ref, reactive, watch } from 'vue'
+import Navbar3 from '../../components/Navbar3.vue'
 
 
 
@@ -144,7 +92,7 @@ import { computed, watchEffect, ref, reactive, watch } from 'vue'
 
 export default {
     name: 'ProviderHome',
-    components: { Navbar, Modal, CategoriesList,Image, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage },
+    components: { Navbar2, Modal, CategoriesList, Image, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage, Navbar3 },
     setup() {
         //initialisation the store
         const languageStore = useLanguageStore()

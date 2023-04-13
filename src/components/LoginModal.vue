@@ -83,9 +83,9 @@
                         <!-- <Loading class=" border-white bg-black  " /> -->
                     </button>
                     <div class="divider"> {{ languageStore.getWord('dont_have_account') }} </div>
-                    <router-link @click="toggleModalLogin" :to="{ name: 'howitworks' }"> <span
-                            class="btn btn-sm md:btn-md btn-ghost w-full border-2">{{ languageStore.getWord('register')
-                            }}</span> </router-link>
+                    <router-link @click="toggleModalLogin" :to="{ name: 'howitworks' }">
+                        <span class="btn btn-sm md:btn-md btn-ghost w-full border-2">{{ languageStore.getWord('register') }}</span>
+                    </router-link>
                 </div>
 
             </form>
@@ -189,7 +189,7 @@ export default {
                     authStore.login('', phone.value, password.value).then(() => {
                         if (userStore.isloggedin) {
                             modalStore.toggleModalLogin();
-                            if(userStore.$state.userType==='provider'){
+                            if (userStore.$state.userType === 'provider') {
                                 router.replace({ name: 'providerHome' })
                             }
                         } else {

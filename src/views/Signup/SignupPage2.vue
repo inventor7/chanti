@@ -5,8 +5,8 @@
             :isError="notSelectedError" errorText="Please select a Category" 
             @handle="handleClick"
             :pageTitle="languageStore.getWord('Choose')" :pageDesc="languageStore.getWord('chooseField')">
-            <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-start ">
-                <div class=" flex flex-col  justify-start items-center gap-3 w-full h-full ">
+            <div class=" flex overflow-y-scroll flex-row justify-around w-full h-full  flex-1 gap-3  items-start ">
+                <div class=" flex flex-col  justify-start items-center mb-20  md:mb-0 gap-3 w-full h-full ">
                     <CategoriesList />
                 </div>
             </div>

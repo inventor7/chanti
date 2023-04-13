@@ -1,7 +1,9 @@
 <template>
     <SignupLayout prevLink="home" :backBtnVisibility="true" :pageNumber="1" :isError="notSelectedError"
         errorText="Please select a service" nextBtnText="Next" @handle="handleClick" pageTitle=" Choose Services"
-        pageDesc=" select the multiple services that you can provide for your clients ">
+        pageDesc=" select the multiple services that you can provide for your clients "
+        componentLocation = "selectionProcess">
+        
 
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-start ">
             <div class=" flex flex-col  justify-start items-start gap-3 w-full h-full ">
