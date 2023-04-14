@@ -81,24 +81,8 @@ export const useCategoriesStore = defineStore("categoriesStore", {
     ],
   }),
   getters: {
-    //get the selected category
-    getSelectedCategory(state) {
-      return state.selectedCategory;
-    },
-    //get the selected sub category
-    getSelectedSubCategories(state) {
-      return state.selectedSubCategories;
-    },
-    getError(state) {
-      return state.error;
-    },
-  },
-  getters: {
-    //get the selected category
-    getSelectedCategory(state) {
-      return state.selectedCategory;
-    },
-    // get isActiveDecoration based on the route
+
+    //just to remove the decoration on the home page
     getIsActiveDecoration() {
       const router = useRouter();
       if (router.currentRoute.value.path === "/") {
@@ -111,13 +95,6 @@ export const useCategoriesStore = defineStore("categoriesStore", {
   },
 
   actions: {
-    isActiveCategory(category) {
-      if (this.selectedCategory.id === category.id) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     emptyFields() {
       this.selectedCategory = {};
       this.selectedSubCategories = [];
@@ -135,7 +112,7 @@ export const useCategoriesStore = defineStore("categoriesStore", {
       }
     },
 
-    //fetch sub-categories by id from the server with axios
+   
     async fetchSubCategories(selectedCategory) {
       this.loading = true;
       try {
@@ -148,20 +125,37 @@ export const useCategoriesStore = defineStore("categoriesStore", {
         }
         this.subCategories = response.data.result;
         this.loading = false;
-      } catch (err) {
+        this.error.status=false,
+        this.error.message=""
+
+      } catch (error) {
         this.loading = false;
-        this.error.status = true;
-        if (err.code === "ECONNABORTED") {
-          this.error.message = "Check your internet connection and try again";
-        } else if (err.response) {
-          this.error.message = `HTTP error: ${err.response.status}`;
-        } else if (err.message.startsWith("Data error")) {
-          this.error.message = err.message;
-        } else {
+        this.error.status=true
+        if (error.response) {
+          this.error.message = "Server Error : Please try again";
+        } else if (error.request) {
           this.error.message =
-            "Network error: please check your internet connection";
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.error.message = "Server Error : Please try again";
         }
       }
     },
+
+
+
+
+    //getters
+    
+    // get category by id
+    getCategoryById(id) {
+      return this.categories.find((item) => item.id === id);
+    },
+    
+    //get sub category by id
+    getSubCategoryById(id) {
+      return this.subCategories.find((item) => item.id === id);
+    }
+
   },
 });

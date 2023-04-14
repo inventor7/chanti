@@ -21,8 +21,6 @@
                                 </label>
                                 to upload
                             </span>
-                            <div v-if="isDragging" class="dropzone bg-black ">Drop files here</div>
-                            <!-- <p>Drag & Drop or <span class=" text-blue-700 " >Choose a file</span> to uppload</p> -->
                         </div>
                         <div class="w-full h-full rounded-2xl"
                         :class="{'border-2':!selectedFiles.length}"
@@ -101,51 +99,13 @@ export default {
             }
         }
 
-        function handleDragEnter(event) {
-            event.preventDefault();
-            isDragging.value = true;
-        }
-
-        function handleDragOver(event) {
-            event.preventDefault();
-            isDragging.value = true;
-        }
-
-        function handleDragLeave(event) {
-            event.preventDefault();
-            isDragging.value = false;
-        }
-
-        function handleDrop(event) {
-            event.preventDefault();
-            isDragging.value = false;
-            const files = event.dataTransfer.files;
+        watchEffect(() => {
             if (clientDemandeStore.request.images.length > 3) {
                 notSelectedError.value = true
                 errorText.value = 'You can only select 4 images'
-            } else {
-                for (let i = 0; i < files.length; i++) {
-                    selectedFiles.push(files[i]);
-                }
-                clientDemandeStore.request.images = selectedFiles;
             }
-        }
-
-        watch(isDragging, (newValue, oldValue) => {
-            if (newValue !== oldValue) {
-                if (newValue) {
-                    document.addEventListener('dragenter', handleDragEnter);
-                    document.addEventListener('dragover', handleDragOver);
-                    document.addEventListener('dragleave', handleDragLeave);
-                    document.addEventListener('drop', handleDrop);
-                } else {
-                    document.removeEventListener('dragenter', handleDragEnter);
-                    document.removeEventListener('dragover', handleDragOver);
-                    document.removeEventListener('dragleave', handleDragLeave);
-                    document.removeEventListener('drop', handleDrop);
-                }
-            }
-        });
+        })
+        
 
         const selectedFileUrls = computed(() => {
             return selectedFiles.map((file) => URL.createObjectURL(file));
@@ -169,7 +129,7 @@ export default {
 
             //methods
             handleClick,handleFileClick,
-            handleFileUpload, isDragging, selectedFileUrls, selectedFiles
+            handleFileUpload, selectedFileUrls, selectedFiles
         }
     },
 

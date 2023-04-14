@@ -23,12 +23,12 @@
       <div class="navbar-end gap-2  md :gap-4">
         <DropDownLangVue :showLogin="showLogin" />
 
-        <button v-if="showLogin && !userStore.isloggedin" @click="modalStore.toggleModal"
+        <button v-if="showLogin && !authStore.isAuthenticated" @click="modalStore.toggleModal"
           class=" btn btn-primary btn-xs gap-2 sm:btn-sm btn-outline ">
           <span class="material-icons text-[18px] hidden sm:block ">
             login
           </span>
-         {{ languageStore.getWord('login') }} 
+          {{ languageStore.getWord('login') }}
         </button>
 
         <button v-else @click="logout()" class=" btn btn-primary btn-xs gap-2 sm:btn-sm btn-outline ">

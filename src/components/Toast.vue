@@ -1,13 +1,9 @@
 <template>
-    <div v-show="isVisible" class="  z-20 box toast toast-top toast-center w-fit whitespace-nowrap ">
-        <div 
-        class="alert text-white  shadow-lg"
-        :class="{
+<div v-show="isVisible" class=" toast toast-top toast-center w-fit whitespace-nowrap toast-enter-active">        <div class="alert text-white  shadow-lg" :class="{
             'bg-success': color === 'success',
             'bg-error': color === 'error',
             'bg-info': color === 'info',
-        }"
-        >
+        }">
             <div>
                 <span>{{ message }}</span>
             </div>
@@ -28,7 +24,7 @@ export default {
             type: Number,
             default: 3000
         },
-        isVisible : {
+        isVisible: {
             type: Boolean,
             default: false
         },
@@ -57,3 +53,28 @@ export default {
 }
 
 </script>
+
+
+<style>
+.toast-exit {
+    transform: translateX(0%);
+}
+
+.toast-exit-to {
+    transform: translateX(100%);
+}
+
+.toast-exit-active {
+    animation: slide-out 0.5s ease-out;
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+</style>

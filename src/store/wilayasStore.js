@@ -48,19 +48,17 @@ export const useWilayasStore = defineStore("wilayasStore", {
         }
         this.communes = response.data.result;
         this.loading = false;
-      } catch (err) {
+      } catch (error) {
         this.loading = false;
-        this.error.status = true;
-        if (err.code === 'ECONNABORTED') {
-          this.error.message = 'Check your internet connection and try again'
-        } else if (err.response) {
-          this.error.message = `HTTP error: ${err.response.status}`
-        } else if (err.message.startsWith('Data error')) {
-          this.error.message = err.message
+        if (error.response) {
+          this.error.status = true;
+          this.error.message = "Server Error : please try again later";
+        } else if (error.request) {
+          this.error.message =
+            "Network error: please check your internet connection and try again";
         } else {
-          this.error.message = 'Network error: please check your internet connection'
+          this.error.message = "Server Error : please try again later";
         }
-      
       }
     },
   },

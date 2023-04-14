@@ -13,7 +13,7 @@
 
                 <div class="px-2 flex-1  sm:px-4 w-full h-fit  flex flex-row justify-start items-center py-0  ">
                     <div class="w-flex max-w-5xl  flex-col py-4 md:gap-6 justify-between items-start ">
-                        <h1 v-if="userStore.$state.isloggedin == false || authStore.$state.isloggedin == false"
+                        <h1 v-if="authStore.$state.isAuthenticated == false "
                             class="  text-2xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-white whitespace-normal mb-5 font-bold">
                             {{ languageStore.getWord('title') }}
                             <span class="underline underline-offset-4 text-primary">
@@ -24,7 +24,7 @@
                             class="  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-white whitespace-normal mb-5 font-bold">
                             Welcome Back
                             <span class="underline underline-offset-4 text-primary">
-                                {{ userStore.$state.userAuth.lastName.toUpperCase() }}
+                                {{ authStore.$state.userAuth.lastName.toUpperCase() }}
                             </span>
                         </h1>
 
@@ -145,6 +145,7 @@ export default {
 
         const selectCategory = (category) => {
             clientDemandeStore.request.categoryId = category.id
+            userStore.userType = 'client'
             categoriesStore.fetchSubCategories(category)
             router.replace({name:'services'})
             notSelectedError.value = false
@@ -198,4 +199,5 @@ export default {
 
 ::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.1);
-}</style>
+}
+</style>

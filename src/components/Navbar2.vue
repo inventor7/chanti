@@ -40,7 +40,7 @@
                 <ul tabindex="0"
                     class="menu menu-compact shadow-2xl border-2 font-semibold dropdown-right  dropdown-content mt-3 p-2  bg-base-100 rounded-box w-52">
                     <li>
-                        <RouterLink  :to="{ name: 'profile', params: { name: userStore.$state.userAuth.firstName } }">
+                        <RouterLink :to="{ name: 'profile', params: { name: authStore.$state.userAuth.firstName } }">
                             <span class="flex flex-row justify-start gap-2 items-center">
                                 <span class="material-icons">
                                     person
@@ -105,7 +105,7 @@ export default {
         }
 
         onBeforeMount(() => {
-            if (userStore.$state.isloggedin === false) {
+            if (authStore.$state.isAuthenticated === false) {
                 router.replace({ name: 'home' });
             }
         })
@@ -114,6 +114,7 @@ export default {
             //Store
             themeStore,
             userStore,
+            authStore,
 
             //Methods
             logout

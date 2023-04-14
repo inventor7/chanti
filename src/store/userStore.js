@@ -5,7 +5,6 @@ import { useAuthStore } from "./authStore";
 export const useUserStore = defineStore("userStore", {
   id: "user",
   state: () => ({
-    userAuth: {},
     user: {
       userType: "",
       firstName: "",
@@ -21,12 +20,10 @@ export const useUserStore = defineStore("userStore", {
       language: "",
     },
     userType: "",
-    isloggedin: false,
     error: {
       status: false,
       message: "",
     },
-    token: "",
     loading: false,
     pNumber: 0,
   }),
@@ -68,56 +65,8 @@ export const useUserStore = defineStore("userStore", {
         return "password"; // password is empty
       } else return false; // all fields are filled
     },
-    getUserId() {
-      return localStorage.getItem("userId");
-    }
   },
   actions: {
-    async signup() {
-      try {
-        this.loading = true;
-        const response = await axios({
-          method: "post",
-          url: `${useAuthStore().baseUrl}/auth/signup`,
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
-          data: {
-            userType: this.user.userType,
-            firstName: this.user.firstName,
-            lastName: this.user.lastName,
-            categoryId: this.user.category.id,
-            subCategoriesIds: this.user.subCategoriesIds,
-            stateId: this.user.wilaya.id,
-            cityId: this.user.commune.id,
-            email: this.user.email,
-            phoneNumber: this.user.phoneNumber,
-            password: this.user.password,
-            language: this.user.language,
-          },
-          timeout: 13000, // 13 seconds
-        });
-
-        localStorage.setItem("userId", response.data.result.user.id);
-        localStorage.setItem("token", response.data.result.token);
-        this.token = response.data.result.token
-        this.isloggedin = true;
-        this.userAuth = response.data.result.user;
-        this.loading = false;
-        return response;
-      } catch (error) {
-        this.loading = false;
-        if (error.response) {
-          this.error.message = error.response.data.message;
-        } else if (error.request) {
-          this.error.status = true;
-          this.error.message =
-            "Network error: please check your internet connection and try again";
-        }
-      }
-    },
-
     //extract the sub categories ids from the sub categories array and pass them to subCategoriesIds
     extractSubCategoriesIds() {
       this.user.subCategoriesIds = [
@@ -143,7 +92,10 @@ export const useUserStore = defineStore("userStore", {
     {
       key: "userInfo",
       storage: localStorage,
-      paths: ["userAuth", "user.language", "isloggedin","userType","token"],
+      paths: [
+        "user.language",
+        "userType",
+      ],
     },
   ],
 });

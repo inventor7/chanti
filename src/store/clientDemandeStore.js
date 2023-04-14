@@ -82,13 +82,12 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
           url: `${useAuthStore().baseUrl}/client-post/save`,
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${useUserStore().$state.token}`,
+            "Authorization": `Bearer ${useAuthStore().$state.token}`,
           },
           data: data,
           timeout: 13000, // 13 seconds
         });
         console.log(response.data);
-        console.log(localStorage);
         this.loading = false;
         this.errorClientDemande.status = false;
         this.errorClientDemande.message = "";

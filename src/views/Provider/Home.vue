@@ -219,7 +219,7 @@ export default {
 
             const formData = new FormData();
                 formData.append("details", descText.value );
-                formData.append("providerId", userStore.$state.userAuth.id);
+                formData.append("providerId", userStore.$state.authStore.id);
                 for (let i = 0; i <selectedFiles.length; i++) {
                     formData.append("images", selectedFiles[i]);
                 }
@@ -234,7 +234,8 @@ export default {
         }
 
         const handlegetPost = () => {
-            providerStore.getPost(userStore.$state.userAuth.id).then((res)=> {
+            console.log(authStore.$state.userAuth.id)
+            providerStore.getPost(authStore.$state.userAuth.id).then((res)=> {
                 console.log(res.data)
             })
         }

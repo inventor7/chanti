@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./authStore";
+import { useUserStore } from "./userStore";
 export const userequestProviderStore = defineStore("requestProviderStore", {
   id: "requestProvider",
   state: () => ({
@@ -21,7 +22,7 @@ export const userequestProviderStore = defineStore("requestProviderStore", {
           url: `${useAuthStore().baseUrl}/client-post/send-request`,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
             providerId: providerId,

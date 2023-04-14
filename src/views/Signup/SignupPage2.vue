@@ -2,8 +2,7 @@
     <div>
 
         <SignupLayout prevLink="howitworks" :pageNumber="userStore.user.userType === 'provider' ? 2 : 0"
-            :isError="notSelectedError" errorText="Please select a Category" 
-            @handle="handleClick"
+            :isError="notSelectedError" errorText="Please select a Category" @handle="handleClick"
             :pageTitle="languageStore.getWord('Choose')" :pageDesc="languageStore.getWord('chooseField')">
             <div class=" flex overflow-y-scroll flex-row justify-around w-full h-full  flex-1 gap-3  items-start ">
                 <div class=" flex flex-col  justify-start items-center mb-20  md:mb-0 gap-3 w-full h-full ">
@@ -21,7 +20,7 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import { useCategoriesStore } from '../../store/categoriesStore';
 import { useUserStore } from '../../store/userStore'
 import { useLanguageStore } from '../../store/languageStore';
-import { ref, computed,onBeforeMount } from 'vue';
+import { ref, computed, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -37,9 +36,9 @@ export default {
         const languageStore = useLanguageStore()
         const router = useRouter()
 
-       
+
         const handleClick = () => {
-            if (Object.keys(categoriesStore.selectedCategory).length !== 0 ) {
+            if (Object.keys(categoriesStore.selectedCategory).length !== 0) {
                 // if category is selected
                 userStore.user.category = categoriesStore.selectedCategory
                 categoriesStore.fetchSubCategories(categoriesStore.selectedCategory)
@@ -67,11 +66,11 @@ export default {
             notSelectedError,
 
             // vars
-            
+
 
             // methods
             handleClick,
-           
+
             // store
             categoriesStore,
             languageStore,

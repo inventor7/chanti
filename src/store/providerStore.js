@@ -23,7 +23,7 @@ export const useProviderStore = defineStore("providerStore", {
           url: `${useAuthStore().baseUrl}/profile/get-provider-data`,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
             "providerId": provider.id,
@@ -58,7 +58,7 @@ export const useProviderStore = defineStore("providerStore", {
           url: `${useAuthStore().baseUrl}/profile/add-portfolio-post`,
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${useAuthStore().$state.token}`,
           },
           data: data,
           timeout: 13000, // 13 seconds
@@ -82,26 +82,29 @@ export const useProviderStore = defineStore("providerStore", {
     },
 
 
-    async getPost(provider) {
+    async getPost(id) {
       try {
         this.loading = true;
         const response = await axios({
-          method: "get",
+          method: "post",
           url: `${useAuthStore().baseUrl}/profile/get-provider-data`,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Accept": "application/json",
+            "Authorization": `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "providerId": "1f7989ab-2cf4-48d6-a125-f5c4b197d6f8"
+            "providerId": id,
           },
           timeout: 13000, // 13 seconds
         });
         console.log(response);
+        this.provider = response.data.result.provider;
+        this.provider.category = response.data.result.category; 
         this.loading = false;
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
-        
+       
         // Extract images from response and convert to URLs
         const images = response.data.result.portfolioPostsWithImages.flatMap(post => {
           return post.images.map(image => URL.createObjectURL(new Blob([new Uint8Array(image.data)])))

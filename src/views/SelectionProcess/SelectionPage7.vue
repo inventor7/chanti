@@ -84,16 +84,14 @@
                 <button class="btn hidden md:block btn-primary text-white my-2 rounded-xl btn-md ">
                     Post Request
                 </button>
-
-
-                <Toast :duration="3000" :isVisible="requestProviderStore.$state.errorrequestProvider.status" color="error"
-                    :message="requestProviderStore.$state.errorrequestProvider.message" />
-                <Toast :duration="3000" :isVisible="requestProviderStore.$state.isSent" color="success"
-                    message="request sent successfully" />
             </div>
         </div>
 
     </SignupLayout>
+    <Toast :duration="3000" :isVisible="requestProviderStore.$state.errorrequestProvider.status" color="error"
+        :message="requestProviderStore.$state.errorrequestProvider.message" />
+    <Toast :duration="3000" :isVisible="requestProviderStore.$state.isSent" color="success"
+        message="request sent successfully" />
 </template>
 
 <script>
@@ -167,15 +165,14 @@ export default {
 
         const showProfile = (provider) => {
             //show profile based on the provider id
-            router.replace({
-                name: 'profile',
-                params: { name: provider.firstName + '-' + provider.lastName }
-            })
             providerStore.getProviderData(provider).then((res) => {
-                if (res.status == 200) {
-                    console.log(res)
-                }
+                console.log(res)
+                router.replace({
+                    name: 'profile',
+                })
             })
+
+
 
 
         }

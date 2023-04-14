@@ -116,7 +116,7 @@
 
 
                     <div v-show="wilayassStore.error.status || !wilayaValidate" class=" box h-full w-full flex flex-col justify-center items-center ">
-                        <Error class="  text-center text-xl font-semibold  " :error="wilayassStore.error.message" />
+                        <Error class="  text-center text-lg  font-semibold  " :error="wilayassStore.error.message" />
                     </div>
 
 

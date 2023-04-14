@@ -71,7 +71,7 @@
                     </label>
 
                     <span class="link text-xs whitespace-nowrap link-primary no-underline">{{
-                        languageStore.getWord('forgot_password') }}</span>
+                                            languageStore.getWord('forgot_password') }}</span>
                 </div>
 
                 <div class="flex flex-col w-full h-full gap-[3px]">
@@ -84,7 +84,8 @@
                     </button>
                     <div class="divider"> {{ languageStore.getWord('dont_have_account') }} </div>
                     <router-link @click="toggleModalLogin" :to="{ name: 'howitworks' }">
-                        <span class="btn btn-sm md:btn-md btn-ghost w-full border-2">{{ languageStore.getWord('register') }}</span>
+                        <span class="btn btn-sm md:btn-md btn-ghost w-full border-2">{{ languageStore.getWord('register')
+                                                    }}</span>
                     </router-link>
                 </div>
 
@@ -187,7 +188,7 @@ export default {
 
                 if (phone.value.includes('@')) { // if phone is an email
                     authStore.login('', phone.value, password.value).then(() => {
-                        if (userStore.isloggedin) {
+                        if (authStore.isAuthenticated) {
                             modalStore.toggleModalLogin();
                             if (userStore.$state.userType === 'provider') {
                                 router.replace({ name: 'providerHome' })
@@ -202,7 +203,7 @@ export default {
                 } else { // if phone is a phone number
                     authStore.login(phone.value, '', password.value).then(() => {
 
-                        if (userStore.isloggedin) {
+                        if (authStore.isAuthenticated) {
                             modalStore.toggleModalLogin();
                         } else {
                             toggleError.value = true

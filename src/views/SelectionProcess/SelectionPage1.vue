@@ -11,7 +11,7 @@
                     class="absolute top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
                     <Loading />
                 </div>
-                <div class="h-full w-full flex flex-col justify-center items-center " v-else>
+                <div class="h-full w-full flex flex-col justify-start items-center " v-else>
                     <div v-if="errorList.error" class=" h-full w-full flex flex-col justify-center items-center ">
                         <Error class=" text-xl font-semibold whitespace-pre-line " :error="errorList.message" />
                     </div>

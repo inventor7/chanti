@@ -3,7 +3,8 @@
         <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="next"
             :isError="notSelectedError" :errorText="msg" @handle="handleClick" @handleBack="handleBack"
             pageTitle=" Register " pageDesc=" so you can login to our platform wherever you are whenever you want ">
-            <div class=" flex flex-col   justify-center py-2 items-center font-semibold text-md w-full h-full ">
+            <div
+                class=" flex flex-col overflow-y-scroll h-[100vh]   justify-center py-2 items-center font-semibold text-md w-full md:h-full ">
                 <!-- when it's loading -->
                 <Loading v-if="userStore.loading" />
                 <!-- the loading has stopped -->
@@ -14,7 +15,7 @@
                     </div>
                     <!-- when there's no error  -->
                     <form v-else
-                        class=" flex flex-col md:justify-start md:h-full md:gap-4 overflow-scroll  justify-between items-center px-4   sm:px-10 md:px-10    w-full h-[70vh] ">
+                        class=" flex flex-col md:justify-start md:h-full md:gap-4   justify-between items-center px-4   sm:px-10 md:px-10    w-full  ">
                         <img v-if="userStore.$state.user.userType == 'client'" class="rounded-full w-24 md:pb-10 "
                             src="../../assets/patient.png" alt="">
                         <img v-else class="rounded-full w-24 md:pb-10  " src="../../assets/handyman.png" alt="">
@@ -151,7 +152,9 @@ import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { ref, computed, onBeforeMount } from 'vue';
 import { useUserStore } from '../../store/userStore';
-import { useRouter } from 'vue-router';
+import { useAuthStore } from '../../store/authStore';
+import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useRoute, useRouter ,onBeforeRouteUpdate } from 'vue-router';
 
 
 export default {
@@ -160,6 +163,8 @@ export default {
     setup() {
         const userStore = useUserStore()
         const router = useRouter()
+        const authStore = useAuthStore()
+        const clientDemandeStore = useclientDemandeStore()
 
         // props
         const notSelectedError = ref(false)
@@ -181,6 +186,9 @@ export default {
         const isValidEmail = ref(true)
         const isValidPhone = ref(true)
         const isValidPasswordC = ref(true)
+
+        //vars
+        const previousRouteName = ref('')
 
 
         // check if email is valid and email is optional
@@ -227,6 +235,11 @@ export default {
 
         })
 
+        onBeforeRouteUpdate((to, from, next) => {
+            previousRouteName.value = from.name
+            next();
+        });
+
 
         // check if all inputs are valid
         const handleClick = (clicked) => {
@@ -249,8 +262,8 @@ export default {
                         }
                         else {
                             userStore.extractSubCategoriesIds()
-                            userStore.signup().then(() => {
-                                if (userStore.$state.isloggedin) {
+                            authStore.signup().then(() => {
+                                if (authStore.$state.isAuthenticated) {
                                     userStore.emptyFields()
                                     if (userStore.$state.userType === 'provider') {
                                         router.replace({ name: 'providerHome' })
@@ -277,10 +290,35 @@ export default {
                             }, 5000);
                         }
                         else {
-                            userStore.signup().then(() => {
-                                if (userStore.$state.isloggedin) {
+                            authStore.signup().then(() => {
+                                if (authStore.$state.isAuthenticated) {
+                                    console.log(previousRouteName.value)
                                     userStore.emptyFields()
-                                    router.replace({ name: 'home' })
+                                    //redirect based on the previous page
+                                    if (previousRouteName.value === 'loginSelection') {
+                                            // set client id to the request
+                                            clientDemandeStore.request.clientId = authStore.$state.userAuth.id
+                                            // send request to server
+                                            const formData = new FormData();
+                                            formData.append("clientId", clientDemandeStore.$state.request.clientId);
+                                            formData.append("categoryId", clientDemandeStore.$state.request.categoryId);
+                                            formData.append("subcategoryId", clientDemandeStore.$state.request.subCategoryId);
+                                            formData.append("stateId", clientDemandeStore.$state.request.stateId);
+                                            formData.append("cityId", clientDemandeStore.$state.request.cityId);
+                                            formData.append("urgency", clientDemandeStore.$state.request.urgency);
+                                            formData.append("description", clientDemandeStore.$state.request.description);
+                                            for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
+                                                formData.append("images", clientDemandeStore.$state.request.images[i]);
+                                            }
+                                            for (let pair of formData.entries()) {
+                                                console.log(pair[0] + ', ' + pair[1]);
+                                            }
+                                            clientDemandeStore.postClientDemande(formData)
+                                            router.replace({ name: 'results' })
+                                    } else {
+                                        router.replace({ name: 'home' })
+                                    }
+
                                 } else {
                                     notSelectedError.value = true
                                     msg.value = userStore.error.message
