@@ -12,6 +12,9 @@ export default defineConfig({
     },
   },
   server: {
+    //enable CORS
+    cors: true,
+    //enable proxy
     proxy: {
       "/api": {
         target: "https://chanti-dz-backend.herokuapp.com",
