@@ -145,8 +145,11 @@ export default {
 
         const selectCategory = (category) => {
             clientDemandeStore.request.categoryId = category.id
-            userStore.userType = 'client'
             categoriesStore.fetchSubCategories(category)
+
+            //initialisation
+            userStore.userType = 'client'
+            clientDemandeStore.requestinProgress = true
             router.replace({name:'services'})
             notSelectedError.value = false
         }

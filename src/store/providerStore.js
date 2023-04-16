@@ -36,6 +36,8 @@ export const useProviderStore = defineStore("providerStore", {
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
         this.provider = response.data.result.provider;
+        this.provider.category=response.data.result.category;
+        this.provider['subCategories']=response.data.result.subcategories;
         this.portfolioPost= response.data.result.portfolioPosts;
         return response;
       } catch (error) {

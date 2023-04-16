@@ -154,7 +154,7 @@ import { ref, computed, onBeforeMount } from 'vue';
 import { useUserStore } from '../../store/userStore';
 import { useAuthStore } from '../../store/authStore';
 import { useclientDemandeStore } from '../../store/clientDemandeStore';
-import { useRoute, useRouter ,onBeforeRouteUpdate } from 'vue-router';
+import {  useRouter  } from 'vue-router';
 
 
 export default {
@@ -187,8 +187,7 @@ export default {
         const isValidPhone = ref(true)
         const isValidPasswordC = ref(true)
 
-        //vars
-        const previousRouteName = ref('')
+        
 
 
         // check if email is valid and email is optional
@@ -235,10 +234,6 @@ export default {
 
         })
 
-        onBeforeRouteUpdate((to, from, next) => {
-            previousRouteName.value = from.name
-            next();
-        });
 
 
         // check if all inputs are valid
@@ -252,7 +247,7 @@ export default {
 
                 if (isValidEmail.value && isValidPhone.value && isValidPassword.value && isValidPasswordC.value) {
                     notSelectedError.value = false
-                    if (userStore.user.userType == 'provider') {
+                    if (userStore.$state.userType === 'provider') {
                         if (userStore.isEmptyProvider) { //check if all the fields are not empty else return it to the beggining
                             notSelectedError.value = true
                             msg.value = 'we will redirect you to fill all the fields'
@@ -265,14 +260,11 @@ export default {
                             authStore.signup().then(() => {
                                 if (authStore.$state.isAuthenticated) {
                                     userStore.emptyFields()
-                                    if (userStore.$state.userType === 'provider') {
-                                        router.replace({ name: 'providerHome' })
-                                    } else {
-                                        router.replace({ name: 'home' })
-                                    }
+                                    router.replace({ name: 'providerHome' })
+                                    
                                 } else {
                                     notSelectedError.value = true
-                                    msg.value = userStore.error.message
+                                    msg.value = authStore.error.message
                                 }
 
                             })
@@ -281,7 +273,7 @@ export default {
 
 
 
-                    if (userStore.user.userType == 'client') {
+                    if (userStore.$state.userType === 'client') {
                         if (userStore.isEmptyClient) { //check if all the fields are not empty else return it to the beggining
                             notSelectedError.value = true
                             msg.value = 'we will redirect you to fill all the fields'
@@ -292,10 +284,9 @@ export default {
                         else {
                             authStore.signup().then(() => {
                                 if (authStore.$state.isAuthenticated) {
-                                    console.log(previousRouteName.value)
                                     userStore.emptyFields()
                                     //redirect based on the previous page
-                                    if (previousRouteName.value === 'loginSelection') {
+                                    if (clientDemandeStore.$state.requestinProgress===true) {
                                             // set client id to the request
                                             clientDemandeStore.request.clientId = authStore.$state.userAuth.id
                                             // send request to server
@@ -321,7 +312,7 @@ export default {
 
                                 } else {
                                     notSelectedError.value = true
-                                    msg.value = userStore.error.message
+                                    msg.value = authStore.error.message
                                 }
 
                             })

@@ -185,7 +185,7 @@ export default {
         const wilayasStore = useWilayasStore()
         const themeStore = useThemeStore()
         const router = useRouter()
-        const clientStore = useclientDemandeStore()
+        const clientDemandeStore = useclientDemandeStore()
 
         const handleNext = () => {
             context.emit('handle', true);
@@ -212,7 +212,8 @@ export default {
         const handleCancelDemande = () => {
             //delete all the data
             categoriesStore.emptyFields()
-            clientStore.emptyFields()
+            clientDemandeStore.emptyFields()
+            clientDemandeStore.requestinProgress = false
             wilayasStore.emptyFields()
             router.replace({ name: 'home' })
         }

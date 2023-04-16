@@ -40,10 +40,10 @@ export default {
 
         const handleClick = (clicked) => {
             if (clicked) {
-                if (userStore.user.userType === "provider") {
+                if (userStore.$state.userType === "provider") {
                     router.replace({ name:'field'})
                 }
-                else if( userStore.user.userType === "client"  )  {
+                else if( userStore.$state.userType === "client"  )  {
                     router.replace({ name:'location'})
                 }
             }

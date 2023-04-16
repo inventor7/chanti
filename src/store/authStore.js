@@ -30,7 +30,7 @@ export const useAuthStore = defineStore("authStore", {
             "Accept": "application/json",
           },
           data: {
-            userType: useUserStore().user.userType,
+            userType: useUserStore().$state.userType,
             firstName: useUserStore().user.firstName,
             lastName: useUserStore().user.lastName,
             categoryId: useUserStore().user.category.id,
@@ -58,7 +58,7 @@ export const useAuthStore = defineStore("authStore", {
           this.error.status = true;
           this.error.message =
             "Network error: please check your internet connection and try again";
-        }
+        } 
       }
     },
 
@@ -81,14 +81,14 @@ export const useAuthStore = defineStore("authStore", {
         window.location.reload();
         return response;
       } catch (error) {
+        this.error.status = true;
         if (error.response) {
-          this.error.status = true;
           this.error.message = error.response.data.message;
         } else if (error.request) {
-          this.error.status = true;
-          this.error.message =
-            "Network error: please check your internet connection and try again";
-        } 
+          this.error.message ="Network error: please check your internet connection and try again";
+        } else {
+          this.error.message ="Network error: please check your internet connection and try again";
+        }
       }
     },
 
@@ -119,11 +119,13 @@ export const useAuthStore = defineStore("authStore", {
         return response;
       } catch (error) {
         this.loading = false;
+        this.error.status = true;
         if (error.response) {
-          this.error.status = true;
           this.error.message = error.response.data.message;
         } else if (error.request) {
-          this.error.status = true;
+          this.error.message =
+            "Network error: please check your internet connection and try again";
+        } else {
           this.error.message =
             "Network error: please check your internet connection and try again";
         }

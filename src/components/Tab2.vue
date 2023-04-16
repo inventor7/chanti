@@ -1,8 +1,8 @@
 <template>
-    <div class="flex flex-col justify-center items-center border-2 rounded-2xl p-2 mt-4 gap-2  w-full h-full">
+    <div v-if=" rating === 0 " class="flex flex-col justify-center items-center border-2 rounded-2xl p-2 mt-4 gap-2  w-full h-full">
         <!-- <h2 class="font-bold font-sans text-3xl ">Custumor Service</h2> -->
         <h2 class="font-extrabold font-sans text-7xl ">{{ rating }}</h2>
-        <Rating :size="32" :rating="rating" />
+        <Rating :isIndicatorActive="false" :size="32" :rating="rating" />
         <div class="h-full w-full font-semibold flex flex-col justify-center items-center gap-2 ">
             <span>1<progress class="progress ml-2 progress-info w-56" value="0" max="100"></progress></span>
             <span>2<progress class="progress ml-2 progress-info w-56" value="10" max="100"></progress>
@@ -14,6 +14,9 @@
             <span>5<progress class="progress ml-2 progress-info w-56" value="100" max="100"></progress>
             </span>
         </div>
+    </div>
+    <div class="w-full h-[50vh] flex flex-col justify-center items-center" v-else >
+        <h2 class="text-2xl font-bold"  >No Rating Avaible </h2>
     </div>
 </template>
 

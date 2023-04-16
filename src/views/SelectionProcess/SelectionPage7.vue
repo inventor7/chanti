@@ -1,6 +1,6 @@
 <template>
     <SignupLayout prevLink="desc" :pageNumber="7" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle="Local Providers"
+        @handle="handleClick" pageTitle="Local Providers" 
         pageDesc=" Select a provider to send your request to and check their profiles " componentLocation="selectionProcess"
         :navigationVisibility="false">
 
@@ -9,7 +9,7 @@
             <div class=" flex flex-col  justify-center  items-center  w-full h-full   ">
                 <Loading v-if="loading" />
                 <!-- results -->
-                <div v-else class=" w-full md:w-1/2 md:h-[60vh] rounded-2xl my-2 md:p-2 md:border-2  overflow-y-scroll">
+                <div v-else class=" w-full md:w-1/2 md:h-[60vh] rounded-2xl my-2 md:p-2 shadow-2xl  overflow-y-scroll">
                     <div v-if="clientDemandeStore.$state.errorClientDemande.status"
                         class=" h-full w-full flex flex-col justify-center items-center ">
                         <Error class=" text-xl font-semibold whitespace-pre-line "
@@ -29,17 +29,18 @@
                             v-else>
 
                             <div v-for="provider in  clientDemandeStore.$state.providers" :key="provider.id"
-                                class="flex flex-col w-full  border-2 rounded-xl p-3  md:p-2 bg-white gap-1  drop-shadow-xl  hover:border-primary  border-gray-300">
+                                class="flex flex-col w-full  border-2 rounded-xl p-3  md:p-2 bg-white gap-1  drop-shadow-lg  hover:border-primary  border-gray-100">
                                 <div class="flex items-center">
                                     <!-- <img class="rounded-full w-20 h-20" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description"> -->
                                     <div @click="showProfile(provider)" class="grow hover:cursor-pointer ">
-                                        <h3 class=" text-lg md:text-xl sm:text-lg font-medium text-gray-800">
+                                        <h3 class=" text-lg md:text-xl sm:text-lg font-medium  text-gray-800">
                                             {{ provider.firstName }} {{ provider.lastName }}
                                         </h3>
 
 
                                     </div>
-                                    <div class="flex flex-col justify-center items-center w-fit ">
+                                    <div v-if="provider.verified === 1"
+                                        class="flex flex-col justify-center items-center w-fit ">
                                         <span class="material-icons text-secondary text-3xl">
                                             verified
                                         </span>
@@ -50,12 +51,7 @@
                                 </div>
 
                                 <div class=" flex flex-row justify-start items-center w-full  sm:mt-3 space-x-1">
-
-                                    <span class="text-md font-semibold">3</span> <span
-                                        class=" self-center text-sm text-gray-400">(44)</span>
-                                    <Rating :size="18" :rating="provider.rating" />
-
-
+                                    <Rating   v-bind="{rating: 3.7,isIndicatorActive: true,ratingNumber:7}" />
 
                                 </div>
                                 <button v-show="!provider.RequestisLoading" v-if="provider.BtnVisible"
@@ -198,7 +194,7 @@ export default {
             //methods
             showProfile,
             handleClick,
-            handleSendRequest
+            handleSendRequest,
         }
     },
 

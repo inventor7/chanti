@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./authStore";
-import { useUserStore } from "./userStore";
 export const useclientDemandeStore = defineStore("clientDemandeStore", {
   id: "clientDemande",
   state: () => ({
     loading: false,
+    requestinProgress: false,
     errorClientDemande: {
       message: "",
       status: false,
@@ -32,28 +32,28 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         id: 1,
         name: "urgent",
         description: "in 24 hours",
-        color: "red",
+        icon: "hourglass_empty",
         isSelected: false,
       },
       {
         id: 2,
-        name: "normal",
-        description: "in 48 hours",
-        color: "green",
+        name: "low",
+        description: "this month",
+        icon: "hourglass_full",
         isSelected: false,
       },
       {
         id: 3,
-        name: "low",
-        description: "this month",
-        color: "yellow",
+        name: "normal",
+        description: "in 48 hours",
+        icon: "hourglass_top",
         isSelected: false,
       },
       {
         id: 4,
         name: "unplanned",
         description: "it doesn't matter",
-        color: "blue",
+        icon: "hourglass_disabled",
         isSelected: false,
       },
 ],
@@ -87,7 +87,11 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
           data: data,
           timeout: 13000, // 13 seconds
         });
-        console.log(response.data);
+
+        if(response.data.status == 200)
+        {
+          this.requestinProgress = false;
+        }
         this.loading = false;
         this.errorClientDemande.status = false;
         this.errorClientDemande.message = "";
@@ -138,7 +142,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
     {
       key: "clientRequest",
       storage: localStorage,
-      paths: ["requestResponse","providers","request","selectedProvider","providerProfile"],
+      paths: ["requestResponse","providers","request","selectedProvider","providerProfile","requestinProgress"],
     },
   ],
 });

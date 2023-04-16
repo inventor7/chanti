@@ -30,7 +30,7 @@
         </div>
 
 
-        <div class="navbar-end gap-2   md :gap-4">
+        <div class="navbar-end gap-2   md:gap-4">
             <div class="dropdown dropdown-end  ">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
@@ -39,9 +39,13 @@
                 </label>
                 <ul tabindex="0"
                     class="menu menu-compact shadow-2xl border-2 font-semibold dropdown-right  dropdown-content mt-3 p-2  bg-base-100 rounded-box w-52">
+                    <div class="py-3 px-5 -m-2 bg-gray-200 rounded-t-lg ">
+                        <p class="text-sm text-gray-500 ">Signed in as</p>
+                        <p class="text-sm font-medium text-gray-800 ">{{ authStore.$state.userAuth.email }}</p>
+                    </div>
                     <li>
                         <RouterLink :to="{ name: 'profile', params: { name: authStore.$state.userAuth.firstName } }">
-                            <span class="flex flex-row justify-start gap-2 items-center">
+                            <span class="flex flex-row justify-start gap-2 mt-2 items-center">
                                 <span class="material-icons">
                                     person
                                 </span>
@@ -70,7 +74,7 @@
                             <span class="material-icons">
                                 logout
                             </span>
-                            Logoout
+                            Logout
                         </span>
                     </li>
                 </ul>

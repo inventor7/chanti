@@ -61,6 +61,27 @@ export const useWilayasStore = defineStore("wilayasStore", {
         }
       }
     },
+    //get wilaya by id depend on the language
+    getWilayaById(id) {
+    if(useUserStore().$state.user.language === 'ar'){
+      let wilaya = this.wilayas.find((wilaya) => wilaya.id === id);
+      return wilaya.ascciName;
+    } else {
+      let wilaya = this.wilayas.find((wilaya) => wilaya.id === id);
+      return wilaya.name;
+    }
+    },
+
+    //get commune by id depend on the language
+    getCommuneById(id) {
+     if(useUserStore().$state.user.language === 'ar'){
+      let commune = this.communes.find((commune) => commune.id === id);
+      return commune.CityName;
+      } else {
+      let commune = this.communes.find((commune) => commune.id === id);
+      return commune.CityNameAscii;
+      }
+    }
   },
   getters: {
     //get the selected wilaya if it's not an empty object

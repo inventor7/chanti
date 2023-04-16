@@ -12,6 +12,7 @@ export const userequestProviderStore = defineStore("requestProviderStore", {
     },
     clientRequestProvider: {},
     isSent: false,
+   
   }),
   actions: { 
     async sendRequest(providerId, clientPostId) {
@@ -47,6 +48,8 @@ export const userequestProviderStore = defineStore("requestProviderStore", {
         } else if (error.request) {
           this.errorrequestProvider.message =
             "Network error: please check your internet connection and try again";
+        } else {
+          this.errorrequestProvider.message="Network error: please check your internet connection and try again"
         }
       }
     },
