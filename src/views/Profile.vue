@@ -191,7 +191,7 @@
                     <div class="p-4 text-center md:py-7 md:px-5">
                         
                         <div v-if="selectedTab === 1">
-                            <Tab2 :rating="3" />
+                            <Tab2 :rating="provider.rating" />
                         </div>
                         <div v-if="selectedTab === 2">
                             <Tab3 />
@@ -216,6 +216,7 @@ import { useclientDemandeStore } from "../store/clientDemandeStore";
 import { useProviderStore } from "../store/providerStore";
 import { useLanguageStore } from "../store/languageStore";
 import { useWilayasStore } from "../store/wilayasStore";
+import { useAuthStore } from "../store/authStore";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import router from "../router";
@@ -234,13 +235,19 @@ export default {
         //store
         const clientDemandeStore = useclientDemandeStore()
         const providerStore = useProviderStore()
+        const authStore = useAuthStore()
         const languageStore = useLanguageStore()
         const wilayasStore = useWilayasStore()
         const router = useRouter()
 
 
         //computed
-        let provider = computed(() => providerStore.$state.provider)
+        let provider = computed(() => {
+            if(providerStore.$state.provider)
+                return providerStore.$state.provider
+            else
+                return authStore.$state.userAuth
+        })
         let loading = computed(() => providerStore.loading)
 
         //tab
