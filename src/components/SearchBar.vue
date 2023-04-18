@@ -17,7 +17,7 @@
 </template>
 
 <script >
-import { watch, ref, onMounted } from 'vue'
+import { watch, ref, onMounted, watchEffect } from 'vue'
 import { useSearchStore } from '../store/searchStore'
 import { useLanguageStore } from '../store/languageStore'
 
@@ -67,7 +67,7 @@ export default {
         }
 
         //showing results when the user write for a 1.5 second
-        watch(searchInput, (newInput) => {
+        watch(searchInput, (newInput,oldValue) => {
             if (props.componentLocation == 'searchPage')
             {
                 if (newInput.length > 0) {
@@ -75,7 +75,7 @@ export default {
                 searchStore.isClicked = false
                 setTimeout(() => {
                     searchStore.fetchSearchResults()
-                }, 1000)
+                }, 1500)
             }
             }
         })

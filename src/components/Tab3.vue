@@ -85,7 +85,6 @@
 </template>
 
 <script>
-import Rating from "./Rating.vue";
 export default {
     name: "Tab1",
     props: {

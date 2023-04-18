@@ -9,7 +9,7 @@
                     </span>
                 </button>
                 <span class="text-2xl font-bold text-primary">Notification</span>
-                <button class=" btn-circle " @click="notificationStore.notificationPageVisibility = false">
+                <button class=" btn-circle " @click="handleCloseNotificationPage">
                     <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
                         arrow_forward_ios
                     </span>
@@ -22,10 +22,10 @@
 
                 <!-- not Read notification -->
 
-                <div for="alert-modal" v-for=" noNotif in notReadNotifications" :key="noNotif.id"
+                <div v-for=" noNotif in notReadNotifications" :key="noNotif.id"
                     class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   ">
-                    <label for="alert-modal"
-                        class=" cursor-pointer  absolute rounded-xl -left-0 z-10  w-full h-full "></label>
+                    <!-- an alert model to show details -->
+                    <label class=" cursor-pointer  absolute rounded-xl -left-0 z-10  w-full h-full "></label>
 
                     <span v-if="noNotif.status == 'pending'"
                         class="inline-flex absolute top-1 right-1 items-center gap-1.5 py-1 px-1 rounded-full text-xs font-medium bg-error/10 text-error">
@@ -108,9 +108,9 @@
 
 
                 <!-- readed notification -->
-                <div for="alert-modal" v-for=" noNotif in readNotifications" :key="noNotif.id"
+                <div  v-for=" noNotif in readNotifications" :key="noNotif.id"
                     class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   ">
-                    <label for="alert-modal"
+                    <label 
                         class=" cursor-pointer  absolute rounded-xl -left-0 z-10  w-full h-full "></label>
 
 
@@ -198,8 +198,10 @@ import { computed, onMounted, ref } from 'vue'
 import Alert from '../components/Alert.vue'
 import { useNotificationStore } from '../store/notificationStore'
 import { useProviderStore } from '../store/providerStore'
+import { useAuthStore } from '../store/authStore'
 import { useLanguageStore } from '../store/languageStore'
-import moment from 'moment';
+import { useTimeDifference } from '../composables/timeDifference'
+
 
 export default {
     name: "NotificationPage",
@@ -211,35 +213,21 @@ export default {
         //store
         const notificationStore = useNotificationStore()
         const providerStore = useProviderStore()
+        const authStore = useAuthStore()
         const languageStore = useLanguageStore()
 
-        //vars
-        const currentTime = ref(moment());
+
+        //composables
+        const { timeDifference } = useTimeDifference()
+
+
         //computed
         let readNotifications = computed(() => notificationStore.$state.readNotifications)
         let notReadNotifications = computed(() => notificationStore.$state.notReadNotifications)
 
-        const timeDifference = (date) => {
-            const diff = moment.duration(currentTime.value.diff(moment(date)));
-            if (diff.asHours() < 1) {
-                return `${Math.round(diff.asMinutes())} minutes ago`;
-            } else if (diff.asDays() < 1) {
-                return `${Math.round(diff.asHours())} hours ago`;
-            } else {
-                return `${Math.round(diff.asDays())} days ago`;
-            }
-        };
 
-        const formatTime = (date) => timeDifference(date);
-
-
-        onMounted(() => {
-            setInterval(() => {
-                currentTime.value = moment();
-            }, 1000);
-        });
-
-
+        //methods
+        const formatTime = (date) => timeDifference(date)
 
         const selectResponse = (descision, id, isRead) => {
             providerStore.sendRes(descision, id).then((res) => {
@@ -262,6 +250,13 @@ export default {
             })
         }
 
+        const handleCloseNotificationPage = () => {
+            notificationStore.notificationPageVisibility = false
+            notificationStore.getNotificationNumber(authStore.$state.userAuth.id)
+        }
+
+        
+        //for alert
         const handleCloseBtn = () => {
 
         }
@@ -280,7 +275,8 @@ export default {
             //methods
             selectResponse,
             formatTime,
-            handleCloseBtn
+            handleCloseBtn,
+            handleCloseNotificationPage
         }
     }
 }

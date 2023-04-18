@@ -37,14 +37,14 @@
                     <div v-else class="h-full ">
                         <!-- show the results if there is results from the response -->
                         <div v-if="searchStore.searchResults.length > 0">
-                            <div v-for="result in searchStore.searchResults" :key="result.id"
+                            <div  @click="handleSearchRedirect(result)" v-for="result in searchStore.searchResults" :key="result.id"
                                 class="flex flex-col justify-start items-center gap-0   w-full  ">
                                 <div
                                     class=" rounded-md  w-full text-center py-2 border-none gap-4  btn btn-secondary btn-outline justify-between   ">
                                     <span class="material-icons  ">
                                         search
                                     </span>
-                                    <span @click="handleSearchRedirect(result)" class="flex-1 text-start">
+                                    <span class="flex-1 text-start">
                                         {{ languageStore.getWord(result.name) }}
                                     </span>
                                 </div>

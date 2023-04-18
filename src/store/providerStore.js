@@ -5,6 +5,7 @@ export const useProviderStore = defineStore("providerStore", {
   id: "provider",
   state: () => ({
     loading: false,
+    loadingFeed: false,
     errorrProvider: {
       message: "",
       status: false,
@@ -13,6 +14,9 @@ export const useProviderStore = defineStore("providerStore", {
     postDetails: [],
     portfolioPosts: {},
     provider: {},
+
+    feedPosts: [],
+    //response for the notification
     res: {},
   }),
   actions: {
@@ -175,12 +179,52 @@ export const useProviderStore = defineStore("providerStore", {
       }
     },
 
+    //provider send interest to the client
+    async sendInterest(clientPostId) {
+      this.loading = true;
+      try {
+        this.loading = true;
+        const response = await axios({
+          method: "post",
+          url: `${useAuthStore().baseUrl}/client-post/send-interest`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            "providerId": useAuthStore().$state.userAuth.id,
+            "clientPostId": clientPostId,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        this.res = response.data.result;
+        this.errorrProvider.status = false;
+        this.errorrProvider.message = "";
+        this.loading = false;
+        return response;
+      } catch (error) {
+        this.loading = false;
+        this.errorrProvider.status = true;
+        if (error.response) {
+          this.errorrProvider.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorrProvider.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorrProvider.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+
 
 
     //get all the feed posts
     async getFeedPosts() {
       try {
-        this.loading = true;
+        this.loadingFeed = true;
         const response = await axios({
           method: "get",
           url: `${useAuthStore().baseUrl}/client-post/feed/${useAuthStore().$state.userAuth.categoryId}/${useAuthStore().$state.userAuth.stateId}`,
@@ -192,12 +236,14 @@ export const useProviderStore = defineStore("providerStore", {
           timeout: 13000, // 13 seconds
         });
 
-        this.loading = false;
+        
+        this.feedPosts = response.data.result;
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
+        this.loadingFeed = false;
         return response;
       } catch (error) {
-        this.loading = false;
+        this.loadingFeed = false;
         this.errorrProvider.status = true;
         if (error.response) {
           this.errorrProvider.message = error.response.data.message;
@@ -216,7 +262,7 @@ export const useProviderStore = defineStore("providerStore", {
     {
       key: "providerData",
       storage: localStorage,
-      paths: ["provider"],
+      paths: ["provider","provider.category","provider.subCategories","feedPosts"],
     },
   ],
 });

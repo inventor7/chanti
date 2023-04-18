@@ -1,19 +1,26 @@
 <template>
-<div v-if="isVisible" class=" h-fit w-4/5 sm:max-w-xs  fixed toast-enter-active left-1/2 transform -translate-x-1/2 shadow-xl z-20 bg-white border rounded-xl flex justify-center inset-8" role="alert">
-        <div class="flex p-4">
+    <div class="fixed top-10  px-2  " > 
+    <div v-if="toastVisible" 
+    :class="{'toast-enter': toastVisibleClass, 'toast-enter-to': toastVisibleClassTo, 'toast-enter-active': toastVisibleClassActive}"
+     class=" w-full  self-center top-10 bg-white border rounded-md shadow-lg " role="alert">
+        <div class="flex p-4 "
+        :class="{'bg-success/10': color==='success', 'bg-error/10': color==='error'}">
             <div class="flex-shrink-0">
-                <svg class="h-4 w-4 sm:h-6 sm:w-6 text-green-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    fill="currentColor" viewBox="0 0 16 16">
-                    <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                </svg>
+            <span v-if="color==='success'" class="material-icons text-2xl text-green-500">
+                check_circle
+            </span>
+            <span v-else class="material-icons text-2xl text-red-500">
+                error
+            </span>
+
             </div>
-            <div class="ml-3">
-                <p class="text-sm sm:text-lg text-gray-700 ">
-                    {{ message }}
+            <div class="ml-3 self-center ">
+                <p class="text-sm text-gray-700">
+                 {{ message  }}
                 </p>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
@@ -28,7 +35,7 @@ export default {
         },
         duration: {
             type: Number,
-            default: 3000
+            default: 4000
         },
         isVisible: {
             type: Boolean,
@@ -36,25 +43,45 @@ export default {
         },
         color: {
             type: String,
-            default: 'error'
+            default: 'success'
         }
     },
+
     setup(props) {
-        const isVisible = ref(false)
-        const show = () => {
-            isVisible.value = true
-            setTimeout(() => {
-                isVisible.value = false
-            }, props.duration)
-        }
+        const toast = ref(null);
+        const toastVisible = ref(false);
+        const toastVisibleClass = ref('toast-enter');
+        const toastVisibleClassTo = ref('toast-enter-to');
+        const toastVisibleClassActive = ref('toast-enter-active');
+
         watchEffect(() => {
             if (props.isVisible) {
-                show()
+                toastVisible.value = true;
+                setTimeout(() => {
+                    toastVisible.value = false;
+                }, props.duration);
             }
-        })
+        });
+
+        watch(toastVisible, (val) => {
+            if (val) {
+                toastVisibleClass.value = 'toast-enter';
+                toastVisibleClassTo.value = 'toast-enter-to';
+                toastVisibleClassActive.value = 'toast-enter-active';
+            } else {
+                toastVisibleClass.value = 'toast-leave';
+                toastVisibleClassTo.value = 'toast-leave-to';
+                toastVisibleClassActive.value = 'toast-leave-active';
+            }
+        });
+
         return {
-            isVisible,
-        }
+            toast,
+            toastVisible,
+            toastVisibleClass,
+            toastVisibleClassTo,
+            toastVisibleClassActive
+        };
     }
 }
 
@@ -71,7 +98,7 @@ export default {
 }
 
 .toast-enter-active {
-    animation: slide-in 0.5s  ;
+    animation: slide-in 0.5s;
 }
 
 @keyframes slide-in {
@@ -82,4 +109,5 @@ export default {
     to {
         transform: translateX(0%);
     }
-}</style>
+}
+</style>

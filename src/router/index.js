@@ -104,19 +104,35 @@ const router = createRouter({
     },
 
 
-    // ///////////////Profile Pages///////////////
+    // ///////////////provider Pages///////////////
 
     {
       path: '/profile',
       name: 'profile',
       component: () => import('../views/Profile.vue')
     },
+
+    //navigation
     {
       path: '/home',
       name: 'providerHome',
       //lazy loading
       component: () => import('../views/Provider/Home.vue')
     },
+
+    {
+      path: '/projects',
+      name: 'projects',
+      component: () => import('../views/Provider/Projects.vue')
+    },
+
+    {
+      path: '/Post/create',
+      name: 'createPost',
+      component: () => import('../views/Provider/PostCreation.vue')
+    },
+
+
 
     
 
