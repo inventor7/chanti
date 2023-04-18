@@ -10,11 +10,12 @@ export const useProviderStore = defineStore("providerStore", {
       status: false,
     },
     images: [],
-    postDetails:[],
+    postDetails: [],
     portfolioPosts: {},
     provider: {},
+    res: {},
   }),
-  actions: { 
+  actions: {
     async getProviderData(provider) {
       try {
         this.loading = true;
@@ -23,10 +24,10 @@ export const useProviderStore = defineStore("providerStore", {
           url: `${useAuthStore().baseUrl}/profile/get-provider-data`,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${useAuthStore().$state.token}`,
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "providerId": provider.id,
+            providerId: provider.id,
           },
           timeout: 13000, // 13 seconds
         });
@@ -36,15 +37,16 @@ export const useProviderStore = defineStore("providerStore", {
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
         this.provider = response.data.result.provider;
-        this.provider.category=response.data.result.category;
-        this.provider['subCategories']=response.data.result.subcategories;
-        this.portfolioPost= response.data.result.portfolioPosts;
+        this.provider.category = response.data.result.category;
+        this.provider["subCategories"] = response.data.result.subcategories;
+        this.provider.BtnVisible = true;
+        this.portfolioPost = response.data.result.portfolioPosts;
         return response;
       } catch (error) {
         this.loading = false;
         this.errorrProvider.status = true;
         if (error.response) {
-          this.errorrProvider.message = "Server error: please try again later"
+          this.errorrProvider.message = "Server error: please try again later";
         } else if (error.request) {
           this.errorrProvider.message =
             "Network error: please check your internet connection and try again";
@@ -60,7 +62,7 @@ export const useProviderStore = defineStore("providerStore", {
           url: `${useAuthStore().baseUrl}/profile/add-portfolio-post`,
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${useAuthStore().$state.token}`,
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: data,
           timeout: 13000, // 13 seconds
@@ -74,7 +76,7 @@ export const useProviderStore = defineStore("providerStore", {
         this.loading = false;
         if (error.response) {
           this.errorrProvider.status = true;
-          this.errorrProvider.message = "Server error: please try again later"
+          this.errorrProvider.message = "Server error: please try again later";
         } else if (error.request) {
           this.errorrProvider.status = true;
           this.errorrProvider.message =
@@ -82,7 +84,6 @@ export const useProviderStore = defineStore("providerStore", {
         }
       }
     },
-
 
     async getPost(id) {
       try {
@@ -92,44 +93,123 @@ export const useProviderStore = defineStore("providerStore", {
           url: `${useAuthStore().baseUrl}/profile/get-provider-data`,
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": `Bearer ${useAuthStore().$state.token}`,
+            Accept: "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "providerId": id,
+            providerId: id,
           },
           timeout: 13000, // 13 seconds
         });
         console.log(response);
         this.provider = response.data.result.provider;
-        this.provider.category = response.data.result.category; 
+        this.provider.category = response.data.result.category;
+        this.provider["subCategories"] = response.data.result.subcategories;
         this.loading = false;
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
-       
-        // Extract images from response and convert to URLs
-        const images = response.data.result.portfolioPostsWithImages.flatMap(post => {
-          return post.images.map(image => URL.createObjectURL(new Blob([new Uint8Array(image.data)])))
-        })
 
-        this.images = images;
-        this.postDetails = response.data.result.portfolioPostsWithImages.map(post => post.details)
-        // Return object with images and post details
+        // Extract images from response and convert to URLs
+        this.images = response.data.result.portfolioPostsWithImages.flatMap(
+          (post) => {
+            return post.images.map((image) =>
+              URL.createObjectURL(new Blob([new Uint8Array(image.data)]))
+            );
+          }
+        );
+
+        this.postDetails = response.data.result.portfolioPostsWithImages.map(
+          (post) => post.details
+        );
+
         return response;
-        
       } catch (error) {
         this.loading = false;
         if (error.response) {
           this.errorrProvider.status = true;
-          this.errorrProvider.message = "Server error: please try again later"
+          this.errorrProvider.message = "Server error: please try again later";
         } else if (error.request) {
           this.errorrProvider.status = true;
           this.errorrProvider.message =
             "Network error: please check your internet connection and try again";
         }
       }
+    },
+
+    //provider accept or decline the request from the client
+    async sendRes(status, notificationId) {
+      this.loading = true;
+      try {
+        this.loading = true;
+        const response = await axios({
+          method: "post",
+          url: `${useAuthStore().baseUrl}/client-post/send-response`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            notificationId: notificationId,
+            status: status,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        this.res = response.data.result;
+        this.errorrProvider.status = false;
+        this.errorrProvider.message = "";
+        this.loading = false;
+        return response;
+      } catch (error) {
+        this.loading = false;
+        this.errorrProvider.status = true;
+        if (error.response) {
+          this.errorrProvider.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorrProvider.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorrProvider.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+
+
+    //get all the feed posts
+    async getFeedPosts() {
+      try {
+        this.loading = true;
+        const response = await axios({
+          method: "get",
+          url: `${useAuthStore().baseUrl}/client-post/feed/${useAuthStore().$state.userAuth.categoryId}/${useAuthStore().$state.userAuth.stateId}`,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {},
+          timeout: 13000, // 13 seconds
+        });
+
+        this.loading = false;
+        this.errorrProvider.status = false;
+        this.errorrProvider.message = "";
+        return response;
+      } catch (error) {
+        this.loading = false;
+        this.errorrProvider.status = true;
+        if (error.response) {
+          this.errorrProvider.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorrProvider.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorrProvider.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
     }
-    
   },
 
   persist: [

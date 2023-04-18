@@ -6,15 +6,14 @@
 
 
         <div class="flex flex-col gap-2  justify-center items-center w-full h-full ">
+            
+
+
+            <!-- posting images -->
             <div class="w-10/12 border-2 p-2 rounded-2xl  h-full ">
                 <div class=" flex flex-col md:flex-row w-full h-full rounded-2xl p-2 gap-2 font-semibold ">
                     <div class=" w-full h-full space-y-2">
-                        <label for="af-submit-app-upload-images" class="inline-block text-lg font-medium text-gray-800 ">
-                            Preview image
-                        </label>
-
-                        <label for="af-submit-app-upload-images"
-                            class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 ">
+                        <label for="af-submit-app-upload-images"  class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 ">
                             <input id="af-submit-app-upload-images" name="af-submit-app-upload-images" type="file"
                                 class="sr-only" @change="handleFileUpload">
                             <svg class="w-10 h-10 mx-auto text-gray-400 " xmlns="http://www.w3.org/2000/svg" width="16"
@@ -68,21 +67,17 @@
             </button>
         </div>
 
-
+        <NotificationPage />
     </div>
 </template>
 
 <script>
 import Navbar2 from '../../components/Navbar2.vue'
-import Footer from '../../components/Footer.vue'
-import SearchBar from '../../components/SearchBar.vue'
-import Howitworks from '../../components/Howitworks.vue'
 import SearchPage from '../../components/SearchPage.vue'
 import Modal from '../../components/Modal.vue'
-import LoginModal from '../../components/LoginModal.vue'
-import Card from '../../components/Crad.vue'
 import Category from '../../components/Category/Category.vue'
 import CategoriesList from '../../components/Category/CategoriesList.vue'
+import NotificationPage from '../../components/NotificationPage.vue'
 import Image from '../../components/Image.vue'
 import { useCategoriesStore } from '../../store/categoriesStore'
 import { useLanguageStore } from '../../store/languageStore'
@@ -102,7 +97,7 @@ import Navbar3 from '../../components/Navbar3.vue'
 
 export default {
     name: 'ProviderHome',
-    components: { Navbar2, Modal, CategoriesList, Image, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage, Navbar3 },
+    components: { Navbar2, Modal, CategoriesList, Image, Category, SearchPage, Navbar3 , NotificationPage },
     setup() {
         //initialisation the store
         const languageStore = useLanguageStore()
@@ -238,6 +233,8 @@ export default {
                 console.log(res.data)
             })
         }
+
+        
 
 
 

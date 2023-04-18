@@ -98,9 +98,8 @@
                                 <div v-if=" openC && !communeValidate " class="overflow-x-hidden  ">
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
-                                        <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
-                                            :class="{ 'hidden': wilayassStore.filteredCommunes.length !== 0 }"><a>No such
-                                                communes with this name </a></li>
+                                        <li v-if="wilayassStore.filteredCommunes.length == 0 && !wilayassStore.loading " class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "><p>No such communes with this name </p></li>
+                                        <li v-if="wilayassStore.loading " class="text-error px-3 font-semibold  py-1 sm:py-2 loading rounded-xl ">Loading...</li>
                                         <li class=" dropdown-open  z-10  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
                                             @click="selectCommune(commune)"
                                             v-for="commune in wilayassStore.filteredCommunes" :key="commune.id">
@@ -240,7 +239,6 @@ export default {
 
         const handleClick = (clicked) => {
             if (clicked) {
-                console.log(userStore.pNumber)
                 //make sure when click on next btn that wilaya and commune are filled,else  error to props
                 if (!wilayaValidate.value || !communeValidate.value) {
                     notSelectedError.value = true

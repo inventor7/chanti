@@ -67,6 +67,7 @@
 <script>
 import { useSearchStore } from '../store/searchStore'
 import { useLanguageStore } from '../store/languageStore'
+import { useCategoriesStore } from '../store/categoriesStore'
 import SearchBar from '../components/SearchBar.vue'
 import loading from '../components/Loading.vue'
 import { useclientDemandeStore } from '../store/clientDemandeStore'
@@ -78,6 +79,7 @@ export default {
         //initialisation the store
         const searchStore = useSearchStore()
         const languageStore = useLanguageStore()
+        const categoriesStore = useCategoriesStore()
         const router = useRouter()
 
         //handle the exit arrow
@@ -102,6 +104,7 @@ export default {
                 useclientDemandeStore().request.subCategoryId = result.id;
             } else {
                 // if it doesn't then redirect to the product page
+                categoriesStore.fetchSubCategories(result) //fetching the subcategories before redirecting
                 router.replace({
                     name: "services",
                 });
@@ -121,7 +124,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped >
 .slide-enter-active,
 .slide-leave-active {
     transition: all 0.3s ease;

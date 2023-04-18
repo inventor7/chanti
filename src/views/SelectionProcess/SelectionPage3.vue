@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
 
-                               <span class="text-xs text-gray-300"> {{ urgency.description }} </span>
+                               <span class="text-xs" :class="{'text-gray-400' : !urgency.isSelected }" > {{ urgency.description }} </span>
 
                             </li>
 

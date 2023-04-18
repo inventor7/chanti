@@ -7,14 +7,11 @@
         <div v-else class="w-full h-full">
 
             <!-- navigation back -->
-            <!-- <div class="w-full flex flex-row justify-between items-center p-4 ">
-                <div class="flex flex-row justify-start items-center gap-2">
-
-                    <span class="text-sm font-semibold text-gray-500">
-
-                    </span>
-                </div>
-            </div> -->
+            <div class="w-full flex flex-row justify-between items-center p-4 ">
+                <span class="material-icons  text-black cursor-pointer" @click="router.replace({ name: 'results' })">
+                    arrow_back_ios
+                </span>
+            </div>
 
             <!-- Card Section -->
             <div class="max-w-4xl px-1 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -35,9 +32,6 @@
                                     </svg>
                                     Upload header
                                 </button>
-                                <span class="material-icons  text-white cursor-pointer" @click="router.replace({ name: 'results' })">
-                                    arrow_back_ios
-                                </span>
                             </div> -->
                         </div>
 
@@ -104,15 +98,31 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    <div
-                                        class="mt-4 sm:mt-auto sm:mb-1.5 flex flex-1 flex-rox justify-between md:justify-start items-center  gap-2">
-                                        <button type="button"
+                                    <div class="mt-4 sm:mt-auto sm:mb-1.5 flex flex-1 flex-rox justify-between md:justify-start items-center  gap-2">
+                                       
+                                        <!-- request buttons -->
+                                        <button  v-show="!provider.RequestisLoading" v-if="provider.BtnVisible" type="button"
+                                            @click="handleSendRequest(provider.id)"
                                             class="py-2 btn btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
                                             <span class="material-icons">
                                                 send
                                             </span>
                                             request
                                         </button>
+
+                                        <button  v-show="!provider.RequestisLoading" v-else disabled type="button"
+                                            class="py-2 btn btn-disabled btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
+                                            request sent
+                                        </button>
+
+                                        <button v-show="provider.RequestisLoading"  type="button"
+                                            class="py-2 loading btn btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
+                                        </button>
+
+                                        <!-- end request buttons -->
+
+
+
                                         <button type="button"
                                             class="py-2 btn btn-sm px-3 font-bold inline-flex justify-center items-center gap-2 h-10 border  btn-secondary btn-outline  shadow-sm align-middle  ">
 
@@ -138,7 +148,8 @@
                 </form>
 
 
-                <div class="flex flex-row rounded-xl bg-gray-400/20 text-center justify-between p-2 items-center w-full  sm:w-full mt-3 gap-1 ">
+                <div
+                    class="flex flex-row rounded-xl bg-gray-400/20 text-center justify-between p-2 items-center w-full  sm:w-full mt-3 gap-1 ">
                     <!-- Stats -->
                     <div>
                         <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">2,00+</p>
@@ -189,7 +200,7 @@
                     </div>
 
                     <div class="p-4 text-center md:py-7 md:px-5">
-                        
+
                         <div v-if="selectedTab === 1">
                             <Tab2 :rating="provider.rating" />
                         </div>
@@ -214,6 +225,7 @@ import Tab3 from "../components/Tab3.vue";
 import Rating from "../components/Rating.vue";
 import { useclientDemandeStore } from "../store/clientDemandeStore";
 import { useProviderStore } from "../store/providerStore";
+import { userequestProviderStore } from "../store/requestProviderStore";
 import { useLanguageStore } from "../store/languageStore";
 import { useWilayasStore } from "../store/wilayasStore";
 import { useAuthStore } from "../store/authStore";
@@ -235,15 +247,33 @@ export default {
         //store
         const clientDemandeStore = useclientDemandeStore()
         const providerStore = useProviderStore()
+        const requestProviderStore = userequestProviderStore()
         const authStore = useAuthStore()
         const languageStore = useLanguageStore()
         const wilayasStore = useWilayasStore()
         const router = useRouter()
 
 
+
+        const handleSendRequest = (providerId) => {
+            requestProviderStore.sendRequest(providerId, clientDemandeStore.$state.requestResponse.clientPostId).then((res) => {
+                if (res.status == 200) {
+                    requestProviderStore.$state.isSent = true
+                    setTimeout(() => {
+                        requestProviderStore.$state.isSent = false
+                    }, 3000);
+                } else {
+                    console.log(res);
+                }
+            })
+
+            provider.value.BtnVisible = false
+        }
+
+
         //computed
         let provider = computed(() => {
-            if(providerStore.$state.provider)
+            if (providerStore.$state.provider)
                 return providerStore.$state.provider
             else
                 return authStore.$state.userAuth
@@ -279,6 +309,7 @@ export default {
             selectTab,
             handleGoHome,
             handleGoBack,
+            handleSendRequest,
             router
         };
     },

@@ -1,17 +1,17 @@
 <template>
     <!-- Put this part before </body> tag -->
-    <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+    <input type="checkbox" id="alert-modal" class="modal-toggle" />
     <div class="modal bg-black/30 modal-bottom sm:modal-middle">
         <div class="modal-box">
             <!-- <h3 class="font-bold text-lg">Congratulations random Internet user!</h3> -->
             <p class="py-4 font-semibold text-lg ">{{ message }}</p>
             <div class="modal-action">
-                <label for="my-modal-6" class="btn btn-ghost " :class="{
+                <label for="alert-modal" class="btn btn-ghost " :class="{
 
                 }">
                     Discard
                 </label>
-                <label @click="handleCloseBtn" for="my-modal-6" class="btn text-white " :class="{
+                <label @click="handleCloseBtn" for="alert-modal" class="btn text-white " :class="{
                     'btn-primary': closeBtnColor === 'primary',
                     'btn-secondary': closeBtnColor === 'secondary',
                     'btn-success': closeBtnColor === 'success',

@@ -12,9 +12,10 @@
                     <!-- go home -->
                     <div class="absolute  top-1 right-2    block  text-white text-xl sm:text-base  ">
                         <span class="material-icons  text-2xl sm:text-3xl md:text-4xl ">
-                            <label class="cursor-pointer"  for="my-modal-6" v-if="componentLocation === 'selectionProcess'"> delete
+                            <label class="cursor-pointer" for="alert-modal" v-if="componentLocation === 'selectionProcess' && deleteBtnVisibility">
+                                delete
                             </label>
-                            <label class="cursor-pointer"  @click="handleGoHome"  v-else> cancel </label>
+                            <label class="cursor-pointer" @click="handleGoHome" v-else> cancel </label>
                         </span>
                     </div>
                 </div>
@@ -82,14 +83,14 @@
 
 
             </div>
-           
+
 
 
 
         </div>
-        <Alert @handleCloseBtn="handleCancelDemande"   closeBtnText="ok" toggleBtnText="Delete" message="do you really want to clear the Demeande ?"   />
+        <Alert @handleCloseBtn="handleCancelDemande" closeBtnText="ok" toggleBtnText="Delete"
+            message="do you really want to clear the Demeande ?" />
     </div>
-    
 </template>
 <script>
 import Navbar from '../../components/Navbar.vue'
@@ -101,11 +102,11 @@ import { useUserStore } from '../../store/userStore';
 import { useLanguageStore } from '../../store/languageStore';
 import { useWilayasStore } from '../../store/wilayasStore';
 import { useclientDemandeStore } from '../../store/clientDemandeStore';
-import { ref, onBeforeMount, onUpdated } from 'vue'
+import { ref, onBeforeMount, watch } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
     name: 'Signup',
-    components: { Navbar, NavigationNumber ,Alert },
+    components: { Navbar, NavigationNumber, Alert },
     props: {
         //for passing custom event to next and back btn
         emit: Function,
@@ -166,7 +167,11 @@ export default {
         navigationVisibility: {
             type: Boolean,
             default: true
-        }
+        },
+        deleteBtnVisibility: {
+            type: Boolean,
+            default: true
+        },
 
     },
 
@@ -217,6 +222,9 @@ export default {
             wilayasStore.emptyFields()
             router.replace({ name: 'home' })
         }
+
+       
+       
 
 
 

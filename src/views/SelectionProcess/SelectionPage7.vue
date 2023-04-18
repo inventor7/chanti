@@ -2,7 +2,9 @@
     <SignupLayout prevLink="desc" :pageNumber="7" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
         @handle="handleClick" pageTitle="Local Providers" 
         pageDesc=" Select a provider to send your request to and check their profiles " componentLocation="selectionProcess"
-        :navigationVisibility="false">
+        :navigationVisibility="false"
+        :deleteBtnVisibility="false"
+        >
 
 
         <div class=" flex flex-row justify-center self-center   w-full flex-1 gap-3  items-center ">
@@ -68,7 +70,8 @@
                                 </button>
                             </div>
 
-                            <button class="btn md:hidden btn-primary mt-2 rounded-xl btn-md ">
+                            
+                            <button @click="handleSendRequest('all')" class="btn md:hidden btn-primary mt-2 rounded-xl btn-md ">
                                 Post Request
                             </button>
                         </div>

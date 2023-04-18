@@ -89,7 +89,7 @@ export default {
             // if files >4 return error
             if (clientDemandeStore.request.images.length > 3) {
                 notSelectedError.value = true
-                errorText.value = 'You can only select 4 images'
+                errorText.value = 'You can only select 3 images'
             }
             else {
                 for (let i = 0; i < files.length; i++) {
@@ -102,7 +102,7 @@ export default {
         watchEffect(() => {
             if (clientDemandeStore.request.images.length > 3) {
                 notSelectedError.value = true
-                errorText.value = 'You can only select 4 images'
+                errorText.value = 'You can only select 3 images'
             }
         })
         
