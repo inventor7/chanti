@@ -107,9 +107,15 @@ const router = createRouter({
     // ///////////////provider Pages///////////////
 
     {
-      path: '/profile',
+      path: '/profile/:name',
       name: 'profile',
       component: () => import('../views/Profile.vue')
+    },
+
+    {
+      path:'/profile/edit/:id',
+      name:'editProfile',
+      component:()=>import('../views/Provider/EditProfile.vue')
     },
 
     //navigation

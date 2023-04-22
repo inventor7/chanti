@@ -90,7 +90,7 @@ export const useUserStore = defineStore("userStore", {
 
   persist: [
     {
-      key: "userInfo",
+      key: "userStore",
       storage: localStorage,
       paths: [
         "user.language",

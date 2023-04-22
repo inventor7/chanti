@@ -27,7 +27,7 @@
 import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useCategoriesStore } from '../../store/categoriesStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useUserStore } from '../../store/userStore';
 import { computed, ref, onBeforeMount } from 'vue';
 import Category from '../../components/Category/Category.vue';

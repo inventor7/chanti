@@ -153,8 +153,9 @@ import Loading from '../../components/Loading.vue'
 import { ref, computed, onBeforeMount } from 'vue';
 import { useUserStore } from '../../store/userStore';
 import { useAuthStore } from '../../store/authStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
-import {  useRouter  } from 'vue-router';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { useClientStore } from '../../store/Client/clientStore'
+import { useRouter } from 'vue-router';
 
 
 export default {
@@ -165,6 +166,7 @@ export default {
         const router = useRouter()
         const authStore = useAuthStore()
         const clientDemandeStore = useclientDemandeStore()
+        const clientStore = useClientStore()
 
         // props
         const notSelectedError = ref(false)
@@ -187,7 +189,7 @@ export default {
         const isValidPhone = ref(true)
         const isValidPasswordC = ref(true)
 
-        
+
 
 
         // check if email is valid and email is optional
@@ -252,7 +254,7 @@ export default {
                             notSelectedError.value = true
                             msg.value = 'we will redirect you to fill all the fields'
                             setTimeout(() => {
-                                router.replace({ name: 'howitworks' })
+                                router.push({ name: 'howitworks' })
                             }, 5000);
                         }
                         else {
@@ -260,8 +262,8 @@ export default {
                             authStore.signup().then(() => {
                                 if (authStore.$state.isAuthenticated) {
                                     userStore.emptyFields()
-                                    router.replace({ name: 'providerHome' })
-                                    
+                                    router.push({ name: 'providerHome' })
+
                                 } else {
                                     notSelectedError.value = true
                                     msg.value = authStore.error.message
@@ -278,7 +280,7 @@ export default {
                             notSelectedError.value = true
                             msg.value = 'we will redirect you to fill all the fields'
                             setTimeout(() => {
-                                router.replace({ name: 'howitworks' })
+                                router.push({ name: 'howitworks' })
                             }, 5000);
                         }
                         else {
@@ -286,28 +288,28 @@ export default {
                                 if (authStore.$state.isAuthenticated) {
                                     userStore.emptyFields()
                                     //redirect based on the previous page
-                                    if (clientDemandeStore.$state.requestinProgress===true) {
-                                            // set client id to the request
-                                            clientDemandeStore.request.clientId = authStore.$state.userAuth.id
-                                            // send request to server
-                                            const formData = new FormData();
-                                            formData.append("clientId", clientDemandeStore.$state.request.clientId);
-                                            formData.append("categoryId", clientDemandeStore.$state.request.categoryId);
-                                            formData.append("subcategoryId", clientDemandeStore.$state.request.subCategoryId);
-                                            formData.append("stateId", clientDemandeStore.$state.request.stateId);
-                                            formData.append("cityId", clientDemandeStore.$state.request.cityId);
-                                            formData.append("urgency", clientDemandeStore.$state.request.urgency);
-                                            formData.append("description", clientDemandeStore.$state.request.description);
-                                            for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
-                                                formData.append("images", clientDemandeStore.$state.request.images[i]);
-                                            }
-                                            for (let pair of formData.entries()) {
-                                                console.log(pair[0] + ', ' + pair[1]);
-                                            }
-                                            clientDemandeStore.postClientDemande(formData)
-                                            router.replace({ name: 'results' })
+                                    if (clientDemandeStore.$state.requestinProgress === true) {
+                                        // set client id to the request
+                                        clientDemandeStore.request.clientId = authStore.$state.userAuth.id
+                                        // send request to server
+                                        const formData = new FormData();
+                                        formData.append("clientId", clientDemandeStore.$state.request.clientId);
+                                        formData.append("categoryId", clientDemandeStore.$state.request.categoryId);
+                                        formData.append("subcategoryId", clientDemandeStore.$state.request.subCategoryId);
+                                        formData.append("stateId", clientDemandeStore.$state.request.stateId);
+                                        formData.append("cityId", clientDemandeStore.$state.request.cityId);
+                                        formData.append("urgency", clientDemandeStore.$state.request.urgency);
+                                        formData.append("description", clientDemandeStore.$state.request.description);
+                                        for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
+                                            formData.append("images", clientDemandeStore.$state.request.images[i]);
+                                        }
+                                        for (let pair of formData.entries()) {
+                                            console.log(pair[0] + ', ' + pair[1]);
+                                        }
+                                        clientStore.postRequest(formData)
+                                        router.push({ name: 'results' })
                                     } else {
-                                        router.replace({ name: 'home' })
+                                        router.push({ name: 'home' })
                                     }
 
                                 } else {
@@ -357,7 +359,7 @@ export default {
         }
 
         const handleBack = () => {
-            router.replace({ name: 'idendity' })
+            router.push({ name: 'idendity' })
         }
 
 

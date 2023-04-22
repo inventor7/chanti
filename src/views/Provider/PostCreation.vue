@@ -46,17 +46,22 @@
                 <span class=" font-medium text-lg ">Post Details</span>
                 <textarea v-model="descText" rows="4" cols="50" maxlength="100"
                     class="w-full font-semibold  h-full rounded-2xl border-2 border-gray-300 p-4">
-                                                                                                                                                                        </textarea>
+                                                                                                                                                                                                    </textarea>
             </div>
             <div class="fixed w-full right-0 left-0 bottom-20 px-2  z-10">
-                <button @click="SendPost" class="btn w-full text-white btn-primary ">
+                <button v-if="providerStore.Loading" class="btn w-full text-white btn-primary ">
+                    <span class="material-icons animate-spin ">
+                        cached
+                    </span>
+                </button>
+                <button v-else @click="SendPost" class="btn w-full text-white btn-primary ">
                     Post
                 </button>
             </div>
 
         </div>
     </ProviderLayout>
-    <Toast class="z-60 mt-20" :color="errorState"  :message="errorMessage" :isVisible="errorStatus" />
+    <Toast class=" z-50 bottom-0 " :color="errorState" :message="errorMessage" :isVisible="errorStatus" />
 </template>
 
 <script>
@@ -71,9 +76,12 @@ import Toast from '../../components/Toast.vue';
 import { reactive, ref, watchEffect, computed } from 'vue'
 
 //store
-import { useclientDemandeStore } from '../../store/clientDemandeStore.js'
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { useAuthStore } from '../../store/authStore.js'
-import { useProviderStore } from '../../store/providerStore';
+import { useProviderStore } from '../../store/Provider/providerStore';
+import { usePortfolioStore } from '../../store/Provider/portfolioStore';
+
+import { useRouter } from 'vue-router';
 
 export default {
     name: "PostCreation",
@@ -86,11 +94,13 @@ export default {
         const clientDemandeStore = useclientDemandeStore()
         const authStore = useAuthStore()
         const providerStore = useProviderStore()
+        const portfolioStore = usePortfolioStore()
+        const router = useRouter()
 
         //vars
         const selectedFiles = reactive([]);
         const errorStatus = ref(false)
-        const errorMessage = ref(false)
+        const errorMessage = ref('')
         const errorState = ref('')
         const descText = ref('')
 
@@ -135,7 +145,6 @@ export default {
                 errorMessage.value = 'Please select images and write a description'
                 errorState.value = 'error'
             } else {
-
                 formData.append("details", descText.value);
                 formData.append("providerId", authStore.$state.userAuth.id);
                 for (let i = 0; i < selectedFiles.length; i++) {
@@ -143,17 +152,32 @@ export default {
                 }
 
                 providerStore.sendPost(formData).then((res) => {
-                    errorStatus.value = true
-                    errorMessage.value = 'Post created successfully'
-                    errorState.value = 'success'
-                    console.log(res)
+                    if (res.status == 200) {
+                        console.log(res.status)
+                        errorStatus.value = true
+                        errorMessage.value = 'Post created successfully'
+                        errorState.value = 'success'
+                        selectedFiles.splice(0, selectedFiles.length)
+                        descText.value = ''
+                        setTimeout(() => {
+                            errorStatus.value = true
+                            errorMessage.value = 'we are redirecting you to your profile'
+                            errorState.value = 'success'
+                        }, 3000)
+
+                        setTimeout(() => {
+                            portfolioStore.getProviderPortfolio(authStore.$state.userAuth)
+                            router.push({ name: 'profile',
+                            params: { name: authStore.$state.userAuth.firstName + ' ' + authStore.$state.userAuth.lastName } })
+                        }, 4000)
+                    }
+
                 })
-
-
             }
-
-
         }
+
+
+
 
 
         //watch
@@ -166,14 +190,24 @@ export default {
         })
 
         return {
-            selectedFiles,
-            selectedFileUrls,
+
+            //store
+            providerStore,
+
+
+            //methods
             handleFileClick,
             handleFileUpload,
             SendPost,
+
+            //vars
+            selectedFiles,
+            selectedFileUrls,
+
             errorStatus,
             errorMessage,
             errorState,
+
             descText,
         };
     }

@@ -1,71 +1,72 @@
 <template>
     <div>
-        <SignupLayout :pageNumber="2" :isError="notSelectedError"
-            errorText="please select a wilaya and commune" @handle="handleClick" @handleBack="handleBack"
-            pageTitle=" Select location "
+        <SignupLayout :pageNumber="2" :isError="notSelectedError" errorText="please select a wilaya and commune"
+            @handle="handleClick" @handleBack="handleBack" pageTitle=" Select location "
             pageDesc=" select your wilaya and commune so we can provide you with the clients in your area "
-            componentLocation = "selectionProcess">
+            componentLocation="selectionProcess">
             <div class=" flex overflow-y-scroll flex-row justify-start w-full h-full  flex-1 gap-3  items-start ">
-                <div class=" flex flex-col sm:flex-row   justify-start items-start w-full mb-20 md:mb-0  sm:gap-2 h-[70%] md:h-1/2 ">
+                <div
+                    class=" flex flex-col sm:flex-row   justify-start items-start w-full mb-20 md:mb-0  sm:gap-2 h-[70%] md:h-1/2 ">
 
-                <!-- wilayas -->
-                <transition>
-                    <div v-if="!wilayassStore.error.status"
-                    class=" box flex flex-col  justify-center  items-center gap-3 w-full h-full ">
-                        <h2 class="text-2xl font-bold"> Wilaya </h2>
-                        <div class="dropdown   dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
+                    <!-- wilayas -->
+                    <transition>
+                        <div v-if="!wilayassStore.error.status"
+                            class=" box flex flex-col  justify-center  items-center gap-3 w-full h-full ">
+                            <h2 class="text-2xl font-bold"> Wilaya </h2>
+                            <div class="dropdown   dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
-                            <div
-                                class="flex flex-row justify-between items-center px-1 w-full border border-primary rounded-xl ">
-                                <input v-model="searchedWilaya"
-                                    class=" input focus:border-none border-none outline-none focus:outline-none input-md w-full input-primary text-lg font-semibold text-black  "
-                                    type="text" placeholder="Choose a wilaya"
-                                    oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
-                                    @focus="openW = true" @blur="openW = false">
+                                <div
+                                    class="flex flex-row justify-between items-center px-1 w-full border border-primary rounded-xl ">
+                                    <input v-model="searchedWilaya"
+                                        class=" input focus:border-none border-none outline-none focus:outline-none input-md w-full input-primary text-lg font-semibold text-black  "
+                                        type="text" placeholder="Choose a wilaya"
+                                        oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
+                                        @focus="openW = true" @blur="openW = false">
 
-                                <span
-                                    :class="{ 'material-icons pr-1 text-primary font-semibold ': true, 'hidden': searchedWilaya.length > 0 }">
-                                    expand_more
-                                </span>
+                                    <span
+                                        :class="{ 'material-icons pr-1 text-primary font-semibold ': true, 'hidden': searchedWilaya.length > 0 }">
+                                        expand_more
+                                    </span>
 
-                                <span
-                                    :class="{ 'material-icons pr-1 text-primary font-semibold ': true, 'hidden': wilayaValidate || searchedWilaya.length == 0 }">
-                                    expand_less
-                                </span>
+                                    <span
+                                        :class="{ 'material-icons pr-1 text-primary font-semibold ': true, 'hidden': wilayaValidate || searchedWilaya.length == 0 }">
+                                        expand_less
+                                    </span>
 
-                                <span
-                                    :class="{ 'material-icons pr-1  font-semibold text-green-600 ': true, 'hidden': !wilayaValidate }">
-                                    check_circle
-                                </span>
+                                    <span
+                                        :class="{ 'material-icons pr-1  font-semibold text-green-600 ': true, 'hidden': !wilayaValidate }">
+                                        check_circle
+                                    </span>
 
-                            </div>
-                            <!-- List -->
-                            <transition name="fade">
-                                <div v-if="openW && !wilayaValidate  " class="overflow-x-hidden">
-                                    <ul tabindex="0"
-                                        class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
-                                        <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
-                                            :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0 }"><a>No such
-                                                wilaya with this name </a></li>
-                                        <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   "
-                                            @click="selectWilaya(wilaya)" v-for="wilaya in wilayassStore.filteredWilayas"
-                                            :key="wilaya.id">
-                                            <span v-if="userStore.user.language==='ar'" >{{ wilaya.id }} {{ wilaya.ascciName }}</span>
-                                            <span v-else >{{ wilaya.id }} {{ wilaya.name }}</span>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </transition>
+                                <!-- List -->
+                                <transition name="fade">
+                                    <div v-if="openW && !wilayaValidate" class="overflow-x-hidden">
+                                        <ul tabindex="0"
+                                            class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
+                                            <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
+                                                :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0 }"><a>No such
+                                                    wilaya with this name </a></li>
+                                            <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   "
+                                                @click="selectWilaya(wilaya)"
+                                                v-for="wilaya in wilayassStore.filteredWilayas" :key="wilaya.id">
+                                                <span v-if="userStore.user.language === 'ar'">{{ wilaya.id }} {{
+                                                    wilaya.ascciName }}</span>
+                                                <span v-else>{{ wilaya.id }} {{ wilaya.name }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </transition>
+                            </div>
                         </div>
-                    </div>
-                </transition>
+                    </transition>
 
 
 
-                <!-- communes -->
-             
+                    <!-- communes -->
+
                     <div v-show="!wilayassStore.error.status && wilayaValidate"
-                    class=" box flex flex-col  justify-center items-center w-full h-full gap-3 ">
+                        class=" box flex flex-col  justify-center items-center w-full h-full gap-3 ">
                         <h2 class="text-2xl font-bold "> City</h2>
                         <div class="dropdown  dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
@@ -95,15 +96,20 @@
                             </div>
                             <!-- List -->
                             <transition>
-                                <div v-if=" openC && !communeValidate " class="overflow-x-hidden  ">
+                                <div v-if="openC && !communeValidate" class="overflow-x-hidden  ">
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
-                                        <li v-if="wilayassStore.filteredCommunes.length == 0 && !wilayassStore.loading " class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "><p>No such communes with this name </p></li>
-                                        <li v-if="wilayassStore.loading " class="text-error px-3 font-semibold  py-1 sm:py-2 loading rounded-xl ">Loading...</li>
+                                        <li v-if="wilayassStore.filteredCommunes.length == 0 && !wilayassStore.loading"
+                                            class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl ">
+                                            <p>No such communes with this name </p>
+                                        </li>
+                                        <li v-if="wilayassStore.loading"
+                                            class="text-error px-3 font-semibold  py-1 sm:py-2 loading rounded-xl ">
+                                            Loading...</li>
                                         <li class=" dropdown-open  z-10  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
                                             @click="selectCommune(commune)"
                                             v-for="commune in wilayassStore.filteredCommunes" :key="commune.id">
-                                            <span v-if="userStore.user.language==='ar'" >{{ commune.CityName }}</span>
+                                            <span v-if="userStore.user.language === 'ar'">{{ commune.CityName }}</span>
                                             <span v-else>{{ commune.CityNameAscii }}</span>
                                         </li>
                                     </ul>
@@ -115,14 +121,15 @@
 
 
 
-                    <div v-show="wilayassStore.error.status || !wilayaValidate" class=" box h-full w-full flex flex-col justify-center items-center ">
+                    <div v-show="wilayassStore.error.status || !wilayaValidate"
+                        class=" box h-full w-full flex flex-col justify-center items-center ">
                         <Error class="  text-center text-xl font-semibold  " :error="wilayassStore.error.message" />
                     </div>
 
 
-               
+
+                </div>
             </div>
-        </div>
         </SignupLayout>
     </div>
 </template>
@@ -131,7 +138,7 @@
 import SignupLayout from '../Layouts/SignupLayout.vue';
 import { useWilayasStore } from '../../store/wilayasStore.js'
 import { useUserStore } from '../../store/userStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { computed, ref, onBeforeMount, watchEffect, onMounted } from 'vue';
 import Error from '../../components/Error.vue'
 import { useRouter } from 'vue-router';
@@ -180,28 +187,27 @@ export default {
                     return true
                 } else {
                     return false
-                } 
+                }
             }
 
         })
 
 
         let communeValidate = computed(() => {
-            if (userStore.user.language == "ar") 
-            {
+            if (userStore.user.language == "ar") {
                 if (searchedCommune.value.includes(wilayassStore.selectedCommune.CityName)) {
-                return true
-            } else {
-                return false
-            }
+                    return true
+                } else {
+                    return false
+                }
             } else {
                 if (searchedCommune.value.includes(wilayassStore.selectedCommune.CityNameAscii)) {
-                return true
-            } else {
-                return false
+                    return true
+                } else {
+                    return false
+                }
             }
-            }
-            
+
         })
 
         onBeforeMount(() => {
@@ -229,7 +235,7 @@ export default {
                 searchedCommune.value = commune.CityName
             } else {
                 searchedCommune.value = commune.CityNameAscii
-        }
+            }
         }
 
         watchEffect(() => {
@@ -246,7 +252,7 @@ export default {
                     clientDemandeStore.request.stateId = wilayassStore.selectedWilaya.id
                     clientDemandeStore.request.cityId = wilayassStore.selectedCommune.id
                     notSelectedError.value = false
-                    router.replace({ name: 'emergency' })
+                    router.push({ name: 'emergency' })
                 }
 
                 //end if
@@ -259,7 +265,7 @@ export default {
         //to redirect him to the right "back btn"
         const handleBack = (clicked) => {
             if (clicked) {
-                router.replace({ name: 'services' })
+                router.push({ name: 'services' })
             }
         }
 
@@ -298,5 +304,4 @@ export default {
 .dropdown-content::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-}
-</style>
+}</style>

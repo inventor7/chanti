@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useUserStore } from "./userStore";
-import { useAuthStore } from "./authStore";
+import { useUserStore } from "../userStore";
+import { useAuthStore } from "../authStore";
 //create a store of universal language
 export const useLanguageStore = defineStore("languageStore", {
   id: "language",
@@ -69,7 +69,7 @@ export const useLanguageStore = defineStore("languageStore", {
     enabled: true,
     strategies: [
       {
-        key: "language",
+        key: "languageStore",
         storage: localStorage,
         paths: ["lang"],
       },

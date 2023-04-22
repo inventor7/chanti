@@ -1,9 +1,9 @@
 <template>
-    <Navbar data-theme="clientTheme" :showLogin="true" />
+    <Navbar theme="providerTheme" />
     <div class="main-content flex flex-col justify-center items-start w-full mt-[5rem] ">
         <div class="grid place-items-center rounded-2xl w-full h-full px-2   ">
 
-            <div class=" relative flex flex-col justify-between w-full h-fit sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
+            <div class=" relative flex flex-col justify-between w-full h-[50vh] sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
                 <!-- add an overlay image -->
                 <img src="../assets/OIG.jpg"
                     class="w-full absolute top-0 left-0 -z-20  h-full object-cover sm:object-cotain rounded-2xl " />
@@ -13,7 +13,7 @@
 
                 <div class="px-2 flex-1  sm:px-4 w-full h-fit  flex flex-row justify-start items-center py-0  ">
                     <div class="w-flex max-w-5xl  flex-col py-4 md:gap-6 justify-between items-start ">
-                        <h1 v-if="authStore.$state.isAuthenticated == false "
+                        <h1 v-if="authStore.$state.isAuthenticated == false"
                             class="  text-2xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-white whitespace-normal mb-5 font-bold">
                             {{ languageStore.getWord('title') }}
                             <span class="underline underline-offset-4 text-primary">
@@ -100,18 +100,18 @@ import Howitworks from '../components/Howitworks.vue'
 import SearchPage from '../components/SearchPage.vue'
 import Modal from '../components/Modal.vue'
 import LoginModal from '../components/LoginModal.vue'
-import Card from '../components/Crad.vue' 
+import Card from '../components/Crad.vue'
 import Category from '../components/Category/Category.vue'
 import CategoriesList from '../components/Category/CategoriesList.vue'
 import { useCategoriesStore } from '../store/categoriesStore'
-import { useLanguageStore } from '../store/languageStore'
-import { useModalStore } from '../store/modaleStore'
-import { useThemeStore } from '../store/themeStore.js'
+import { useLanguageStore } from '../store/AppBasic/languageStore'
+import { useModalStore } from '../store/AppBasic/modaleStore'
+import { useThemeStore } from '../store/AppBasic/themeStore.js'
 import { useUserStore } from '../store/userStore.js'
-import { useclientDemandeStore } from '../store/clientDemandeStore.js'
+import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 import { useAuthStore } from '../store/authStore.js'
 import { useRouter } from 'vue-router'
-import { computed, watchEffect , ref } from 'vue'
+import { computed, watchEffect, ref } from 'vue'
 
 
 
@@ -119,7 +119,7 @@ import { computed, watchEffect , ref } from 'vue'
 
 export default {
     name: 'Home',
-    components: { Navbar, Modal, CategoriesList, LoginModal, Category , Footer, SearchBar, Card, Howitworks, SearchPage },
+    components: { Navbar, Navbar , Modal, CategoriesList, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage },
     setup() {
         //initialisation the store
         const languageStore = useLanguageStore()
@@ -132,7 +132,7 @@ export default {
         const router = useRouter()
 
         //props
-        const notSelectedError= ref(false)
+        const notSelectedError = ref(false)
 
         const toggleModalLogin = (theme, userType) => {
             modalStore.toggleModalLogin()
@@ -150,7 +150,7 @@ export default {
             //initialisation
             userStore.userType = 'client'
             clientDemandeStore.requestinProgress = true
-            router.replace({name:'services'})
+            router.push({ name: 'services' })
             notSelectedError.value = false
         }
 
@@ -161,7 +161,7 @@ export default {
         const handleJoinNetwork = () => {
             userStore.user.userType = 'provider'
             themeStore.theme = 'providerTheme'
-            router.replace({ name: 'howitworks' })
+            router.push({ name: 'howitworks' })
         }
 
 

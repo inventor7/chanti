@@ -107,12 +107,13 @@
 import SignupLayout from '../Layouts/SignupLayout.vue';
 import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useAuthStore } from '../../store/authStore';
-import { useModalStore } from '../../store/modaleStore';
+import { useModalStore } from '../../store/AppBasic/modaleStore';
 import { useUserStore } from '../../store/userStore';
-import { useThemeStore } from '../../store/themeStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useThemeStore } from '../../store/AppBasic/themeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { useClientStore } from '../../store/Client/clientStore';
 import { useRouter } from 'vue-router';
 import { computed, ref, watch, reactive, watchEffect } from 'vue';
 import Category from '../../components/Category/Category.vue';
@@ -133,7 +134,7 @@ export default {
         const modalStore = useModalStore()
         const themeStore = useThemeStore()
         const clientDemandeStore = useclientDemandeStore()
-
+        const clientStore = useClientStore()
         //vars
 
         const descText = ref('')
@@ -151,9 +152,9 @@ export default {
         const handleClick = () => {
             clientDemandeStore.request.description = descText.value
             if (authStore.isAuthenticated) {
-                router.replace({ name: 'results' })
+                router.push({ name: 'results' })
             } else {
-                router.replace({ name: 'loginSelection' })
+                router.push({ name: 'loginSelection' })
             }
 
         }
@@ -219,9 +220,9 @@ export default {
                                 console.log(pair[0] + ', ' + pair[1]);
                             }
 
-                            clientDemandeStore.postClientDemande(formData)
+                            clientStore.postRequest(formData)
 
-                            router.replace({ name: 'results' })
+                            router.push({ name: 'results' })
 
                         } else {
 
@@ -255,9 +256,9 @@ export default {
                                 console.log(pair[0] + ', ' + pair[1]);
                             }
 
-                            clientDemandeStore.postClientDemande(formData)
+                            clientStore.postRequest(formData)
 
-                            router.replace({ name: 'results' })
+                            router.push({ name: 'results' })
 
                         } else {
 

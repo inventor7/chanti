@@ -11,10 +11,10 @@
                     <div class="relative   ">
                         <input type="text" autocomplete="email"
                             class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
-                            :class="{ 'border-gray-300': isValidPhone, 'border-error focus:outline-error': !isValidPhone }"
-                            v-model="phone" placeholder="Enter your phone number">
+                            :class=" { 'border-gray-300': isValidPhone, 'border-error focus:outline-error': !isValidPhone } "
+                            v-model=" phone " placeholder="Enter your phone number">
 
-                        <div v-if="!isValidPhone"
+                        <div v-if=" !isValidPhone "
                             class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                             <svg class="h-5 w-5 text-red-600 " width="16" height="16" fill="currentColor"
                                 viewBox="0 0 16 16" aria-hidden="true">
@@ -25,7 +25,7 @@
                     </div>
 
                     <div
-                        :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPhone, 'block': !isValidPhone }">
+                        :class=" { 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPhone, 'block': !isValidPhone } ">
                         <Error error="Please enter a valid email or phone number." />
                     </div>
 
@@ -39,13 +39,13 @@
                         <input type="password" autocomplete="current-password"
                             class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
                             id="password"
-                            :class="{ 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword }"
-                            v-model="password" placeholder="Enter your Password">
+                            :class=" { 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword } "
+                            v-model=" password " placeholder="Enter your Password">
 
-                        <div @click="togglePassword"
+                        <div @click=" togglePassword "
                             class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
-                            <span v-if="eyeIcon" class="material-icons  -none "
-                                :class="{ 'text-gray-500  ': isValidPassword, 'text-error ': !isValidPassword }">
+                            <span v-if=" eyeIcon " class="material-icons  -none "
+                                :class=" { 'text-gray-500  ': isValidPassword, 'text-error ': !isValidPassword } ">
                                 visibility
                             </span>
                             <span v-else class="material-icons cursor-pointer ">
@@ -55,7 +55,7 @@
                     </div>
 
                     <div
-                        :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPassword, 'block': !isValidPassword }">
+                        :class=" { 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPassword, 'block': !isValidPassword } ">
                         <Error error="Password should have at least 6 characters." />
                     </div>
 
@@ -71,32 +71,32 @@
                     </label>
 
                     <span class="link text-xs whitespace-nowrap link-primary no-underline">{{
-                                            languageStore.getWord('forgot_password') }}</span>
+                        languageStore.getWord('forgot_password') }}</span>
                 </div>
 
                 <div class="flex flex-col w-full h-full gap-[3px]">
-                    <button @click.prevent="login()" :class="{ 'loading': authStore.loading }"
+                    <button @click.prevent=" login() " :class=" { 'loading': authStore.loading } "
                         class="btn btn-sm md:btn-md btn-primary text-white w-full">
-                        <span v-if="!authStore.loading">
+                        <span v-if=" !authStore.loading ">
                             {{ languageStore.getWord('sign_in') }}
                         </span>
                         <!-- <Loading class=" border-white bg-black  " /> -->
                     </button>
                     <div class="divider"> {{ languageStore.getWord('dont_have_account') }} </div>
-                    <router-link @click="toggleModalLogin" :to="{ name: 'howitworks' }">
+                    <router-link @click=" toggleModalLogin " :to=" { name: 'howitworks' } ">
                         <span class="btn btn-sm md:btn-md btn-ghost w-full border-2">{{ languageStore.getWord('register')
-                                                    }}</span>
+                            }}</span>
                     </router-link>
                 </div>
 
             </form>
-            <label @click="modalStore.toggleModalLogin()"
+            <label @click=" modalStore.toggleModalLogin() "
                 class="btn  btn-xs md:btn-sm btn-primary btn-circle absolute top-2 right-2  ">✕</label>
         </div>
 
 
         <!-- Error Component -->
-        <div v-show="toggleError && authStore.error.status"
+        <div v-show=" toggleError && authStore.error.status "
             class=" box toast toast-top toast-center w-fit whitespace-nowrap ">
             <div class="alert alert-error shadow-lg">
                 <div>
@@ -115,9 +115,10 @@
 <script>
 import Error from "../components/Error.vue"
 import Loading from "../components/Loading.vue"
-import { useModalStore } from "../store/modaleStore.js"
-import { useLanguageStore } from "../store/languageStore.js"
-import { useThemeStore } from "../store/themeStore";
+import { useModalStore } from "../store/AppBasic/modaleStore.js"
+import { useLanguageStore } from "../store/AppBasic/languageStore.js"
+
+import { useThemeStore } from "../store/AppBasic/themeStore";
 import { useUserStore } from "../store/userStore";
 import { useAuthStore } from "../store/authStore";
 import { useRouter } from "vue-router";
@@ -191,7 +192,7 @@ export default {
                         if (authStore.isAuthenticated) {
                             modalStore.toggleModalLogin();
                             if (userStore.$state.userType === 'provider') {
-                                router.replace({ name: 'providerHome' })
+                                router.push({ name: 'providerHome' })
                             }
                         } else {
                             toggleError.value = true

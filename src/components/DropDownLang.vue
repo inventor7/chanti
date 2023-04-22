@@ -1,6 +1,6 @@
 <template>
     <div dir="ltr" class="dropdown dropdown-end  ">
-        <button v-if="showLogin" class=" btn btn-primary btn-xs whitespace-nowrap sm:btn-sm text-white   ">
+        <button class=" btn btn-secondary btn-xs whitespace-nowrap sm:btn-sm text-white   ">
 
             <!-- translation icon -->
             <svg class="inline-block md:hidden h-4 w-4 fill-current md:h-5 md:w-5" xmlns="http://www.w3.org/2000/svg"
@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import { useModalStore } from '../store/modaleStore'
-import { useLanguageStore } from '../store/languageStore'
-import { useThemeStore } from '../store/themeStore.js'
+import { useModalStore } from '../store/AppBasic/modaleStore'
+import { useLanguageStore } from '../store/AppBasic/languageStore'
+import { useThemeStore } from '../store/AppBasic/themeStore.js'
 import { useUserStore } from '../store/userStore'
 import { computed, onBeforeMount, defineComponent } from 'vue'
 

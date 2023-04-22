@@ -138,7 +138,7 @@ export default {
 
 
         const handleBack = () => {
-            router.replace({ name: 'location' })
+            router.push({ name: 'location' })
         }
 
         onBeforeMount(() => {

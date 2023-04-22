@@ -6,7 +6,7 @@
 
 <script >
 import { computed } from 'vue'
-import { useModalStore } from '../store/modaleStore.js'
+import { useModalStore } from '../store/AppBasic/modaleStore.js'
 
 export default {
 

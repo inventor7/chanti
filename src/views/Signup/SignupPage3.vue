@@ -14,7 +14,7 @@
 import SignupLayout from '../Layouts/SignupLayout.vue';
 import SubCategoriesList from '../../components/Category/SubCategoriesList.vue';
 import { useCategoriesStore } from '../../store/categoriesStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useUserStore } from '../../store/userStore';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
@@ -39,7 +39,7 @@ export default {
         const handleClick = () => {
             if (categoriesStore.selectedSubCategories.length > 0 && categoriesStore.selectedSubCategories != null) {
                 userStore.user.subCategories = categoriesStore.selectedSubCategories
-                router.replace({ name: 'location' })
+                router.push({ name: 'location' })
             } else {
                 notSelectedError.value = true
             }
@@ -47,7 +47,7 @@ export default {
 
         const checkSubcategories = () => {
             if (Object.keys(categoriesStore.selectedCategory).length == 0) {
-                router.replace({ name: 'field' })
+                router.push({ name: 'field' })
             }
         }
 

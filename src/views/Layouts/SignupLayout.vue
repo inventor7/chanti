@@ -12,7 +12,8 @@
                     <!-- go home -->
                     <div class="absolute  top-1 right-2    block  text-white text-xl sm:text-base  ">
                         <span class="material-icons  text-2xl sm:text-3xl md:text-4xl ">
-                            <label class="cursor-pointer" for="alert-modal" v-if="componentLocation === 'selectionProcess' && deleteBtnVisibility">
+                            <label class="cursor-pointer" for="alert-modal"
+                                v-if="componentLocation === 'selectionProcess' && deleteBtnVisibility">
                                 delete
                             </label>
                             <label class="cursor-pointer" @click="handleGoHome" v-else> cancel </label>
@@ -22,7 +23,7 @@
 
                 <!-- the content -->
 
-                <div ref="content" class=" next  h-fit  flex-1 w-full slide  px-2 sm:px-4 ">
+                <div ref="content" class="  overflow-auto next  h-fit  flex-1 w-full slide  px-2 sm:px-4 ">
                     <slot></slot>
                 </div>
 
@@ -96,12 +97,12 @@
 import Navbar from '../../components/Navbar.vue'
 import NavigationNumber from '../../components/NavigationNumber.vue'
 import Alert from '../../components/Alert.vue';
-import { useThemeStore } from '../../store/themeStore';
+import { useThemeStore } from '../../store/AppBasic/themeStore';
 import { useCategoriesStore } from '../../store/categoriesStore';
 import { useUserStore } from '../../store/userStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useWilayasStore } from '../../store/wilayasStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { ref, onBeforeMount, watch } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
@@ -220,11 +221,11 @@ export default {
             clientDemandeStore.emptyFields()
             clientDemandeStore.requestinProgress = false
             wilayasStore.emptyFields()
-            router.replace({ name: 'home' })
+            router.push({ name: 'home' })
         }
 
-       
-       
+
+
 
 
 

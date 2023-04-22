@@ -15,7 +15,7 @@
                                 :key="urgency.id"
                                 :class="{ 'bg-primary text-white scale-[103%] shadow-2xl hover:bg-primary ': urgency.isSelected }"
                                 class="dropdown-open flex flex-col justify-start items-start gap-2 mt-1 px-2  cursor-pointer border hover:bg-gray-400/30 font-semibold  py-3   transition-all duration-200 ease-in-out  rounded-xl   ">
-                                <div class="w-full gap-2 h-full flex flex-row justify-start items-center " >
+                                <div class="w-full gap-2 h-full flex flex-row justify-start items-center ">
                                     <span v-if="!urgency.isSelected" class="material-icons">
                                         radio_button_unchecked
                                     </span>
@@ -32,7 +32,8 @@
                                     </div>
                                 </div>
 
-                               <span class="text-xs" :class="{'text-gray-400' : !urgency.isSelected }" > {{ urgency.description }} </span>
+                                <span class="text-xs" :class="{ 'text-gray-400': !urgency.isSelected }"> {{
+                                    urgency.description }} </span>
 
                             </li>
 
@@ -52,9 +53,9 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useCategoriesStore } from '../../store/categoriesStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useUserStore } from '../../store/userStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { useRouter } from 'vue-router';
 import { computed, ref, onBeforeMount } from 'vue';
 import Category from '../../components/Category/Category.vue';
@@ -77,7 +78,7 @@ export default {
 
         const handleClick = () => {
             if (clientDemandeStore.request.urgency !== '') {
-                router.replace({ name: 'images' })
+                router.push({ name: 'images' })
 
             } else {
                 notSelectedError.value = true

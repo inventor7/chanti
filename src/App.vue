@@ -1,18 +1,26 @@
 <template  >
-   
-               <router-view />
+     <div v-if="languageStore.loading" >
+          <Loading />
+     </div>
+     <div v-else-if="languageStore.errorLang.status" >
+          <ErrorPage :error="languageStore.errorLang.message" />
+     </div>
+     <div v-else>
+          <router-view />
+     </div>
 </template>
 
 <script>
 import Loading from './components/Loading.vue'
 import Error from './components/Error.vue';
-import { useLanguageStore } from './store/languageStore';
-import { useThemeStore } from './store/themeStore';
+import { useLanguageStore } from './store/AppBasic/languageStore';
+import { useThemeStore } from './store/AppBasic/themeStore';
 import { useUserStore } from './store/userStore';
-import { onBeforeMount , onUpdated } from 'vue';
+import { onBeforeMount, onUpdated } from 'vue';
+import ErrorPage from './views/ErrorPage.vue';
 export default {
      name: 'App',
-     components: { Loading, Error },
+     components: { Loading, Error, ErrorPage },
      setup() {
           // initialize the store//
           const languageStore = useLanguageStore()
@@ -31,7 +39,8 @@ export default {
 </script>
 
 <style>
-html, body {
-   overflow-x: hidden;
-  }
+html,
+body {
+     overflow-x: hidden;
+}
 </style>

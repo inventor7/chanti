@@ -2,7 +2,7 @@
     <ProviderLayout>
 
         <!-- Provider feed -->
-        <ProviderFeed />
+        <ProviderFeed  />
     </ProviderLayout>
 </template>
 
@@ -15,7 +15,7 @@ import NotificationPage from '../../components/NotificationPage.vue'
 import ProviderFeed from '../../components/ProviderFeed.vue'
 
 //store
-import { useProviderStore } from '../../store/providerStore'
+import { useProviderStore } from '../../store/Provider/providerStore'
 import { useAuthStore } from '../../store/authStore.js'
 
 //vue
@@ -36,12 +36,7 @@ export default {
         //props
         const notSelectedError = ref(false)
 
-        const handlegetPost = () => {
-            console.log(authStore.$state.userAuth.id)
-            providerStore.getPost(authStore.$state.userAuth.id).then((res) => {
-                console.log(res.data)
-            })
-        }
+        
 
 
         return {
@@ -51,9 +46,6 @@ export default {
             
             //props
             notSelectedError,
-
-            //methods
-            handlegetPost
 
         }
 

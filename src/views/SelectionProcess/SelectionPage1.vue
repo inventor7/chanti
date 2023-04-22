@@ -2,8 +2,8 @@
     <SignupLayout prevLink="home" :backBtnVisibility="true" :pageNumber="1" :isError="notSelectedError"
         errorText="Please select a service" nextBtnText="Next" @handle="handleClick" pageTitle=" Choose Services"
         pageDesc=" select the multiple services that you can provide for your clients "
-        componentLocation = "selectionProcess">
-        
+        componentLocation="selectionProcess">
+
 
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-start ">
             <div class=" flex flex-col  justify-start items-start gap-3 w-full h-full ">
@@ -21,7 +21,7 @@
                             :categoryName="languageStore.getWord(subCategory.name)"
                             @click="selectSubCategoryRequest(subCategory)"
                             :class="{ 'bg-primary text-white scale-[103%] shadow-2xl  ': subCategory.id === clientDemandeStore.request.subCategoryId }"
-                            :isActive=" subCategory.id === clientDemandeStore.request.subCategoryId " iconName="home"
+                            :isActive="subCategory.id === clientDemandeStore.request.subCategoryId" iconName="home"
                             class=" text-center  cursor-pointer   rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400   transition-all duration-300 ease-in-out">
                         </Category>
                     </div>
@@ -37,9 +37,9 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useCategoriesStore } from '../../store/categoriesStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useUserStore } from '../../store/userStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { useRouter } from 'vue-router';
 import { computed, ref, onBeforeMount } from 'vue';
 import Category from '../../components/Category/Category.vue';
@@ -81,18 +81,18 @@ export default {
 
         const handleClick = () => {
             if (clientDemandeStore.request.subCategoryId != null) {
-                router.replace({ name: 'selection-location' })
+                router.push({ name: 'selection-location' })
             } else {
                 notSelectedError.value = true
             }
         }
 
         const checkSubcategory = () => {
-            if (clientDemandeStore.request.categoryId == null ) {
-                router.replace({ name: 'home' })
+            if (clientDemandeStore.request.categoryId == null) {
+                router.push({ name: 'home' })
             }
         }
-        
+
 
 
         return {

@@ -1,26 +1,26 @@
 <template>
-    <div class="fixed top-10  px-2  " > 
-    <div v-if="toastVisible" 
-    :class="{'toast-enter': toastVisibleClass, 'toast-enter-to': toastVisibleClassTo, 'toast-enter-active': toastVisibleClassActive}"
-     class=" w-full  self-center top-10 bg-white border rounded-md shadow-lg " role="alert">
-        <div class="flex p-4 "
-        :class="{'bg-success/10': color==='success', 'bg-error/10': color==='error'}">
-            <div class="flex-shrink-0">
-            <span v-if="color==='success'" class="material-icons text-2xl text-green-500">
-                check_circle
-            </span>
-            <span v-else class="material-icons text-2xl text-red-500">
-                error
-            </span>
+    <div class="fixed  px-2  ">
+        <div v-if="toastVisible" :class="{
+             'toast-enter': toastVisibleClass, 'toast-enter-to': toastVisibleClassTo, 'toast-enter-active': toastVisibleClassActive
+            , 'toast-leave': toastVisibleClass, 'toast-leave-to': toastVisibleClassTo, 'toast-leave-active': toastVisibleClassActive
+        }" class=" w-full  self-center bg-white border rounded-md shadow-lg " role="alert">
+            <div class="flex p-4 " :class="{ 'bg-success/10': color === 'success', 'bg-error/10': color === 'error' }">
+                <div class="flex-shrink-0">
+                    <span v-if="color === 'success'" class="material-icons text-2xl text-green-500">
+                        check_circle
+                    </span>
+                    <span v-else class="material-icons text-2xl text-red-500">
+                        error
+                    </span>
 
-            </div>
-            <div class="ml-3 self-center ">
-                <p class="text-sm text-gray-700">
-                 {{ message  }}
-                </p>
+                </div>
+                <div class="ml-3 self-center ">
+                    <p class="text-sm text-gray-700">
+                        {{ message }}
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
         },
         duration: {
             type: Number,
-            default: 4000
+            default: 3000
         },
         isVisible: {
             type: Boolean,
@@ -98,15 +98,30 @@ export default {
 }
 
 .toast-enter-active {
-    animation: slide-in 0.5s;
+    animation: slide-in 1.5s forwards;
 }
 
+
+.toast-leave {
+    transform: translateX(0%);
+}
+
+.toast-leave-to {
+    transform: translateX(-100%);
+}
+
+.toast-leave-active {
+    animation: slide-in 1.5s forwards;
+}
+
+
+
 @keyframes slide-in {
-    from {
-        transform: translateX(-300%);
+    0% {
+        transform: translateX(-100%);
     }
 
-    to {
+    100% {
         transform: translateX(0%);
     }
 }

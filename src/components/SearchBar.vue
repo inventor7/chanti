@@ -19,7 +19,7 @@
 <script >
 import { watch, ref, onMounted, watchEffect } from 'vue'
 import { useSearchStore } from '../store/searchStore'
-import { useLanguageStore } from '../store/languageStore'
+import { useLanguageStore } from '../store/AppBasic/languageStore'
 
 export default {
     name: 'SearchBar',
@@ -67,16 +67,15 @@ export default {
         }
 
         //showing results when the user write for a 1.5 second
-        watch(searchInput, (newInput,oldValue) => {
-            if (props.componentLocation == 'searchPage')
-            {
+        watch(searchInput, (newInput, oldValue) => {
+            if (props.componentLocation == 'searchPage') {
                 if (newInput.length > 0) {
-                searchStore.searchPageVisibility = true
-                searchStore.isClicked = false
-                setTimeout(() => {
-                    searchStore.fetchSearchResults()
-                }, 1500)
-            }
+                    searchStore.searchPageVisibility = true
+                    searchStore.isClicked = false
+                    setTimeout(() => {
+                        searchStore.fetchSearchResults()
+                    }, 1500)
+                }
             }
         })
 

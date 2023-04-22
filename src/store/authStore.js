@@ -76,8 +76,15 @@ export const useAuthStore = defineStore("authStore", {
           timeout: 13000, // 13 seconds
         });
 
-        localStorage.removeItem("userInfo");
+        this.token = "";
+        this.isAuthenticated = false;
+        this.userAuth = {};
+        localStorage.removeItem("clientDemandeStore");
+        localStorage.removeItem("providerStore");
+        localStorage.removeItem("clientStore");
+        localStorage.removeItem("notificationStore");
         localStorage.removeItem("authStore");
+        
         window.location.reload();
         return response;
       } catch (error) {

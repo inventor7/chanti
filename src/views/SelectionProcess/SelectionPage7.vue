@@ -1,36 +1,35 @@
 <template>
     <SignupLayout prevLink="desc" :pageNumber="7" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle="Local Providers" 
+        @handle="handleClick" pageTitle="Local Providers"
         pageDesc=" Select a provider to send your request to and check their profiles " componentLocation="selectionProcess"
-        :navigationVisibility="false"
-        :deleteBtnVisibility="false"
-        >
+        :navigationVisibility="false" :deleteBtnVisibility="false">
 
 
-        <div class=" flex flex-row justify-center self-center   w-full flex-1 gap-3  items-center ">
+
+        <div class=" flex flex-row justify-center self-center mb-20  w-full flex-1 gap-3  items-center ">
             <div class=" flex flex-col  justify-center  items-center  w-full h-full   ">
-                <Loading v-if="loading" />
+                <Loading v-if="clientStore.loadingPosting" />
                 <!-- results -->
-                <div v-else class=" w-full md:w-1/2 md:h-[60vh] rounded-2xl my-2 md:p-2 shadow-2xl  overflow-y-scroll">
-                    <div v-if="clientDemandeStore.$state.errorClientDemande.status"
+                <div v-else class=" w-full md:w-1/2 h-full  rounded-2xl my-2 md:p-2">
+                    <div v-if="clientStore.errorPosting.status"
                         class=" h-full w-full flex flex-col justify-center items-center ">
-                        <Error class=" text-xl font-semibold whitespace-pre-line "
-                            :error="clientDemandeStore.$state.errorClientDemande.message" />
+                        <Error class=" text-xl font-semibold " :error="clientStore.errorPosting.message" />
                     </div>
 
                     <!-- if providers empty -->
-                    <div v-else class="w-full flex flex-col justify-center items-center ">
-                        <div v-if="!clientDemandeStore.$state.providers || clientDemandeStore.$state.providers.length == 0"
+                    <div v-else class="w-full flex flex-col justify-center  items-center ">
+                        <div v-if="!providerStore.$state.providers || providerStore.$state.providers.length == 0"
                             class="w-full h-full flex flex-col justify-center items-center ">
                             <Error class=" text-xl font-semibold whitespace-pre-line "
                                 error="No compatible providers found." />
                         </div>
 
                         <!-- showing results -->
-                        <div class=" grid  grid-cols-1  grid-rows-5 gap-2 w-full md:max-w-sm overflow-y-scroll md:h-fit "
+                        <div class=" flex flex-col justify-start items-center gap-2 w-full md:max-w-sm  overflow-auto  h-[70%]  "
                             v-else>
 
-                            <div v-for="provider in  clientDemandeStore.$state.providers" :key="provider.id"
+
+                            <div v-for="provider in  providerStore.$state.providers" :key="provider.id"
                                 class="flex flex-col w-full  border-2 rounded-xl p-3  md:p-2 bg-white gap-1  drop-shadow-lg  hover:border-primary  border-gray-100">
                                 <div class="flex items-center">
                                     <!-- <img class="rounded-full w-20 h-20" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description"> -->
@@ -53,43 +52,66 @@
                                 </div>
 
                                 <div class=" flex flex-row justify-start items-center w-full  sm:mt-3 space-x-1">
-                                    <Rating   v-bind="{rating: 3.7,isIndicatorActive: true,ratingNumber:7}" />
+                                    <Rating v-bind="{ rating: 3.7, isIndicatorActive: true, ratingNumber: 7 }" />
 
                                 </div>
-                                <button v-show="!provider.RequestisLoading" v-if="provider.BtnVisible"
+                                <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
                                     class="btn  w-full btn-sm sm:btn-md  btn-primary rounded-xl text-white">
                                     send request
                                 </button>
-                                <button v-show="!provider.RequestisLoading" v-else disabled
-                                    class="btn btn-disabled btn-sm sm:btn-md btn-success ">
+                                <button v-show="!provider.btnLoading" v-else
+                                    class="btn h-12 font-semibold text-success btn-sm md:btn-md z-20 bg-success/10 btn-primary w-full gap-2 cursor-not-allowed btn-disabled">
+                                    <span class="material-icons text-success text-lg">
+                                        check_circle
+                                    </span>
                                     request sent
                                 </button>
-                                <button v-show="provider.RequestisLoading"
+                                <button v-show="provider.btnLoading"
                                     class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
                                 </button>
                             </div>
 
-                            
-                            <button @click="handleSendRequest('all')" class="btn md:hidden btn-primary mt-2 rounded-xl btn-md ">
-                                Post Request
-                            </button>
+
+
                         </div>
 
                         <!-- End Col -->
                     </div>
 
                 </div>
-                <button class="btn hidden md:block btn-primary text-white my-2 rounded-xl btn-md ">
-                    Post Request
-                </button>
             </div>
         </div>
 
     </SignupLayout>
-    <Toast :duration="3000" :isVisible="requestProviderStore.$state.errorrequestProvider.status" color="error"
-        :message="requestProviderStore.$state.errorrequestProvider.message" />
-    <Toast :duration="3000" :isVisible="requestProviderStore.$state.isSent" color="success"
+
+    <div class="fixed z-40 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
+        <button v-show="!clientStore.btnLoadingAll && clientStore.$state.btnVisibleAll" @click="handleSendRequest('all')"
+            class="btn self-center text-white   w-full md:w-1/3  btn-primary mt-2 rounded-xl btn-md ">
+            Publish the request
+        </button>
+        <!-- Loading button -->
+        <button v-show="clientStore.btnLoadingAll && !clientStore.$state.btnVisibleAll"
+            class="btn w-full md:w-1/3 loading btn-primary btn-sm md:btn-md ">
+        </button>
+        <!-- disabled button -->
+        <button v-show="!clientStore.btnLoadingAll && !clientStore.$state.btnVisibleAll"
+            class="btn h-12 md:w-1/3 font-semibold text-success btn-sm md:btn-md z-20 bg-succes/10 border-success btn-primary w-full gap-2 cursor-not-allowed btn-disabled">
+            <span class="material-icons text-success text-lg">
+                check_circle
+            </span>
+            request published
+        </button>
+    </div>
+    <!-- error -->
+    <Toast :isVisible="clientStore.$state.errorRequesting.status" color="error"
+        :message="clientStore.$state.errorRequesting.message" />
+
+    <!-- success -->
+    <Toast class=" z-50 bottom-0 " :isVisible="clientStore.$state.isSent" color="success"
+        message="request sent successfully" />
+
+    <Toast class=" z-50 bottom-0 " :isVisible="clientStore.$state.isSentAll" color="success"
         message="request sent successfully" />
 </template>
 
@@ -100,13 +122,15 @@ import Loading from '../../components/Loading.vue'
 import Toast from '../../components/Toast.vue';
 import Rating from '../../components/Rating.vue';
 import { useUserStore } from '../../store/userStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useCategoriesStore } from '../../store/categoriesStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
-import { userequestProviderStore } from '../../store/requestProviderStore';
-import { useProviderStore } from '../../store/providerStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { useClientStore } from '../../store/Client/clientStore';
+import { useProviderStore } from '../../store/Provider/providerStore';
+import { usePortfolioStore } from '../../store/Provider/portfolioStore';
+
 import { useRouter } from 'vue-router';
-import { computed, ref, watch, reactive, watchEffect } from 'vue';
+import { computed, ref, onBeforeMount } from 'vue';
 import Category from '../../components/Category/Category.vue';
 
 export default {
@@ -123,7 +147,8 @@ export default {
         const languageStore = useLanguageStore()
         const categoriesStore = useCategoriesStore()
         const clientDemandeStore = useclientDemandeStore()
-        const requestProviderStore = userequestProviderStore()
+        const portfolioStore = usePortfolioStore()
+        const clientStore = useClientStore()
         const providerStore = useProviderStore()
 
         //vars
@@ -134,46 +159,63 @@ export default {
         }
 
         const handleSendRequest = (providerId) => {
-            requestProviderStore.sendRequest(providerId, clientDemandeStore.$state.requestResponse.clientPostId).then((res) => {
+            clientStore.sendRequest(providerId, clientDemandeStore.$state.clientPostId).then((res) => {
                 if (res.status == 200) {
-                    requestProviderStore.$state.isSent = true
+                    if (providerId == 'all') {
+                        clientStore.$state.isSentAll = true
+                        clientStore.$state.btnVisibleAll = false
+                    } else {
+                        clientStore.$state.isSent = true
+                        providerStore.$state.providers.forEach((provider) => {
+                            if (provider.id == providerId) {
+                                provider.btnVisible = false
+                            }
+                        })
+                    }
+
+
                     setTimeout(() => {
-                        requestProviderStore.$state.isSent = false
+                        if (providerId == 'all') {
+                            clientStore.$state.isSentAll = false
+                        } else {
+                            clientStore.$state.isSent = false
+                        }
+                    }, 3000);
+
+
+                } else {
+                    clientStore.$state.errorRequesting.status = true
+                    clientStore.$state.errorRequesting.message = res.data.message
+                    setTimeout(() => {
+                        clientStore.$state.errorRequesting.status = false
                     }, 3000);
                 }
+
+                console.log('Request sent ', res)
             })
 
-            clientDemandeStore.$state.providers.forEach((provider) => {
-                if (provider.id == providerId) {
-                    provider.BtnVisible = false
-                    clientDemandeStore.$state.selectedProvider = provider
 
-                }
-            })
+
+
+
         }
 
-        let loading = computed(() => {
-            return clientDemandeStore.$state.loading
-        })
 
-        watchEffect(() => {
-            if (!Object.keys(clientDemandeStore.$state.selectedProvider).length == 0) {
-                clientDemandeStore.$state.selectedProvider.RequestisLoading = requestProviderStore.$state.loading
-            }
+        onBeforeMount(()=>{
+            clientStore.$state.btnVisibleAll =  true
         })
 
         const showProfile = (provider) => {
             //show profile based on the provider id
-            providerStore.getProviderData(provider).then((res) => {
-                console.log(res)
-                router.replace({
-                    name: 'profile',
-                })
+            portfolioStore.getProviderPortfolio(provider).then((res) => {
+                console.log('Profile posts needed ', res)
+                providerStore.$state.provider.btnVisible = provider.btnVisible
             })
 
-
-
-
+            router.push({
+                name: 'profile',
+                params: { name: provider.firstName + '-' + provider.lastName }
+            })
         }
 
         return {
@@ -181,17 +223,16 @@ export default {
             notSelectedError,
             errorText,
 
-            //computed
-            loading,
 
 
             //store
             router,
             userStore,
             languageStore,
+            providerStore,
             categoriesStore,
             clientDemandeStore,
-            requestProviderStore,
+            clientStore,
 
 
             //methods

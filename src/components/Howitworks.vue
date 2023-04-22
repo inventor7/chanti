@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { useLanguageStore } from '../store/languageStore';
+import { useLanguageStore } from '../store/AppBasic/languageStore';
 
 export default {
     name: 'Howitworks',

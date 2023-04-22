@@ -28,7 +28,8 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useUserStore } from '../../store/userStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { useClientStore } from '../../store/Client/clientStore';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../store/authStore';
 import { computed, ref, watch, reactive, watchEffect } from 'vue';
@@ -41,12 +42,13 @@ export default {
         //props
         const notSelectedError = ref(false)
 
-
         // clientDemandeStore
         const router = useRouter()
         const userStore = useUserStore()
         const clientDemandeStore = useclientDemandeStore()
+        const clientStore = useClientStore()
         const authStore = useAuthStore()
+
 
         //vars
         const errorText = ref('')
@@ -72,11 +74,11 @@ export default {
                 for (let pair of formData.entries()) {
                     console.log(pair[0] + ', ' + pair[1]);
                 }
-                clientDemandeStore.postClientDemande(formData)
-                router.replace({ name: 'results' })
+                clientStore.postRequest(formData)
+                router.push({ name: 'results' })
 
             } else { //if user is not logged in
-                router.replace({ name: 'loginSelection' })
+                router.push({ name: 'loginSelection' })
             }
 
         }

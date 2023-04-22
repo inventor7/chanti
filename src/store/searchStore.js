@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
 import axios from "axios";
 import { useAuthStore } from "./authStore";
-import { useclientDemandeStore } from "./clientDemandeStore";
+import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 
 export const useSearchStore = defineStore("searchStore", {
   id: "search",

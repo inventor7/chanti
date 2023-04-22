@@ -19,6 +19,7 @@ export default defineConfig({
       "/api": {
         target: "https://chanti-dz-backend.herokuapp.com",
         changeOrigin: true,
+        ws: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },

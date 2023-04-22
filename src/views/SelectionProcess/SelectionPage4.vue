@@ -1,7 +1,7 @@
 <template>
     <SignupLayout prevLink="emergency" :pageNumber="4" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
         @handle="handleClick" pageTitle=" Choose Urgency" pageDesc=" select the urgency of your request "
-        componentLocation = "selectionProcess">
+        componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-around w-full overflow-y-scroll   h-full flex-1 gap-3  items-start ">
             <div class=" flex flex-col  justify-center items-center gap-3 w-full md:mb-0 mb-20 h-full ">
@@ -9,7 +9,7 @@
                 <transition name="fade">
                     <!--  select images -->
                     <div class=" flex flex-col md:flex-row w-4/5 h-full rounded-2xl p-2 gap-2 font-semibold ">
-                        <div 
+                        <div
                             class="flex  flex-col border-2 border-dashed  justify-center items-center w-full rounded-2xl h-full  ">
                             <span @click="handleFileClick" class="material-icons text-4xl">
                                 upload_file
@@ -22,9 +22,7 @@
                                 to upload
                             </span>
                         </div>
-                        <div class="w-full h-full rounded-2xl"
-                        :class="{'border-2':!selectedFiles.length}"
-                        >
+                        <div class="w-full h-full rounded-2xl" :class="{ 'border-2': !selectedFiles.length }">
                             <div v-if="selectedFiles.length"
                                 class="w-full max-h-[50vh] min-h-full grid grid-cols-2 grid-rows-2 gap-2">
                                 <div class="relative h-full w-full " v-for="(url, index) in selectedFileUrls" :key="index">
@@ -42,7 +40,7 @@
                         </div>
                     </div>
                 </transition>
-                
+
 
             </div>
         </div>
@@ -55,9 +53,9 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useUserStore } from '../../store/userStore';
-import { useclientDemandeStore } from '../../store/clientDemandeStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { useRouter } from 'vue-router';
-import { computed, ref, watch, reactive , watchEffect } from 'vue';
+import { computed, ref, watch, reactive, watchEffect } from 'vue';
 import Category from '../../components/Category/Category.vue';
 
 export default {
@@ -78,7 +76,7 @@ export default {
         const errorText = ref('')
 
         const handleClick = () => {
-            router.replace({ name: 'desc' }) 
+            router.push({ name: 'desc' })
         }
 
 
@@ -105,7 +103,7 @@ export default {
                 errorText.value = 'You can only select 3 images'
             }
         })
-        
+
 
         const selectedFileUrls = computed(() => {
             return selectedFiles.map((file) => URL.createObjectURL(file));
@@ -128,7 +126,7 @@ export default {
             router,
 
             //methods
-            handleClick,handleFileClick,
+            handleClick, handleFileClick,
             handleFileUpload, selectedFileUrls, selectedFiles
         }
     },
@@ -137,6 +135,4 @@ export default {
 
 </script>
 
-<style>
-
-</style>
+<style></style>
