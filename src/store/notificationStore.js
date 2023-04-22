@@ -63,7 +63,7 @@ export const useNotificationStore = defineStore("notificationStore", {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: `${useAuthStore().baseUrl}/notifications/requests-to-provider`,
+          url: `${useAuthStore().baseUrl}/notifications/response-to-client/`,
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${useAuthStore().$state.token}`,

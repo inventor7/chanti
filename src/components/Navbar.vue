@@ -1,5 +1,6 @@
 <template>
-    <div :data-theme="theme"  dir="ltr" class="navbar border-b-2 -xl mb-8 fixed  top-0  fd  py-1 bg-base-100  z-50 " ref="navbar">
+    <div :data-theme="theme" dir="ltr" class="navbar border-b-2 -xl mb-8 fixed  top-0  fd  py-1 bg-base-100  z-50 "
+        ref="navbar">
         <div class="navbar-start pl-2 ">
 
             <!-- when loggedin -->
@@ -51,7 +52,7 @@
 
 
             <!-- loggedin -->
-            <DropDownLang  v-if="!authStore.$state.isAuthenticated"  />
+            <DropDownLang v-if="!authStore.$state.isAuthenticated" />
             <button v-if="!authStore.$state.isAuthenticated" @click="modalStore.toggleModal"
                 class=" btn btn-secondary btn-xs gap-2 sm:btn-sm btn-outline ">
                 <span class="material-icons text-[18px] hidden sm:block ">
@@ -60,14 +61,14 @@
                 {{ languageStore.getWord('login') }}
             </button>
 
-            
+
 
 
             <!-- not loggedin -->
-            <div  v-if="authStore.$state.isAuthenticated" class="dropdown dropdown-end  ">
+            <div v-if="authStore.$state.isAuthenticated" class="dropdown dropdown-end  ">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
-                        <img v-if="userStore.$state.userType==='provider'" src="../assets/OIG2.jpg">
+                        <img v-if="userStore.$state.userType === 'provider'" src="../assets/OIG2.jpg">
                         <img v-else src="../assets/patient.png">
                     </div>
                 </label>
@@ -210,10 +211,12 @@ export default {
         }
 
         onBeforeMount(() => {
-            notificationStore.getNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                console.log(res)
-            })
+            if (authStore.$state.userAuth != null) {
 
+                notificationStore.getNotificationNumber(authStore.$state.userAuth.id).then((res) => {
+                    console.log(res)
+                })
+            }
             if (authStore.$state.isAuthenticated === false) {
                 router.push({ name: 'home' });
             }
@@ -224,7 +227,7 @@ export default {
 
         const handleGetNotification = () => {
             notificationStore.notificationPageVisibility = true
-            notificationStore.getNotification(authStore.$state.userAuth.id).then((res) => {
+            notificationStore.getNotificationClient(authStore.$state.userAuth.id).then((res) => {
                 console.log(res)
             })
         }

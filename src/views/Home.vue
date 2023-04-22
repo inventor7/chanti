@@ -89,6 +89,7 @@
 
 
     </div>
+    <NotificationPage />
     <Footer class="mt-[1000px]" />
 </template>
 
@@ -103,6 +104,7 @@ import LoginModal from '../components/LoginModal.vue'
 import Card from '../components/Crad.vue'
 import Category from '../components/Category/Category.vue'
 import CategoriesList from '../components/Category/CategoriesList.vue'
+import NotificationPage from '../components/NotificationPage.vue'
 import { useCategoriesStore } from '../store/categoriesStore'
 import { useLanguageStore } from '../store/AppBasic/languageStore'
 import { useModalStore } from '../store/AppBasic/modaleStore'
@@ -119,7 +121,7 @@ import { computed, watchEffect, ref } from 'vue'
 
 export default {
     name: 'Home',
-    components: { Navbar, Navbar , Modal, CategoriesList, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage },
+    components: { Navbar, Navbar , Modal, CategoriesList, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage,NotificationPage },
     setup() {
         //initialisation the store
         const languageStore = useLanguageStore()
