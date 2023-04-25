@@ -1,16 +1,21 @@
 <template>
     <!-- navigation back -->
     <div
-        class="w-full fixed z-50 top-0 bg-white rounded-b-2xl shadow-xl h-fit flex flex-row justify-between items-center px-3 py-2 ">
-        <span class="material-icons text-3xl  text-secondary cursor-pointer" @click="router.go(-1)">
-            arrow_back_ios
-        </span>
+        class="w-full fixed z-50 top-0 bg-white rounded-b-xl shadow-xl h-fit flex flex-row justify-between items-center px-3 py-2 ">
+        <button class=" btn-circle " @click="router.go(-1)">
+            <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
+                arrow_back_ios
+            </span>
+        </button>
 
-        <span v-if="providerIsAuth" class="material-icons text-3xl  text-secondary cursor-pointer"
+        <span v-if="providerIsAuth" class="material-icons md:text-3xl text-2xl  text-secondary cursor-pointer"
             @click="router.push({ name: 'editProfile', params: { id: provider.id } })">
             edit_square
         </span>
     </div>
+
+
+
 
     <ErrorPage v-if="!portfolioStore.loadingPortfolio && portfolioStore.errorPortfolio.status"
         :error="portfolioStore.errorPortfolio.message" />
@@ -48,7 +53,7 @@
 
                                 <div class="flex justify-start items-start flex-row gap-x-5">
                                     <img class="-mt-8 relative z-10 inline-block h-24 w-24  rounded-full ring-4 ring-yellow-500 "
-                                        src="../assets/OIG.jpg" alt="Image Description">
+                                        src="../../assets/OIG.jpg" alt="Image Description">
                                     <div class="flex flex-1 flex-row    justify-end items-center gap-1">
                                         <div
                                             class=" px-2 text-2xl btn btn-secondary  bg-blue-100 text-blue-700 -mt-6 z-10 border-none   w-fit">
@@ -245,24 +250,24 @@
 
 <script>
 import { computed, onMounted, onBeforeMount } from "vue";
-import Loading from "../components/Loading.vue";
-import Error from "../components/Error.vue";
-import ProviderPosts from "../components/ProviderPosts.vue";
-import RatingSection from "../components/RatingSection.vue";
-import Rating from "../components/Rating.vue";
-import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
-import { usePortfolioStore } from "../store/Provider/portfolioStore";
-import { useClientStore } from "../store/Client/clientStore";
-import { useProviderStore } from "../store/Provider/providerStore";
-import { useLanguageStore } from "../store/AppBasic/languageStore";
-import { useWilayasStore } from "../store/wilayasStore";
-import { useUserStore } from "../store/userStore";
-import { useCategoriesStore } from "../store/categoriesStore";
-import { useAuthStore } from "../store/authStore";
+import Loading from "../../components/Loading.vue";
+import Error from "../../components/Error.vue";
+import ProviderPosts from "../../components/ProviderPosts.vue";
+import RatingSection from "../../components/RatingSection.vue";
+import Rating from "../../components/Rating.vue";
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { usePortfolioStore } from "../../store/Provider/portfolioStore";
+import { useClientStore } from "../../store/Client/clientStore";
+import { useProviderStore } from "../../store/Provider/providerStore";
+import { useLanguageStore } from "../../store/AppBasic/languageStore";
+import { useWilayasStore } from "../../store/wilayasStore";
+import { useUserStore } from "../../store/userStore";
+import { useCategoriesStore } from "../../store/categoriesStore";
+import { useAuthStore } from "../../store/authStore";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-import router from "../router";
-import ErrorPage from "./ErrorPage.vue";
+import router from "../../router";
+import ErrorPage from "../ErrorPage.vue";
 export default {
     name: "Profile",
     components: {

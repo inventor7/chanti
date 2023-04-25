@@ -3,14 +3,14 @@
         @handle="handleClick" pageTitle=" Choose Urgency" pageDesc=" select the urgency of your request "
         componentLocation="selectionProcess">
 
-        <div class=" flex flex-row justify-around w-full overflow-y-scroll   h-full flex-1 gap-3  items-start ">
+        <div class=" flex flex-row justify-around w-full  h-full py-2 flex-1 gap-3  items-start ">
             <div class=" flex flex-col  justify-center items-center gap-3 w-full md:mb-0 mb-20 h-full ">
                 <!-- a select component with modern design to select multiple emergency status as urgent , not urgent , etc -->
                 <transition name="fade">
                     <!--  select images -->
                     <div class=" flex flex-col md:flex-row w-4/5 h-full rounded-2xl p-2 gap-2 font-semibold ">
                         <div
-                            class="flex  flex-col border-2 border-dashed  justify-center items-center w-full rounded-2xl h-full  ">
+                            class="flex  flex-col border-2 border-dashed  justify-center items-center w-full rounded-2xl h-1/4  ">
                             <span @click="handleFileClick" class="material-icons text-4xl">
                                 upload_file
                             </span>
@@ -22,9 +22,9 @@
                                 to upload
                             </span>
                         </div>
-                        <div class="w-full h-full rounded-2xl" :class="{ 'border-2': !selectedFiles.length }">
+                        <div v-if="selectedFiles.length>0" class="w-full h-1/2 rounded-2xl" :class="{ 'border-2': !selectedFiles.length }">
                             <div v-if="selectedFiles.length"
-                                class="w-full max-h-[50vh] min-h-full grid grid-cols-2 grid-rows-2 gap-2">
+                                class="w-full h-full min-h-full grid grid-cols-2 grid-rows-2 gap-2">
                                 <div class="relative h-full w-full " v-for="(url, index) in selectedFileUrls" :key="index">
                                     <img class="h-full object-cover rounded-2xl " :src="url"
                                         :alt="'Image ' + (index + 1)" />

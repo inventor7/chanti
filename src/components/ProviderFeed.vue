@@ -1,8 +1,10 @@
 <template>
     <div class="flex flex-col w-full">
-        <Loading v-if=" feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status " class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
-        <Error v-if=" feedPostsStore.errorFeedPosts.status && !feedPostsStore.loadingFeed   " class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
-        <div v-if=" !feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status "  class="w-full h-full">
+        <Loading v-if="feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status"
+            class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
+        <Error v-if="feedPostsStore.errorFeedPosts.status && !feedPostsStore.loadingFeed"
+            class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
+        <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status" class="w-full h-full">
             <div v-if="feedPosts === null || feedPosts.length === 0"
                 class=" flex flex-col justify-center items-center h-[50vh] ">
                 <span class="material-icons text-5xl text-gray-300">
@@ -12,69 +14,77 @@
             </div>
             <transition-group v-else name="post" tag="div" mode="out-in">
                 <div v-for="post in feedPosts" :key="post.id"
-                    class=" post-container flex flex-col w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
+                    class="  post-container flex flex-col w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
                     <div class="  relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
                         <img class="notification-item w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
                             src="../assets/OIG.jpg" alt="Image Description">
-                        <!-- <span class="material-icons absolute top-0 right-0  text-3xl z-10 text-secondary">
-                            verified
-                        </span> -->
+                       
                     </div>
-                    <div class="p-2 md:p-3 notification-item ">
+                    <div class="p-2  md:p-3 notification-item ">
                         <div class="flex flex-col gap-2">
                             <div class="flex flex-row justify-between items-center">
                                 <div>
-                                    <h3 class="text-lg font-semibold text-gray-800">Home Improvement</h3>
+                                    <h3 class="text-2xl font-semibold text-gray-800">Home Improvement</h3>
                                     <label
                                         class="inline-block text-[14px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
                                         #{{ post.id.substring(0, 5) }}..
                                     </label>
                                 </div>
 
-                                <div class="flex flex-row gap-1 items-center self-start " :class="{
-                                    'text-red-500': post.urgency === 'urgent',
-                                    'text-yellow-500': post.urgency === 'normal',
-                                    'text-green-500': post.urgency === 'low',
-                                    'text-blue-500': post.urgency === 'unplanned',
-                                }">
-                                    <span class="material-icons text-lg" :class="{
-                                            'text-red-500': post.urgency === 'urgent',
-                                            'text-yellow-500': post.urgency === 'normal',
-                                            'text-green-500': post.urgency === 'low',
-                                            'text-blue-500': post.urgency === 'unplanned',
-                                        }">
-                                        {{ post.urgency === 'urgent' ? 'hourglass_full' : post.urgency === 'low' ?
-                                            'hourglass_empty' : post.urgency === 'normal' ? 'hourglass_bottom' :
-                                                'hourglass_disabled' }}
+
+                                <div class="flex flex-row gap-2 self-start  items-center">
+                                    <span class="material-icons text-2xl text-primary">
+                                        arrow_forward_ios
                                     </span>
-
-
-                                    {{ post.urgency }}
                                 </div>
+
                             </div>
                         </div>
-                        <div class="flex flex-row justify-between items-center mt-2">
-                            <div class="flex flex-row gap-1">
-                                <span class="material-icons text-primary text-lg">
-                                    location_on
-                                </span>
-                                <!-- {{ wilayasStore.getCommuneById(post.stateId) }} -->
-                                <span class="text-gray-500 text-sm self-center ">{{
-                                    wilayasStore.getWilayaById(post.stateId)
-                                }}, Ouled
-                                    Fayet</span>
-                            </div>
-                            <div class="flex flex-row gap-1">
-                                <span class="text-gray-500 text-sm self-center">{{ formatTime(post.createdAt) }}</span>
-                                <span class="material-icons text-primary self-center mt-1 text-lg">
+
+
+                        <div class="flex mt-1 flex-row gap-1">
+                            <span class="material-icons text-primary text-lg">
+                                location_on
+                            </span>
+                            <!-- {{ wilayasStore.getCommuneById(post.stateId) }} -->
+                            <span class="text-gray-500 text-sm self-center ">{{
+                                wilayasStore.getWilayaById(post.stateId)
+                            }}, Ouled
+                                Fayet</span>
+                        </div>
+                        <div class="flex flex-row pb-1 justify-between items-center">
+                            <div class="flex pl-0.5 flex-row gap-1">
+                                <span class="material-icons text-primary self-center text-lg">
                                     schedule
                                 </span>
+                                <span class="text-gray-500 text-sm self-center">{{ formatTime(post.createdAt) }}</span>
+                            </div>
+                            <div class="flex mt-1 px-2 rounded-full flex-row gap-1 items-center self-start " :class="{
+                                'text-red-500 bg-red-500/20': post.urgency === 'urgent',
+                                'text-yellow-500 bg-yellow-500/20': post.urgency === 'normal',
+                                'text-green-500 bg-green-500/20': post.urgency === 'low',
+                                'text-blue-500 bg-blue-500/20': post.urgency === 'unplanned',
+                            }">
+                                <span class="material-icons text-lg" :class="{
+                                        'text-red-500': post.urgency === 'urgent',
+                                        'text-yellow-500': post.urgency === 'normal',
+                                        'text-green-500': post.urgency === 'low',
+                                        'text-blue-500': post.urgency === 'unplanned',
+                                    }">
+                                    {{ post.urgency === 'urgent' ? 'hourglass_full' : post.urgency === 'low' ?
+                                        'hourglass_empty' : post.urgency === 'normal' ? 'hourglass_bottom' :
+                                            'hourglass_disabled' }}
+                                </span>
+
+
+                                {{ post.urgency }}
                             </div>
                         </div>
-                        <div class="mt-2 w-full h-full   ">
+
+                        <div class="py-0.5 w-full h-full   ">
                             <div class="w-full">
                                 <button v-if="post.btnVisible && !post.btnLoading" @click="sendInterest(post.id)"
-                                    class="btn flex-1 font-bold w-full  cursor-pointer z-20  gap-1 btn-sm sm:btn-md btn-outline btn-primary rounded-lg -white">
+                                    class="btn flex-1 font-bold w-full  cursor-pointer z-20  gap-1 btn-sm sm:btn-md text-white btn-primary rounded-lg -white">
                                     request job
                                 </button>
 
@@ -107,7 +117,7 @@
 import Loading from './Loading.vue'
 import Error from './Error.vue'
 import Toast from './Toast.vue'
-import { ref, onMounted, watch , onBeforeMount } from 'vue'
+import { ref, onMounted, watch, onBeforeMount } from 'vue'
 import { useTimeDifference } from '../composables/timeDifference.js'
 import { useUserStore } from '../store/userStore';
 import { useClientStore } from '../store/Client/clientStore';

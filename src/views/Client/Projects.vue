@@ -1,16 +1,16 @@
 <template>
-    <ProviderLayout >
+    <ClientLayout >
         //coneent
-    </ProviderLayout>
+    </ClientLayout>
 </template>
 
 <script>
 //layout
-import ProviderLayout from '../Layouts/ProviderLayout.vue';
+import ClientLayout from '../Layouts/ClientLayout.vue';
 export default {
-    name: 'ProviderProjects',
+    name: 'ClientProjects',
     components: {
-        ProviderLayout,
+        ClientLayout,
     },
     setup() {
         return {

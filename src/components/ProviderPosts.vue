@@ -1,9 +1,8 @@
 <template>
     <div class="flex flex-col w-full">
         <Loading v-if="portfolioStore.loadingPortfolio" class="  h-fit z-50" />
-        <div v-else class="w-full h-full">
-            <div v-if="portfolioPosts.length === 0"
-                class=" flex flex-col justify-center items-center h-[50vh] ">
+        <div v-else class="w-full h-full mb-20 ">
+            <div v-if="portfolioPosts.length === 0" class=" flex flex-col justify-center items-center h-[50vh] ">
                 <span class="material-icons text-5xl text-gray-300">
                     no_photography
                 </span>
@@ -11,35 +10,72 @@
             </div>
 
 
-            <!-- Images -->
-            <div v-for="post in portfolioPosts" :key="post.id" @click="setSelectedPost(post)"
-                class="relative   w-full flex flex-col md:max-w-lg cursor-pointer mx-auto group mb-4 bg-gray-100 border shadow-md rounded-xl overflow-hidden focus:ring-2 transition hover:shadow-lg">
-                <div class="grid  " :class="{
-                        'grid-cols-1 grid-rows-1': post.images.length === 1,
-                        'grid-cols-1 grid-rows-2': post.images.length === 2,
-                        'grid-cols-2 grid-rows-2': post.images.length >= 3,
-                    }">
+            <div v-else class="griddy h-full ">
+                <div v-for="post in portfolioPosts" :key="post.id"
+                    class="relative h-full w-full flex flex-col  md:max-w-lg   group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
+                    <div class="carousel carousel-center  h-full max-h-[55vh] w-full ">
+                        <div v-for="(image, index) in post.images" :key="index"
+                            class="relative carousel-item h-full  w-full border  border-white ">
+                            <img class=" h-full rounded-t-xl  w-full object-cover" :src="getBase64Image(image.data)" :alt="image.type">
+                            <label 
+                                class="material-icons z-10 text-3xl absolute top-1 right-1 bg-white/50 w-fit h-fit rounded-full px-0.5 "
+                                :class="{ 'text-warning': post.status === 'pending', 'text-success': post.status != 'pending' }">
+                                {{ post.status === 'pending' ? 'published_with_changes' : 'verified' }}
+                            </label>
 
-                    <div v-for="(image, index) in post.images" :key="index"
-                        class="relative border  border-white pb-[60%] lg:pb-[80%]" :class="{
-                                'col-span-1 row-span-1': post.images.length < 3 || index < 2,
-                                'col-span-2 row-span-2': post.images.length >= 3 && index === 2,
-                            }">
 
-                        <img class="absolute  top-0 left-0 object-cover w-full h-full  hover:scale-105 transition-transform duration-500"
-                            :src="getBase64Image(image.data)" :alt="image.type">
+                            <!-- Indicator -->
+                            <div v-if="post.images.length > 1"
+                                class=" absolute  w-fit p-1.5 bg-blue-500/30 rounded-full   bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
+
+                                <div v-for="(image, index2) in post.images" :key="index"
+                                    class="w-2 h-2 rounded-full mx-1 cursor-pointer   "
+                                    :class="{ 'bg-blue-500 notification-item ': index === index2, 'bg-gray-100': index != index2 }">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="relative w-full py-2 px-2 flex flex-row gap-2  justify-between items-center">
+                        <p class="text-start text-lg font-medium ">{{ post.details }}</p>
+
+
+                        <div v-if="authStore.$state.userAuth.id === providerStore.$state.provider.id " class="dropdown dropdown-top dropdown-end">
+                            <label tabindex="0" class="btn p-0 btn-circle btn-ghost -mx-1   cursor-pointer ">
+                                <span class="material-icons text-3xl  ">
+                                    more_horiz
+                                </span>
+                            </label>
+                            <ul tabindex="0"
+                                class="dropdown-content font-semibold menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li class="border-b-2">
+                                    <p>
+                                        <span class="material-icons text-error ">delete</span>
+                                        Delete
+                                    </p>
+                                </li>
+                                <li class="">
+                                    <p>
+                                        <span class="material-icons text-primary ">edit</span>
+                                        Edit
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-row justify-between gap-2 items-center px-2 pb-2">
+                        <div class="flex flex-row gap-2 items-center">
+                            <span class="material-icons text-secondary">
+                                calendar_today
+                            </span>
+                            <p class="text-gray-500">12/12/2021</p>
+                        </div>
                     </div>
 
                 </div>
-
-                <div class="relative w-full py-2 px-2 flex flex-row justify-between items-center">
-                    <p>{{ post.details }}</p>
-                    <span class="material-icons text-3xl"
-                        :class="{ 'text-warning': post.status === 'pending', 'text-secondary': post.status != 'pending' }">
-                        {{ post.status === 'pending' ? 'pending' : 'done' }}
-                    </span>
-                </div>
-
             </div>
         </div>
 
@@ -76,7 +112,7 @@ export default {
         const userStore = useUserStore();
         const providerStore = useProviderStore();
         const portfolioStore = usePortfolioStore();
-        
+
         const wilayasStore = useWilayasStore();
         const authStore = useAuthStore();
 
@@ -151,7 +187,12 @@ export default {
     transform: translateX(-100%);
 }
 
-
+.griddy {
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+}
 
 
 

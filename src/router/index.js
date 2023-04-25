@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/Client/Home.vue'
 
 import SignupPage1 from '../views/Signup/SignupPage1.vue'
 import SignupPage2 from '../views/Signup/SignupPage2.vue'
@@ -27,12 +27,6 @@ import ErrorPage from '../views/ErrorPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-
     ////////////Signup Pages////////////
     {
       path: '/signup/howitworks',
@@ -103,13 +97,25 @@ const router = createRouter({
       component: SelectionPage7
     },
 
+    
+    // ///////////////client Pages///////////////
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/Projects',
+      name: 'clientProjects',
+      component: () => import('../views/Client/Projects.vue')
+    },
 
     // ///////////////provider Pages///////////////
 
     {
       path: '/profile/:name',
       name: 'profile',
-      component: () => import('../views/Profile.vue')
+      component: () => import('../views/Provider/Profile.vue')
     },
 
     {
@@ -127,8 +133,8 @@ const router = createRouter({
     },
 
     {
-      path: '/projects',
-      name: 'projects',
+      path: '/Pro/projects',
+      name: 'providerProjects',
       component: () => import('../views/Provider/Projects.vue')
     },
 

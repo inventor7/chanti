@@ -19,7 +19,7 @@ export const useNotificationStore = defineStore("notificationStore", {
   }),
   actions: {
     // fetch the results from the server with axios
-    async getNotification(providerId) {
+    async getProviderNotification(providerId) {
       this.loading = true;
       try {
         this.loading = true;
@@ -57,7 +57,7 @@ export const useNotificationStore = defineStore("notificationStore", {
       }
     },
 
-    async getNotificationClient(clientId) {
+    async getClientNotification(clientId) {
       this.loading = true;
       try {
         this.loading = true;
@@ -97,7 +97,7 @@ export const useNotificationStore = defineStore("notificationStore", {
     //getters
 
 
-    async getNotificationNumber(providerId) {
+    async getProviderNotificationNumber(providerId) {
         this.loading = true;
         try {
           this.loading = true;
@@ -133,6 +133,44 @@ export const useNotificationStore = defineStore("notificationStore", {
           }
         }
       },
+
+
+      async getClientNotificationNumber(clientId) {
+        this.loading = true;
+        try {
+          this.loading = true;
+          const response = await axios({
+            method: "post",
+            url: `${useAuthStore().baseUrl}/notifications/response-to-client-number`,
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${useAuthStore().$state.token}`,
+            },
+            data: {
+              "clientId": clientId,
+            },
+            timeout: 13000, // 13 seconds
+          });
+  
+          this.loading = false;
+          this.notificationsNumber = response.data.result;
+          this.errorNotification.status = false;
+          this.errorNotification.message = "";
+  
+          return response;
+          
+        } catch (error) {
+          this.loading = false;
+          this.errorNotification.status = true;
+          if (error.response) {
+              this.errorNotification.message = error.response.data.message;
+          } else if (error.request) {
+              this.errorNotification.message ="Network error: please check your internet connection and try again";
+          } else {
+              this.errorNotification.message ="Network error: please check your internet connection and try again";
+          }
+        }
+      },
   },
   persist: [
     {
@@ -140,7 +178,9 @@ export const useNotificationStore = defineStore("notificationStore", {
       storage: localStorage,
       paths: [
         "notifications",
-        "notificationsNumber"
+        "notificationsNumber",
+        "readNotifications",
+        "notReadNotifications",
       ],
     },
   ],

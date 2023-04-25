@@ -1,6 +1,6 @@
 <template>
-    <div dir="ltr" class="dropdown dropdown-end  ">
-        <button class=" btn btn-secondary btn-xs whitespace-nowrap sm:btn-sm text-white   ">
+    <div data-theme="clientTheme" dir="ltr" class="dropdown dropdown-end  ">
+        <button class=" btn btn-primary btn-xs whitespace-nowrap sm:btn-sm text-white   ">
 
             <!-- translation icon -->
             <svg class="inline-block md:hidden h-4 w-4 fill-current md:h-5 md:w-5" xmlns="http://www.w3.org/2000/svg"

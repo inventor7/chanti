@@ -85,7 +85,7 @@
 
     </SignupLayout>
 
-    <div class="fixed z-40 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
+    <div class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
         <button v-show="!clientStore.btnLoadingAll && clientStore.$state.btnVisibleAll" @click="handleSendRequest('all')"
             class="btn self-center text-white   w-full md:w-1/3  btn-primary mt-2 rounded-xl btn-md ">
             Publish the request

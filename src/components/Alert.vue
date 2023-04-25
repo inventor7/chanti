@@ -2,9 +2,11 @@
     <!-- Put this part before </body> tag -->
     <input type="checkbox" id="alert-modal" class="modal-toggle" />
     <div class="modal bg-black/30 modal-bottom sm:modal-middle">
-        <div class="modal-box">
-            <!-- <h3 class="font-bold text-lg">Congratulations random Internet user!</h3> -->
+        <div class="modal-box relative">
+            <div class="font-bold md:hidden text-lg w-1/2 absolute top-2 h-2 bg-gray-500/20 rounded-full m-0 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
+            </div>
             <p class="py-4 font-semibold text-lg ">{{ message }}</p>
+            <slot></slot>
             <div class="modal-action">
                 <label for="alert-modal" class="btn btn-ghost " :class="{
 
@@ -55,6 +57,7 @@ export default {
         const handleCloseBtn = () => {
             context.emit('handleCloseBtn');
         }
+        
         return {
             handleCloseBtn
         }
