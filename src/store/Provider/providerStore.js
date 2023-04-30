@@ -14,6 +14,7 @@ export const useProviderStore = defineStore("providerStore", {
     },
 
     provider: {},
+    selecteddProvider: {},
     providers: [],
   }),
 
@@ -146,7 +147,7 @@ export const useProviderStore = defineStore("providerStore", {
     {
       key: "providerStore",
       storage: localStorage,
-      paths: ["provider", "providers"],
+      paths: ["provider", "providers", "selecteddProvider"],
     },
   ],
 });

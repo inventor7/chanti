@@ -105,9 +105,9 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/Projects',
-      name: 'clientProjects',
-      component: () => import('../views/Client/Projects.vue')
+      path: '/Posts',
+      name: 'clientPosts',
+      component: () => import('../views/Client/Posts.vue')
     },
 
     // ///////////////provider Pages///////////////

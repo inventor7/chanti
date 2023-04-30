@@ -77,11 +77,11 @@
                                         verified
                                     </span>
                                 </label>
-                                <div class="flex flex-row justify-start items-center gap-1">
+                                <div v-if="!provider.btnVisible && !provider.btnLoading" class="flex box flex-row justify-start items-center gap-1">
                                     <span class="material-icons   text-primary">
                                         phone
                                     </span>
-                                    <span class=" font-medium text-gray-500">
+                                    <span  class=" font-medium text-gray-500">
                                         {{ provider.phoneNumber }}
                                     </span>
                                 </div>
@@ -102,7 +102,7 @@
                                         location_on
                                     </span>
                                     <span class=" font-medium text-gray-500">
-                                        {{ wilayasStore.getWilayaById(provider.stateId) }}
+                                        {{ wilayasStore.getWilayaById(provider.stateId) }} , {{provider.city}}
                                     </span>
 
                                 </div>
@@ -110,14 +110,14 @@
 
                             <div>
                                 <span class="inline-block text-lg font-medium text-gray-700 ">
-                                    {{ languageStore.getWord(categoriesStore.getCategoryById(provider.categoryId).name) }}
+                                    {{ languageStore.getWord(provider.category.name) }}
                                 </span>
                                 <p class=" w-full text-sm font-medium text-gray-600 ">
                                     Lorem ipsum dolor sit, amet consectetur and adipisicing elit. Eos vero a eligendi ab
                                     sed
                                     dolores beatae </p>
                                 <div class="space-x-1">
-                                    <span v-for=" subcat in provider.subCategories" :key="subcat.id"
+                                    <span v-for=" subcat in provider.subcategories" :key="subcat.id"
                                         class="inline-block mt-2 text-[12px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
                                         {{ languageStore.getWord(subcat.name) }}
                                     </span>
@@ -138,12 +138,12 @@
                                         request
                                     </button>
 
-                                    <button v-if="!provider.btnVisible && !provider.btnLoading"
-                                        class="btn h-12 font-semibold text-success btn-sm md:btn-md z-20 bg-success/10 btn-primary gap-2 cursor-not-allowed btn-disabled">
-                                        <span class="material-icons text-success text-lg">
-                                            check_circle
+                                    <button @click="makePhoneCall" v-if="!provider.btnVisible && !provider.btnLoading"
+                                        class="btn h-10  text-white btn-sm md:btn-md z-20 btn-success gap-2 ">
+                                        <span class="material-icons">
+                                            phone
                                         </span>
-                                        request sent
+                                        call pro
                                     </button>
 
                                     <button v-if="!provider.btnVisible && provider.btnLoading"
@@ -158,8 +158,7 @@
 
 
                                     <button type="button"
-                                        class="py-2 btn btn-sm px-3 font-bold inline-flex justify-center items-center gap-2 h-10 border  btn-secondary btn-outline  shadow-sm align-middle  ">
-
+                                        class="py-2 btn btn-sm md:btn-md px-3 font-bold inline-flex justify-center items-center gap-2 h-10 border  btn-secondary btn-outline  shadow-sm align-middle  ">
                                         <span class="material-icons ">
                                             chat_bubble
                                         </span>
@@ -233,7 +232,7 @@
                     </nav>
                 </div>
 
-                <div class="  text-center md:py-7 md:px-5">
+                <div class="  text-center md:py-7 mb-4 md:px-5">
 
                     <div v-if="selectedTab === 1">
                         <RatingSection :rating="provider.rating" />
@@ -333,6 +332,8 @@ export default {
             router.push({ name: "home" })
         }
 
+
+        //
         const handleGoBack = () => {
             router.push({ name: "results" })
         }
@@ -340,6 +341,11 @@ export default {
         let providerIsAuth = computed(() => {
             return authStore.$state.userAuth.id === providerStore.$state.provider.id
         })
+
+        //
+        const makePhoneCall = () => {
+            window.open(`tel:${provider.value.phoneNumber}`)
+        }
 
 
 
@@ -366,6 +372,7 @@ export default {
             handleGoHome,
             handleGoBack,
             handleSendRequest,
+            makePhoneCall
 
         };
     },

@@ -2,8 +2,7 @@
     <transition name="slide">
         <div v-if="searchStore.searchPageVisibility" class="bg-white overflow-y-scroll min-h-screen  z-50 inset-0 fixed">
             <div dir="ltr" class="bg-white fixed h-fit w-full">
-                <div
-                    class="flex  bg-white flex-row justify-startitems-center  w-full px-2 py-2 sm:py-3 sm:px-3  gap-2 shadow-lg  ">
+                <div class="flex  bg-white flex-row justify-startitems-center  w-full px-2 py-2 sm:py-3 sm:px-3  gap-2 shadow-lg  ">
                     <span @click="handleExitArrow"
                         class="material-icons cursor-pointer text-start  text-primary text-2xl  sm:text-3xl ">
                         keyboard_backspace

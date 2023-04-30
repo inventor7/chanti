@@ -1,6 +1,5 @@
 <template>
-    <div class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   "
-        :class="{ 'border-error bg-error/5 ': notifType == 'notRead', 'border-gray-200': notifType == 'read' }">
+    <div class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   ">
         <!-- an alert model to show details -->
         <label class=" cursor-pointer  absolute rounded-xl -left-0 z-10  w-full h-full "></label>
 
@@ -17,89 +16,24 @@
                 <div class="relative">
                     <div class="w-full h-full">
                         <h3 class="text-gray-800 uppercase font-semibold ">
-
-                            <span v-if="notificationLocation === 'provider'">{{ notification.clientName }}</span>
-                            <span v-else>From {{ notification.providerId }}</span>
-
+                            {{ notification.firstName }} {{ notification.lastName }}
                         </h3>
 
-                        <p v-if="notificationLocation === 'provider'" class=" text-sm font-normal  ">
+                        <p class=" text-sm font-normal  ">
                             is requesting you for
                             <label for="alert-modal"
                                 class="inline-block ml-1 text-[14px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
                                 {{ languageStore.getWord(notification.subCategoryName) }}
                             </label>
                         </p>
-
-                        <span v-if="notificationLocation === 'client' && notification.type == 'providerInterest'"
-                            class=" text-sm font-normal flex flex-col ">
-                            <div>
-                                <span>is</span>
-                                <label for="alert-modal"
-                                    class="inline-block ml-1 text-[14px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
-                                    {{ notification.type }}ed
-
-                                </label>
-                            </div>
-                            <div>
-                                <span>
-                                    in your project
-                                </span>
-                                <label for="alert-modal"
-                                    class="inline-block mt-1 text-[14px] bg-primary/20 py-0.5 px-2 w-fit rounded-xl font-medium text-primary ">
-                                    #{{ notification.ClientPostId.split('-')[0] }}...
-                                </label>
-                            </div>
-                        </span>
-
-
                         <p class="text-gray-400 text-sm mt-1 ">{{ formatTime(notification.createdAt) }}</p>
                     </div>
 
                 </div>
 
-                <!-- Client's buttons sections -->
-                <div v-if="notificationLocation === 'client' && notification.type == 'providerInterest'"
-                    class="mt-2 w-full h-full   ">
-                    <div class="w-full">
-                        <div v-if="true" class="flex flex-row justify-start items-center gap-2  ">
-                            <button @click="selectResponse('decline', notification.id, false)"
-                                class="btn cursor-pointer z-20  gap-1 btn-sm sm:btn-md  btn-error rounded-lg text-white">
-
-                                Decline
-                            </button>
-                            <button @click="selectResponse('accept', notification.id, false)"
-                                class="btn cursor-pointer z-20  gap-1 btn-sm sm:btn-md  btn-success rounded-lg text-white">
-
-                                Accept
-                            </button>
-                        </div>
-
-                        <div v-else class="w-full">
-                            <button v-if="notification.status == 'accept'"
-                                class="btn btn-sm md:btn-md z-20 bg-success/10 btn-primary w-full gap-2 cursor-not-allowed btn-disabled">
-                                <span class="material-icons text-success text-sm md:text-lg">
-                                    check_circle
-                                </span>
-                                <span class="text-sm md:text-lg font-bold text-success">Accepted</span>
-                            </button>
-                            <button v-else
-                                class="btn btn-sm md:btn-md z-20 bg-error/10  btn-primary w-full gap-2 cursor-not-allowed btn-disabled">
-                                <span class="material-icons text-error text-sm md:text-lg">
-                                    cancel
-                                </span>
-                                <span class="text-sm md:text-lgfont-bold text-error">Declined</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Client's end buttons sections -->
-
-
-
+            
                 <!-- Provider's buttons sections -->
-                <div v-if="notificationLocation === 'provider'" class="mt-2 w-full h-full   ">
+                <div class="mt-2 w-full h-full   ">
                     <div class="w-full">
                         <div v-if="notification.status == 'pending'"
                             class="flex flex-row justify-start items-center gap-2  ">
@@ -133,8 +67,8 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Provider's end buttons sections -->
+
             </div>
         </div>
     </div>
@@ -285,6 +219,17 @@ export default defineComponent({
     animation-delay: 0.4s;
 }
 
+.notification-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.notification-item:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.notification-item:nth-child(7) {
+    animation-delay: 0.7s;
+}
 
 
 

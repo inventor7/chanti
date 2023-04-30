@@ -82,7 +82,6 @@
 
 
     </div>
-    <PostImages v-if="selectedPost" :post="selectedPost" @close="selectedPost = null" />
     <Toast :duration="5000" class="bottom-0 z-50" :color="errorColor" :isVisible="errorStatus" :message="errorMessage" />
 </template>
 
@@ -90,7 +89,6 @@
 import Loading from './Loading.vue';
 import Error from './Error.vue';
 import Toast from './Toast.vue';
-import PostImages from './PostImages.vue';
 import { ref, onMounted, watch, computed } from 'vue'
 import { useUserStore } from '../store/userStore';
 import { useProviderStore } from '../store/Provider/providerStore';
@@ -105,7 +103,6 @@ export default {
         Loading,
         Error,
         Toast,
-        PostImages
     },
     setup() {
         //store

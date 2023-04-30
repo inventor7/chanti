@@ -4,9 +4,9 @@
             class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
         <Error v-if="feedPostsStore.errorFeedPosts.status && !feedPostsStore.loadingFeed"
             class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
-        <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status" class="w-full h-full">
+        <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status" class="w-full min-h-[85vh]">
             <div v-if="feedPosts === null || feedPosts.length === 0"
-                class=" flex flex-col justify-center items-center h-[50vh] ">
+                class=" flex flex-col justify-center items-center h-[80vh] ">
                 <span class="material-icons text-5xl text-gray-300">
                     no_photography
                 </span>
@@ -14,7 +14,7 @@
             </div>
             <transition-group v-else name="post" tag="div" mode="out-in">
                 <div v-for="post in feedPosts" :key="post.id"
-                    class="  post-container flex flex-col w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
+                    class="  post-container flex flex-col h-full w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
                     <div class="  relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
                         <img class="notification-item w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
                             src="../assets/OIG.jpg" alt="Image Description">
@@ -24,7 +24,7 @@
                         <div class="flex flex-col gap-2">
                             <div class="flex flex-row justify-between items-center">
                                 <div>
-                                    <h3 class="text-2xl font-semibold text-gray-800">Home Improvement</h3>
+                                    <h3 class="text-2xl font-semibold text-gray-800">{{languageStore.getWord(post.subcategoryName)}}</h3>
                                     <label
                                         class="inline-block text-[14px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
                                         #{{ post.id.substring(0, 5) }}..
@@ -49,8 +49,7 @@
                             <!-- {{ wilayasStore.getCommuneById(post.stateId) }} -->
                             <span class="text-gray-500 text-sm self-center ">{{
                                 wilayasStore.getWilayaById(post.stateId)
-                            }}, Ouled
-                                Fayet</span>
+                            }},{{ post.cityName }}</span>
                         </div>
                         <div class="flex flex-row pb-1 justify-between items-center">
                             <div class="flex pl-0.5 flex-row gap-1">
@@ -124,7 +123,9 @@ import { useClientStore } from '../store/Client/clientStore';
 import { useFeedPostsStore } from '../store/Provider/feedPostsStore';
 import { useProviderStore } from '../store/Provider/providerStore';
 import { useWilayasStore } from '../store/wilayasStore';
+import { useLanguageStore } from '../store/AppBasic/languageStore';
 import { useAuthStore } from '../store/authStore';
+import { useCategoriesStore } from '../store/categoriesStore'
 
 
 export default {
@@ -140,6 +141,8 @@ export default {
         const providerStore = useProviderStore();
         const wilayasStore = useWilayasStore();
         const clientStore = useClientStore();
+        const languageStore = useLanguageStore();
+        const categoriesStore = useCategoriesStore();
         const feedPostsStore = useFeedPostsStore();
         const authStore = useAuthStore();
 
@@ -196,7 +199,10 @@ export default {
             userStore,
             providerStore,
             wilayasStore,
+            categoriesStore,
             authStore,
+            clientStore,
+            languageStore,
             feedPostsStore,
 
             //vars

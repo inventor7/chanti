@@ -2,7 +2,7 @@
   <div
     class="flex relative flex-col lg:flex-col  justify-center h-full  items-center md:py-4 md:px-2 pb-1   gap-2  w-full  ">
 
-    <div v-if="categoriesStore.getIsActiveDecoration">
+    <div v-if="!clientDemandeStore.$state.requestinProgress && !isHome  ">
       <span :class="{ 'block ': isActive, 'hidden ': !isActive }"
         class="material-icons absolute text-xl md:text-xl   top-0.5 left-1 sm:top-2 sm:left-2  text-white  ">
         check_circle_fill
@@ -33,6 +33,8 @@
 
 <script>
 import { useCategoriesStore } from '../../store/categoriesStore';
+import { useclientDemandeStore } from '../../store/Client/clientDemandeStore';
+import { useRouter } from 'vue-router';
 export default {
   name: "Category",
   props: {
@@ -49,8 +51,16 @@ export default {
   },
   setup() {
     const categoriesStore = useCategoriesStore();
+    const clientDemandeStore = useclientDemandeStore();
+    const router = useRouter();
+
+    const isHome = router.currentRoute.value.name === "home";
+
     return {
       categoriesStore,
+      clientDemandeStore,
+
+      isHome,
     };
   },
 

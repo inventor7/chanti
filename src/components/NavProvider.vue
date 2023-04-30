@@ -1,7 +1,7 @@
 <template>
     <div dir="ltr" class="navbar border-t-2 px-4   fd  py-0 bg-base-100  z-50 " ref="navbar">
 
-        <div class="navbar-start ">
+        <div @click="handleClickedRoute('providerHome')" class="navbar-start ">
             <router-link :to="{ name: 'providerHome' }" class="navbar-item flex flex-col items-center ">
                 <span class="text-primary text-4xl "
                 :class="getIcon('providerHome')"
@@ -12,7 +12,7 @@
             </router-link>
         </div>
 
-        <div class="navbar-center ">
+        <div @click="handleClickedRoute('createPost')" class="navbar-center ">
              <router-link :to="{ name: 'createPost' }" class="navbar-item flex flex-col items-center ">
                 <span class="text-primary text-4xl "
                 :class="getIcon('createPost')"
@@ -23,10 +23,10 @@
             </router-link>
         </div>
 
-        <div class="navbar-end ">
+        <div @click="handleClickedRoute('providerProjects')" class="navbar-end ">
            <router-link :to="{ name: 'providerProjects' }" class="navbar-item flex flex-col items-center ">
                 <span class="text-primary text-4xl "
-                :class="getIcon('projects')"
+                :class="getIcon('providerProjects')"
                 >
                     task
                 </span>
@@ -39,12 +39,16 @@
 
 <script>
 import { useThemeStore } from '../store/AppBasic/themeStore';
+import { usePortfolioStore } from '../store/Provider/portfolioStore';
+import { useAuthStore } from '../store/authStore'
 import { useRoute } from 'vue-router';  // for route name
 
 export default {
     name: 'NavProvider',
     setup() {
         const themeStore = useThemeStore();
+        const portfolioStore = usePortfolioStore();
+        const authStore = useAuthStore();
         const route = useRoute();
 
         //return material_icons or material_icons_outlined based on route name so if the route name matched the parameter it will return material_icons else it will return material_icons_outlined
@@ -56,9 +60,18 @@ export default {
             }
         };
 
+        const handleClickedRoute = (name) => {
+            if (name == 'createPost' ) {
+             portfolioStore.getProviderPortfolio(authStore.$state.userAuth.id).then((res) =>{
+                console.log(res);
+             })
+            } 
+        };
+
         return {
             themeStore,
             getIcon,
+            handleClickedRoute,
         };
     },
 

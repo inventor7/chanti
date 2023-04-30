@@ -30,7 +30,7 @@
 
 
                             <div v-for="provider in  providerStore.$state.providers" :key="provider.id"
-                                class="flex flex-col w-full  border-2 rounded-xl p-3  md:p-2 bg-white gap-1  drop-shadow-lg  hover:border-primary  border-gray-100">
+                                class="flex flex-col w-full h-fit  border-2 rounded-xl p-3  md:p-2 bg-white gap-1  drop-shadow-lg  hover:border-primary  border-gray-100">
                                 <div class="flex items-center">
                                     <!-- <img class="rounded-full w-20 h-20" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description"> -->
                                     <div @click="showProfile(provider)" class="grow hover:cursor-pointer ">
@@ -51,21 +51,20 @@
 
                                 </div>
 
-                                <div class=" flex flex-row justify-start items-center w-full  sm:mt-3 space-x-1">
+                                <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1" >
                                     <Rating v-bind="{ rating: 3.7, isIndicatorActive: true, ratingNumber: 7 }" />
-
                                 </div>
                                 <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
                                     class="btn  w-full btn-sm sm:btn-md  btn-primary rounded-xl text-white">
                                     send request
                                 </button>
-                                <button v-show="!provider.btnLoading" v-else
-                                    class="btn h-12 font-semibold text-success btn-sm md:btn-md z-20 bg-success/10 btn-primary w-full gap-2 cursor-not-allowed btn-disabled">
-                                    <span class="material-icons text-success text-lg">
-                                        check_circle
+                                <button v-show="!provider.btnLoading" @click="makePhoneCall(provider)" v-else
+                                    class="btn h-12 font-semibold text-white btn-sm md:btn-md z-20 bg-success/70 btn-success w-full gap-2">
+                                    <span class="material-icons text-lg">
+                                       phone
                                     </span>
-                                    request sent
+                                    call pro
                                 </button>
                                 <button v-show="provider.btnLoading"
                                     class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
@@ -163,7 +162,7 @@ export default {
                 if (res.status == 200) {
                     if (providerId == 'all') {
                         clientStore.$state.isSentAll = true
-                        clientStore.$state.btnVisibleAll = false
+                        clientStore.btnVisibleAll = false
                     } else {
                         clientStore.$state.isSent = true
                         providerStore.$state.providers.forEach((provider) => {
@@ -200,14 +199,13 @@ export default {
 
         }
 
-
-        onBeforeMount(()=>{
-            clientStore.$state.btnVisibleAll =  true
-        })
+        const makePhoneCall = (provider) => {
+            window.open(`tel:${provider.phoneNumber}`)
+        }
 
         const showProfile = (provider) => {
             //show profile based on the provider id
-            portfolioStore.getProviderPortfolio(provider).then((res) => {
+            portfolioStore.getProviderPortfolio(provider.id).then((res) => {
                 console.log('Profile posts needed ', res)
                 providerStore.$state.provider.btnVisible = provider.btnVisible
             })
@@ -239,6 +237,7 @@ export default {
             showProfile,
             handleClick,
             handleSendRequest,
+            makePhoneCall
         }
     },
 

@@ -259,6 +259,7 @@ export default {
                         }
                         else {
                             userStore.extractSubCategoriesIds()
+                            console.log(userStore.user)
                             authStore.signup().then(() => {
                                 if (authStore.$state.isAuthenticated) {
                                     userStore.emptyFields()

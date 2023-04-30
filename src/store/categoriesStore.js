@@ -80,19 +80,6 @@ export const useCategoriesStore = defineStore("categoriesStore", {
       },
     ],
   }),
-  getters: {
-
-    //just to remove the decoration on the home page
-    getIsActiveDecoration() {
-      const router = useRouter();
-      if (router.currentRoute.value.path === "/") {
-        return false;
-      } else {
-        return true;
-      }
-    },
-    
-  },
 
   actions: {
     emptyFields() {
@@ -149,7 +136,7 @@ export const useCategoriesStore = defineStore("categoriesStore", {
     
     // get category by id
     getCategoryById(id) {
-      return this.categories.find((item) => item.id === id);
+      return this.categories.find((item) => item.id === id).name;
     },
     
     //get sub category by id

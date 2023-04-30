@@ -15,9 +15,9 @@ export const usePortfolioStore = defineStore("portfolioStore", {
     portfolioPosts: [],
   }),
   actions: {
-    async getProviderPortfolio(provider) {
+    async getProviderPortfolio(providerId) {
       useProviderStore().$state.provider = {};
-      this.portfolioPosts = [];
+
       try {
         this.loadingPortfolio = true;
         const response = await axios({
@@ -28,7 +28,7 @@ export const usePortfolioStore = defineStore("portfolioStore", {
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            providerId: provider.id,
+            providerId: providerId,
           },
           timeout: 17000, // 13 seconds
         });
@@ -36,12 +36,9 @@ export const usePortfolioStore = defineStore("portfolioStore", {
         useProviderStore().$state.provider = response.data.result.provider;
         useProviderStore().$state.provider.category = response.data.result.category;
         useProviderStore().$state.provider.subcategories = response.data.result.subcategories;
-
-         if(response.data.result.portfolioPostsWithImages){
-          this.portfolioPosts = response.data.result.portfolioPostsWithImages;
-        }else{
-          this.portfolioPosts = [];
-        }
+        useProviderStore().$state.provider.city= response.data.result.city;
+        this.portfolioPosts = response.data.result.portfolioPostsWithImages;
+       
 
         this.loadingPortfolio = false;
         this.errorPortfolio.status = false;

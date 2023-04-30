@@ -20,7 +20,6 @@ export const useNotificationStore = defineStore("notificationStore", {
   actions: {
     // fetch the results from the server with axios
     async getProviderNotification(providerId) {
-      this.loading = true;
       try {
         this.loading = true;
         const response = await axios({
@@ -28,149 +27,163 @@ export const useNotificationStore = defineStore("notificationStore", {
           url: `${useAuthStore().baseUrl}/notifications/requests-to-provider`,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${useAuthStore().$state.token}`,
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "providerId": providerId,
+            providerId: providerId,
           },
           timeout: 13000, // 13 seconds
         });
 
         this.loading = false;
-        this.readNotifications = response.data.result.readNotifications;
-        this.notReadNotifications = response.data.result.notReadNotifications;
+        if (response.data.message == "No notifications") {
+          this.readNotifications = [];
+          this.notReadNotifications = [];
+        } else {
+          this.readNotifications = response.data.result.readNotifications;
+          this.notReadNotifications = response.data.result.notReadNotifications;
+        }
+
         this.errorNotification.status = false;
         this.errorNotification.message = "";
 
         return response;
-
       } catch (error) {
         this.loading = false;
         this.errorNotification.status = true;
         if (error.response) {
-            this.errorNotification.message = error.response.data.message;
+          this.errorNotification.message = error.response.data.message;
         } else if (error.request) {
-            this.errorNotification.message ="Network error: please check your internet connection and try again";
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
         } else {
-            this.errorNotification.message ="Network error: please check your internet connection and try again";
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
         }
       }
     },
 
     async getClientNotification(clientId) {
-      this.loading = true;
       try {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: `${useAuthStore().baseUrl}/notifications/response-to-client/`,
+          url: `${useAuthStore().baseUrl}/notifications/response-to-client`,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${useAuthStore().$state.token}`,
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "clientId": clientId,
+            clientId: clientId,
           },
           timeout: 13000, // 13 seconds
         });
 
         this.loading = false;
-        this.readNotifications = response.data.result.readNotifications;
-        this.notReadNotifications = response.data.result.notReadNotifications;
+        if (response.data.message == "No notifications") {
+          this.readNotifications = [];
+          this.notReadNotifications = [];
+        } else {
+          this.readNotifications = response.data.result.readNotifications;
+          this.notReadNotifications = response.data.result.notReadNotifications;
+        }
         this.errorNotification.status = false;
         this.errorNotification.message = "";
 
         return response;
-
       } catch (error) {
         this.loading = false;
         this.errorNotification.status = true;
         if (error.response) {
-            this.errorNotification.message = error.response.data.message;
+          this.errorNotification.message = error.response.data.message;
         } else if (error.request) {
-            this.errorNotification.message ="Network error: please check your internet connection and try again";
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
         } else {
-            this.errorNotification.message ="Network error: please check your internet connection and try again";
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
         }
       }
     },
     //getters
 
-
     async getProviderNotificationNumber(providerId) {
+      try {
         this.loading = true;
-        try {
-          this.loading = true;
-          const response = await axios({
-            method: "post",
-            url: `${useAuthStore().baseUrl}/notifications/requests-to-provider-number`,
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${useAuthStore().$state.token}`,
-            },
-            data: {
-              "providerId": providerId,
-            },
-            timeout: 13000, // 13 seconds
-          });
-  
-          this.loading = false;
-          this.notificationsNumber = response.data.result;
-          this.errorNotification.status = false;
-          this.errorNotification.message = "";
-  
-          return response;
-          
-        } catch (error) {
-          this.loading = false;
-          this.errorNotification.status = true;
-          if (error.response) {
-              this.errorNotification.message = error.response.data.message;
-          } else if (error.request) {
-              this.errorNotification.message ="Network error: please check your internet connection and try again";
-          } else {
-              this.errorNotification.message ="Network error: please check your internet connection and try again";
-          }
+        const response = await axios({
+          method: "post",
+          url: `${
+            useAuthStore().baseUrl
+          }/notifications/requests-to-provider-number`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            providerId: providerId,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        this.loading = false;
+        this.notificationsNumber = response.data.result;
+        this.errorNotification.status = false;
+        this.errorNotification.message = "";
+
+        return response;
+      } catch (error) {
+        this.loading = false;
+        this.errorNotification.status = true;
+        if (error.response) {
+          this.errorNotification.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
         }
-      },
+      }
+    },
 
-
-      async getClientNotificationNumber(clientId) {
+    async getClientNotificationNumber(clientId) {
+      try {
         this.loading = true;
-        try {
-          this.loading = true;
-          const response = await axios({
-            method: "post",
-            url: `${useAuthStore().baseUrl}/notifications/response-to-client-number`,
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${useAuthStore().$state.token}`,
-            },
-            data: {
-              "clientId": clientId,
-            },
-            timeout: 13000, // 13 seconds
-          });
-  
-          this.loading = false;
-          this.notificationsNumber = response.data.result;
-          this.errorNotification.status = false;
-          this.errorNotification.message = "";
-  
-          return response;
-          
-        } catch (error) {
-          this.loading = false;
-          this.errorNotification.status = true;
-          if (error.response) {
-              this.errorNotification.message = error.response.data.message;
-          } else if (error.request) {
-              this.errorNotification.message ="Network error: please check your internet connection and try again";
-          } else {
-              this.errorNotification.message ="Network error: please check your internet connection and try again";
-          }
+        const response = await axios({
+          method: "post",
+          url: `${
+            useAuthStore().baseUrl
+          }/notifications/response-to-client-number`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            clientId: clientId,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        this.loading = false;
+        this.notificationsNumber = response.data.result;
+        this.errorNotification.status = false;
+        this.errorNotification.message = "";
+
+        return response;
+      } catch (error) {
+        this.loading = false;
+        this.errorNotification.status = true;
+        if (error.response) {
+          this.errorNotification.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorNotification.message =
+            "Network error: please check your internet connection and try again";
         }
-      },
+      }
+    },
   },
   persist: [
     {

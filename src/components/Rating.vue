@@ -1,12 +1,11 @@
 <template>
   <div class="star-rating flex flex-row justify-between items-center  ">
     <div v-if="isIndicatorActive" class="indicator font-bold text-lg self-center ">{{ rating }} <span class="text-gray-600 self-center ml-1 text-sm font-medium" >({{ ratingNumber }})</span> </div>
-    <div v-for="(star, index) in stars" :key="index" class="star-container">
+    <div @click="ratePro(index)" v-for="(star, index) in stars" :key="index" class="star-container">
       <svg class="star-svg" :style="[
         { fill: `url(#gradient${star.raw})` },
         { width: styleStarWidth },
-        { height: styleStarHeight }
-      ]">
+        { height: styleStarHeight }]">
         <polygon :points="getStarPoints" style="fill-rule:nonzero;" />
         <defs>
           <!--
@@ -25,38 +24,47 @@
 </template>
 
 <script>
-
+import { useRatingStore } from '../store/ratingStore';
 export default {
   name: "stars-rating",
   components: {},
   props: {
-    rating: {
-      type: Number,
-      default:0
-    },
-    starStyle: {
-      type: Object
-    },
-    isIndicatorActive: {
-      type: Boolean,
-      default: true
-    },
-    ratingNumber: {
-      type: Number,
-      default: 0
-    }
+  rating: {
+    type: Number,
+    default: 0
   },
-  data: function () {
+  starStyle: {
+    type: Object
+  },
+  isIndicatorActive: {
+    type: Boolean,
+    default: true
+  },
+  ratingNumber: {
+    type: Number,
+    default: 0
+  },
+  styleStarWidth: {
+    type: Number,
+    default: 18
+  },
+  styleStarHeight: {
+    type: Number,
+    default: 18
+  }
+},
+  data: function (props) {
     return {
       stars: [],
       emptyStar: 0,
       fullStar: 1,
       totalStars: 5,
       // Binded Nested Props registered as data/computed and not props
-      styleStarWidth: 18,
-      styleStarHeight: 18,
+      styleStarWidth: props.styleStarWidth,
+      styleStarHeight: props.styleStarHeight,
       styleEmptyStarColor: "gray",
-      styleFullStarColor: "orange"
+      styleFullStarColor: "orange",
+      rating: props.rating
     };
   },
   directives: {},
@@ -81,6 +89,20 @@ export default {
     }
   },
   methods: {
+
+    ratePro(index) {
+
+      // Set the rating full and half stars
+      this.stars.map((star, i) => {
+        if (i <= index) {
+          star.raw = this.fullStar;
+        } else {
+          star.raw = this.emptyStar;
+        }
+      });
+
+      useRatingStore().$state.rating = index + 1;
+    },
     calcStarPoints(
       centerX,
       centerY,
@@ -153,8 +175,6 @@ export default {
 </script>
 
 <style>
-
-
   .star-container {
     display: flex;
   }

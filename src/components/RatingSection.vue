@@ -1,5 +1,5 @@
 <template>
-    <div v-if=" rating === 0 || rating===null " class="flex flex-col justify-center items-center border-2 rounded-2xl p-2 mt-4 gap-2  w-full h-full">
+    <div v-if=" rating===null || rating === 0 " class="flex flex-col justify-center items-center border-2 rounded-2xl p-2 mt-4 gap-2  w-full h-full">
         <!-- <h2 class="font-bold font-sans text-3xl ">Custumor Service</h2> -->
         <h2 class="font-extrabold font-sans text-7xl ">{{ rating }}</h2>
         <Rating :isIndicatorActive="false" :size="32" :rating="rating" />

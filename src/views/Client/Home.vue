@@ -61,9 +61,9 @@
                     class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1.5">
                     <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
                         @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
-                        :isActive="category === selectedCategory && categoriesStore.getIsActiveDecoration"
+                        :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress"
                         :iconName="category.iconName"
-                        :class="{ 'bg-primary shadow-2xl  text-white scale-[103%]   ': category === categoriesStore.selectedCategory && categoriesStore.getIsActiveDecoration }"
+                        :class="{ 'bg-primary shadow-2xl  text-white scale-[103%]   ': category === categoriesStore.selectedCategory && !clientDemandeStore.$state.requestinProgress }"
                         class=" text-center cursor-pointer rounded-md bg-slate-300/20 border-gray-300  hover:shadow-2xl   border-[1px]   transition-all duration-300 ease-in-out">
                     </Category>
                 </div>
@@ -161,7 +161,7 @@ export default {
         })
 
         const handleJoinNetwork = () => {
-            userStore.user.userType = 'provider'
+            userStore.$state.userType = 'provider'
             themeStore.theme = 'providerTheme'
             router.push({ name: 'howitworks' })
         }
@@ -175,6 +175,7 @@ export default {
             categoriesStore,
             languageStore,
             authStore,
+            clientDemandeStore,
 
             //vars
             selectedCategory,

@@ -69,9 +69,9 @@ export const useUserStore = defineStore("userStore", {
   actions: {
     //extract the sub categories ids from the sub categories array and pass them to subCategoriesIds
     extractSubCategoriesIds() {
-      this.user.subCategoriesIds = [
-        ...new Set(this.user.subCategories.map((obj) => obj.id)),
-      ];
+     this.user.subCategoriesIds = this.user.subCategories.map(
+        (subCategory) => subCategory.id
+      );
     },
 
     // empty fields

@@ -1,9 +1,9 @@
 <template>
-    <div dir="ltr" class="navbar gap-10  border-t-2 px-4   fd  py-0 bg-base-100  z-50 " ref="navbar">
+    <div dir="ltr" class=" flex flex-row justify-around items-center navb  py-1  border-t-2    fd bg-base-100  z-50 " ref="navbar">
 
-        <div class="navbar-start  ">
+        <div class="  ">
             <router-link :to="{ name: 'home' }" class="navbar-item flex flex-col  w-full self-center text-center items-center ">
-                <span class="text-primary text-4xl "
+                <span class="text-primary text-3xl "
                 :class="getIcon('home')"
                 >
                     other_houses
@@ -12,10 +12,10 @@
             </router-link>
         </div>
 
-        <div class="navbar-end ">
-           <router-link :to="{ name: 'clientProjects' }" class="navbar-item flex flex-col w-full items-center ">
-                <span class="text-primary text-4xl "
-                :class="getIcon('clientProjects')"
+        <div class="  ">
+           <router-link :to="{ name: 'clientPosts' }" class="navbar-item flex  flex-col w-full items-center ">
+                <span class="text-primary text-3xl "
+                :class="getIcon('clientPosts')"
                 >
                     task
                 </span>

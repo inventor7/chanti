@@ -290,7 +290,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped >
 .dropdown-content::-webkit-scrollbar {
     width: 10px;
     height: 10px;

@@ -1,11 +1,10 @@
 <template>
     <Error
         v-if="!notificationStore.loading && notificationStore.errorNotification.status && notificationStore.notificationPageVisibility" />
-
     <Loading
         v-if="notificationStore.loading && !notificationStore.errorNotification.status && notificationStore.notificationPageVisibility" />
-
-    <div v-if="!notificationStore.errorNotification.status" class="w-full h-full">
+    
+        <div v-if="!notificationStore.errorNotification.status" class="w-full h-full">
         <transition name="slide">
             <div v-if="notificationStore.notificationPageVisibility"
                 class="bg-white  w-screen md:w-1/2 overflow-y-scroll min-h-screen   z-50 inset-0 fixed">
@@ -24,8 +23,18 @@
                     </button>
                 </div>
 
+                
+                <div v-if="notificationStore.notReadNotifications.length === 0 && notificationStore.readNotifications.length === 0"
+                    class="flex flex-col justify-center items-center w-full h-full">
+                    <span class="material-icons text-6xl text-primary">
+                        notifications_off
+                    </span>
+                    <span class="text-2xl font-semibold text-primary">No Notifications</span>
+                </div>
+              
+
                 <!-- notifications -->
-                <div class="mt-20" v-if="userStore.$state.userType === 'provider'">
+                <div v-else class="mt-20 pb-4 " v-if="userStore.$state.userType === 'provider'">
                     <div class="w-full space-y-2  px-1 sm:px-3 h-full ">
                         <Notification v-for="notif in notReadNotifications" :key="notif.id" :notif="notif"
                             notifType="notRead" notificationLocation="provider" />
@@ -33,11 +42,11 @@
                             notificationLocation="provider" />
                     </div>
                 </div>
-                <div class="mt-20" v-if="userStore.$state.userType === 'client'">
+                <div class="mt-20 pb-4" v-if="userStore.$state.userType === 'client'">
                     <div class="w-full space-y-2 mt-16 px-1 sm:px-3 h-full ">
-                        <Notification class="bg-black" v-for="notif in notReadNotificationsClient.notifications"
+                        <NotificationClient class="bg-black" v-for="notif in notReadNotificationsClient.notifications"
                             :key="notif.id" :notif="notif" notifType="notRead" notificationLocation="client" />
-                        <Notification v-for="notif in readNotificationsClient.notifications" :key="notif.id" :notif="notif"
+                        <NotificationClient v-for="notif in readNotificationsClient.notifications" :key="notif.id" :notif="notif"
                             notifType="read" notificationLocation="client" />
                     </div>
                 </div>
@@ -62,17 +71,19 @@ import { useAuthStore } from '../store/authStore'
 import { useLanguageStore } from '../store/AppBasic/languageStore'
 import { useUserStore } from '../store/userStore'
 
-import { computed, onMounted, onBeforeMount, ref,watch , watchEffect , reactive } from 'vue'
+import { computed, onMounted, onBeforeMount, ref, watch, watchEffect, reactive } from 'vue'
 import Notification from './Notification.vue'
+import NotificationClient from './NotificationClient.vue'
 
 export default {
     name: "NotificationPage",
     components: {
-        Alert,
-        Error,
-        Loading,
-        Notification
-    },
+    Alert,
+    Error,
+    Loading,
+    Notification,
+    NotificationClient
+},
     setup() {
 
         //store
@@ -81,18 +92,16 @@ export default {
         const authStore = useAuthStore()
         const languageStore = useLanguageStore()
         const userStore = useUserStore()
-        console.log(notificationStore.$state.notReadNotifications);
-        console.log(notificationStore.$state.readNotifications);
+
         //vars
         const notReadNotificationsClient = reactive({
             notifications: []
         });
 
-
-
         const readNotificationsClient = reactive({
             notifications: []
         });
+
 
         //onBefore Mount with async
         watchEffect(() => {
@@ -165,6 +174,7 @@ export default {
 </script>
 
 <style scoped>
+
 .slide-enter-active,
 .slide-leave-active {
     transition: all 0.3s ease;
@@ -181,4 +191,5 @@ export default {
     opacity: 1;
     transform: translateX(0);
 }
+
 </style>

@@ -1,7 +1,5 @@
 <template>
     <ProviderLayout>
-
-
         <ProviderFeed  />
     </ProviderLayout>
 </template>
