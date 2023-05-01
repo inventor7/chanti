@@ -4,7 +4,7 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/chanti/",
+  base: "/",
   plugins: [vue()],
   resolve: {
     alias: {
@@ -12,9 +12,9 @@ export default defineConfig({
     },
   },
   server: {
-    //enable CORS
+    // Enable CORS
     cors: true,
-    //enable proxy
+    // Enable proxy
     proxy: {
       "/api": {
         target: "https://chanti-dz-backend.herokuapp.com",
