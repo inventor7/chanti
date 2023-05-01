@@ -2,17 +2,21 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import { createPinia } from 'pinia'
-import { useAuthStore } from "./store/authStore";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import "./assets/base.css";
 // condition to change the base url for the api calls depending on the environment before the app is mounted
-// Set the base URL for API calls depending on the environment
 if (process.env.NODE_ENV === "development") {
-    useAuthStore().baseUrl = "/api";
-  } else {
-    useAuthStore().baseUrl = "https://chanti-dz-backend.herokuapp.com";
-  }
-  
+    import("./store/authStore").then((module) => {
+        module.useAuthStore().baseUrl = "/api";
+    });
+
+} else {
+    import("./store/authStore").then((module) => {
+        module.useAuthStore().baseUrl = "https://chanti-dz-backend.herokuapp.com";
+    });
+}
+
+
 
 
  
