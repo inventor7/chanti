@@ -10,18 +10,5 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-  },
-  server: {
-    // Enable CORS
-    cors: true,
-    // Enable proxy
-    proxy: {
-      "/api": {
-        target: "https://chanti-dz-backend.herokuapp.com",
-        changeOrigin: true,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
   }, 
 });
