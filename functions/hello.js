@@ -1,3 +1,5 @@
+
+// This is the function that will be executed when the endpoint is called
 exports.handler = async (event, context) => {
     const response = {
       statusCode: 200,
