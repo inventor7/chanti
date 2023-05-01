@@ -1,14 +1,10 @@
-
-// This is the function that will be executed when the endpoint is called
 exports.handler = async (event, context) => {
     const response = {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "https://chanti-dz-backend.herokuapp.com",
       },
-      body: JSON.stringify({ message: "Hello World" }),
+      body: JSON.stringify({ message: "Hello World" })
     };
     return response;
   };
-  
