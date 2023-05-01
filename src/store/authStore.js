@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("authStore", {
       message: "",
     },
     loading: false,
-    baseUrl: "https://chanti-dz-backend.herokuapp.com",
+    baseUrl: import.meta.env.VITE_API_URL,
     token: "",
     isAuthenticated: false,
     userAuth: {},
