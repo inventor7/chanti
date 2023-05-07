@@ -68,7 +68,10 @@ export default defineComponent({
         })
 
         let providersInterest = computed(() => {
-            return clientDemandeStore.$state.selectedPost.providersSentInterest
+            let interest =  clientDemandeStore.$state.selectedPost.providersSentInterest.filter((pro)=>{
+                return pro.status === 'accepted'
+            })
+            return interest
         })
 
         let RatingPageVisibility = computed(() => {

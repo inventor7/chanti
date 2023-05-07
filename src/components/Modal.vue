@@ -1,5 +1,5 @@
 <template>
-  <div dir="ltr" ref="loginModal " @click.self="toggleModal" :class="{ 'modal-open': modalVis }"  class="modal bg-gray-700/80  " >
+  <div dir="ltr" ref="loginModal " @click.self="toggleModal" :class="{ 'modal-open': modalVis }"  class="modal bg-gray-700/80 backdrop-blur-sm  " >
       <slot></slot>
   </div>
 </template>

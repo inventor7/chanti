@@ -9,7 +9,7 @@ export const useNotificationStore = defineStore("notificationStore", {
     readNotifications: [],
     notReadNotifications: [],
     notificationPageVisibility: false,
-    notificationsNumber: 2,
+    notificationsNumber: 0,
 
     loading: false,
     errorNotification: {

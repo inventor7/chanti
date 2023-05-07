@@ -43,13 +43,7 @@
                 </span>
             </div> -->
         </div>
-        <span class="material-icons absolute top-2 right-2 text-[10px]" :class="{
-            'text-yellow-500': post.status == 'pending',
-            'text-green-500': post.status == 'done',
-            'text-red-500': post.status == 'delete',
-        }">
-            dot_circle
-        </span>
+
         <div v-if="post.status === 'pending'" class="divider my-1 "></div>
 
         <!-- only shows when post is pending -->
@@ -59,10 +53,10 @@
                 Mark Done
             </button>
             <div class="divider my-1 "></div>
-            <button @click="handleWorkStatus('delete')"
+            <label for="delete-modal" @click="handleWorkStatus('delete', post.id)"
                 class="btn btn-sm text-error btn-ghost hover:bg-error hover:text-white w-full px-0  ">
                 Delete
-            </button>
+            </label>
         </div>
 
         <button v-if="post.status === 'done'"
@@ -103,7 +97,7 @@ export default {
     components: {
         Image,
     },
-    setup() {
+    setup(props, context) {
 
         //store
         const categoriesStore = useCategoriesStore();
@@ -118,27 +112,37 @@ export default {
         const formatTime = (date) => timeDifference(date)
 
         const showPost = (clientPostId, status) => {
-            if (status != 'delete') {
+            if (status != 'delete') { //if post is done or pending 
+               
                 clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(clientPostId)
-                clientDemandeStore.getClientPostProviders(clientPostId)
+                
+                clientDemandeStore.getClientPostProviders(clientPostId).then((res) => {
+                    console.log('providers')
+                    console.log(res)
+                    
+                })
+
                 clientDemandeStore.getClientPostImages(clientPostId).then((res) => {
                     console.log('images')
                     console.log(res)
                 })
+
                 clientDemandeStore.clientPostPageVisibility = true;
             }
         }
 
         const handleWorkStatus = (status) => {
             if (status == 'done') {
+                clientDemandeStore.$state.selectedPost = props.post
+                clientDemandeStore.getClientPostProviders(props.post.id)
+                clientDemandeStore.getClientPostImages(props.post.id).then((res) => {
+                    console.log('images')
+                    console.log(res)
+                })
                 clientDemandeStore.clientPostPageVisibility = false
                 clientDemandeStore.RatingPageVisibility = true
             } else {
-                clientDemandeStore.setWorkStatus('delete', clientDemandeStore.$state.selectedPost.id).then((res) => {
-                    console.log(res)
-                    console.log('status changed to ' + status)
-                    clientDemandeStore.clientPostPageVisibility = false
-                })
+                clientDemandeStore.PostToDelte = props.post
             }
         }
 

@@ -1,11 +1,10 @@
 <template>
-    <div class="flex flex-col justify-between items-start w-full h-full border-[1] shadow-lg border-x-2 border-t-2 p-2 mb-3 rounded-xl notification-item"
+    <div class="flex flex-col justify-between items-start w-full h-full border-[1] shadow-lg border-x-2 border-t-2 p-2 mb-3 rounded-xl gap-2 notification-item"
         :class="{ ' bg-gray-200/20': notifType === 'notRead' }">
         <!-- profile section -->
         <div @click="showProfile(notification.providerId)"
             class="flex flex-row justify-start items-start gap-2 w-full h-full cursor-pointer ">
-            <img class="w-fit h-14 rounded-full" src="../assets/OIG.jpg" alt="profile picture" />
-            <div class="flex flex-col justify-start items-start w-full h-full font-semibold ">
+            <div class="flex flex-row justify-start items-center gap-2 w-full h-full font-semibold ">
                 <p class="text-xl first-letter:uppercase  ">{{ notification.firstName }} {{ notification.lastName }}</p>
                 <p v-if="notification.type === 'providerInterest'"
                     class="text-sm bg-primary/20 text-primary px-2 py-[1px] rounded-xl">
@@ -14,28 +13,49 @@
                 <div v-else class="w-fit h-full">
                     <p v-if="notification.status == 'accept'"
                         class="text-sm bg-success/20 text-success px-2 py-[1px] rounded-xl">
-                        accepted
+                        accepted you
                     </p>
                     <p v-if="notification.status == 'decline'"
                         class="text-sm bg-error/20 text-error px-2 py-[1px] rounded-xl">
-                        declined
+                        declined you
+                    </p>
+
+
+                    <!-- provider -->
+                    <p v-if="notificationLocation === 'provider' && notification.type === 'clientResponse' && notification.status === 'pending'"
+                        class="text-sm bg-primary/20 text-primary px-2 py-[1px] rounded-xl">
+                        requested you
+                    </p>
+                    <p v-if="notification.status == 'accepted' && notificationLocation === 'provider' && notification.type === 'clientInterest'"
+                        class="text-sm bg-success/20 text-success px-2 py-[1px] rounded-xl">
+                        accepted you
+                    </p>
+                    <p v-if="notification.status == 'declined' && notificationLocation === 'provider' && notification.type === 'clientInterest'"
+                        class="text-sm bg-error/20 text-error px-2 py-[1px] rounded-xl">
+                        declined you
                     </p>
                 </div>
-
             </div>
             <span v-if="notifType == 'notRead'"
                 class="inline-flex absolute top-1 right-1 items-center gap-1.5 py-1 px-1 rounded-full text-xs font-medium bg-error/10 text-error">
                 <span class="w-2 h-2 inline-block bg-error rounded-full"></span> <span>New</span>
             </span>
         </div>
-        <div class=" divider my-0 w-1/2 self-center text-white opacity-0 "></div>
+
+
+        <!-- <div class=" divider my-0 w-1/2 self-center text-white opacity-0 "></div> -->
         <!-- content section -->
         <div @click="showPost(notification)"
             class="flex flex-row justify-between items-center gap-2 w-full h-full cursor-pointer ">
             <div class="flex flex-col justify-start items-start gap-0.5 w-full h-full font-semibold">
                 <p class="text-xl  text-secondary/90 ">{{ languageStore.getWord(notification.subCategoryName) }}</p>
                 <p class="text-xs text-gray-500 ">{{ notification.ClientPostId }}</p>
-                <p class="text-xs text-gray-400 mt-1 ">{{ formatTime(notification.createdAt) }}</p>
+                <p class="text-xs text-gray-400 mt-1 flex flex-row items-center gap-1 ">
+                    <span class="material-icons text-sm text-gray-400 ">
+                        history
+                    </span>
+                    {{ formatTime(notification.createdAt) }}
+                </p>
             </div>
             <span class="material-icons text-primary text-xl">
                 arrow_forward_ios
@@ -98,16 +118,19 @@ export default defineComponent({
         const formatTime = (date) => timeDifference(date)
 
         const showProfile = (providerId) => {
-            //show profile based on the provider id
-            portfolioStore.getProviderPortfolio(providerId).then((res) => {
-                console.log('Profile posts needed ', res)
-                providerStore.$state.provider.btnVisible = false
-            })
+            if (props.notificationLocation === 'client') {
+                //show profile based on the provider id
+                portfolioStore.getProviderPortfolio(providerId).then((res) => {
+                    console.log('Profile posts needed ', res)
+                    providerStore.$state.provider.btnVisible = false
+                })
 
-            router.push({
-                name: 'profile',
-                params: { name: providerStore.$state.provider.firstName + '-' + providerStore.$state.provider.lastName }
-            })
+                router.push({
+                    name: 'profile',
+                    params: { name: providerStore.$state.provider.firstName + '-' + providerStore.$state.provider.lastName }
+                })
+            }
+
         }
 
         const showPost = (notification) => {

@@ -7,7 +7,15 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
   state: () => ({
     //basic vars
     loadingClientDemande: false,
+    loadingPostImage: false,
     errorClientDemande: {
+      message: "",
+      status: false,
+    },
+
+    //vars for mark selected provider's post
+    loadingMarkSelected: false,
+    errorMarkSelected: {
       message: "",
       status: false,
     },
@@ -17,6 +25,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
 
     clientPosts: [],
     selectedPost: {},
+    PostToDelte: {},
     clientPostId: {}, //used to store the client post that recieved from postRequest in clientStore
     requestinProgress: false, //this vars is used if we came up from the request procudure page
 
@@ -107,7 +116,6 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
-          //empty data:
           data: {
             clientPostId: clientPostId,
           },
@@ -123,7 +131,14 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
           response.data.result.providersSentInterest;
         this.selectedPost.providersSentResponse =
           response.data.result.providersSentResponse;
-        console.log(response);
+
+        // this.selectedPost.providersSentInterest.forEach((provider) => {
+        //   provider.btnVisible = false;
+        // });
+        // this.selectedPost.providersSentResponse.forEach((provider) => {
+        //   provider.btnVisible = false;
+        // });
+
         return response;
       } catch (error) {
         this.loadingClientDemande = false;
@@ -140,7 +155,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
 
     async getClientPostImages(clientPostId) {
       try {
-        this.loadingClientDemande = true;
+        this.loadingPostImage = true;
         const response = await axios({
           method: "get",
           url: `${useAuthStore().baseUrl}/client-post/images/${clientPostId}`,
@@ -152,7 +167,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
           timeout: 13000, // 13 seconds
         });
 
-        this.loadingClientDemande = false;
+        this.loadingPostImage = false;
         this.errorClientDemande.status = false;
         this.errorClientDemande.message = "";
 
@@ -164,7 +179,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
 
         return response;
       } catch (error) {
-        this.loadingClientDemande = false;
+        this.loadingPostImage = false;
         this.errorClientDemande.status = true;
         if (error.response) {
           this.errorClientDemande.message =
@@ -176,14 +191,12 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
       }
     },
 
-    async setWorkStatus(status , clientPostId) {
+    async setWorkStatus(status, clientPostId) {
       try {
         this.loadingClientDemande = true;
         const response = await axios({
           method: "post",
-          url: `${
-            useAuthStore().baseUrl
-          }/client-post/work-status`,
+          url: `${useAuthStore().baseUrl}/client-post/work-status`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
@@ -198,7 +211,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         this.loadingClientDemande = false;
         this.errorClientDemande.status = false;
         this.errorClientDemande.message = "";
-    
+
         return response;
       } catch (error) {
         this.loadingClientDemande = false;
@@ -210,6 +223,43 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
             "Network error: please check your internet connection and try again";
         } else {
           this.errorClientDemande.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+    async changeProviderStatus(notificationId, status) {
+      try {
+        this.loadingMarkSelected = true;
+        const response = await axios({
+          method: "post",
+          url: `${useAuthStore().baseUrl}/client-post/interest/change-status`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            notificationId: notificationId,
+            status: status,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        this.loadingMarkSelected = false;
+        this.errorMarkSelected.status = false;
+        this.errorMarkSelected.message = "";
+
+        return response;
+      } catch (error) {
+        this.loadingMarkSelected = false;
+        this.errorMarkSelected.status = true;
+        if (error.response) {
+          this.errorMarkSelected.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorMarkSelected.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorMarkSelected.message =
             "Network error: please check your internet connection and try again";
         }
       }

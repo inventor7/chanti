@@ -7,12 +7,12 @@
 
                 <!-- Email or Phone -->
                 <div class=" w-full h-fit ">
-                    <label class="block text-[16px] font-semibold mb-2 ">Email or Phone</label>
+                    <label class="block text-[16px] font-semibold mb-2 ">{{ languageStore.getWord('email_or_phone') }}</label>
                     <div class="relative   ">
                         <input type="text" autocomplete="email"
                             class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
                             :class=" { 'border-gray-300': isValidPhone, 'border-error focus:outline-error': !isValidPhone } "
-                            v-model=" phone " placeholder="Enter your phone number">
+                            v-model=" phone " :placeholder="languageStore.getWord('email_or_phone')">
 
                         <div v-if=" !isValidPhone "
                             class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">

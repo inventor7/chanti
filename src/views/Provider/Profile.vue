@@ -2,7 +2,7 @@
     <!-- navigation back -->
     <div
         class="w-full fixed z-50 top-0 bg-white rounded-b-xl shadow-xl h-fit flex flex-row justify-between items-center px-3 py-2 ">
-        <button class=" btn-circle " @click="router.go(-1)">
+        <button class=" btn-circle " @click="handleGoHome">
             <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
                 arrow_back_ios
             </span>
@@ -23,12 +23,11 @@
     <div v-if="!portfolioStore.loadingPortfolio && !portfolioStore.errorPortfolio.status" class="w-full h-full">
         <!-- Card Section -->
         <div class="max-w-4xl mt-20 px-1 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-            <form>
-                <!-- Card -->
-                <div class="bg-white rounded-xl shadow ">
-                    <div
-                        class="relative top-0 h-40 rounded-t-xl bg-[url('../assets/OIG.jpg')] bg-cover bg-center bg-no-repeat">
-                        <!-- <div class="absolute top-1 btn  btn-circle left-1">
+
+            <!-- Card -->
+            <div class="bg-white rounded-xl shadow ">
+                <div class="relative top-0 h-40 rounded-t-xl bg-[url('../assets/OIG.jpg')] bg-cover bg-center bg-no-repeat">
+                    <!-- <div class="absolute top-1 btn  btn-circle left-1">
                                 <button type="button"
                                     class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm ">
                                     <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -41,144 +40,169 @@
                                     Upload header
                                 </button>
                             </div> -->
-                    </div>
+                </div>
 
-                    <div class="pt-0  p-2 sm:pt-0 sm:p-7">
-                        <!-- Grid -->
-                        <div class=" space-y-3 sm:space-y-6">
-                            <div>
-                                <label class="sr-only">
-                                    Product photo
-                                </label>
+                <div class="pt-0  p-2 sm:pt-0 sm:p-7">
+                    <!-- Grid -->
+                    <div class=" space-y-3 sm:space-y-6">
+                        <div>
+                            <label class="sr-only">
+                                Product photo
+                            </label>
 
-                                <div class="flex justify-start items-start flex-row gap-x-5">
-                                    <img class="-mt-8 relative z-10 inline-block h-24 w-24  rounded-full ring-4 ring-yellow-500 "
-                                        src="../../assets/OIG.jpg" alt="Image Description">
-                                    <div class="flex flex-1 flex-row    justify-end items-center gap-1">
-                                        <div
-                                            class=" px-2 text-2xl btn btn-secondary  bg-blue-100 text-blue-700 -mt-6 z-10 border-none   w-fit">
-                                            <span class=" self-center ">5</span>
-                                            <span class="material-icons self-center text-primary">
-                                                star
-                                            </span>
-                                        </div>
+                            <div class="flex justify-start items-start flex-row gap-x-5">
+                                <img class="-mt-8 relative z-10 inline-block h-24 w-24  rounded-full ring-4 ring-yellow-500 "
+                                    src="../../assets/OIG.jpg" alt="Image Description">
+                                <div class="flex flex-1 flex-row    justify-end items-center gap-1">
+                                    <div
+                                        class=" px-2 text-2xl btn btn-secondary  bg-blue-100 text-blue-700 -mt-6 z-10 border-none   w-fit">
+                                        <span class=" self-center ">5</span>
+                                        <span class="material-icons self-center text-primary">
+                                            star
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
 
-                            <div class=" flex flex-col space-y-2 ">
-                                <label for="af-submit-app-project-name"
-                                    class=" flex flex-row text-2xl font-bold   text-gray-800 mt-1 ">
-                                    <span class="self-center">
-                                        {{ provider.firstName }} {{ provider.lastName }}
-                                    </span>
-                                    <span class="material-icons text-secondary self-center ml-2 text-xl">
-                                        verified
-                                    </span>
-                                </label>
-                                <div v-if="!provider.btnVisible && !provider.btnLoading" class="flex box flex-row justify-start items-center gap-1">
-                                    <span class="material-icons   text-primary">
-                                        phone
-                                    </span>
-                                    <span  class=" font-medium text-gray-500">
-                                        {{ provider.phoneNumber }}
-                                    </span>
-                                </div>
+                        <div class=" flex flex-col space-y-2 ">
+                            <label for="af-submit-app-project-name"
+                                class=" flex flex-row text-2xl font-bold   text-gray-800 mt-1 ">
+                                <span class="self-center">
+                                    {{ provider.firstName }} {{ provider.lastName }}
+                                </span>
+                                <span class="material-icons text-secondary self-center ml-2 text-xl">
+                                    verified
+                                </span>
+                            </label>
+                            <div v-if="!provider.btnVisible && !provider.btnLoading"
+                                class="flex box flex-row justify-start items-center gap-1">
+                                <span class="material-icons   text-primary">
+                                    phone
+                                </span>
+                                <span class=" font-medium text-gray-500">
+                                    {{ provider.phoneNumber }}
+                                </span>
+                            </div>
 
-                                <!-- email -->
-                                <div class="flex flex-row justify-start items-center pt-1 gap-1">
+                            <!-- email -->
+                            <!-- <div class="flex flex-row justify-start items-center pt-1 gap-1">
                                     <span class="material-icons   text-primary">
                                         email
                                     </span>
                                     <span class=" font-medium text-gray-500">
                                         {{ provider.email }}
                                     </span>
-                                </div>
+                                </div> -->
 
-                                <!-- location -->
-                                <div class="flex  flex-row justify-start items-center pt-1 gap-1">
-                                    <span class="material-icons  text-primary">
-                                        location_on
-                                    </span>
-                                    <span class=" font-medium text-gray-500">
-                                        {{ wilayasStore.getWilayaById(provider.stateId) }} , {{provider.city}}
-                                    </span>
-
-                                </div>
-                            </div>
-
-                            <div>
-                                <span class="inline-block text-lg font-medium text-gray-700 ">
-                                    {{ languageStore.getWord(provider.category.name) }}
+                            <!-- location -->
+                            <div class="flex  flex-row justify-start items-center pt-1 gap-1">
+                                <span class="material-icons  text-primary">
+                                    location_on
                                 </span>
-                                <p class=" w-full text-sm font-medium text-gray-600 ">
-                                    Lorem ipsum dolor sit, amet consectetur and adipisicing elit. Eos vero a eligendi ab
-                                    sed
-                                    dolores beatae </p>
-                                <div class="space-x-1">
-                                    <span v-for=" subcat in provider.subcategories" :key="subcat.id"
-                                        class="inline-block mt-2 text-[12px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
-                                        {{ languageStore.getWord(subcat.name) }}
-                                    </span>
-                                </div>
+                                <span class=" font-medium text-gray-500">
+                                    {{ wilayasStore.getWilayaById(provider.stateId) }} , {{ provider.city }}
+                                </span>
+
                             </div>
+                        </div>
 
-                            <div v-if="!providerIsAuth" class="space-y-2">
-                                <div
-                                    class="mt-4 sm:mt-auto sm:mb-1.5 flex flex-1 flex-rox justify-between md:justify-start items-center  gap-2">
+                        <div>
+                            <span class="inline-block text-lg font-medium text-gray-700 ">
+                                {{ languageStore.getWord(provider.category.name) }}
+                            </span>
+                            <p class=" w-full text-sm font-medium text-gray-600 ">
+                                Lorem ipsum dolor sit, amet consectetur and adipisicing elit. Eos vero a eligendi ab
+                                sed
+                                dolores beatae </p>
+                            <div class="space-x-1">
+                                <span v-for=" subcat in provider.subcategories" :key="subcat.id"
+                                    class="inline-block mt-2 text-[12px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
+                                    {{ languageStore.getWord(subcat.name) }}
+                                </span>
+                            </div>
+                        </div>
 
-                                    <!-- request buttons -->
-                                    <button v-if="provider.btnVisible && !provider.btnLoading"
-                                        @click="handleSendRequest(provider.id)"
-                                        class="py-2 btn btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
-                                        <span class="material-icons">
-                                            send
-                                        </span>
-                                        request
-                                    </button>
+                        <div v-if="!providerIsAuth" class="space-y-2">
+                            <div
+                                class="mt-4 sm:mt-auto sm:mb-1.5 flex flex-1 w-full flex-row justify-center md:justify-start items-center  gap-2">
 
-                                    <button @click="makePhoneCall" v-if="!provider.btnVisible && !provider.btnLoading"
-                                        class="btn h-10  text-white btn-sm md:btn-md z-20 btn-success gap-2 ">
-                                        <span class="material-icons">
-                                            phone
-                                        </span>
-                                        call pro
-                                    </button>
+                                <!-- request buttons -->
+                                <button v-if="provider.btnVisible && !provider.btnLoading && !provider.interestedIndicator"
+                                    @click="handleSendRequest(provider.id)"
+                                    class="btn w-full sm:w-1/2 md:w-fit btn-sm h-10 py-2  font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
+                                    <span class="material-icons">
+                                        send
+                                    </span>
+                                    request
+                                </button>
 
-                                    <button v-if="!provider.btnVisible && provider.btnLoading"
-                                        class="py-2 loading btn btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
-                                        <span class="material-icons">
-                                            loop
-                                        </span>
-                                    </button>
+                                <button @click="makePhoneCall"
+                                    v-if="!provider.btnVisible && (provider.status === 'accepted' || provider.status === 'pending' ) && !provider.btnLoading && !provider.interestedIndicator"
+                                    class="btn w-full sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success gap-2">
+                                    <span class="material-icons text-xl ">
+                                        phone
+                                    </span>
+                                    {{ provider.phoneNumber }}
+                                </button>
 
-                                    <!-- end request buttons -->
+                                <button
+                                    v-if="!provider.btnVisible && provider.status === 'declined' && !provider.btnLoading && !provider.interestedIndicator"
+                                    class="btn w-full btn-error sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-error btn-sm md:btn-md z-20 bg-error/20 btn-disabled  gap-2">
+                                    <span class="material-icons text-error text-xl ">
+                                        cancel
+                                    </span>
+                                    Declined
+                                </button>
+
+                                <!-- Interested or no -->
+                                <button v-if="provider.interestedIndicator && !provider.btnLoading"
+                                    @click="handleCallPro(provider, 'accepted')"
+                                    class="btn btn-sm h-10 w-full md:w-fit flex-1 btn-success flex flex-row justify-center items-center gap-2 text-white">
+                                    Accept
+                                </button>
+                                <button v-if="provider.interestedIndicator && !provider.btnLoading"
+                                    @click="handleCallPro(provider, 'declined')"
+                                    class="btn btn-sm h-10 btn-primary w-full md:w-fit flex-1   flex flex-row justify-center items-center gap-2 text-white">
+                                    Decline
+                                </button>
+                                <!-- end Interested or no -->
+
+                                <!-- loading  button -->
+                                <button v-if="!provider.btnVisible && provider.btnLoading"
+                                    class="py-2 loading btn w-full sm:w-1/2 md:w-fit btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
+                                    <span class="material-icons">
+                                        loop
+                                    </span>
+                                </button>
+
+                                <!-- end request buttons -->
 
 
 
-                                    <button type="button"
+                                <!-- <button type="button"
                                         class="py-2 btn btn-sm md:btn-md px-3 font-bold inline-flex justify-center items-center gap-2 h-10 border  btn-secondary btn-outline  shadow-sm align-middle  ">
                                         <span class="material-icons ">
                                             chat_bubble
                                         </span>
                                         message
 
-                                    </button>
-                                </div>
+                                    </button> -->
                             </div>
-
-
-
-
                         </div>
-                        <!-- End Grid -->
+
+
 
 
                     </div>
+                    <!-- End Grid -->
+
+
                 </div>
-                <!-- End Card -->
-            </form>
+            </div>
+            <!-- End Card -->
+
 
 
             <div
@@ -305,7 +329,7 @@ export default {
             })
 
             provider.value.btnVisible = false
-            // map through clientDemandeStore.$state.providers and set BtnVisible to false to the provider that has been clicked
+
             providerStore.$state.providers.map((provider) => {
                 if (provider.id == providerId) {
                     provider.btnVisible = false
@@ -327,9 +351,31 @@ export default {
         };
 
         const handleGoHome = () => {
-            clientDemandeStore.emptyFields()
-            providerStore.$state.provider = null
-            router.push({ name: "home" })
+
+            providerStore.$state.provider.status = provider.value.status
+
+            if (provider.value.type === 'interested') { //update the status for going back
+                clientDemandeStore.$state.selectedPost.providersSentInterest.forEach((pro) => {
+                    if (pro.id === provider.value.id) {
+                        pro.status = provider.value.status; // use assignment operator to update status property
+                        console.log('interested')
+                        console.log(pro)
+
+                    }
+                });
+            }
+            if (provider.value.type === 'responsed') {
+                clientDemandeStore.$state.selectedPost.providersSentResponse.forEach((pro) => {
+                    if (pro.id === provider.value.id) {
+                        pro.status = provider.value.status; // use assignment operator to update status property
+                        console.log('responsed')
+                        console.log(pro)
+                    }
+                });
+            }
+
+            router.go(-1)
+
         }
 
 
@@ -345,6 +391,19 @@ export default {
         //
         const makePhoneCall = () => {
             window.open(`tel:${provider.value.phoneNumber}`)
+        }
+
+        const handleCallPro = (provider, status) => {
+            clientDemandeStore.changeProviderStatus(provider.notificationId, status).then((res) => {
+                if (res.status === 200) {
+                    console.log('Marked as selected ', res)
+                    provider.status = status
+                    provider.interestedIndicator = false
+                    provider.btnVisible = false
+                } else {
+                    console.log('Error ', res)
+                }
+            })
         }
 
 
@@ -372,7 +431,8 @@ export default {
             handleGoHome,
             handleGoBack,
             handleSendRequest,
-            makePhoneCall
+            makePhoneCall,
+            handleCallPro
 
         };
     },

@@ -1,10 +1,9 @@
 <template>
-    <Error
+    <!-- <Error
         v-if="!notificationStore.loading && notificationStore.errorNotification.status && notificationStore.notificationPageVisibility" />
     <Loading
-        v-if="notificationStore.loading && !notificationStore.errorNotification.status && notificationStore.notificationPageVisibility" />
-    
-        <div v-if="!notificationStore.errorNotification.status" class="w-full h-full">
+        v-if="notificationStore.loading && !notificationStore.errorNotification.status && notificationStore.notificationPageVisibility && clientDemandeStore.loadingClientDemande" />
+    <div v-if="!notificationStore.errorNotification.status" class="w-full h-full"> -->
         <transition name="slide">
             <div v-if="notificationStore.notificationPageVisibility"
                 class="bg-white  w-screen md:w-1/2 overflow-y-scroll min-h-screen   z-50 inset-0 fixed">
@@ -23,38 +22,39 @@
                     </button>
                 </div>
 
-                
-                <div v-if="notificationStore.notReadNotifications.length === 0 && notificationStore.readNotifications.length === 0"
+
+                <div v-if="notificationStore.notReadNotifications.length === 0 && notificationStore.readNotifications.length === 0 && !notificationStore.loading"
                     class="flex flex-col justify-center items-center w-full h-full">
                     <span class="material-icons text-6xl text-primary">
                         notifications_off
                     </span>
                     <span class="text-2xl font-semibold text-primary">No Notifications</span>
                 </div>
-              
+
 
                 <!-- notifications -->
+                <!-- Provider -->
                 <div v-else class="mt-20 pb-4 " v-if="userStore.$state.userType === 'provider'">
                     <div class="w-full space-y-2  px-1 sm:px-3 h-full ">
-                        <Notification v-for="notif in notReadNotifications" :key="notif.id" :notif="notif"
+                        <NotificationClient v-for="notif in notReadNotificationsProvider.notifications" :key="notif.id" :notif="notif"
                             notifType="notRead" notificationLocation="provider" />
-                        <Notification v-for="notif in readNotifications" :key="notif.id" :notif="notif" notifType="read"
-                            notificationLocation="provider" />
+                        <NotificationClient v-for="notif in readNotificationsProvider.notifications" :key="notif.id" :notif="notif"
+                            notifType="read" notificationLocation="provider" />
                     </div>
                 </div>
+                <!-- Client -->
                 <div class="mt-20 pb-4" v-if="userStore.$state.userType === 'client'">
                     <div class="w-full space-y-2 mt-16 px-1 sm:px-3 h-full ">
-                        <NotificationClient class="bg-black" v-for="notif in notReadNotificationsClient.notifications"
-                            :key="notif.id" :notif="notif" notifType="notRead" notificationLocation="client" />
-                        <NotificationClient v-for="notif in readNotificationsClient.notifications" :key="notif.id" :notif="notif"
-                            notifType="read" notificationLocation="client" />
+                        <NotificationClient v-for="notif in notReadNotificationsClient.notifications" :key="notif.id"
+                            :notif="notif" notifType="notRead" notificationLocation="client" />
+                        <NotificationClient v-for="notif in readNotificationsClient.notifications" :key="notif.id"
+                            :notif="notif" notifType="read" notificationLocation="client" />
                     </div>
                 </div>
                 <!-- end notifications -->
-
             </div>
         </transition>
-    </div>
+    <!-- </div> -->
 
     <Alert @handleCloseBtn="handleCloseBtn" closeBtnText="ok" toggleBtnText="close"
         message="do you really want to clear the Demeande ?" />
@@ -70,6 +70,7 @@ import { useProviderStore } from '../store/Provider/providerStore'
 import { useAuthStore } from '../store/authStore'
 import { useLanguageStore } from '../store/AppBasic/languageStore'
 import { useUserStore } from '../store/userStore'
+import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 
 import { computed, onMounted, onBeforeMount, ref, watch, watchEffect, reactive } from 'vue'
 import Notification from './Notification.vue'
@@ -78,12 +79,12 @@ import NotificationClient from './NotificationClient.vue'
 export default {
     name: "NotificationPage",
     components: {
-    Alert,
-    Error,
-    Loading,
-    Notification,
-    NotificationClient
-},
+        Alert,
+        Error,
+        Loading,
+        Notification,
+        NotificationClient
+    },
     setup() {
 
         //store
@@ -92,6 +93,7 @@ export default {
         const authStore = useAuthStore()
         const languageStore = useLanguageStore()
         const userStore = useUserStore()
+        const clientDemandeStore = useclientDemandeStore()
 
         //vars
         const notReadNotificationsClient = reactive({
@@ -101,6 +103,15 @@ export default {
         const readNotificationsClient = reactive({
             notifications: []
         });
+
+        const notReadNotificationsProvider = reactive({
+            notifications: []
+        });
+
+        const readNotificationsProvider = reactive({
+            notifications: []
+        });
+
 
 
         //onBefore Mount with async
@@ -119,14 +130,25 @@ export default {
                     ...notificationStore.$state.readNotifications.providerResponse.map(notification => ({ ...notification, type: 'providerResponse' }))
                 ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             }
+
+
+
+            if (notificationStore.$state.notReadNotifications.providerInterest) {
+                notReadNotificationsProvider.notifications = [
+                    ...notificationStore.$state.notReadNotifications.providerInterest.map(notification => ({ ...notification, type: 'clientInterest' })),
+                    ...notificationStore.$state.notReadNotifications.providerResponse.map(notification => ({ ...notification, type: 'clientResponse' }))
+                ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            }
+
+            if (notificationStore.$state.readNotifications.providerInterest) {
+                readNotificationsProvider.notifications = [
+                    ...notificationStore.$state.readNotifications.providerInterest.map(notification => ({ ...notification, type: 'clientInterest' })),
+                    ...notificationStore.$state.readNotifications.providerResponse.map(notification => ({ ...notification, type: 'clientResponse' }))
+                ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            }
         })
 
 
-
-
-        //computed
-        let readNotifications = computed(() => notificationStore.$state.readNotifications)
-        let notReadNotifications = computed(() => notificationStore.$state.notReadNotifications)
 
 
         const handleCloseNotificationPage = () => {
@@ -157,10 +179,11 @@ export default {
             providerStore,
             languageStore,
             userStore,
+            clientDemandeStore,
 
             //vars
-            readNotifications,
-            notReadNotifications,
+            notReadNotificationsProvider,
+            readNotificationsProvider,
 
             readNotificationsClient,
             notReadNotificationsClient,
@@ -174,7 +197,6 @@ export default {
 </script>
 
 <style scoped>
-
 .slide-enter-active,
 .slide-leave-active {
     transition: all 0.3s ease;
@@ -191,5 +213,4 @@ export default {
     opacity: 1;
     transform: translateX(0);
 }
-
 </style>

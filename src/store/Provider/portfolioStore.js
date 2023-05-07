@@ -38,7 +38,9 @@ export const usePortfolioStore = defineStore("portfolioStore", {
         useProviderStore().$state.provider.subcategories = response.data.result.subcategories;
         useProviderStore().$state.provider.city= response.data.result.city;
         this.portfolioPosts = response.data.result.portfolioPostsWithImages;
-       
+
+        //indicate if provider is interested in the job (go to clientPosrDetails for more info)
+        useProviderStore().$state.provider.interestedIndicator= false
 
         this.loadingPortfolio = false;
         this.errorPortfolio.status = false;

@@ -72,7 +72,7 @@
                     <span class="material-icons text-5xl text-gray-300">
                         post_add
                     </span>
-                    <span class="text-gray-300 text-lg font-semibold">No posts</span>
+                    <span class="text-gray-300 text-lg font-semibold">No Project</span>
                 </div>
                 <div class="flex flex-col justify-center items-center   px-2 gap-4 w-full h-full ">
                     <!-- Posts -->
@@ -82,7 +82,11 @@
                 </div>
             </div>
         </div>
+        <Alert @handleCloseBtn="handleTreatPost" closeBtnText="ok ?" toggleBtnText="close"
+            message="do you really want to delete your project ???" modalName="delete-modal" />
     </ClientLayout>
+    <Toast class=" z-50 top-0 " :color="errorState" :message="errorMessage"
+        :isVisible="errorStatus" />
 </template>
 
 <script>
@@ -90,13 +94,15 @@
 import Post from '../../components/Post.vue';
 import Loading from '../../components/Loading.vue';
 import Error from '../../components/Error.vue';
+import Alert from '../../components/Alert.vue';
+import Toast from '../../components/Toast.vue';
 
 import ClientLayout from '../Layouts/ClientLayout.vue';
 import ClientPostDetailsPage from '../../components/ClientPostDetailsPage.vue';
 import RatingClientPage from '../../components/RatingClientPage.vue';
 
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore';
-import { computed, watchEffect, ref, onMounted } from 'vue';
+import { computed, watchEffect, ref, reactive, onMounted } from 'vue';
 
 export default {
     name: 'ClientPosts',
@@ -106,7 +112,9 @@ export default {
         Post,
         RatingClientPage,
         Loading,
-        Error
+        Error,
+        Alert,
+        Toast
     },
     setup() {
         //store
@@ -118,20 +126,26 @@ export default {
         const errorStatus = ref(false)
         const errorMessage = ref('')
         const errorState = ref('')
+        const postToTreat = reactive({
+            id: null,
+            status: null
+        })
 
         //computed
-        const pendingPosts = computed(() => clientDemandeStore.$state.clientPosts.filter((post) => post.status == 'pending'));
-        const donePosts = computed(() => clientDemandeStore.$state.clientPosts.filter((post) => post.status == 'done'));
-        const deletePosts = computed(() => clientDemandeStore.$state.clientPosts.filter((post) => post.status == 'delete'));
+        const pendingPosts = computed(() => clientPosts.value.filter((post) => post.status == 'pending'));
+        const donePosts = computed(() => clientPosts.value.filter((post) => post.status == 'done'));
+        const deletePosts = computed(() => clientPosts.value.filter((post) => post.status == 'delete'));
+        const clientPosts = computed(() => clientDemandeStore.$state.clientPosts);
 
         onMounted(() => {
             clientDemandeStore.getClientPosts();
             Posts.value = clientDemandeStore.$state.clientPosts;
         });
 
+        //methods
         const filterPosts = (filter) => {
             if (filter === 'Total') {
-                Posts.value = clientDemandeStore.$state.clientPosts;
+                Posts.value = clientPosts.value;
                 position.value = 1;
             } else if (filter === 'pending') {
                 Posts.value = pendingPosts.value;
@@ -145,6 +159,42 @@ export default {
             }
         }
 
+        const handleWorkStatus = (clientPostId, status) => {
+            if (status === 'delete') {
+                postToTreat.id = clientPostId;
+                postToTreat.status = status;
+            }
+            console.log(postToTreat)
+        }
+
+
+        const handleTreatPost = () => {
+            clientDemandeStore.setWorkStatus('delete', clientDemandeStore.PostToDelte.id).then((res) => {
+                console.log(res)
+                clientDemandeStore.clientPostPageVisibility =false
+                if (res.status === 200) {
+                    console.log('status changed to ' + 'deleted')
+                    errorStatus.value = true
+                    errorMessage.value = 'Post deleted successfully'
+                    errorState.value = 'success'
+                    filterPosts('delete')
+                    clientDemandeStore.getClientPosts();
+                    setTimeout(() => {
+                        errorStatus.value = false
+                    }, 3000)
+                } else {
+                    console.log('status not changed')
+                    errorStatus.value = true
+                    errorMessage.value = 'Post not deleted'
+                    errorState.value = 'error'
+                    setTimeout(() => {
+                        errorStatus.value = false
+                    }, 3000)
+                }
+
+
+            })
+        }
 
         //watch
         watchEffect(() => {
@@ -173,6 +223,8 @@ export default {
 
             //methods
             filterPosts,
+            handleWorkStatus,
+            handleTreatPost
         };
     },
 }

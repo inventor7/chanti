@@ -246,6 +246,8 @@ export default {
                     notificationStore.getProviderNotification(authStore.$state.userAuth.id).then((res) => {
                         console.log(res)
                     })
+                    //to do : get the provider's projects
+                    
                 } else {
                     notificationStore.getClientNotification(authStore.$state.userAuth.id).then((res) => {
                         console.log(res)

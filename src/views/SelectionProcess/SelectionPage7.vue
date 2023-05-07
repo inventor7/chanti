@@ -52,7 +52,7 @@
                                 </div>
 
                                 <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1" >
-                                    <Rating v-bind="{ rating: 3.7, isIndicatorActive: true, ratingNumber: 7 }" />
+                                    <Rating v-bind="{ rating: provider.rating , isIndicatorActive: true, ratingNumber: provider.ratingCount }" />
                                 </div>
                                 <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
@@ -60,11 +60,11 @@
                                     send request
                                 </button>
                                 <button v-show="!provider.btnLoading" @click="makePhoneCall(provider)" v-else
-                                    class="btn h-12 font-semibold text-white btn-sm md:btn-md z-20 bg-success/70 btn-success w-full gap-2">
-                                    <span class="material-icons text-lg">
+                                    class="btn h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success w-full gap-2">
+                                    <span class="material-icons text-xl">
                                        phone
                                     </span>
-                                    call pro
+                                    {{ provider.phoneNumber}}
                                 </button>
                                 <button v-show="provider.btnLoading"
                                     class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">

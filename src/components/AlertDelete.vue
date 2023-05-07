@@ -29,7 +29,7 @@
 
 <script >
 export default {
-    name: 'Alert',
+    name: 'AlertDelete',
     props: {
         //the message to display in the modal
         message: {

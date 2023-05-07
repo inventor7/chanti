@@ -206,6 +206,7 @@ export default {
             categoriesStore.emptyFields()
             userStore.emptyFields()
             wilayasStore.emptyFields()
+            userStore.$state.userType = 'client'
             router.push({ name: 'home' })
         }
 
