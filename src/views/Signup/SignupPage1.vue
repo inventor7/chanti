@@ -3,19 +3,8 @@
         <SignupLayout prevLink="home" :pageNumber="1" @handle="handleClick" :backBtnVisibility="true"
             :pageTitle="languageStore.getWord('howItWorks')" :pageDesc="languageStore.getWord('descSP1')">
 
-            <div class=" mb-20 slide-next  grid grid-cols-3 w-full h-full py-2 gap-x-6  ">
-                <div class=" flex flex-col justify-center gap-4 items-center px-3 py-4 rounded-xl bg-slate-200/50  ">
-                    <img class="" src="../../assets/etape1.svg" alt="">
-                    <p>{{ languageStore.getWord('SelectQuote') }}</p>
-                </div>
-                <div class=" flex flex-col justify-center gap-4 items-center px-3 py-4 rounded-xl bg-slate-200/50  ">
-                    <img class="" src="../../assets/etape2.svg" alt="">
-                    <p>{{ languageStore.getWord('chooseField') }}</p>
-                </div>
-                <div class=" flex flex-col justify-center gap-4 items-center px-3 py-4 rounded-xl bg-slate-200/50  ">
-                    <img class="" src="../../assets/etape3.svg" alt="">
-                    <p>{{ languageStore.getWord('DemandeQuote') }}</p>
-                </div>
+            <div class="slide-next flex flex-col justify-center items-center h-full ">
+                bitt of illustration
             </div>
 
         </SignupLayout>

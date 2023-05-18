@@ -22,11 +22,14 @@
     <Loading v-if="portfolioStore.loadingPortfolio && !portfolioStore.errorPortfolio.status" />
     <div v-if="!portfolioStore.loadingPortfolio && !portfolioStore.errorPortfolio.status" class="w-full h-full">
         <!-- Card Section -->
-        <div class="max-w-4xl mt-20 px-1 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <div class="max-w-4xl mt-20 px-1 sm:px-6 lg:px-8 lg:py-1 mx-auto">
 
             <!-- Card -->
             <div class="bg-white rounded-xl shadow ">
-                <div class="relative top-0 h-40 rounded-t-xl bg-[url('../assets/OIG.jpg')] bg-cover bg-center bg-no-repeat">
+                <div class="relative top-0 h-52 md:h-[60vh] rounded-t-xl   bg-cover bg-center bg-no-repeat">
+                    <img class="w-full h-full object-cover md:object-cover rounded-t-xl" :src="backgImg" alt="Image Description">
+
+
                     <!-- <div class="absolute top-1 btn  btn-circle left-1">
                                 <button type="button"
                                     class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm ">
@@ -50,9 +53,9 @@
                                 Product photo
                             </label>
 
-                            <div class="flex justify-start items-start flex-row gap-x-5">
+                            <!-- <div class="flex justify-start items-start flex-row gap-x-5">
                                 <img class="-mt-8 relative z-10 inline-block h-24 w-24  rounded-full ring-4 ring-yellow-500 "
-                                    src="../../assets/OIG.jpg" alt="Image Description">
+                                    src="../../src/assets/OIG.jpg" alt="Image Description">
                                 <div class="flex flex-1 flex-row    justify-end items-center gap-1">
                                     <div
                                         class=" px-2 text-2xl btn btn-secondary  bg-blue-100 text-blue-700 -mt-6 z-10 border-none   w-fit">
@@ -62,14 +65,14 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
 
                         <div class=" flex flex-col space-y-2 ">
                             <label for="af-submit-app-project-name"
                                 class=" flex flex-row text-2xl font-bold   text-gray-800 mt-1 ">
-                                <span class="self-center">
+                                <span class="self-center mb-1 first-letter:uppercase ">
                                     {{ provider.firstName }} {{ provider.lastName }}
                                 </span>
                                 <span class="material-icons text-secondary self-center ml-2 text-xl">
@@ -139,7 +142,7 @@
                                 </button>
 
                                 <button @click="makePhoneCall"
-                                    v-if="!provider.btnVisible && (provider.status === 'accepted' || provider.status === 'pending' ) && !provider.btnLoading && !provider.interestedIndicator"
+                                    v-if="!provider.btnVisible && (provider.status === 'accepted' || provider.status === 'pending') && !provider.btnLoading && !provider.interestedIndicator"
                                     class="btn w-full sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success gap-2">
                                     <span class="material-icons text-xl ">
                                         phone
@@ -285,6 +288,7 @@ import { useProviderStore } from "../../store/Provider/providerStore";
 import { useLanguageStore } from "../../store/AppBasic/languageStore";
 import { useWilayasStore } from "../../store/wilayasStore";
 import { useUserStore } from "../../store/userStore";
+import { useNotificationStore } from "../../store/notificationStore";
 import { useCategoriesStore } from "../../store/categoriesStore";
 import { useAuthStore } from "../../store/authStore";
 import { useRouter } from "vue-router";
@@ -311,10 +315,10 @@ export default {
         const clientStore = useClientStore()
         const userStore = useUserStore()
         const languageStore = useLanguageStore()
+        const notificationStore = useNotificationStore()
         const wilayasStore = useWilayasStore()
         const categoriesStore = useCategoriesStore()
         const router = useRouter()
-
 
 
         const handleSendRequest = (providerId) => {
@@ -342,7 +346,43 @@ export default {
         let provider = computed(() => {
             return providerStore.$state.provider
         })
+
         let loading = computed(() => providerStore.loading)
+
+        let backgImg = computed(() => {
+            switch (provider.value.category.name) {
+                case 'moving_storage_services':
+                    return '../../src/assets/categories/moving.svg'
+
+                case 'home_inspection_appraisal':
+                    return '../../src/assets/categories/maintenance.svg'
+
+                case 'painting_finishing':
+                    return '../../src/assets/categories/painting.svg'
+
+                case 'landscape_outdoor_living':
+                    return '../../src/assets/categories/gardening.svg'
+
+                case 'plumbing_water_management':
+                    return '../../src/assets/categories/plumber.svg'
+
+                case 'electrical_hvacs':
+                    return '../../src/assets/categories/electrecian.svg'
+
+                case 'cleaning_house_keeping':
+                    return '../../src/assets/categories/cleaning.svg'
+
+                case 'interior_design_decorating':
+                    return '../../src/assets/categories/design.svg'
+
+                case 'construction_remodelling':
+                    return '../../src/assets/categories/remodeling.svg'
+
+                case 'home_improvement_maintenance':
+                    return '../../src/assets/categories/maintenance.svg'
+
+            }
+        })
 
         //tab
         const selectedTab = ref(2);
@@ -358,8 +398,6 @@ export default {
                 clientDemandeStore.$state.selectedPost.providersSentInterest.forEach((pro) => {
                     if (pro.id === provider.value.id) {
                         pro.status = provider.value.status; // use assignment operator to update status property
-                        console.log('interested')
-                        console.log(pro)
 
                     }
                 });
@@ -368,12 +406,15 @@ export default {
                 clientDemandeStore.$state.selectedPost.providersSentResponse.forEach((pro) => {
                     if (pro.id === provider.value.id) {
                         pro.status = provider.value.status; // use assignment operator to update status property
-                        console.log('responsed')
-                        console.log(pro)
+
                     }
                 });
             }
 
+            //update notification status
+            notificationStore.getClientNotification(authStore.$state.userAuth.id).then(() => {
+                console.log('responsed notiiiiiiiiifffffffff ')
+            })
             router.go(-1)
 
         }
@@ -425,6 +466,7 @@ export default {
             loading,
             selectedTab,
             providerIsAuth,
+            backgImg,
 
             //methods
             selectTab,

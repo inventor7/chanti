@@ -51,8 +51,9 @@
 
                                 </div>
 
-                                <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1" >
-                                    <Rating v-bind="{ rating: provider.rating , isIndicatorActive: true, ratingNumber: provider.ratingCount }" />
+                                <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1">
+                                    <Rating
+                                        v-bind="{ rating: provider.rating, isIndicatorActive: true, ratingNumber: provider.ratingCount }" />
                                 </div>
                                 <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
@@ -62,9 +63,9 @@
                                 <button v-show="!provider.btnLoading" @click="makePhoneCall(provider)" v-else
                                     class="btn h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success w-full gap-2">
                                     <span class="material-icons text-xl">
-                                       phone
+                                        phone
                                     </span>
-                                    {{ provider.phoneNumber}}
+                                    {{ provider.phoneNumber }}
                                 </button>
                                 <button v-show="provider.btnLoading"
                                     class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
@@ -205,11 +206,18 @@ export default {
 
         const showProfile = (provider) => {
             //show profile based on the provider id
-            portfolioStore.getProviderPortfolio(provider.id).then((res) => {
-                console.log('Profile posts needed ', res)
+            portfolioStore.getProviderInfo(provider.id).then(() => {
+            })
+            
+            portfolioStore.getProviderPosts(provider.id).then((res) => {
+                if (res.status === 200)
+                {
+                 console.log('yayyyy it works')   
+                } else {
+                    console.log('noooooo fuck offffffffff ')
+                }
                 providerStore.$state.provider.btnVisible = provider.btnVisible
             })
-
             router.push({
                 name: 'profile',
                 params: { name: provider.firstName + '-' + provider.lastName }

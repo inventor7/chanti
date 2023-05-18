@@ -3,8 +3,8 @@
     <div :data-theme="themeStore.theme"
         class="text-sm  mt-16 self-center h-screen flex flex-col items-center text-error w-full  gap-1.5 justify-start">
         <img v-if="getErrorMessage === 'internet'" class=" h-4/6" src="../assets/no-internet.svg" alt="">
-        <img v-if="getErrorMessage === '500'" class="h-4/6" src="../assets/500.svg" alt="">
-        <img v-if="getErrorMessage === '404'" class="h-4/6" src="../assets/404.svg" alt="">
+        <img v-if="getErrorMessage === '500'" class="h-4/6" src="../assets/Pages/500.svg" alt="">
+        <img v-if="getErrorMessage === '404'" class="h-4/6" src="../assets/Pages/404.svg" alt="">
         <p class="text-lg text-center  ">{{ error }}</p>
         <div class="flex flex-row gap-2">
 

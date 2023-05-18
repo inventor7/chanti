@@ -1,25 +1,25 @@
 <template>
-    <div dir="ltr" class=" flex flex-row justify-around items-center navb  py-1  border-t-2    fd bg-base-100  z-50 " ref="navbar">
+    <div dir="ltr" class=" flex flex-row  md:w-fit md:top-0 md:z-[51] md:px-4 md:py-2 md:gap-5 md:h-fit md:ml-12 md:border-none md:rounded-2xl justify-around items-center navb  py-1  border-t-2    fd bg-base-100  z-50 " ref="navbar">
 
         <div class="  ">
             <router-link :to="{ name: 'home' }" class="navbar-item flex flex-col  w-full self-center text-center items-center ">
-                <span class="text-primary text-3xl "
+                <span class="text-primary text-3xl md:text-4xl  "
                 :class="getIcon('home')"
                 >
                     other_houses
                 </span>
-                <span class="text-primary text-xs font-semibold " >Home</span>
+                <span class="text-primary text-xs md:hidden font-semibold " >Home</span>
             </router-link>
         </div>
 
         <div class="  ">
            <router-link :to="{ name: 'clientPosts' }" class="navbar-item flex  flex-col w-full items-center ">
-                <span class="text-primary text-3xl "
+                <span class="text-primary text-3xl  md:text-4xl  "
                 :class="getIcon('clientPosts')"
                 >
                     task
                 </span>
-               <span class="text-primary text-xs font-semibold " >Projects</span>
+               <span class="text-primary text-xs font-semibold md:hidden " >Projects</span>
             </router-link>
         </div>
       

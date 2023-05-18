@@ -12,19 +12,22 @@
                 </span>
                 <span class="text-gray-300 text-lg font-semibold">No posts yet</span>
             </div>
+            
             <transition-group v-else name="post" tag="div" mode="out-in">
+                
                 <div v-for="post in feedPosts" :key="post.id"
                     class="  post-container flex flex-col h-full w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
                     <div class="  relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
                         <img class="notification-item w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
                             src="../assets/OIG.jpg" alt="Image Description">
-                       
+
                     </div>
                     <div class="p-2  md:p-3 notification-item ">
                         <div class="flex flex-col gap-2">
                             <div class="flex flex-row justify-between items-center">
                                 <div>
-                                    <h3 class="text-2xl font-semibold text-gray-800">{{languageStore.getWord(post.subcategoryName)}}</h3>
+                                    <h3 class="text-2xl font-semibold text-gray-800">
+                                        {{ languageStore.getWord(post.subcategoryName) }}</h3>
                                     <label
                                         class="inline-block text-[14px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
                                         #{{ post.id.substring(0, 5) }}..
@@ -65,11 +68,11 @@
                                 'text-blue-500 bg-blue-500/20': post.urgency === 'unplanned',
                             }">
                                 <span class="material-icons text-lg" :class="{
-                                        'text-red-500': post.urgency === 'urgent',
-                                        'text-yellow-500': post.urgency === 'normal',
-                                        'text-green-500': post.urgency === 'low',
-                                        'text-blue-500': post.urgency === 'unplanned',
-                                    }">
+                                    'text-red-500': post.urgency === 'urgent',
+                                    'text-yellow-500': post.urgency === 'normal',
+                                    'text-green-500': post.urgency === 'low',
+                                    'text-blue-500': post.urgency === 'unplanned',
+                                }">
                                     {{ post.urgency === 'urgent' ? 'hourglass_full' : post.urgency === 'low' ?
                                         'hourglass_empty' : post.urgency === 'normal' ? 'hourglass_bottom' :
                                             'hourglass_disabled' }}
@@ -105,6 +108,7 @@
                         <!--  -->
                     </div>
                 </div>
+               
             </transition-group>
         </div>
     </div>
@@ -120,6 +124,7 @@ import { ref, onMounted, watch, onBeforeMount } from 'vue'
 import { useTimeDifference } from '../composables/timeDifference.js'
 import { useUserStore } from '../store/userStore';
 import { useClientStore } from '../store/Client/clientStore';
+import { usePortfolioStore } from '../store/Provider/portfolioStore'
 import { useFeedPostsStore } from '../store/Provider/feedPostsStore';
 import { useProviderStore } from '../store/Provider/providerStore';
 import { useWilayasStore } from '../store/wilayasStore';
@@ -139,6 +144,7 @@ export default {
         //store
         const userStore = useUserStore();
         const providerStore = useProviderStore();
+        const portfolioStore = usePortfolioStore();
         const wilayasStore = useWilayasStore();
         const clientStore = useClientStore();
         const languageStore = useLanguageStore();
@@ -189,10 +195,7 @@ export default {
         })
 
 
-
-
-
-
+       
         return {
 
             //store
@@ -213,7 +216,7 @@ export default {
 
             //methods
             sendInterest,
-            formatTime
+            formatTime,
 
         };
     },
@@ -221,7 +224,7 @@ export default {
 
 
 </script>
-<style scoped >
+<style>
 /* for removing the post from the feed with a smooth transition slide in from left to right */
 .post-enter-active,
 .post-leave-active {

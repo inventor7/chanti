@@ -11,71 +11,75 @@
 
 
             <div v-else class="griddy h-full ">
-                <div v-for="post in portfolioPosts" :key="post.id"
-                    class="relative h-full w-full flex flex-col  md:max-w-lg   group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
-                    <div class="carousel carousel-center  h-full max-h-[55vh] w-full ">
-                        <div v-for="(image, index) in post.images" :key="index"
-                            class="relative carousel-item h-full  w-full border  border-white ">
-                            <img class=" h-full rounded-t-xl  w-full object-cover" :src="getBase64Image(image.data)" :alt="image.type">
-                            <label 
-                                class="material-icons z-10 text-3xl absolute top-1 right-1 bg-white/50 w-fit h-fit rounded-full px-0.5 "
-                                :class="{ 'text-warning': post.status === 'pending', 'text-success': post.status != 'pending' }">
-                                {{ post.status === 'pending' ? 'published_with_changes' : 'verified' }}
-                            </label>
+                <transition-group name="post" tag="div" mode="out-in">
+                    <div v-for="post in portfolioPosts" :key="post.id"
+                        class="relative h-full w-full flex flex-col  md:max-w-lg  group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
+                        <div class="carousel carousel-center  h-full max-h-[55vh] w-full ">
+                            <div v-for="(image, index) in post.images" :key="index"
+                                class="relative carousel-item h-full  w-full border  border-white ">
+                                <img class=" h-full rounded-t-xl  w-full object-cover" :src="getBase64Image(image.data)"
+                                    :alt="image.type">
+                                <label
+                                    class="material-icons z-10 text-3xl absolute top-1 right-1 bg-white/50 w-fit h-fit rounded-full px-0.5 "
+                                    :class="{ 'text-warning': post.status === 'pending', 'text-success': post.status != 'pending' }">
+                                    {{ post.status === 'pending' ? 'published_with_changes' : 'verified' }}
+                                </label>
 
 
-                            <!-- Indicator -->
-                            <div v-if="post.images.length > 1"
-                                class=" absolute  w-fit p-1.5 bg-blue-500/30 rounded-full   bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
+                                <!-- Indicator -->
+                                <div v-if="post.images.length > 1"
+                                    class=" absolute  w-fit p-1.5 bg-blue-500/30 rounded-full   bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
 
-                                <div v-for="(image, index2) in post.images" :key="index"
-                                    class="w-2 h-2 rounded-full mx-1 cursor-pointer   "
-                                    :class="{ 'bg-blue-500 notification-item ': index === index2, 'bg-gray-100': index != index2 }">
+                                    <div v-for="(image, index2) in post.images" :key="index"
+                                        class="w-2 h-2 rounded-full mx-1 cursor-pointer   "
+                                        :class="{ 'bg-blue-500 notification-item ': index === index2, 'bg-gray-100': index != index2 }">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
 
-                    <div class="relative w-full py-2 px-2 flex flex-row gap-2  justify-between items-center">
-                        <p class="text-start text-lg font-medium ">{{ post.details }}</p>
+                        <div class="relative w-full px-2 flex flex-row gap-2  justify-between items-center">
+                            <p class="text-start text-lg font-medium ">{{ post.details }}</p>
 
 
-                        <div v-if="authStore.$state.userAuth.id === providerStore.$state.provider.id " class="dropdown dropdown-top dropdown-end">
-                            <label tabindex="0" class="btn p-0 btn-circle btn-ghost -mx-1   cursor-pointer ">
-                                <span class="material-icons text-3xl  ">
-                                    more_horiz
+                            <div v-if="authStore.$state.userAuth.id === providerStore.$state.provider.id"
+                                class="dropdown dropdown-top dropdown-end">
+                                <label tabindex="0" class="btn p-0 btn-circle btn-ghost -mx-1   cursor-pointer ">
+                                    <span class="material-icons text-3xl  ">
+                                        more_horiz
+                                    </span>
+                                </label>
+                                <ul tabindex="0"
+                                    class="dropdown-content font-semibold menu p-2 shadow bg-base-100 rounded-box w-52">
+                                    <li class="border-b-2">
+                                        <label @click="handleSendPostDelete(post)" for="delete-post-modal">
+                                            <span class="material-icons text-error ">delete</span>
+                                            Delete
+                                        </label>
+                                    </li>
+                                    <li class="">
+                                        <label @click="handleSendPostEdit(post)" for="edit-post-modal" >
+                                            <span class="material-icons text-primary ">edit</span>
+                                            Edit
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row justify-between gap-2 items-center px-2 pb-2">
+                            <div class="flex flex-row gap-2 items-center">
+                                <span class="material-icons text-lg text-gray-500">
+                                    history
                                 </span>
-                            </label>
-                            <ul tabindex="0"
-                                class="dropdown-content font-semibold menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li class="border-b-2">
-                                    <p>
-                                        <span class="material-icons text-error ">delete</span>
-                                        Delete
-                                    </p>
-                                </li>
-                                <li class="">
-                                    <p>
-                                        <span class="material-icons text-primary ">edit</span>
-                                        Edit
-                                    </p>
-                                </li>
-                            </ul>
+                                <p class="text-gray-500">12/12/2021</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="flex flex-row justify-between gap-2 items-center px-2 pb-2">
-                        <div class="flex flex-row gap-2 items-center">
-                            <span class="material-icons text-secondary">
-                                calendar_today
-                            </span>
-                            <p class="text-gray-500">12/12/2021</p>
-                        </div>
-                    </div>
 
-                </div>
+                    </div>
+                </transition-group>
             </div>
         </div>
 
@@ -119,8 +123,14 @@ export default {
         const errorColor = ref('')
 
         //computed
-        let portfolioPosts = computed(() => {
-            return portfolioStore.$state.portfolioPosts
+        let portfolioPosts = ref(portfolioStore.$state.portfolioPosts)
+
+        watch(portfolioStore.$state.portfolioPosts, (newVal, oldVal) => {
+            portfolioPosts.value = newVal
+        })
+
+        onMounted(() => {
+            portfolioPosts.value = portfolioStore.$state.portfolioPosts
         })
 
 
@@ -140,6 +150,14 @@ export default {
         // function to set the selected post
         function setSelectedPost(post) {
             selectedPost.value = post
+        }
+
+        const handleSendPostDelete = (post) => {
+            portfolioStore.postToDelete = post
+        }
+
+        const handleSendPostEdit = (post) => {
+            portfolioStore.postToEdit = post
         }
 
 
@@ -162,7 +180,9 @@ export default {
 
             //methods
             getBase64Image,
-            setSelectedPost
+            setSelectedPost,
+            handleSendPostDelete,
+            handleSendPostEdit
 
 
 

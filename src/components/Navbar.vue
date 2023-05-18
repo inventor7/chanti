@@ -1,5 +1,5 @@
 <template>
-    <div :data-theme="theme" dir="ltr" class="navbar border-b-2 -xl mb-6 fixed  top-0  fd  py-1 bg-base-100  z-50 "
+    <div :data-theme="theme" dir="ltr" class="navbar border-b-2  -xl mb-6 fixed  top-0  fd  py-1 bg-base-100  z-50 "
         ref="navbar">
         <div class="navbar-start  ">
 
@@ -17,7 +17,7 @@
             </router-link>
 
             <!-- when not loggedin -->
-            <button v-else @click="handleGetNotification" class=" btn-ghost btn-circle">
+            <button v-else @click="handleGetNotification" class=" btn-ghost hover:bg-transparent btn-circle">
                 <div class="indicator  ">
                     <span class="material-icons text-primary text-4xl ">
                         circle_notifications
@@ -35,7 +35,7 @@
         <div v-if="authStore.$state.isAuthenticated" class="navbar-center">
 
             <div v-if="userStore.$state.userType === 'client'">
-              <p class="text-3xl font-sans font-extrabold text-primary  " >{{ pageTitle }}</p>
+                <p class="text-3xl font-sans font-extrabold text-primary  ">{{ pageTitle }}</p>
             </div>
 
             <router-link v-else :to="{ name: 'providerHome' }">
@@ -81,9 +81,11 @@
                     class="menu menu-compact shadow-2xl border-2 font-semibold dropdown-right  dropdown-content gap-1 py-2 px-1  bg-base-100 rounded-box w-52">
                     <div class="py-2 px-4 overflow-hidden -mx-2 -mt-2 bg-gray-200 rounded-t-lg ">
                         <p class="text-sm text-gray-500 ">Signed in as</p>
-                        <p class="text-sm font-medium text-gray-800 ">{{ authStore.$state.userAuth.firstName }} {{ authStore.$state.userAuth.lastName  }} </p>                        
+                        <p class="text-sm font-medium text-gray-800 ">{{ authStore.$state.userAuth.firstName }} {{
+                            authStore.$state.userAuth.lastName }} </p>
+                        <p class="text-xs text-gray-500 ">{{ authStore.$state.userAuth.email }}</p>
                     </div>
-                    <li v-if="userStore.$state.userType==='provider'" >
+                    <li v-if="userStore.$state.userType === 'provider'">
                         <div @click="handleGoProfile">
                             <span class="flex flex-row justify-start gap-2 items-center">
                                 <span class="material-icons">
@@ -247,7 +249,7 @@ export default {
                         console.log(res)
                     })
                     //to do : get the provider's projects
-                    
+
                 } else {
                     notificationStore.getClientNotification(authStore.$state.userAuth.id).then((res) => {
                         console.log(res)
@@ -261,8 +263,12 @@ export default {
         }
 
         const handleGoProfile = () => {
-            portfolioStore.getProviderPortfolio(authStore.$state.userAuth.id).then((res) => {
+            portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
                 console.log(res)
+                console.log('Posts and info are loaded')
+            })
+            portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => {
+                console.log(res.data.result)
             })
             router.push({
                 name: 'profile',

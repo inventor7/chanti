@@ -6,7 +6,7 @@ export const requireAuth = (to, from, next) => {
     next({ name: "home" });
     useModalStore().modalVisible = true;
   } else if (to.meta.auth === false && isAuthenticated ) {
-    next({ name: "unauthorised" });
+    next({ name: "home" });
   } else {
     next();
   }

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex relative flex-col lg:flex-col  justify-center h-full  items-center md:py-4 md:px-2 pb-1   gap-2  w-full  ">
+    class="flex  relative flex-col lg:flex-col  justify-center h-full  items-center md:py-4 md:px-2  p-4  gap-2  w-full  ">
 
     <div v-if="!clientDemandeStore.$state.requestinProgress && !isHome  ">
       <span :class="{ 'block ': isActive, 'hidden ': !isActive }"
@@ -18,12 +18,12 @@
 
     <div class=" flex flex-1 flex-center justify-start md:justify-center items-center ">
       <span :class="{ 'text-white    ': isActive, 'text-primary ': !isActive }"
-        class="material-icons pt-2 text-3xl    md:text-5xl  ">
+        class="material-icons  text-5xl    md:text-6 xl  ">
         {{ iconName }}
       </span>
     </div>
 
-    <div class="  flex h-full flex-1 flex-col items-center justify-center  ">
+    <div class="    ">
       <h2 class=" md:text-[15px] lg:text-[17px] xl:text-xl sm:text-sm font-semibold   text-[12px]  "> {{ categoryName }}
       </h2>
     </div>

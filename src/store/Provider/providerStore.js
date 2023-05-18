@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "../authStore";
 import { useFeedPostsStore } from "./feedPostsStore";
-import { useclientDemandeStore } from '../Client/clientDemandeStore'
+import { useclientDemandeStore } from "../Client/clientDemandeStore";
 export const useProviderStore = defineStore("providerStore", {
   id: "provider",
   state: () => ({
@@ -140,6 +140,15 @@ export const useProviderStore = defineStore("providerStore", {
       return useclientDemandeStore().$state.providers.find(
         (provider) => provider.id === id
       );
+    },
+
+    // get provider type
+    getProviderType(notificationId) {
+      if (notificationId) { //if the provider have a notification id
+        return "interested";
+      } else {
+        return "responsed";
+      }
     },
   },
 

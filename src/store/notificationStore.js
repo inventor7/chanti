@@ -6,6 +6,7 @@ import { useAuthStore } from "./authStore";
 export const useNotificationStore = defineStore("notificationStore", {
   id: "notification",
   state: () => ({
+    allNotifications: [],
     readNotifications: [],
     notReadNotifications: [],
     notificationPageVisibility: false,
@@ -42,6 +43,14 @@ export const useNotificationStore = defineStore("notificationStore", {
         } else {
           this.readNotifications = response.data.result.readNotifications;
           this.notReadNotifications = response.data.result.notReadNotifications;
+          //contact the read notifications and not read notifications to get all notifications
+          this.allNotifications = this.readNotifications.providerResponse
+            .concat(this.readNotifications.providerInterest)
+            .concat(
+              this.notReadNotifications.providerResponse.concat(
+                this.notReadNotifications.providerInterest
+              )
+            );
         }
 
         this.errorNotification.status = false;
@@ -86,6 +95,14 @@ export const useNotificationStore = defineStore("notificationStore", {
         } else {
           this.readNotifications = response.data.result.readNotifications;
           this.notReadNotifications = response.data.result.notReadNotifications;
+          //contact the read notifications and not read notifications to get all notifications
+          this.allNotifications = this.readNotifications.providerResponse
+            .concat(this.readNotifications.providerInterest)
+            .concat(
+              this.notReadNotifications.providerResponse.concat(
+                this.notReadNotifications.providerInterest
+              )
+            );
         }
         this.errorNotification.status = false;
         this.errorNotification.message = "";
@@ -183,6 +200,15 @@ export const useNotificationStore = defineStore("notificationStore", {
             "Network error: please check your internet connection and try again";
         }
       }
+    },
+
+    //get Notification by id
+    async getNotificationById(notificationId) {
+      this.allNotifications.forEach((notification) => {
+        if (notification._id == notificationId) {
+          return notification;
+        }
+      });
     },
   },
   persist: [

@@ -79,7 +79,7 @@
             </div>
 
             <div
-                class=" grid grid-cols-2 px-2     items-center bg-transparent sm:gap-8  md:gap-12 lg:gap-16  max-w-lg     gap-4 ">
+                class=" grid grid-cols-2 px-2  items-center bg-transparent sm:gap-8  md:gap-12 lg:gap-16  max-w-lg     gap-4 ">
 
                 <Card @click="toggleModalLogin('clientTheme', 'client')" :title="languageStore.getWord('client')"
                     iconName="person" class=" hover:bg-[#db4024]/100  sm:p-12 md:p-14     p-10 w-full " />
@@ -98,7 +98,6 @@ import NavClient from '../../components/NavClient.vue'
 import Footer from '../../components/Footer.vue'
 import ClientLayout from '../Layouts/ClientLayout.vue'
 import SearchBar from '../../components/SearchBar.vue'
-import Howitworks from '../../components/Howitworks.vue'
 import SearchPage from '../../components/SearchPage.vue'
 import Modal from '../../components/Modal.vue'
 import LoginModal from '../../components/LoginModal.vue'
@@ -122,7 +121,7 @@ import { computed, watchEffect, ref } from 'vue'
 
 export default {
     name: 'Home',
-    components: { ClientLayout, Navbar, NavClient, Modal, CategoriesList, LoginModal, Category, Footer, SearchBar, Card, Howitworks, SearchPage, NotificationPage },
+    components: { ClientLayout, Navbar, NavClient, Modal, CategoriesList, LoginModal, Category, Footer, SearchBar, Card, SearchPage, NotificationPage },
     setup() {
         //initialisation the store
         const languageStore = useLanguageStore()

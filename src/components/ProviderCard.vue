@@ -138,33 +138,33 @@ export default defineComponent({
             if (props.componentLocation != 'RatingClientPage') {
                 //in case of client profile
                 if (provider.status != 'declined') {
-                    portfolioStore.getProviderPortfolio(provider.id).then((res) => {
-                        if (res.status === 200) {
-                            if (props.type === 'interested') {
+                    portfolioStore.getProviderInfo(provider.id).then((res) => {
+                        portfolioStore.getProviderPosts(provider.id).then((res) => {
+                            if (res.status === 200) {
                                 providerStore.$state.provider.notificationId = provider.notificationId
                                 providerStore.$state.provider.type = props.type
                                 providerStore.$state.provider.status = provider.status
+                                if (props.type === 'interested') {
+                                    console.log('success to interested providers')
+                                    if (provider.status === 'pending') {
+                                        providerStore.$state.provider.btnVisible = true
+                                        providerStore.$state.provider.interestedIndicator = true
+                                    }
+                                    else {
+                                        providerStore.$state.provider.btnVisible = false
+                                        providerStore.$state.provider.interestedIndicator = false
+                                    }
 
-
-                                console.log('success to interested providers')
-                                if (provider.status === 'pending') {
-                                    providerStore.$state.provider.btnVisible = true
-                                    providerStore.$state.provider.interestedIndicator = true
                                 }
-                                else {
-                                    providerStore.$state.provider.btnVisible = false
+                                if (props.type === 'responsed') {
                                     providerStore.$state.provider.interestedIndicator = false
+                                    providerStore.$state.provider.btnVisible = false
+                                    console.log('success to responsed providers')
+                                    if (provider.status === 'pending' || provider.status === 'accept' || provider.status === 'accepted') { providerStore.$state.provider.btnVisible = false }
+                                    if (provider.status === 'decline' || provider.status === 'declined') { providerStore.$state.provider.btnVisible = true }
                                 }
-
                             }
-                            if (props.type === 'responsed') {
-                                providerStore.$state.provider.interestedIndicator = false
-                                providerStore.$state.provider.btnVisible = false
-                                console.log('success to responsed providers')
-                                if (provider.status === 'pending' || provider.status === 'accept' || provider.status === 'accepted') { providerStore.$state.provider.btnVisible = false }
-                                if (provider.status === 'decline' || provider.status === 'declined') { providerStore.$state.provider.btnVisible = true }
-                            }
-                        }
+                        })
                     })
 
                     router.push({
@@ -172,11 +172,11 @@ export default defineComponent({
                         params: { name: provider.firstName + '-' + provider.lastName }
                     })
                 } else {
-                    console.log('provider is declined you , you cannt see his profile')
+                    console.log('provider is declined you , you can not see his profile')
                 }
 
 
-            } else { //in case of rating page
+            } else { //in case of rating page we don't go to profile , we select the provider to rate
                 ratingStore.selectedProviderToRate = provider
             }
 

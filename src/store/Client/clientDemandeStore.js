@@ -132,6 +132,9 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         this.selectedPost.providersSentResponse =
           response.data.result.providersSentResponse;
 
+          //make all providers in one array
+          this.selectedPost.providers = this.selectedPost.providersSentInterest.concat(this.selectedPost.providersSentResponse);
+
         // this.selectedPost.providersSentInterest.forEach((provider) => {
         //   provider.btnVisible = false;
         // });
@@ -275,6 +278,9 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
       return post;
     },
 
+   
+    
+
     uploadFiles(files) {
       this.request.images = files;
     },
@@ -291,6 +297,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         description: "",
       };
     },
+
   },
   persist: [
     {

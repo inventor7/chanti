@@ -1,14 +1,14 @@
 <template>
     <!-- Put this part before </body> tag -->
     <input type="checkbox" :id="modalName" class="modal-toggle" />
-    <div class="modal bg-black/30 modal-bottom sm:modal-middle">
-        <div class="modal-box relative">
+    <div class="modal bg-black/30 modal-bottom sm:modal-middle  ">
+        <div class="modal-box bg-white w-full relative">
             <div
                 class="font-bold md:hidden text-lg w-1/2 absolute top-2 h-2 bg-gray-500/20 rounded-full m-0 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
             </div>
             <p class="py-4 font-semibold text-lg ">{{ message }}</p>
             <slot></slot>
-            <div class="modal-action"
+            <div v-if="btnsVisibility" class="modal-action"
             :class="{'-ml-2 flex-col-reverse gap-2' : w === 'full'}">
                 <label :for="modalName" class="btn btn-ghost bg-gray-400/30 "
                 :class="{'ml-2  w-full' : w === 'full'}"
@@ -54,9 +54,17 @@ export default {
             type: String,
             default: 'normal'
         },
+        width :{
+            type: String,
+            default: 'normal'
+        },
         modalName: {
             type: String,
             default: 'alert-modal'
+        },
+        btnsVisibility :{
+            type:Boolean,
+            default :true
         }
     },
     emits: ['handleCloseBtn'],

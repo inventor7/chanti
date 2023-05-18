@@ -19,7 +19,7 @@
             </div>
             <div class="navbar-end"></div>
         </div>
-        <img src="../assets/unauthorised.svg" class=" w-full h-full " alt="Unauthorised">
+        <img src="../assets/Pages/unauthorised.svg" class=" w-full h-full " alt="Unauthorised">
         <button class=" btn btn-primary gap-2 text-white" @click="router.go(-1)">
             <span class="material-icons text-white   ">
                 arrow_back

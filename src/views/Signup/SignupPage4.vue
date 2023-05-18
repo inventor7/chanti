@@ -134,7 +134,7 @@
 import SignupLayout from '../Layouts/SignupLayout.vue';
 import { useWilayasStore } from '../../store/wilayasStore.js'
 import { useUserStore } from '../../store/userStore';
-import { computed, ref, onBeforeMount, watchEffect, onMounted } from 'vue';
+import { computed, ref, onBeforeMount, watchEffect,watch, onMounted } from 'vue';
 import Error from '../../components/Error.vue'
 import { useRouter } from 'vue-router';
 
@@ -147,6 +147,7 @@ export default {
         const wilayassStore = useWilayasStore()
         const userStore = useUserStore()
         const router = useRouter()
+
         const buttonDisabled = ref(true)
         const notSelectedError = ref(false)
         const searchedWilaya = ref("")
@@ -218,7 +219,9 @@ export default {
             }
         })
 
-
+        watchEffect(() => {
+            wilayassStore.filterCommunes(searchedCommune.value)
+        })
 
 
         //communes
@@ -231,9 +234,7 @@ export default {
             }
         }
 
-        watchEffect(() => {
-            wilayassStore.filterCommunes(searchedCommune.value)
-        })
+
 
 
         const handleClick = (clicked) => {

@@ -81,11 +81,11 @@
                                 'text-blue-500 bg-blue-500/20': post.urgency === 'unplanned',
                             }">
                                 <span class="material-icons text-sm" :class="{
-                                        'text-red-500': post.urgency === 'urgent',
-                                        'text-yellow-500': post.urgency === 'normal',
-                                        'text-green-500': post.urgency === 'low',
-                                        'text-blue-500': post.urgency === 'unplanned',
-                                    }">
+                                    'text-red-500': post.urgency === 'urgent',
+                                    'text-yellow-500': post.urgency === 'normal',
+                                    'text-green-500': post.urgency === 'low',
+                                    'text-blue-500': post.urgency === 'unplanned',
+                                }">
                                     {{ post.urgency === 'urgent' ? 'hourglass_full' : post.urgency === 'low' ?
                                         'hourglass_empty' : post.urgency === 'normal' ? 'hourglass_bottom' :
                                             'hourglass_disabled' }}
@@ -185,6 +185,7 @@ import { useRouter } from 'vue-router';
 import { useclientDemandeStore } from '../store/Client/clientDemandeStore';
 import { useLanguageStore } from '../store/AppBasic/languageStore';
 import { useCategoriesStore } from '../store/categoriesStore';
+import { useAuthStore } from '../store/authStore';
 import { useNotificationStore } from '../store/notificationStore';
 import { useTimeDifference } from '../composables/timeDifference';
 import { computed, ref, defineComponent, onBeforeMount } from 'vue'
@@ -206,6 +207,7 @@ export default defineComponent({
         const languageStore = useLanguageStore()
         const notificationStore = useNotificationStore()
         const categoriesStore = useCategoriesStore()
+        const authStore = useAuthStore()
         const wilayasStore = useWilayasStore()
         const router = useRouter()
 
@@ -218,9 +220,7 @@ export default defineComponent({
         const handleClosePostPage = () => {
             clientDemandeStore.clientPostPageVisibility = false
             clientDemandeStore.selectedPost.images = []
-            // if (router.currentRoute.value.name != 'clientPosts') {
-            //     notificationStore.notificationPageVisibility = true
-            // }
+            
         }
 
         const handleWorkStatus = (status) => {

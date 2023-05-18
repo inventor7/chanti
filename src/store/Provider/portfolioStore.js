@@ -11,18 +11,38 @@ export const usePortfolioStore = defineStore("portfolioStore", {
       status: false,
     },
 
+    loadingDeletePost: false,
+    errorDeletePost: {
+      message: "",
+      status: false,
+    },
+
+    loadingEditPost: false,
+    errorEditPost: {
+      message: "",
+      status: false,
+    },
+
+    loadingPortfolioPosts : false ,
+    errorPortfolioPosts : {
+      message : "" ,
+      status : false
+    } ,
+
+
     //portfolio posts
     portfolioPosts: [],
+    postToDelete: {},
+    postToEdit: {},
   }),
   actions: {
-    async getProviderPortfolio(providerId) {
-      useProviderStore().$state.provider = {};
-
+    //Profile
+    async getProviderInfo(providerId) {
       try {
         this.loadingPortfolio = true;
         const response = await axios({
           method: "post",
-          url: `${useAuthStore().baseUrl}/profile/get-provider-data`,
+          url: `${useAuthStore().baseUrl}/profile/get-provider-info`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
@@ -30,17 +50,15 @@ export const usePortfolioStore = defineStore("portfolioStore", {
           data: {
             providerId: providerId,
           },
-          timeout: 17000, // 13 seconds
+          timeout: 13000, // 13 seconds
         });
 
         useProviderStore().$state.provider = response.data.result.provider;
-        useProviderStore().$state.provider.category = response.data.result.category;
-        useProviderStore().$state.provider.subcategories = response.data.result.subcategories;
-        useProviderStore().$state.provider.city= response.data.result.city;
-        this.portfolioPosts = response.data.result.portfolioPostsWithImages;
-
-        //indicate if provider is interested in the job (go to clientPosrDetails for more info)
-        useProviderStore().$state.provider.interestedIndicator= false
+        useProviderStore().$state.provider.category =
+          response.data.result.category;
+        useProviderStore().$state.provider.subcategories =
+          response.data.result.subcategories;
+        useProviderStore().$state.provider.city = response.data.result.city;
 
         this.loadingPortfolio = false;
         this.errorPortfolio.status = false;
@@ -51,9 +69,121 @@ export const usePortfolioStore = defineStore("portfolioStore", {
         this.loadingPortfolio = false;
         this.errorPortfolio.status = true;
         if (error.response) {
-          this.errorPortfolio.message = "Server error: please try again later";
+          this.errorPortfolio.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorPortfolio.message =
+            "Network error: please check your internet connection and try again";
         } else {
           this.errorPortfolio.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+    async getProviderPosts(providerId) {
+      try {
+        this.loadingPortfolio = true;
+        const response = await axios({
+          method: "post",
+          url: `${useAuthStore().baseUrl}/profile/portfolio`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            providerId: providerId,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+
+        this.loadingPortfolioPosts = false;
+        this.errorPortfolioPosts.status = false;
+        this.errorPortfolioPosts.message = "";
+
+        return response;
+      } catch (error) {
+        this.loadingPortfolioPosts = false;
+        this.errorPortfolioPosts.status = true;
+        if (error.response) {
+          this.errorPortfolioPosts.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorPortfolioPosts.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorPortfolioPosts.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+
+    //Posts
+    async deletePost(portfolioPostId) {
+      try {
+        this.loadingDeletePost = true;
+        const response = await axios({
+          method: "delete",
+          url: `${useAuthStore().baseUrl}/profile/delete-portfolio-post`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: {
+            portfolioPostId: portfolioPostId,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        this.loadingDeletePost = false;
+        this.errorDeletePost.status = false;
+        this.errorDeletePost.message = "";
+
+        return response;
+      } catch (error) {
+        this.loadingDeletePost = false;
+        this.errorDeletePost.status = true;
+        if (error.response) {
+          this.errorDeletePost.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorDeletePost.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorDeletePost.message =
+            "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+    async editPost(postToEdit) {
+      try {
+        this.loadingEditPost = true;
+        const response = await axios({
+          method: "post",
+          url: `${useAuthStore().baseUrl}/profile/delete-portfolio-post`,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: postToEdit,
+          timeout: 13000, // 13 seconds
+        });
+
+        this.loadingEditPost = false;
+        this.errorEditPost.status = false;
+        this.errorEditPost.message = "";
+
+        return response;
+      } catch (error) {
+        this.loadingEditPost = false;
+        this.errorEditPost.status = true;
+        if (error.response) {
+          this.errorEditPost.message = error.response.data.message;
+        } else if (error.request) {
+          this.errorEditPost.message =
+            "Network error: please check your internet connection and try again";
+        } else {
+          this.errorEditPost.message =
             "Network error: please check your internet connection and try again";
         }
       }
@@ -63,7 +193,7 @@ export const usePortfolioStore = defineStore("portfolioStore", {
     {
       key: "portfolioStore",
       storage: localStorage,
-      paths: ["portfolioPosts"],
+      paths: ["portfolioPosts", "postToDelete", "postToEdit"],
     },
   ],
 });

@@ -6,9 +6,9 @@
     <div v-if="!notificationStore.errorNotification.status" class="w-full h-full"> -->
         <transition name="slide">
             <div v-if="notificationStore.notificationPageVisibility"
-                class="bg-white  w-screen md:w-1/2 overflow-y-scroll min-h-screen   z-50 inset-0 fixed">
+                class="bg-white  w-screen md:w-1/3 overflow-y-scroll min-h-screen   z-[60] inset-0 fixed">
                 <div
-                    class=" flex fixed  w-screen md:w-1/2 shadow-xl rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
+                    class=" flex fixed  w-screen md:w-1/3 shadow-xl rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
                     <button class=" opacity-0 btn-circle">
                         <span class="material-icons text-lg ">
                             arrow_forward_ios

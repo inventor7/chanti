@@ -1,6 +1,6 @@
 <template>
     <div
-        class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1">
+        class="grid grid-cols-2 grid-rows-5 h-full  md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1">
         <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
             @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
             :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress " :iconName="category.iconName"

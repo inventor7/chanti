@@ -3,34 +3,28 @@
 
         <div @click="handleClickedRoute('providerHome')" class="navbar-start ">
             <router-link :to="{ name: 'providerHome' }" class="navbar-item flex flex-col items-center ">
-                <span class="text-primary text-4xl "
-                :class="getIcon('providerHome')"
-                >
+                <span class="text-primary text-4xl " :class="getIcon('providerHome')">
                     other_houses
                 </span>
-                <span class="text-primary text-xs font-semibold " >Home</span>
+                <span class="text-primary text-xs font-semibold ">Home</span>
             </router-link>
         </div>
 
         <div @click="handleClickedRoute('createPost')" class="navbar-center ">
-             <router-link :to="{ name: 'createPost' }" class="navbar-item flex flex-col items-center ">
-                <span class="text-primary text-4xl "
-                :class="getIcon('createPost')"
-                >
-                add_box
+            <router-link :to="{ name: 'createPost' }" class="navbar-item flex flex-col items-center ">
+                <span class="text-primary text-4xl " :class="getIcon('createPost')">
+                    add_box
                 </span>
-                <span class="text-primary text-xs font-semibold " >Add Post</span>
+                <span class="text-primary text-xs font-semibold ">Add Post</span>
             </router-link>
         </div>
 
         <div @click="handleClickedRoute('providerProjects')" class="navbar-end ">
-           <router-link :to="{ name: 'providerProjects' }" class="navbar-item flex flex-col items-center ">
-                <span class="text-primary text-4xl "
-                :class="getIcon('providerProjects')"
-                >
+            <router-link :to="{ name: 'providerProjects' }" class="navbar-item flex flex-col items-center ">
+                <span class="text-primary text-4xl " :class="getIcon('providerProjects')">
                     task
                 </span>
-               <span class="text-primary text-xs font-semibold " >Projects</span>
+                <span class="text-primary text-xs font-semibold ">Projects</span>
             </router-link>
         </div>
 
@@ -61,11 +55,13 @@ export default {
         };
 
         const handleClickedRoute = (name) => {
-            if (name == 'createPost' ) {
-             portfolioStore.getProviderPortfolio(authStore.$state.userAuth.id).then((res) =>{
-                console.log(res);
-             })
-            } 
+            if (name == 'createPost') {
+                portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then(() => {
+                    portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then(() => {
+                        console.log('Posts and info are loaded')
+                    })
+                })
+            }
         };
 
         return {

@@ -1,6 +1,6 @@
 <template>
     <div :data-theme="themeStore.theme" ref="loginModal " @click.self="modalStore.toggleModalLogin();"
-        :class="{ 'modal-open': modalVisibleLogin }" class="modal   bg-gray-700/80">
+        :class="{ 'modal-open': modalVisibleLogin }" class="modal backdrop-blur-sm   bg-gray-700/80">
         <div class="modal-box   bg-base-100  w-full py-4 mx-2 md:px-10 md:mx-10 relative">
             <h2 class=" text-2xl md:text-4xl font-bold text-start pb-5 pt-2 ">{{ languageStore.getWord('login') }}</h2>
             <form action="" class="main-container flex flex-col justify-between items-center font-semibold gap-4">
