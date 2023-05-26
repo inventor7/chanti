@@ -166,6 +166,8 @@ export default defineComponent({
 
                         portfolioStore.getProviderInfo(notification.providerId).then((res) => {
                             portfolioStore.getProviderPosts(notification.providerId).then((res) => {
+                                console.log(' provider Posts')
+                                console.log(res)
                                 providerStore.$state.provider.notificationId = selecteddProvider.value.notificationId
 
                                 //getting provider Type

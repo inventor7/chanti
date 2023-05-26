@@ -56,10 +56,13 @@ export default {
 
         const handleClickedRoute = (name) => {
             if (name == 'createPost') {
-                portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then(() => {
-                    portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then(() => {
-                        console.log('Posts and info are loaded')
-                    })
+                portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => {
+                    console.log(' provider Infos')
+                    console.log(res)
+                })
+                portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
+                    console.log(' provider Posts')
+                    console.log(res)
                 })
             }
         };

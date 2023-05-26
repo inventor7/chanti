@@ -90,6 +90,7 @@
             <Alert @handleCloseBtn="handleEditPost" closeBtnText="Save" toggleBtnText="Cancel" message=""
                 modalName="edit-post-modal">
                 <h2 class="text-2xl font-bold mb-2">Editing Post</h2>
+                <p class=" font-semibold text-error text-sm mb-1 ">* you can just add images or modify Description</p>
                 <div class="w-full bg-white border-2 p-2 rounded-2xl overflow-y-scroll h-full ">
                     <div class=" flex flex-col md:flex-row w-full h-full rounded-2xl p-2 gap-2 font-semibold ">
                         <div class=" w-full h-full space-y-2">
@@ -124,8 +125,7 @@
 
                     <div class="h-4/6 w-full flex flex-col justify-center items-start gap-2 ">
                         <span class=" font-medium text-lg ">Post Details</span>
-                        <textarea v-model="descText" rows="4" cols="50" maxlength="100"
-                            class="w-full font-semibold  h-full rounded-2xl border-2 border-gray-300 p-4">                                                                                                                                                                          </textarea>
+                        <textarea class="w-full font-semibold  h-full rounded-2xl border-2 border-gray-300 p-4"/>
                     </div>
                 </div>
             </Alert>
@@ -183,20 +183,18 @@ export default {
 
         //methods
         const handleDeletePost = () => {
-            console.log(portfolioStore.$state.postToDelete)
             portfolioStore.deletePost(portfolioStore.$state.postToDelete.id).then((res) => {
                 if (res.status == 200) {
-                    console.log(res)
+                    console.log('the post was deleted')
                     errorStatus.value = true
                     errorMessage.value = 'Post deleted successfully'
                     errorState.value = 'success'
                     portfolioStore.$state.postToDelete = {}
-                    portfolioStore.$state.portfolioPosts = portfolioStore.$state.portfolioPosts.filter((post) => post.id != portfolioStore.$state.postToDelete.id)
                 } else {
                     errorStatus.value = true
                     errorMessage.value = 'Error deleting post'
                     errorState.value = 'error'
-                    console.log(res)
+                    console.log('error deleting post')
                 }
 
             })
@@ -214,7 +212,10 @@ export default {
                     portfolioStore.$state.postToEdit = {}
 
                     //update post in portfolioPosts
-                    portfolioStore.getProviderPosts(authStore.$state.userAuth.id)
+                    portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
+                        console.log(' provider Posts')
+                        console.log(res)
+                    })
                 } else {
                     errorStatus.value = true
                     errorMessage.value = 'Error in editing post'
@@ -282,7 +283,10 @@ export default {
                             errorState.value = 'success'
                         }, 3000)
 
-                        portfolioStore.getProviderPosts(authStore.$state.userAuth.id)
+                        portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
+                            console.log(' provider Posts')
+                            console.log(res)
+                        })
 
                     }
 
@@ -312,6 +316,7 @@ export default {
 
             //store
             providerStore,
+            portfolioStore,
 
 
             //methods

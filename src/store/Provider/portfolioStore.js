@@ -82,21 +82,19 @@ export const usePortfolioStore = defineStore("portfolioStore", {
 
     async getProviderPosts(providerId) {
       try {
-        this.loadingPortfolio = true;
         const response = await axios({
           method: "post",
           url: `${useAuthStore().baseUrl}/profile/portfolio`,
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            providerId: providerId,
+            "providerId" :providerId
           },
           timeout: 13000, // 13 seconds
         });
 
-
+        this.portfolioPosts = response.data.result
         this.loadingPortfolioPosts = false;
         this.errorPortfolioPosts.status = false;
         this.errorPortfolioPosts.message = "";
@@ -130,7 +128,7 @@ export const usePortfolioStore = defineStore("portfolioStore", {
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            portfolioPostId: portfolioPostId,
+            portfolioPostId:portfolioPostId,
           },
           timeout: 13000, // 13 seconds
         });

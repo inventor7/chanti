@@ -264,11 +264,13 @@ export default {
 
         const handleGoProfile = () => {
             portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
+                console.log(' provider Posts')
                 console.log(res)
-                console.log('Posts and info are loaded')
+
             })
             portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => {
-                console.log(res.data.result)
+                console.log(' provider infos')
+                console.log(res)
             })
             router.push({
                 name: 'profile',

@@ -10,10 +10,10 @@
             </div>
 
 
-            <div v-else class="griddy h-full ">
+            <div v-else class="griddy h-full">
                 <transition-group name="post" tag="div" mode="out-in">
-                    <div v-for="post in portfolioPosts" :key="post.id"
-                        class="relative h-full w-full flex flex-col  md:max-w-lg  group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
+                    <div v-for="post in portfolioPosts.portfolioPostsWithImages" :key="post.id"
+                        class="relative h-fit mb-4 w-full flex flex-col  md:max-w-lg  group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
                         <div class="carousel carousel-center  h-full max-h-[55vh] w-full ">
                             <div v-for="(image, index) in post.images" :key="index"
                                 class="relative carousel-item h-full  w-full border  border-white ">
@@ -93,7 +93,7 @@
 import Loading from './Loading.vue';
 import Error from './Error.vue';
 import Toast from './Toast.vue';
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch,watchEffect, computed } from 'vue'
 import { useUserStore } from '../store/userStore';
 import { useProviderStore } from '../store/Provider/providerStore';
 import { usePortfolioStore } from '../store/Provider/portfolioStore';
@@ -125,8 +125,9 @@ export default {
         //computed
         let portfolioPosts = ref(portfolioStore.$state.portfolioPosts)
 
-        watch(portfolioStore.$state.portfolioPosts, (newVal, oldVal) => {
-            portfolioPosts.value = newVal
+      // watch for any changes in the portfolioPosts in the store and update the local portfolioPosts
+        watchEffect(() => {
+            portfolioPosts.value = portfolioStore.$state.portfolioPosts
         })
 
         onMounted(() => {
@@ -153,11 +154,15 @@ export default {
         }
 
         const handleSendPostDelete = (post) => {
-            portfolioStore.postToDelete = post
+            portfolioStore.$state.postToDelete = post
+            console.log(post)
+            console.log('post to delete now AVAIBLE')
         }
 
         const handleSendPostEdit = (post) => {
-            portfolioStore.postToEdit = post
+            portfolioStore.$state.postToEdit = post
+            console.log('post to EDIT now AVAIBLE')
+
         }
 
 

@@ -140,6 +140,8 @@ export default defineComponent({
                 if (provider.status != 'declined') {
                     portfolioStore.getProviderInfo(provider.id).then((res) => {
                         portfolioStore.getProviderPosts(provider.id).then((res) => {
+                            console.log(' provider Posts')
+                            console.log(res)
                             if (res.status === 200) {
                                 providerStore.$state.provider.notificationId = provider.notificationId
                                 providerStore.$state.provider.type = props.type

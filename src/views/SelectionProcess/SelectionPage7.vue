@@ -208,11 +208,12 @@ export default {
             //show profile based on the provider id
             portfolioStore.getProviderInfo(provider.id).then(() => {
             })
-            
+
             portfolioStore.getProviderPosts(provider.id).then((res) => {
-                if (res.status === 200)
-                {
-                 console.log('yayyyy it works')   
+                console.log(' provider Posts')
+                console.log(res)
+                if (res.status === 200) {
+                    console.log('yayyyy it works')
                 } else {
                     console.log('noooooo fuck offffffffff ')
                 }
