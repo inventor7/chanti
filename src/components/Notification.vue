@@ -137,7 +137,7 @@ export default defineComponent({
                             notReadNotifications.value[i].isRead = true
                         }
                     }
-                } else {
+                } else { 
 
                     for (let i = 0; i < readNotifications.value.length; i++) {
                         if (notificationStore.readNotifications[i].id == id) {

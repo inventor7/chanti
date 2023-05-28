@@ -84,6 +84,7 @@ export const useAuthStore = defineStore("authStore", {
         localStorage.removeItem("clientStore");
         localStorage.removeItem("notificationStore");
         localStorage.removeItem("authStore");
+        localStorage.removeItem("portfolioStore")
 
         useUserStore().$state.userType = "client";
         
