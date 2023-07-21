@@ -1,30 +1,30 @@
 <template>
-    <div dir="ltr" class="navbar border-t-2 px-4   fd  py-0 bg-base-100  z-50 " ref="navbar">
+    <div dir="ltr" class=" flex flex-row  md:w-fit md:top-0 md:z-[51] md:px-4 md:py-2 md:gap-5 md:h-fit md:ml-12 md:border-none md:rounded-2xl justify-around items-center navb  py-1  border-t-2    fd bg-base-100  z-50 " ref="navbar">
 
-        <div @click="handleClickedRoute('providerHome')" class="navbar-start ">
-            <router-link :to="{ name: 'providerHome' }" class="navbar-item flex flex-col items-center ">
-                <span class="text-primary text-4xl " :class="getIcon('providerHome')">
+        <div @click="handleClickedRoute('providerHome')" class=" ">
+            <router-link :to="{ name: 'providerHome' }" class="navbar-item flex flex-col  w-full self-center text-center items-center ">
+                <span class="text-primary text-3xl md:text-4xl  " :class="getIcon('providerHome')">
                     other_houses
                 </span>
-                <span class="text-primary text-xs font-semibold ">Home</span>
+                <span class="text-primary text-xs md:hidden font-semibold ">Home</span>
             </router-link>
         </div>
 
-        <div @click="handleClickedRoute('createPost')" class="navbar-center ">
+        <div @click="handleClickedRoute('createPost')" class="">
             <router-link :to="{ name: 'createPost' }" class="navbar-item flex flex-col items-center ">
                 <span class="text-primary text-4xl " :class="getIcon('createPost')">
                     add_box
                 </span>
-                <span class="text-primary text-xs font-semibold ">Add Post</span>
+                <span class="text-primary text-xs md:hidden font-semibold ">Add Post</span>
             </router-link>
         </div>
 
-        <div @click="handleClickedRoute('providerProjects')" class="navbar-end ">
+        <div @click="handleClickedRoute('providerProjects')" class="">
             <router-link :to="{ name: 'providerProjects' }" class="navbar-item flex flex-col items-center ">
                 <span class="text-primary text-4xl " :class="getIcon('providerProjects')">
                     task
                 </span>
-                <span class="text-primary text-xs font-semibold ">Projects</span>
+                <span class="text-primary text-xs md:hidden font-semibold ">Projects</span>
             </router-link>
         </div>
 

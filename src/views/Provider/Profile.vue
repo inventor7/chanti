@@ -27,7 +27,8 @@
             <!-- Card -->
             <div class="bg-white rounded-xl shadow ">
                 <div class="relative top-0 h-52 md:h-[60vh] rounded-t-xl   bg-cover bg-center bg-no-repeat">
-                    <img class="w-full h-full object-cover md:object-cover rounded-t-xl" :src="backgImg" alt="Image Description">
+                    <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl" :src="backgImg"
+                        alt="Image Description">
 
 
                     <!-- <div class="absolute top-1 btn  btn-circle left-1">
@@ -79,7 +80,7 @@
                                     verified
                                 </span>
                             </label>
-                            <div v-if="!provider.btnVisible && !provider.btnLoading"
+                            <!-- <div v-if="!provider.btnVisible && !provider.btnLoading"
                                 class="flex box flex-row justify-start items-center gap-1">
                                 <span class="material-icons   text-primary">
                                     phone
@@ -87,7 +88,7 @@
                                 <span class=" font-medium text-gray-500">
                                     {{ provider.phoneNumber }}
                                 </span>
-                            </div>
+                            </div> -->
 
                             <!-- email -->
                             <!-- <div class="flex flex-row justify-start items-center pt-1 gap-1">
@@ -116,9 +117,9 @@
                                 {{ languageStore.getWord(provider.category.name) }}
                             </span>
                             <p class=" w-full text-sm font-medium text-gray-600 ">
-                                Lorem ipsum dolor sit, amet consectetur and adipisicing elit. Eos vero a eligendi ab
-                                sed
-                                dolores beatae </p>
+                                votre solution pratique pour tous vos besoins de réparation, rénovation et entretien
+                                résidentiel. Nos experts en bricolage qualifiés vous offrent des services fiables et
+                                professionnels pour embellir votre maison et en prendre soin. </p>
                             <div class="space-x-1">
                                 <span v-for=" subcat in provider.subcategories" :key="subcat.id"
                                     class="inline-block mt-2 text-[12px] bg-secondary/20 py-0.5 px-2 rounded-xl font-medium text-secondary ">
@@ -182,16 +183,6 @@
 
                                 <!-- end request buttons -->
 
-
-
-                                <!-- <button type="button"
-                                        class="py-2 btn btn-sm md:btn-md px-3 font-bold inline-flex justify-center items-center gap-2 h-10 border  btn-secondary btn-outline  shadow-sm align-middle  ">
-                                        <span class="material-icons ">
-                                            chat_bubble
-                                        </span>
-                                        message
-
-                                    </button> -->
                             </div>
                         </div>
 
@@ -208,29 +199,29 @@
 
 
 
-            <div
+            <!-- <div
                 class="flex flex-row rounded-xl bg-gray-400/20 text-center justify-between md:justify-around  p-2 items-center w-full  sm:w-full mt-3 gap-1 ">
-                <!-- Stats -->
+                Stats
                 <div>
                     <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">2,00+</p>
                     <p class="  text-gray-400">projects with Chanti</p>
                 </div>
-                <!-- End Stats -->
+                End Stats
 
-                <!-- Stats -->
-                <!-- <div >
+                Stats
+                <div >
                         <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">2,000+</p>
                         <p class="mt-1 text-gray-400">partner with Preline</p>
-                    </div> -->
-                <!-- End Stats -->
+                    </div>
+                End Stats
 
-                <!-- Stats -->
+                Stats
                 <div>
                     <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">85%</p>
                     <p class=" text-gray-400">saying it's worth it</p>
                 </div>
-                <!-- End Stats -->
-            </div>
+                End Stats
+            </div> -->
             <!-- End Grid -->
 
 
@@ -254,7 +245,7 @@
                             <span class="material-icons">
                                 reviews
                             </span>
-                            <span class="ml-2">reviws</span>
+                            <span class="ml-2">avis</span>
                         </button>
                     </nav>
                 </div>
@@ -366,7 +357,7 @@ export default {
                 case 'plumbing_water_management':
                     return '../../src/assets/categories/plumber.svg'
 
-                case 'electrical_hvacs':
+                case 'electrical_hvac':
                     return '../../src/assets/categories/electrecian.svg'
 
                 case 'cleaning_house_keeping':

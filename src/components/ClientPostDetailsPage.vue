@@ -155,14 +155,14 @@
                 <div class="grid grid-rows-1 grid-cols-12 bg-transparent w-full  ">
                     <label for="delete-modal" @click="handleWorkStatus('delete')"
                         class="btn  btn-sm text-error btn-ghost hover:bg-error hover:text-white col-span-5  w-full px-0  ">
-                        Delete
+                       supprimer
                     </label>
                     <div class="divider col-span-2 mx-0 divider-horizontal "></div>
                     <button
                         :disabled="(providersSentResponse && providersSentResponse.length === 0 && providersInterest && providersInterest.length === 0)"
                         @click="handleWorkStatus('done')"
                         class="btn  btn-sm  whitespace-nowrap text-success hover:bg-success hover:text-white col-span-5 btn-ghost  w-full  px-0  ">
-                        Mark Done
+                        marque faite
                     </button>
                 </div>
 

@@ -13,7 +13,7 @@
                 <label :for="modalName" class="btn btn-ghost bg-gray-400/30 "
                 :class="{'ml-2  w-full' : w === 'full'}"
                 >
-                    Discard
+                    Annuler
                 </label>
                 <label @click="handleCloseBtn" :for="modalName" class="btn  text-white " :class="{'w-full' : w === 'full',
                         'btn-primary': closeBtnColor === 'primary',

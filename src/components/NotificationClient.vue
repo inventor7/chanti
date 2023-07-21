@@ -24,7 +24,7 @@
                     <!-- provider -->
                     <p v-if="notificationLocation === 'provider' && notification.type === 'clientResponse' && notification.status === 'pending'"
                         class="text-sm bg-primary/20 text-primary px-2 py-[1px] rounded-xl">
-                        requested you
+                        vous a demandé
                     </p>
                     <p v-if="notification.status == 'accepted' && notificationLocation === 'provider' && notification.type === 'clientInterest'"
                         class="text-sm bg-success/20 text-success px-2 py-[1px] rounded-xl">
@@ -38,7 +38,7 @@
             </div>
             <span v-if="notifType == 'notRead'"
                 class="inline-flex absolute top-1 right-1 items-center gap-1.5 py-1 px-1 rounded-full text-xs font-medium bg-error/10 text-error">
-                <span class="w-2 h-2 inline-block bg-error rounded-full"></span> <span>New</span>
+                <span class="w-2 h-2 inline-block bg-error rounded-full"></span> <span>nouveau</span>
             </span>
         </div>
 
@@ -68,14 +68,14 @@
                 <span class="material-icons text-sm">
                     check
                 </span>
-                <p class="text-sm font-semibold">Accept</p>
+                <p class="text-sm font-semibold">Accepter</p>
             </button>
             <button @click="handleCallPro(notification, 'declined')"
                 class="btn btn-error btn-sm h-10  flex-1 flex flex-row justify-center items-center gap-1 w-full text-white rounded-lg px-2 py-1">
                 <span class="material-icons text-sm">
                     close
                 </span>
-                <p class="text-sm font-semibold">Decline</p>
+                <p class="text-sm font-semibold">Refuser</p>
             </button>
         </div>
         <button
@@ -155,6 +155,8 @@ export default defineComponent({
             if (props.notificationLocation === 'client') {
                 clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(notification.ClientPostId)
                 clientDemandeStore.getClientPostProviders(notification.ClientPostId).then((res) => {
+                    console.log('client post providers')
+                    console.log(res)
                     if (res.status === 200) {
 
                         //getting more info about the provider from it's client Post

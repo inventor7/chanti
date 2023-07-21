@@ -17,7 +17,7 @@ export default defineConfig({
     // Enable proxy
     proxy: {
       "/api": {
-        target: "https://chanti-dz-backend.herokuapp.com",
+        target: "http://192.168.198.172:3001",
         changeOrigin: true,
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, ""),

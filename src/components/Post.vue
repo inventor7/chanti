@@ -50,12 +50,12 @@
         <div v-if="post.status === 'pending'" class="w-full h-full">
             <button @click="handleWorkStatus('done')"
                 class="btn btn-sm text-success hover:bg-success hover:text-white btn-ghost w-full px-0  ">
-                Mark Done
+                marque faite
             </button>
             <div class="divider my-1 "></div>
             <label for="delete-modal" @click="handleWorkStatus('delete', post.id)"
                 class="btn btn-sm text-error btn-ghost hover:bg-error hover:text-white w-full px-0  ">
-                Delete
+              supprimer
             </label>
         </div>
 

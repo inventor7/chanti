@@ -1,7 +1,7 @@
 <template>
     <SignupLayout prevLink="desc" :pageNumber="7" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle="Local Providers"
-        pageDesc=" Select a provider to send your request to and check their profiles " componentLocation="selectionProcess"
+        @handle="handleClick" pageTitle="les fournisseurs locaux"
+        pageDesc=" Sélectionnez un fournisseur auquel envoyer votre demande et vérifiez leurs profils " componentLocation="selectionProcess"
         :navigationVisibility="false" :deleteBtnVisibility="false">
 
 
@@ -58,7 +58,7 @@
                                 <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
                                     class="btn  w-full btn-sm sm:btn-md  btn-primary rounded-xl text-white">
-                                    send request
+                                    envoyer la demande
                                 </button>
                                 <button v-show="!provider.btnLoading" @click="makePhoneCall(provider)" v-else
                                     class="btn h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success w-full gap-2">
@@ -88,7 +88,7 @@
     <div class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
         <button v-show="!clientStore.btnLoadingAll && clientStore.$state.btnVisibleAll" @click="handleSendRequest('all')"
             class="btn self-center text-white   w-full md:w-1/3  btn-primary mt-2 rounded-xl btn-md ">
-            Publish the request
+            publier la demande
         </button>
         <!-- Loading button -->
         <button v-show="clientStore.btnLoadingAll && !clientStore.$state.btnVisibleAll"
@@ -100,7 +100,7 @@
             <span class="material-icons text-success text-lg">
                 check_circle
             </span>
-            request published
+            demande envoyée
         </button>
     </div>
     <!-- error -->

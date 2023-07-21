@@ -7,7 +7,7 @@
                     class="w-full bg-gray-400/20 rounded-t-xl pt-2  cursor-pointer relative">
                     <p class="text-2xl  font-bold text-blue-500">{{ clientDemandeStore.$state.clientPosts.length }}
                     </p>
-                    <p class="text-gray-400 text-lg mb-1">Total</p>
+                    <p class="text-gray-400  mb-1 md:text-lg">Total</p>
                     <div :class="{
                         'opacity-100': position === 1,
                         'opacity-0': position !== 1,
@@ -21,7 +21,7 @@
                 <div @click="filterPosts('pending', 2)"
                     class="w-full bg-gray-400/20 rounded-t-xl  pt-2  cursor-pointer relative">
                     <p class="text-2xl font-bold text-blue-500">{{ pendingPosts.length }}</p>
-                    <p class="text-gray-400 text-lg mb-1 ">Pending</p>
+                    <p class="text-gray-400 mb-1 ">En attente</p>
                     <div :class="{
                         'opacity-100': position === 2,
                         'opacity-0': position !== 2,
@@ -35,7 +35,7 @@
                 <div @click="filterPosts('done', 3)"
                     class="w-full bg-gray-400/20 rounded-t-xl  pt-2  cursor-pointer relative">
                     <p class="text-2xl font-bold text-blue-500">{{ donePosts.length }}</p>
-                    <p class="text-gray-400 text-lg mb-1 ">Done</p>
+                    <p class="text-gray-400  mb-1 md:text-lg ">réalisés</p>
                     <div :class="{
                         'opacity-100': position === 3,
                         'opacity-0': position !== 3,
@@ -49,7 +49,9 @@
                 <div @click="filterPosts('delete', 4)"
                     class="w-full bg-gray-400/20 rounded-t-xl  pt-2  cursor-pointer relative">
                     <p class="text-2xl font-bold text-blue-500">{{ deletePosts.length }}</p>
-                    <p class="text-gray-400 text-lg mb-1 ">Deleted</p>
+                    <p class="text-gray-400  mb-1 md:text-lg ">
+                        Supprimés
+                    </p>
                     <div :class="{
                         'opacity-100': position === 4,
                         'opacity-0': position !== 4,

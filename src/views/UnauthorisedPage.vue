@@ -5,8 +5,8 @@
             ref="navbar">
             <div class="navbar-start"></div>
             <div class="navbar-center">
-                <router-link :to="{ name: link }">
-                    <svg class="  px-0 w-28 h-auto object-contain btn btn-link font fill-primary " data-v-423bf9ae=""
+             
+                    <svg @click="goHome" class="  px-0 w-28 h-auto object-contain btn btn-link font fill-primary " data-v-423bf9ae=""
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224.78573364505993 60">
                         <g data-v-423bf9ae="" id="4543de12-aaf0-4125-a132-5fbdb5bbcecc"
                             transform="matrix(5.357142948374458,0,0,5.357142948374458,-5.035717750082384,-9.000001226152698)">
@@ -15,7 +15,7 @@
                             </path>
                         </g>
                     </svg>
-                </router-link>
+            
             </div>
             <div class="navbar-end"></div>
         </div>
@@ -42,14 +42,15 @@ export default {
         const router = useRouter()
         const userStore = useUserStore()
 
-        let link = computed(()=> {
+        //methods
+        const goHome = () => {
             if(userStore.$state.userType==='provider')
             {
-                return 'providerHome'
+                router.push({ name: 'providerHome' })
             } else {
-                return 'home'
+                router.push({ name: 'home' })
             }
-        })
+        }
 
         let userType = userStore.$state.userType
 
@@ -59,11 +60,11 @@ export default {
             router,
             userStore,
 
-            //computed 
-            link,
-
             //vars 
-            userType
+            userType,
+
+            //methods
+            goHome
         }
 
     }

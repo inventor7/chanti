@@ -13,8 +13,8 @@
         </div>
 
         <div class="  ">
-           <router-link :to="{ name: 'clientPosts' }" class="navbar-item flex  flex-col w-full items-center ">
-                <span class="text-primary text-3xl  md:text-4xl  "
+           <router-link :to="{ name: 'clientPosts' }" class="navbar-item flex flex-col  w-full self-center text-center items-center ">
+                <span class="text-primary text-3xl md:text-4xl  "
                 :class="getIcon('clientPosts')"
                 >
                     task

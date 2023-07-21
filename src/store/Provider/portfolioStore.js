@@ -158,19 +158,23 @@ export const usePortfolioStore = defineStore("portfolioStore", {
         this.loadingEditPost = true;
         const response = await axios({
           method: "post",
-          url: `${useAuthStore().baseUrl}/profile/delete-portfolio-post`,
+          url: `${useAuthStore().baseUrl}/profile/edit-portfolio-post`,
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
-          data: postToEdit,
+          data: {
+            "portfolioPostId":postToEdit.id,
+            "details":postToEdit.details,
+            "images":postToEdit.images,
+          },
           timeout: 13000, // 13 seconds
         });
 
         this.loadingEditPost = false;
         this.errorEditPost.status = false;
         this.errorEditPost.message = "";
-
+        console.log(response)
         return response;
       } catch (error) {
         this.loadingEditPost = false;

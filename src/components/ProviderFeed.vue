@@ -87,7 +87,7 @@
                             <div class="w-full">
                                 <button v-if="post.btnVisible && !post.btnLoading" @click="sendInterest(post.id)"
                                     class="btn flex-1 font-bold w-full  cursor-pointer z-20  gap-1 btn-sm sm:btn-md text-white btn-primary rounded-lg -white">
-                                    request job
+                                    demander 
                                 </button>
 
                                 <button v-if="!post.btnVisible && post.btnLoading" @click="sendInterest(post.id)"
