@@ -3,7 +3,7 @@ export function  useTimeDifference() {
 
     function timeDifference(previous) {
         let current = moment();
-        let diff = current.diff(previous, 'seconds');
+        let diff = current.diff(previous,   'seconds');
         if (diff < 60) {
             return diff + ' seconds ago';
         } else if (diff < 3600) {
