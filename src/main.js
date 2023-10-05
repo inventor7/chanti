@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "development") {
 
 } else {
     import("./store/authStore").then((module) => {
-        module.useAuthStore().baseUrl = "http://192.168.198.172:3001";
+        module.useAuthStore().baseUrl = "https://chanti-dz-backend.herokuapp.com";
     });
 }
 
