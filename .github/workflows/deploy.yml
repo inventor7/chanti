@@ -26,7 +26,7 @@ jobs:
 
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
-              with:
+        with:
           server: ftp.chanti-dz.com
           username: aybinv7@chanti-dz.com
           password: ${{ secrets.CPANEL_FTP_PASSWORD }}
