@@ -3,7 +3,7 @@
     class="flex  relative flex-col lg:flex-col  justify-center h-full  items-center md:py-4 md:px-2  p-4  gap-2  w-full  ">
 
     <div v-if="!clientDemandeStore.$state.requestinProgress && !isHome  ">
-      <span :class="{ 'block ': isActive, 'hidden ': !isActive }"
+      <span :class="{ 'block  ': isActive, 'hidden ': !isActive }"
         class="material-icons absolute text-xl md:text-xl   top-0.5 left-1 sm:top-2 sm:left-2  text-white  ">
         check_circle_fill
       </span>

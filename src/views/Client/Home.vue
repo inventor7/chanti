@@ -62,7 +62,7 @@
                     @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
                     :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress"
                     :iconName="category.iconName"
-                    :class="{ 'bg-primary shadow-2xl  text-white scale-[103%]   ': category === categoriesStore.selectedCategory && !clientDemandeStore.$state.requestinProgress }"
+                    :class="{ 'bg-black   text-sky-700 scale-[103%]   ': category === categoriesStore.selectedCategory && !clientDemandeStore.$state.requestinProgress }"
                     class=" text-center cursor-pointer rounded-md bg-slate-300/20 border-gray-300  hover:shadow-2xl   border-[1px]   transition-all duration-300 ease-in-out">
                 </Category>
             </div>
