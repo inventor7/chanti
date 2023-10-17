@@ -29,6 +29,6 @@ jobs:
         with:
           server: ftp.chanti-dz.com
           username: aybinv7@chanti-dz.com
-          password:  chs2_#BYr@
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
           local-dir: dist
           remote-dir: public_html
