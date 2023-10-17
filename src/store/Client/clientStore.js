@@ -76,7 +76,7 @@ export const useClientStore = defineStore("clientStore", {
           this.errorPosting.message = "Server error: please try again later";
         } else {
           this.errorPosting.message =
-            "Network error: please check your internet connection and try again ! ";
+            "Network error: please check your internet connection and  try again ! ";
         }
       }
     },
