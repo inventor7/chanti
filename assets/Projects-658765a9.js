@@ -1,0 +1,1 @@
+import{P as e}from"./ProviderLayout-65b554ca.js";import{_ as r,g as t,s,o as n,y as a}from"./index-fec93108.js";const c={name:"ProviderProjects",components:{ProviderLayout:e},setup(){return t(),{}}};function p(_,i,m,u,d,f){const o=s("ProviderLayout");return n(),a(o)}const v=r(c,[["render",p]]);export{v as default};
