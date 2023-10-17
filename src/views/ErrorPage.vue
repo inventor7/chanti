@@ -15,7 +15,7 @@
             </button>
             <button v-else @click="router.go(-1)" class="text-sm btn text-white btn-primary gap-2 rounded-full ">
                 <span class="material-icons">arrow_back</span>
-                Go Back
+                Back
             </button>
             <button @click="router.push({ name: 'home' })" class="text-sm btn text-white btn-primary gap-2 rounded-full ">
                 <span class="material-icons">home</span>
