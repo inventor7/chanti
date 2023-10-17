@@ -55,7 +55,7 @@ export const useWilayasStore = defineStore("wilayasStore", {
           this.error.message = "Server Error : please try again later";
         } else if (error.request) {
           this.error.message =
-            "Network error: please check your internet connection and try again";
+            "Network error: please check your internet connection and try again !";
         } else {
           this.error.message = "Server Error : please try again later";
         }
