@@ -21,7 +21,7 @@
                         </h1>
                         <h1 v-else
                             class="  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-white whitespace-normal mb-5 font-bold">
-                            Marhba Bik again Mr
+                           Welcome Back
                             <span class="underline underline-offset-4 text-primary">
                                 {{ authStore.$state.userAuth.lastName.toUpperCase() }}
                             </span>
