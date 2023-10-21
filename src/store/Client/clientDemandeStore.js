@@ -27,7 +27,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
     selectedPost: {},
     PostToDelte: {},
     clientPostId: {}, //used to store the client post that recieved from postRequest in clientStore
-    requestinProgress: false, //this vars is used if we came up from the request procudure page
+    requestinProgress: false, //this vars is used if we came up from the request procudure  page
 
     request: {
       clientId: "",
