@@ -9,7 +9,7 @@
         <div class="flex flex-row gap-2">
 
             <button v-if="getErrorMessage === 'internet'" @click="handleNoInternet"
-                class="text-sm btn text-white btn-primary gap-2 rounded-full ">
+                class="text-sm btn  text-white btn-primary gap-2 rounded-full ">
                 <span class="material-icons">loop</span>
                 Reload
             </button>
