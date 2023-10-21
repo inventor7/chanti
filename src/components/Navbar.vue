@@ -108,7 +108,7 @@
                             <span class="material-icons">
                                 settings
                             </span>
-                            Settings
+                            Params
                         </span>
                     </li>
                     <li @click="logout">
@@ -192,7 +192,7 @@ export default {
     props: {
         pageTitle: {
             type: String,
-            default: 'Chanti',
+            default: 'Chanti-DZ',
         },
     },
     components: {
