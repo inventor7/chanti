@@ -33,3 +33,11 @@ jobs:
           local-dir: dist/
           remote-dir: public_html/
           dangerous-clean-slate: true
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/api/**/*
+            .htaccess
+            .ftpquota
+            .ftp-deploy-sync-state.json
