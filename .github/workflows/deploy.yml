@@ -1,4 +1,3 @@
-name: Deploy to cPanel
 on: push
 name: 🚀 Deploy website on push
 jobs:
