@@ -1,8 +1,8 @@
 <template>
     <SignupLayout prevLink="desc" :pageNumber="7" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
         @handle="handleClick" pageTitle="les fournisseurs locaux"
-        pageDesc=" Sélectionnez un fournisseur auquel envoyer votre demande et vérifiez leurs profils " componentLocation="selectionProcess"
-        :navigationVisibility="false" :deleteBtnVisibility="false">
+        pageDesc=" Sélectionnez un fournisseur auquel envoyer votre demande et vérifiez leurs profils "
+        componentLocation="selectionProcess" :navigationVisibility="false" :deleteBtnVisibility="false">
 
 
 
@@ -191,7 +191,6 @@ export default {
                     }, 3000);
                 }
 
-                console.log('Request sent ', res)
             })
 
 
@@ -210,13 +209,7 @@ export default {
             })
 
             portfolioStore.getProviderPosts(provider.id).then((res) => {
-                console.log(' provider Posts')
-                console.log(res)
-                if (res.status === 200) {
-                    console.log('yayyyy it works')
-                } else {
-                    console.log('noooooo fuck offffffffff ')
-                }
+             
                 providerStore.$state.provider.btnVisible = provider.btnVisible
             })
             router.push({

@@ -259,7 +259,6 @@ export default {
                         }
                         else {
                             userStore.extractSubCategoriesIds()
-                            console.log(userStore.user)
                             authStore.signup().then(() => {
                                 if (authStore.$state.isAuthenticated) {
                                     userStore.emptyFields()
@@ -304,9 +303,7 @@ export default {
                                         for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
                                             formData.append("images", clientDemandeStore.$state.request.images[i]);
                                         }
-                                        for (let pair of formData.entries()) {
-                                            console.log(pair[0] + ', ' + pair[1]);
-                                        }
+                                        
                                         clientStore.postRequest(formData)
                                         router.push({ name: 'results' })
                                     } else {
@@ -338,10 +335,8 @@ export default {
             eyeIcon.value = !eyeIcon.value
             if (password.type === 'password') {
                 password.type = 'text';
-                console.log(eyeIcon.value)
             } else {
                 password.type = 'password';
-                console.log(eyeIcon.value)
             }
         }
 
@@ -352,10 +347,8 @@ export default {
             eyeIconC.value = !eyeIconC.value
             if (passwordCC.type === 'password') {
                 passwordCC.type = 'text';
-                console.log(eyeIconC.value)
             } else {
                 passwordCC.type = 'password';
-                console.log(eyeIconC.value)
             }
         }
 

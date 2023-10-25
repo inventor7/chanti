@@ -155,8 +155,7 @@ export default defineComponent({
             if (props.notificationLocation === 'client') {
                 clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(notification.ClientPostId)
                 clientDemandeStore.getClientPostProviders(notification.ClientPostId).then((res) => {
-                    console.log('client post providers')
-                    console.log(res)
+
                     if (res.status === 200) {
 
                         //getting more info about the provider from it's client Post
@@ -168,8 +167,7 @@ export default defineComponent({
 
                         portfolioStore.getProviderInfo(notification.providerId).then((res) => {
                             portfolioStore.getProviderPosts(notification.providerId).then((res) => {
-                                console.log(' provider Posts')
-                                console.log(res)
+
                                 providerStore.$state.provider.notificationId = selecteddProvider.value.notificationId
 
                                 //getting provider Type
@@ -241,10 +239,8 @@ export default defineComponent({
                                 //sending a request to mark as selected to show the phone number
                                 clientDemandeStore.changeProviderStatus(provider.notificationId, status).then((res) => {
                                     if (res.status === 200) {
-                                        console.log('Marked as selected ', res)
                                         provider.status = status
                                         notification.status = status
-                                        console.log('success motherfucker')
                                     }
                                 })
                             }

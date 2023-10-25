@@ -4,56 +4,56 @@
     <Loading
         v-if="notificationStore.loading && !notificationStore.errorNotification.status && notificationStore.notificationPageVisibility && clientDemandeStore.loadingClientDemande" />
     <div v-if="!notificationStore.errorNotification.status" class="w-full h-full"> -->
-        <transition name="slide">
-            <div v-if="notificationStore.notificationPageVisibility"
-                class="bg-white  w-screen md:w-1/3 overflow-y-scroll min-h-screen   z-[60] inset-0 fixed">
-                <div
-                    class=" flex fixed  w-screen md:w-1/3 shadow-xl rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
-                    <button class=" opacity-0 btn-circle">
-                        <span class="material-icons text-lg ">
-                            arrow_forward_ios
-                        </span>
-                    </button>
-                    <span class="text-2xl font-bold text-primary">Notification</span>
-                    <button class=" btn-circle " @click="handleCloseNotificationPage">
-                        <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
-                            arrow_forward_ios
-                        </span>
-                    </button>
-                </div>
-
-
-                <div v-if="notificationStore.notReadNotifications.length === 0 && notificationStore.readNotifications.length === 0 && !notificationStore.loading"
-                    class="flex flex-col justify-center items-center w-full h-full">
-                    <span class="material-icons text-6xl text-primary">
-                        notifications_off
+    <transition name="slide">
+        <div v-if="notificationStore.notificationPageVisibility"
+            class="bg-white  w-screen md:w-1/3 overflow-y-scroll min-h-screen   z-[60] inset-0 fixed">
+            <div
+                class=" flex fixed  w-screen md:w-1/3 shadow-xl rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
+                <button class=" opacity-0 btn-circle">
+                    <span class="material-icons text-lg ">
+                        arrow_forward_ios
                     </span>
-                    <span class="text-2xl font-semibold text-primary">No Notifications</span>
-                </div>
-
-
-                <!-- notifications -->
-                <!-- Provider -->
-                <div v-else class="mt-20 pb-4 " v-if="userStore.$state.userType === 'provider'">
-                    <div class="w-full space-y-2  px-1 sm:px-3 h-full ">
-                        <NotificationClient v-for="notif in notReadNotificationsProvider.notifications" :key="notif.id" :notif="notif"
-                            notifType="notRead" notificationLocation="provider" />
-                        <NotificationClient v-for="notif in readNotificationsProvider.notifications" :key="notif.id" :notif="notif"
-                            notifType="read" notificationLocation="provider" />
-                    </div>
-                </div>
-                <!-- Client -->
-                <div class="mt-20 pb-4" v-if="userStore.$state.userType === 'client'">
-                    <div class="w-full space-y-2 mt-16 px-1 sm:px-3 h-full ">
-                        <NotificationClient v-for="notif in notReadNotificationsClient.notifications" :key="notif.id"
-                            :notif="notif" notifType="notRead" notificationLocation="client" />
-                        <NotificationClient v-for="notif in readNotificationsClient.notifications" :key="notif.id"
-                            :notif="notif" notifType="read" notificationLocation="client" />
-                    </div>
-                </div>
-                <!-- end notifications -->
+                </button>
+                <span class="text-2xl font-bold text-primary">Notification</span>
+                <button class=" btn-circle " @click="handleCloseNotificationPage">
+                    <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
+                        arrow_forward_ios
+                    </span>
+                </button>
             </div>
-        </transition>
+
+
+            <div v-if="notificationStore.notReadNotifications.length === 0 && notificationStore.readNotifications.length === 0 && !notificationStore.loading"
+                class="flex flex-col justify-center items-center w-full h-full">
+                <span class="material-icons text-6xl text-primary">
+                    notifications_off
+                </span>
+                <span class="text-2xl font-semibold text-primary">No Notifications</span>
+            </div>
+
+
+            <!-- notifications -->
+            <!-- Provider -->
+            <div v-else class="mt-20 pb-4 " v-if="userStore.$state.userType === 'provider'">
+                <div class="w-full space-y-2  px-1 sm:px-3 h-full ">
+                    <NotificationClient v-for="notif in notReadNotificationsProvider.notifications" :key="notif.id"
+                        :notif="notif" notifType="notRead" notificationLocation="provider" />
+                    <NotificationClient v-for="notif in readNotificationsProvider.notifications" :key="notif.id"
+                        :notif="notif" notifType="read" notificationLocation="provider" />
+                </div>
+            </div>
+            <!-- Client -->
+            <div class="mt-20 pb-4" v-if="userStore.$state.userType === 'client'">
+                <div class="w-full space-y-2 mt-16 px-1 sm:px-3 h-full ">
+                    <NotificationClient v-for="notif in notReadNotificationsClient.notifications" :key="notif.id"
+                        :notif="notif" notifType="notRead" notificationLocation="client" />
+                    <NotificationClient v-for="notif in readNotificationsClient.notifications" :key="notif.id"
+                        :notif="notif" notifType="read" notificationLocation="client" />
+                </div>
+            </div>
+            <!-- end notifications -->
+        </div>
+    </transition>
     <!-- </div> -->
 
     <Alert @handleCloseBtn="handleCloseBtn" closeBtnText="ok" toggleBtnText="close"
@@ -156,11 +156,11 @@ export default {
             if (authStore.$state.userAuth != null) {
                 if (userStore.$state.userType === 'provider') {
                     notificationStore.getProviderNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                        console.log(res)
+
                     })
                 } else {
                     notificationStore.getClientNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                        console.log(res)
+
                     })
                 }
             }

@@ -170,10 +170,10 @@ export default {
             eyeIcon.value = !eyeIcon.value
             if (password.type === 'password') {
                 password.type = 'text';
-                console.log(eyeIcon.value)
+              
             } else {
                 password.type = 'password';
-                console.log(eyeIcon.value)
+           
             }
         }
 

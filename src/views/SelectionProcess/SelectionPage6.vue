@@ -181,10 +181,8 @@ export default {
             eyeIcon.value = !eyeIcon.value
             if (password.type === 'password') {
                 password.type = 'text';
-                console.log(eyeIcon.value)
             } else {
                 password.type = 'password';
-                console.log(eyeIcon.value)
             }
         }
 
@@ -216,9 +214,7 @@ export default {
                             for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
                                 formData.append("images", clientDemandeStore.$state.request.images[i]);
                             }
-                            for (let pair of formData.entries()) {
-                                console.log(pair[0] + ', ' + pair[1]);
-                            }
+                           
 
                             clientStore.postRequest(formData)
 
@@ -252,9 +248,7 @@ export default {
                             for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
                                 formData.append("images", clientDemandeStore.$state.request.images[i]);
                             }
-                            for (let pair of formData.entries()) {
-                                console.log(pair[0] + ', ' + pair[1]);
-                            }
+                           
 
                             clientStore.postRequest(formData)
 

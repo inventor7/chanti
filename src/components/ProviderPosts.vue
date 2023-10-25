@@ -157,13 +157,11 @@ export default {
 
         const handleSendPostDelete = (post) => {
             portfolioStore.$state.postToDelete = post
-            console.log(post)
-            console.log('post to delete now AVAIBLE')
+      
         }
 
         const handleSendPostEdit = (post) => {
             portfolioStore.$state.postToEdit = post
-            console.log('post to EDIT now AVAIBLE')
 
         }
 

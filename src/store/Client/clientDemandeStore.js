@@ -91,7 +91,6 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         this.errorClientDemande.message = "";
 
         this.clientPosts = response.data.result;
-        console.log(response);
         return response;
       } catch (error) {
         this.loadingClientDemande = false;

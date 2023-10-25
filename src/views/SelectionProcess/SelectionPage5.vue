@@ -71,9 +71,7 @@ export default {
                 for (let i = 0; i < clientDemandeStore.request.images.length; i++) {
                     formData.append("images", clientDemandeStore.request.images[i]);
                 }
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ', ' + pair[1]);
-                }
+               
                 clientStore.postRequest(formData)
                 router.push({ name: 'results' })
 

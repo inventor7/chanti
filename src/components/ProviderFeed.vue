@@ -190,7 +190,6 @@ export default {
         onBeforeMount(() => {
             //get the feed posts 
             feedPostsStore.getFeedPosts().then((res) => {
-                console.log('feed posts', res)
             })
         })
 

@@ -223,13 +223,11 @@ export default {
             if (authStore.$state.isAuthenticated) {
                 if (userStore.$state.userType === 'provider') {
                     notificationStore.getProviderNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                        console.log(res)
-                        console.log('provider')
+                         
                     })
                 } else {
                     notificationStore.getClientNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                        console.log(res)
-                        console.log('client')
+                         
                     })
                 }
             }
@@ -246,15 +244,15 @@ export default {
             if (authStore.$state.userAuth != null) {
                 if (userStore.$state.userType === 'provider') {
                     notificationStore.getProviderNotification(authStore.$state.userAuth.id).then((res) => {
-                        console.log(res)
+                         
                     })
                     //to do : get the provider's projects
 
                 } else {
                     notificationStore.getClientNotification(authStore.$state.userAuth.id).then((res) => {
-                        console.log(res)
+                         
                         clientDemandeStore.getClientPosts().then((res) => {
-                            console.log(res)
+                             
                         })
                     })
                 }
@@ -264,13 +262,12 @@ export default {
 
         const handleGoProfile = () => {
             portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
-                console.log(' provider Posts')
-                console.log(res)
+             
+                 
 
             })
             portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => {
-                console.log(' provider infos')
-                console.log(res)
+                 
             })
             router.push({
                 name: 'profile',

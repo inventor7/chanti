@@ -15,11 +15,11 @@
                         'text-blue-500 bg-blue-500/20': post.urgency === 'unplanned',
                     }">
                         <span class="material-icons text-sm" :class="{
-                                'text-red-500': post.urgency === 'urgent',
-                                'text-yellow-500': post.urgency === 'normal',
-                                'text-green-500': post.urgency === 'low',
-                                'text-blue-500': post.urgency === 'unplanned',
-                            }">
+                            'text-red-500': post.urgency === 'urgent',
+                            'text-yellow-500': post.urgency === 'normal',
+                            'text-green-500': post.urgency === 'low',
+                            'text-blue-500': post.urgency === 'unplanned',
+                        }">
                             {{ post.urgency === 'urgent' ? 'hourglass_full' : post.urgency === 'low' ?
                                 'hourglass_empty' : post.urgency === 'normal' ? 'hourglass_bottom' :
                                     'hourglass_disabled' }}
@@ -55,7 +55,7 @@
             <div class="divider my-1 "></div>
             <label for="delete-modal" @click="handleWorkStatus('delete', post.id)"
                 class="btn btn-sm text-error btn-ghost hover:bg-error hover:text-white w-full px-0  ">
-              supprimer
+                supprimer
             </label>
         </div>
 
@@ -113,18 +113,16 @@ export default {
 
         const showPost = (clientPostId, status) => {
             if (status != 'delete') { //if post is done or pending 
-               
+
                 clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(clientPostId)
-                
+
                 clientDemandeStore.getClientPostProviders(clientPostId).then((res) => {
-                    console.log('providers')
-                    console.log(res)
-                    
+
+
                 })
 
                 clientDemandeStore.getClientPostImages(clientPostId).then((res) => {
-                    console.log('images')
-                    console.log(res)
+
                 })
 
                 clientDemandeStore.clientPostPageVisibility = true;
@@ -136,8 +134,7 @@ export default {
                 clientDemandeStore.$state.selectedPost = props.post
                 clientDemandeStore.getClientPostProviders(props.post.id)
                 clientDemandeStore.getClientPostImages(props.post.id).then((res) => {
-                    console.log('images')
-                    console.log(res)
+
                 })
                 clientDemandeStore.clientPostPageVisibility = false
                 clientDemandeStore.RatingPageVisibility = true

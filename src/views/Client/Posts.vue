@@ -87,8 +87,7 @@
         <Alert @handleCloseBtn="handleTreatPost" closeBtnText="ok ?" toggleBtnText="close"
             message="do you really want to delete your project ???" modalName="delete-modal" />
     </ClientLayout>
-    <Toast class=" z-50 top-0 " :color="errorState" :message="errorMessage"
-        :isVisible="errorStatus" />
+    <Toast class=" z-50 top-0 " :color="errorState" :message="errorMessage" :isVisible="errorStatus" />
 </template>
 
 <script>
@@ -166,16 +165,14 @@ export default {
                 postToTreat.id = clientPostId;
                 postToTreat.status = status;
             }
-            console.log(postToTreat)
         }
 
 
         const handleTreatPost = () => {
             clientDemandeStore.setWorkStatus('delete', clientDemandeStore.PostToDelte.id).then((res) => {
-                console.log(res)
-                clientDemandeStore.clientPostPageVisibility =false
+
+                clientDemandeStore.clientPostPageVisibility = false
                 if (res.status === 200) {
-                    console.log('status changed to ' + 'deleted')
                     errorStatus.value = true
                     errorMessage.value = 'Post deleted successfully'
                     errorState.value = 'success'
@@ -185,7 +182,6 @@ export default {
                         errorStatus.value = false
                     }, 3000)
                 } else {
-                    console.log('status not changed')
                     errorStatus.value = true
                     errorMessage.value = 'Post not deleted'
                     errorState.value = 'error'

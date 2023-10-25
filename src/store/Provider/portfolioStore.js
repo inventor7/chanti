@@ -174,7 +174,6 @@ export const usePortfolioStore = defineStore("portfolioStore", {
         this.loadingEditPost = false;
         this.errorEditPost.status = false;
         this.errorEditPost.message = "";
-        console.log(response)
         return response;
       } catch (error) {
         this.loadingEditPost = false;

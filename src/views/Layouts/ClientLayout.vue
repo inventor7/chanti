@@ -30,7 +30,8 @@
 
 
                 <h2 class="text-5xl text-center font-bold">{{ ratingNumber }}</h2>
-                <Rating v-bind="{ rating: ratingNumber, isIndicatorActive: false, }" :styleStarHeight="40" :styleStarWidth="40" />
+                <Rating v-bind="{ rating: ratingNumber, isIndicatorActive: false, }" :styleStarHeight="40"
+                    :styleStarWidth="40" />
                 <p class="text-gray-500 text-sm ">click to rate</p>
                 <div class="flex flex-1 w-full flex-col gap-2">
                     <textarea class="border  flex-1 h-full border-gray-300 rounded-md p-2"
@@ -106,9 +107,8 @@ export default {
 
                 clientDemandeStore.setWorkStatus('done', clientDemandeStore.$state.selectedPost.id).then((res) => {
                     if (res.status == 200) { // check if the work status is changed successfully
-                        console.log('status changed ')
                         ratingStore.ratePro(clientDemandeStore.$state.selectedPost.id, provider.value.id, ratingNumber.value, review.value).then((res) => {
-                            console.log(res);
+                            ;
                             if (res.status == 200) {
 
                                 review.value = '';
@@ -124,7 +124,6 @@ export default {
                                 clientDemandeStore.$state.selectedPost.status = 'done';
 
                             } else {
-                                console.log('rating error ')
                                 ratingStore.errorState = 'error';
                                 ratingStore.errorMessage = 'Error while rating';
                                 ratingStore.errorStatus = true;
@@ -138,7 +137,6 @@ export default {
                         });
                     }
                     else {
-                        console.log(' status not changed ')
                         ratingStore.errorState = 'error';
                         ratingStore.errorMessage = 'Error while rating , please try  again';
                         ratingStore.errorStatus = true;

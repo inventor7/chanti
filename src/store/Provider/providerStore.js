@@ -37,7 +37,6 @@ export const useProviderStore = defineStore("providerStore", {
         this.loading = false;
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
-        console.log(response);
         return response;
       } catch (error) {
         this.loading = false;

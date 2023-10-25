@@ -41,7 +41,6 @@ export const useRatingStore = defineStore("ratingStore", {
         this.errorStatus = false;
         this.errorMessage = "";
         this.errorState = 'success';
-        console.log(response);
         return response;
       } catch (error) {
         this.loadingRating = false;

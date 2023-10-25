@@ -47,7 +47,6 @@ export default defineComponent({
                 categoriesStore.fetchSubCategories()
                 router.push({ name: 'services' })
             }
-            console.log(category)
 
         }
 

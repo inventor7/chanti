@@ -30,7 +30,6 @@ export const useSearchStore = defineStore("searchStore", {
           }/${useUserStore().user.language}`,
           { timeout: 15000 }
         );
-        console.log(response);
         if (response.status !== 200) {
           throw new Error("An error has occurred, please refresh the page");
         }

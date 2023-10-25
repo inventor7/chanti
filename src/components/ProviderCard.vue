@@ -140,14 +140,12 @@ export default defineComponent({
                 if (provider.status != 'declined') {
                     portfolioStore.getProviderInfo(provider.id).then((res) => {
                         portfolioStore.getProviderPosts(provider.id).then((res) => {
-                            console.log(' provider Posts')
-                            console.log(res)
+
                             if (res.status === 200) {
                                 providerStore.$state.provider.notificationId = provider.notificationId
                                 providerStore.$state.provider.type = props.type
                                 providerStore.$state.provider.status = provider.status
                                 if (props.type === 'interested') {
-                                    console.log('success to interested providers')
                                     if (provider.status === 'pending') {
                                         providerStore.$state.provider.btnVisible = true
                                         providerStore.$state.provider.interestedIndicator = true
@@ -161,7 +159,6 @@ export default defineComponent({
                                 if (props.type === 'responsed') {
                                     providerStore.$state.provider.interestedIndicator = false
                                     providerStore.$state.provider.btnVisible = false
-                                    console.log('success to responsed providers')
                                     if (provider.status === 'pending' || provider.status === 'accept' || provider.status === 'accepted') { providerStore.$state.provider.btnVisible = false }
                                     if (provider.status === 'decline' || provider.status === 'declined') { providerStore.$state.provider.btnVisible = true }
                                 }
@@ -174,7 +171,6 @@ export default defineComponent({
                         params: { name: provider.firstName + '-' + provider.lastName }
                     })
                 } else {
-                    console.log('provider is declined you , you can not see his profile')
                 }
 
 
@@ -189,7 +185,6 @@ export default defineComponent({
                 //sending a request to mark as selected to show the phone number
                 clientDemandeStore.changeProviderStatus(provider.notificationId, status).then((res) => {
                     if (res.status === 200) {
-                        console.log('Marked as selected ', res)
                         provider.status = status
                     }
                 })

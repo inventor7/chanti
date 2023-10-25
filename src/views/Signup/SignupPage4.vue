@@ -239,7 +239,6 @@ export default {
 
         const handleClick = (clicked) => {
             if (clicked) {
-                console.log(userStore.pNumber)
                 //make sure when click on next btn that wilaya and commune are filled,else  error to props
                 if (!wilayaValidate.value || !communeValidate.value) {
                     notSelectedError.value = true

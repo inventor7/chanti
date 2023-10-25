@@ -125,7 +125,6 @@ export default {
 
         const handleClick = (data) => {
             if (data) {
-                console.log(data)
                 isValidFirstName.value = t1.value
                 isValidLastName.value = t2.value
                 if (isValidFirstName.value && isValidLastName.value) {

@@ -320,7 +320,7 @@ export default {
                         clientStore.$state.isSent = false
                     }, 3000);
                 }
-                console.log(res)
+
             })
 
             provider.value.btnVisible = false
@@ -403,9 +403,7 @@ export default {
             }
 
             //update notification status
-            notificationStore.getClientNotification(authStore.$state.userAuth.id).then(() => {
-                console.log('responsed notiiiiiiiiifffffffff ')
-            })
+            notificationStore.getClientNotification(authStore.$state.userAuth.id)
             router.go(-1)
 
         }
@@ -428,13 +426,10 @@ export default {
         const handleCallPro = (provider, status) => {
             clientDemandeStore.changeProviderStatus(provider.notificationId, status).then((res) => {
                 if (res.status === 200) {
-                    console.log('Marked as selected ', res)
                     provider.status = status
                     provider.interestedIndicator = false
                     provider.btnVisible = false
-                } else {
-                    console.log('Error ', res)
-                }
+                } 
             })
         }
 
