@@ -100,14 +100,14 @@ const router = createRouter({
       path: "/selection/login",
       name: "loginSelection",
       component: SelectionPage6,
-      meta: { role : 'client' },
+      meta: { role : 'client' , auth : false },
     },
     {
       path: "/selection/results",
       name: "results",
       component: SelectionPage7,
-      meta: { role : 'client' },
-    },
+      meta: { role : 'client' , auth : true },
+    }, 
 
     // ///////////////client Pages///////////////
     {
@@ -129,7 +129,7 @@ const router = createRouter({
       path: "/profile/:name",
       name: "profile",
       component: () => import("../views/Provider/Profile.vue"),
-      meta: { auth: true },
+      meta: { auth: true , role : 'provider' },
     },
 
     {

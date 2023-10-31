@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
 import axios from "axios";
+import { useRouter } from "vue-router";
 export const useAuthStore = defineStore("authStore", {
   id: "auth",
   state: () => ({
@@ -15,10 +16,8 @@ export const useAuthStore = defineStore("authStore", {
     isAuthenticated: false,
     userAuth: {},
   }),
-  
 
   actions: {
-
     async signup() {
       try {
         this.loading = true;
@@ -27,7 +26,7 @@ export const useAuthStore = defineStore("authStore", {
           url: `${useAuthStore().baseUrl}/auth/signup`,
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
           },
           data: {
             userType: useUserStore().$state.userType,
@@ -45,7 +44,7 @@ export const useAuthStore = defineStore("authStore", {
           timeout: 13000, // 13 seconds
         });
 
-        this.token = response.data.result.token
+        this.token = response.data.result.token;
         this.isAuthenticated = true;
         this.userAuth = response.data.result.user;
         this.loading = false;
@@ -58,7 +57,7 @@ export const useAuthStore = defineStore("authStore", {
           this.error.status = true;
           this.error.message =
             "Network error: please check your internet connection and try again";
-        } 
+        }
       }
     },
 
@@ -70,8 +69,8 @@ export const useAuthStore = defineStore("authStore", {
           headers: {
             "Acces-Control-Allow-Origin": "*", // Required for CORS support to work
             "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": `Bearer ${this.token}`,
+            Accept: "application/json",
+            Authorization: `Bearer ${this.token}`,
           },
           timeout: 13000, // 13 seconds
         });
@@ -84,20 +83,23 @@ export const useAuthStore = defineStore("authStore", {
         localStorage.removeItem("clientStore");
         localStorage.removeItem("notificationStore");
         localStorage.removeItem("authStore");
-        localStorage.removeItem("portfolioStore")
+        localStorage.removeItem("portfolioStore");
 
         useUserStore().$state.userType = "client";
-        
+
         window.location.reload();
+        useRouter().push({ name: "home" });
         return response;
       } catch (error) {
         this.error.status = true;
         if (error.response) {
           this.error.message = error.response.data.message;
         } else if (error.request) {
-          this.error.message ="Network error: please check your internet connection and try again";
+          this.error.message =
+            "Network error: please check your internet connection and try again";
         } else {
-          this.error.message ="Network error: please check your internet connection and try again";
+          this.error.message =
+            "Network error: please check your internet connection and try again";
         }
       }
     },
