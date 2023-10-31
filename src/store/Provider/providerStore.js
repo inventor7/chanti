@@ -50,7 +50,7 @@ export const useProviderStore = defineStore("providerStore", {
       }
     },
 
-    // response to the notification from the client
+    // Provider's response to the notification from the client
     async sendRes(status, notificationId) {
       this.loading = true;
       try {

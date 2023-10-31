@@ -110,7 +110,7 @@ import { defineComponent, computed, ref, watch } from 'vue'
 import { useUserStore } from '../store/userStore'
 
 export default defineComponent({
-    name: 'Notification',
+    name: 'NotificationClient',
     props: {
         notif: {
             type: Object,

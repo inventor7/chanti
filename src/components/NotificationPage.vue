@@ -36,9 +36,9 @@
             <!-- Provider -->
             <div v-else class="mt-20 pb-4 " v-if="userStore.$state.userType === 'provider'">
                 <div class="w-full space-y-2  px-1 sm:px-3 h-full ">
-                    <NotificationClient v-for="notif in notReadNotificationsProvider.notifications" :key="notif.id"
+                    <NotificationProvider v-for="notif in notReadNotificationsProvider.notifications" :key="notif.id"
                         :notif="notif" notifType="notRead" notificationLocation="provider" />
-                    <NotificationClient v-for="notif in readNotificationsProvider.notifications" :key="notif.id"
+                    <NotificationProvider v-for="notif in readNotificationsProvider.notifications" :key="notif.id"
                         :notif="notif" notifType="read" notificationLocation="provider" />
                 </div>
             </div>
@@ -73,7 +73,7 @@ import { useUserStore } from '../store/userStore'
 import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 
 import { computed, onMounted, onBeforeMount, ref, watch, watchEffect, reactive } from 'vue'
-import Notification from './Notification.vue'
+import NotificationProvider from './NotificationProvider.vue'
 import NotificationClient from './NotificationClient.vue'
 
 export default {
@@ -82,7 +82,7 @@ export default {
         Alert,
         Error,
         Loading,
-        Notification,
+        NotificationProvider,
         NotificationClient
     },
     setup() {

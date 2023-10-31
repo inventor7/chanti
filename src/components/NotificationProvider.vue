@@ -1,5 +1,6 @@
 <template>
-    <div class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   ">
+    <div
+        class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   ">
         <!-- an alert model to show details -->
         <label class=" cursor-pointer  absolute rounded-xl -left-0 z-10  w-full h-full "></label>
 
@@ -31,7 +32,7 @@
 
                 </div>
 
-            
+
                 <!-- Provider's buttons sections -->
                 <div class="mt-2 w-full h-full   ">
                     <div class="w-full">
@@ -39,13 +40,11 @@
                             class="flex flex-row justify-start items-center gap-2  ">
                             <button @click="selectResponse('decline', notification.id, false)"
                                 class="btn cursor-pointer z-20  gap-1 btn-sm sm:btn-md  btn-error rounded-lg text-white">
-
                                 Decline
                             </button>
                             <button @click="selectResponse('accept', notification.id, false)"
-                                class="btn cursor-pointer z-20  gap-1 btn-sm sm:btn-md  btn-success rounded-lg text-white">
-
-                                Accept
+                                class=" btn cursor-pointer z-20  gap-1 btn-sm sm:btn-md  btn-success rounded-lg text-white">
+                                Accepter
                             </button>
                         </div>
 
@@ -83,7 +82,7 @@ import { defineComponent, computed, ref, watch } from 'vue'
 import { useUserStore } from '../store/userStore'
 
 export default defineComponent({
-    name: 'Notification',
+    name: 'NotificationProvider',
     props: {
         notif: {
             type: Object,
@@ -129,25 +128,14 @@ export default defineComponent({
 
         const selectResponse = (descision, id, isRead) => {
             providerStore.sendRes(descision, id).then((res) => {
-                if (!isRead) {
-                    for (let i = 0; i < notReadNotifications.value.length; i++) {
-                        if (notificationStore.notReadNotifications[i].id == id) {
-                            notificationStore.notReadNotifications[i].status = descision
-                            notReadNotifications.value[i].status = descision
-                            notReadNotifications.value[i].isRead = true
-                        }
-                    }
-                } else { 
-
-                    for (let i = 0; i < readNotifications.value.length; i++) {
-                        if (notificationStore.readNotifications[i].id == id) {
-                            notificationStore.readNotifications[i].status = descision
-                            readNotifications.value[i].status = descision
-                            readNotifications.value[i].isRead = true
-                        }
+                if (res.status == 200) {
+                    if (!isRead) {
+                        props.notif.status = descision
+                        props.notif.isRead = true
+                    } else {
+                        props.notif.status = descision
                     }
                 }
-
             })
         }
 
