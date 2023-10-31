@@ -8,10 +8,12 @@ export const requireRole = (to, from, next) => {
   //redirect to providerHome if user is provider and the route is home ( client route )
   if (userRole === "provider" && to.name === "home") {
     next({ name: "providerHome" });
+    return;
   }
 
   if (requiredRole && requiredRole !== userRole) {
     next({ name: "unauthorised" });
+    return;
   }
 
   next();

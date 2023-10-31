@@ -32,37 +32,37 @@ const router = createRouter({
       path: "/signup/howitworks",
       name: "howitworks",
       component: SignupPage1,
-      meta: { auth : false },
+      meta: { auth: false },
     },
     {
       path: "/signup/field",
       name: "field",
       component: SignupPage2,
-      meta: { auth : false },
+      meta: { auth: false },
     },
     {
       path: "/signup/profession",
       name: "profession",
       component: SignupPage3,
-      meta: { auth : false },
+      meta: { auth: false },
     },
     {
       path: "/signup/location",
       name: "location",
       component: SignupPage4,
-      meta: { auth : false },
+      meta: { auth: false },
     },
     {
       path: "/signup/idendity",
       name: "idendity",
       component: SignupPage5,
-      meta: { auth : false },
+      meta: { auth: false },
     },
     {
       path: "/signup/registrations",
       name: "registrations",
       component: SignupPage6,
-      meta: { auth : false },
+      meta: { auth: false },
     },
 
     // ///////////SelectionProcess Pages/////////////
@@ -70,44 +70,44 @@ const router = createRouter({
       path: "/selection/services",
       name: "services",
       component: SelectionPage1,
-      meta: { role : 'client' },
+      meta: { role: "client" },
     },
     {
       path: "/selection/location",
       name: "selection-location",
       component: SelectionPage2,
-      meta: { role : 'client' },
+      meta: { role: "client" },
     },
     {
       path: "/selection/emergency",
       name: "emergency",
       component: SelectionPage3,
-      meta: { role : 'client' },
+      meta: { role: "client" },
     },
     {
       path: "/selection/images",
       name: "images",
       component: SelectionPage4,
-      meta: { role : 'client' },
+      meta: { role: "client" },
     },
     {
       path: "/selection/desc",
       name: "desc",
       component: SelectionPage5,
-      meta: { role : 'client' },
+      meta: { role: "client" },
     },
     {
       path: "/selection/login",
       name: "loginSelection",
       component: SelectionPage6,
-      meta: { role : 'client' , auth : false },
+      meta: { role: "client", auth: false },
     },
     {
       path: "/selection/results",
       name: "results",
       component: SelectionPage7,
-      meta: { role : 'client' , auth : true },
-    }, 
+      meta: { role: "client", auth: true },
+    },
 
     // ///////////////client Pages///////////////
     {
@@ -129,7 +129,7 @@ const router = createRouter({
       path: "/profile/:name",
       name: "profile",
       component: () => import("../views/Provider/Profile.vue"),
-      meta: { auth: true , role : 'provider' },
+      meta: { auth: true, role: "provider" },
     },
 
     {
@@ -138,7 +138,6 @@ const router = createRouter({
       component: () => import("../views/Provider/EditProfile.vue"),
       meta: { auth: true, role: "provider" },
     },
-
 
     //navigation
     {
@@ -166,10 +165,13 @@ const router = createRouter({
     //error page
     {
       path: "/:catchALL(.*)",
+      redirect: "/error",
+    },
+    {
+      path: "/error",
       name: "error",
       component: ErrorPage,
     },
-
     // unauthorised page
     {
       path: "/unauthorised",
