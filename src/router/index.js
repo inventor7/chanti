@@ -129,7 +129,7 @@ const router = createRouter({
       path: "/profile/:name",
       name: "profile",
       component: () => import("../views/Provider/Profile.vue"),
-      meta: { auth: true, role: "provider" },
+      meta: { auth: true},
     },
 
     {

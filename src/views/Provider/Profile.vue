@@ -27,7 +27,7 @@
             <!-- Card -->
             <div class="bg-white rounded-xl shadow ">
                 <div class="relative top-0 h-52 md:h-[60vh] rounded-t-xl   bg-cover bg-center bg-no-repeat">
-                    <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl" :src="backgImg"
+                    <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl" :src="`../src/assets/categories/${backgImg}`"
                         alt="Image Description">
 
 
@@ -256,7 +256,7 @@
                         <RatingSection :rating="provider.rating" />
                     </div>
                     <div v-if="selectedTab === 2">
-                        <ProviderPosts />
+                        <ProviderPosts :key="1" />
                     </div>
                 </div>
             </div>
@@ -343,34 +343,34 @@ export default {
         let backgImg = computed(() => {
             switch (provider.value.category.name) {
                 case 'moving_storage_services':
-                    return '../../src/assets/categories/moving.svg'
+                    return 'moving.svg'
 
                 case 'home_inspection_appraisal':
-                    return '../../src/assets/categories/maintenance.svg'
+                    return 'maintenance.svg'
 
                 case 'painting_finishing':
-                    return '../../src/assets/categories/painting.svg'
+                    return 'painting.svg'
 
                 case 'landscape_outdoor_living':
-                    return '../../src/assets/categories/gardening.svg'
+                    return 'gardening.svg'
 
                 case 'plumbing_water_management':
-                    return '../../src/assets/categories/plumber.svg'
+                    return 'plumber.svg'
 
                 case 'electrical_hvac':
-                    return '../../src/assets/categories/electrecian.svg'
+                    return 'electrecian.svg'
 
                 case 'cleaning_house_keeping':
-                    return '../../src/assets/categories/cleaning.svg'
+                    return 'cleaning.svg'
 
                 case 'interior_design_decorating':
-                    return '../../src/assets/categories/design.svg'
+                    return 'design.svg'
 
                 case 'construction_remodelling':
-                    return '../../src/assets/categories/remodeling.svg'
+                    return 'remodeling.svg'
 
                 case 'home_improvement_maintenance':
-                    return '../../src/assets/categories/maintenance.svg'
+                    return 'maintenance.svg'
 
             }
         })
@@ -429,7 +429,7 @@ export default {
                     provider.status = status
                     provider.interestedIndicator = false
                     provider.btnVisible = false
-                } 
+                }
             })
         }
 

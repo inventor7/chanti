@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <ProviderPosts />
+            <ProviderPosts  />
             <Alert w="normal" closeBtnText="Poster" @handleCloseBtn="SendPost" closeBtnColor="primary"
                 toggleBtnText="créer un poste">
                 <h2 class="text-2xl font-bold mb-2">
@@ -152,6 +152,7 @@ import { reactive, ref, watch, watchEffect, computed } from 'vue'
 
 //store
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { defineAsyncComponent } from 'vue';
 import { useAuthStore } from '../../store/authStore.js'
 import { useProviderStore } from '../../store/Provider/providerStore';
 import { usePortfolioStore } from '../../store/Provider/portfolioStore';

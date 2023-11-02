@@ -11,8 +11,8 @@
 
 
             <div v-else class="griddy h-full">
-                <transition-group name="post" tag="div" mode="out-in">
-                    <div class=" w-full h-full flex flex-col justify-center items-center ">
+                <div class=" w-full h-full flex flex-col justify-center items-center">
+                    <transition-group name="post" tag="div" mode="out-in">
                         <div v-for="post in portfolioPosts.portfolioPostsWithImages" :key="post.id"
                             class="relative h-fit mb-4 w-full flex flex-col md:max-w-xl self-center group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
                             <div class="carousel carousel-center  h-full max-h-[55vh] w-full ">
@@ -80,8 +80,9 @@
                             </div> -->
 
                         </div>
-                    </div>
-                </transition-group>
+                    </transition-group>
+                </div>
+
             </div>
         </div>
 
@@ -157,7 +158,7 @@ export default {
 
         const handleSendPostDelete = (post) => {
             portfolioStore.$state.postToDelete = post
-      
+
         }
 
         const handleSendPostEdit = (post) => {

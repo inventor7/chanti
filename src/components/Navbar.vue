@@ -223,11 +223,11 @@ export default {
             if (authStore.$state.isAuthenticated) {
                 if (userStore.$state.userType === 'provider') {
                     notificationStore.getProviderNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                         
+
                     })
                 } else {
                     notificationStore.getClientNotificationNumber(authStore.$state.userAuth.id).then((res) => {
-                         
+
                     })
                 }
             }
@@ -244,15 +244,15 @@ export default {
             if (authStore.$state.userAuth != null) {
                 if (userStore.$state.userType === 'provider') {
                     notificationStore.getProviderNotification(authStore.$state.userAuth.id).then((res) => {
-                         
+
                     })
                     //to do : get the provider's projects
 
                 } else {
                     notificationStore.getClientNotification(authStore.$state.userAuth.id).then((res) => {
-                         
+
                         clientDemandeStore.getClientPosts().then((res) => {
-                             
+
                         })
                     })
                 }
@@ -261,18 +261,16 @@ export default {
         }
 
         const handleGoProfile = () => {
-            portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => {
-             
-                 
-
-            })
-            portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => {
-                 
-            })
             router.push({
                 name: 'profile',
                 params: { name: authStore.$state.userAuth.firstName + '-' + authStore.$state.userAuth.lastName }
             })
+
+
+            portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => { })
+            portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => { })
+
+
         }
 
 
