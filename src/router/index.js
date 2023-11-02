@@ -114,7 +114,6 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: Home,
-      meta: { role: "client" },
     },
     {
       path: "/Posts",
