@@ -10,7 +10,7 @@ export const requireAuth = (to, from, next) => {
 
   if (to.meta.auth && !isAuthenticated) {
     if (userRole === "provider") next({ name: "providerHome" });
-    if (userRole === "client") next({ name: "home" });
+    if (userRole === "client" || userRole === "") next({ name: "home" });
     useModalStore().modalVisible = true;
 
   } else if (to.meta.auth === false && isAuthenticated) {
