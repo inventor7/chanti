@@ -132,6 +132,7 @@ export default defineComponent({
                     if (!isRead) {
                         props.notif.status = descision
                         props.notif.isRead = true
+                        
                     } else {
                         props.notif.status = descision
                     }

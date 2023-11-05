@@ -1,8 +1,7 @@
 <template>
     <ClientLayout pageTitle="Projects">
         <div class="w-full pb-4 min-h-[70vh]">
-            <div
-                class="grid grid-rows-1  grid-cols-4 rounded-xl py-2 px-2 place-items-center   text-center w-full sm:w-full gap-1">
+            <div class="grid grid-rows-1  grid-cols-4 rounded-xl py-2 px-2 place-items-center   text-center w-full sm:w-full gap-1">
                 <div @click="filterPosts('Total', 1)"
                     class="w-full bg-gray-400/20 rounded-t-xl pt-2  cursor-pointer relative">
                     <p class="text-2xl  font-bold text-blue-500">{{ clientDemandeStore.$state.clientPosts.length }}

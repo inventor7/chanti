@@ -37,6 +37,8 @@
 <script>
 import { useThemeStore } from '../store/AppBasic/themeStore';
 import { usePortfolioStore } from '../store/Provider/portfolioStore';
+import { useProjectsStore } from '../store/Provider/projectsStore';
+
 import { useAuthStore } from '../store/authStore'
 import { useRoute } from 'vue-router';  // for route name
 
@@ -45,6 +47,7 @@ export default {
     setup() {
         const themeStore = useThemeStore();
         const portfolioStore = usePortfolioStore();
+        const projectsStore = useProjectsStore();
         const authStore = useAuthStore();
         const route = useRoute();
 
