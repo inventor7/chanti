@@ -7,14 +7,12 @@
         <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status" class="w-full min-h-[85vh]">
             <div v-if="feedPosts === null || feedPosts.length === 0"
                 class=" flex flex-col justify-center items-center h-[80vh] ">
-                <span class="material-icons text-5xl text-gray-300">
-                    no_photography
-                </span>
-                <span class="text-gray-300 text-lg font-semibold">No posts yet</span>
+                <img class="w-full" src="../assets/no-data.svg" alt="">
+                <span class="text-gray-400 text-lg font-semibold">No posts yet in your area</span>
             </div>
-            
+
             <transition-group v-else name="post" tag="div" mode="out-in">
-                
+
                 <div v-for="post in feedPosts" :key="post.id"
                     class="  post-container flex flex-col h-full w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
                     <div class="  relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
@@ -87,7 +85,7 @@
                             <div class="w-full">
                                 <button v-if="post.btnVisible && !post.btnLoading" @click="sendInterest(post.id)"
                                     class="btn flex-1 font-bold w-full  cursor-pointer z-20  gap-1 btn-sm sm:btn-md text-white btn-primary rounded-lg -white">
-                                    demander 
+                                    demander
                                 </button>
 
                                 <button v-if="!post.btnVisible && post.btnLoading" @click="sendInterest(post.id)"
@@ -108,7 +106,7 @@
                         <!--  -->
                     </div>
                 </div>
-               
+
             </transition-group>
         </div>
     </div>
@@ -194,7 +192,7 @@ export default {
         })
 
 
-       
+
         return {
 
             //store

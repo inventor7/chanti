@@ -4,17 +4,21 @@
         <!-- Filters -->
         <div
             class=" flex flex-row justify-between items-center w-full h-full gap-1 rounded-3xl border border-gray-300 my-2 p-1 font-semibold ">
-            <div @click="filterProjects('notStarted')" class=" cursor-pointer w-full text-center p-2 rounded-3xl "
+
+            <div @click="filterProjects('notStarted')"
+                class=" cursor-pointer w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "
                 :class="{ 'bg-primary  text-white': Tab === 'notStarted', 'text-black': Tab !== 'notStarted' }">
                 Not started
             </div>
 
-            <div @click="filterProjects('inProgress')" class=" cursor-pointer  w-full text-center p-2 rounded-3xl "
+            <div @click="filterProjects('inProgress')"
+                class=" cursor-pointer  w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "
                 :class="{ 'bg-primary  text-white': Tab === 'inProgress', 'text-black': Tab !== 'inProgress' }">
                 In progress
             </div>
 
-            <div @click="filterProjects('done')" class=" cursor-pointer  w-full text-center p-2 rounded-3xl "
+            <div @click="filterProjects('done')"
+                class=" cursor-pointer  w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "
                 :class="{ 'bg-primary  text-white': Tab === 'done', 'text-black': Tab !== 'done' }">
                 Done
             </div>
@@ -129,3 +133,4 @@ const filterProjects = (filter) => {
     }
 }
 </script>
+
