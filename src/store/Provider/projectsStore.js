@@ -37,7 +37,6 @@ export const useProjectsStore = defineStore("projecstStore", {
           timeout: 13000, // 13 seconds
         });
 
-        this.projects = response.data.result;
         this.errorrProvider.status = false;
         this.errorrProvider.message = "";
         this.loading = false;
