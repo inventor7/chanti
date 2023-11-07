@@ -1,13 +1,11 @@
 <template>
     <div class=" h-screen " :data-theme="themeStore.$state.theme">
         <div class=" md:flex md:flex-col md:justify-center md:items-center    md:py-6 max-h-screen  h-full w-full ">
-            <div
-                class=" flex flex-col  justify-start items-start w-full md:w-11/12  h-full  gap-2 sm:pb-2  rounded-2xl sm:shadow-2xl ">
+            <div class=" flex flex-col  justify-start items-start w-full md:w-11/12  h-full  gap-2 sm:pb-2  rounded-2xl sm:shadow-2xl ">
                 <!-- Title and description -->
                 <div class="w-full bg-primary relative md:rounded-t-2xl gap-1 sm:gap-2  px-3 py-1 ">
                     <h2 class="text-2xl font-bold text-white "> {{ pageTitle }}</h2>
-                    <p class="text-slate-200 text-xs sm:text-sm font-medium "> <span class="text-error">*</span> {{
-                        pageDesc }} </p>
+                    <p class="text-slate-200 text-xs sm:text-sm font-medium "> <span class="text-error">*</span> {{ pageDesc }} </p>
 
                     <!-- go home -->
                     <div class="absolute  top-1 right-2    block  text-white text-xl sm:text-base  ">

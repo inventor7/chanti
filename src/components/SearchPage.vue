@@ -53,7 +53,7 @@
                         <div v-if="searchStore.searchResults.length == 0 && searchStore.isClicked"
                             class="flex flex-col justify-center  items-center h-full w-full ">
                             <h1 class="text-xl absolute top-1/2  font-semibold">
-                                No such service found
+                               {{ languageStore.getWord('no_service')  }}
                             </h1>
                         </div>
                     </div>

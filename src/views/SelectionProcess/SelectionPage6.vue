@@ -1,6 +1,6 @@
 <template>
     <SignupLayout prevLink="emergency" :pageNumber="6" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle="Write a Description" pageDesc=" Write a description of your request "
+        @handle="handleClick" :pageTitle="languageStore.getWord('login')" pageDesc=" Write a description of your request "
         componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-center ">

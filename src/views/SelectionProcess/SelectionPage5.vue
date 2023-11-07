@@ -1,15 +1,14 @@
 <template>
     <SignupLayout prevLink="images" :pageNumber="5" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle="Write a Description" pageDesc=" Write a description of your request "
-        componentLocation="selectionProcess">
+        @handle="handleClick" :pageTitle="languageStore.getWord('desc')"
+        :pageDesc="languageStore.getWord('description_desc')" componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-center w-full h-full flex-1 gap-3  items-center  ">
             <div class=" flex flex-col  justify-center items-center gap-3  w-full h-full ">
                 <transition name="fade">
                     <!-- type in an area text -->
                     <div class="h-4/6 w-full flex flex-col justify-center items-start sm:items-center gap-2 ">
-                        <span class=" font-semibold  text-xl ">Enter your project's description</span>
-                        <textarea v-model="descText" rows="4" cols="50" maxlength="100"
+                        <textarea v-model="descText" rows="4" cols="50" maxlength="100" placeholder="another details..."
                             class=" w-full sm:w-2/3 font-semibold  h-full rounded-2xl border-2 border-gray-300 p-4">
                                             </textarea>
                     </div>
@@ -29,6 +28,7 @@ import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useUserStore } from '../../store/userStore';
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useClientStore } from '../../store/Client/clientStore';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../store/authStore';
@@ -48,6 +48,7 @@ export default {
         const clientDemandeStore = useclientDemandeStore()
         const clientStore = useClientStore()
         const authStore = useAuthStore()
+        const languageStore = useLanguageStore()
 
 
         //vars
@@ -71,7 +72,7 @@ export default {
                 for (let i = 0; i < clientDemandeStore.request.images.length; i++) {
                     formData.append("images", clientDemandeStore.request.images[i]);
                 }
-               
+
                 clientStore.postRequest(formData)
                 router.push({ name: 'results' })
 
@@ -88,6 +89,9 @@ export default {
             notSelectedError,
             errorText,
             descText,
+
+            //store
+            languageStore,
 
             //clientDemandeStore
             router,

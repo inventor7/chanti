@@ -1,7 +1,7 @@
 <template>
     <SignupLayout prevLink="selection-location" :pageNumber="3" :isError="notSelectedError"
-        errorText="Please select the time " nextBtnText="Next" @handle="handleClick" pageTitle=" Choose Urgency"
-        pageDesc=" select the urgency of your request " componentLocation="selectionProcess">
+        errorText="Please select the time " nextBtnText="Next" @handle="handleClick" :pageTitle="languageStore.getWord('ch_urgency')"
+        :pageDesc="languageStore.getWord('desc_urgency')" componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-center ">
             <div class=" flex flex-col  justify-center items-center gap-3 w-full h-full mb-16 md:mb-0  ">
@@ -24,7 +24,7 @@
                                     </span>
 
 
-                                    <span class=" font-semibold "> {{ urgency.name.toUpperCase() }} </span>
+                                    <span class=" font-semibold whitespace-nowrap "> {{ clientDemandeStore.getUrgencyName(urgency) }} </span>
                                     <div class=" flex flex-row w-full justify-end items-center ">
                                         <span class="material-icons">
                                             {{ urgency.icon }}
@@ -32,8 +32,8 @@
                                     </div>
                                 </div>
 
-                                <span class="text-xs" :class="{ 'text-gray-400': !urgency.isSelected }"> {{
-                                    urgency.description }} </span>
+                                <span class="text-xs" :class="{ 'text-gray-400': !urgency.isSelected }"> 
+                                {{ clientDemandeStore.getUrgencyDescription(urgency) }} </span>
 
                             </li>
 

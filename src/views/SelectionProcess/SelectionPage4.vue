@@ -1,7 +1,7 @@
 <template>
     <SignupLayout prevLink="emergency" :pageNumber="4" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" pageTitle=" Choose Urgency" pageDesc=" select the urgency of your request "
-        componentLocation="selectionProcess">
+        @handle="handleClick" :pageTitle="languageStore.getWord('upload_image')"
+        :pageDesc="languageStore.getWord('img_description')" componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-around w-full  h-full py-2 flex-1 gap-3  items-start ">
             <div class=" flex flex-col  justify-center items-center gap-3 w-full md:mb-0 mb-20 h-full ">
@@ -16,13 +16,13 @@
                             </span>
                             <span>
                                 <label class="inline-flex items-center  font-medium py-2 px-1  rounded-lg cursor-pointer ">
-                                    <span class="text-blue-700">Choose a file</span>
+                                    <span class="text-blue-700">{{ languageStore.getWord('upload') }}</span>
                                     <input type="file" class="hidden" @change="handleFileUpload">
                                 </label>
-                                to upload
                             </span>
                         </div>
-                        <div v-if="selectedFiles.length>0" class="w-full h-1/2 rounded-2xl" :class="{ 'border-2': !selectedFiles.length }">
+                        <div v-if="selectedFiles.length > 0" class="w-full h-1/2 rounded-2xl"
+                            :class="{ 'border-2': !selectedFiles.length }">
                             <div v-if="selectedFiles.length"
                                 class="w-full h-full min-h-full grid grid-cols-2 grid-rows-2 gap-2">
                                 <div class="relative h-full w-full " v-for="(url, index) in selectedFileUrls" :key="index">
@@ -54,6 +54,7 @@ import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import { useUserStore } from '../../store/userStore';
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useRouter } from 'vue-router';
 import { computed, ref, watch, reactive, watchEffect } from 'vue';
 import Category from '../../components/Category/Category.vue';
@@ -72,6 +73,7 @@ export default {
         // clientDemandeStore
         const router = useRouter()
         const userStore = useUserStore()
+        const languageStore = useLanguageStore()
         const clientDemandeStore = useclientDemandeStore()
         const errorText = ref('')
 
@@ -121,6 +123,9 @@ export default {
             //props
             notSelectedError,
             errorText,
+
+            //store
+            languageStore,
 
             //clientDemandeStore
             router,

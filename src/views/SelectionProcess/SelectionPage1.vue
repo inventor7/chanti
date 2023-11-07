@@ -1,7 +1,7 @@
 <template>
     <SignupLayout prevLink="home" :backBtnVisibility="true" :pageNumber="1" :isError="notSelectedError"
-        errorText="Please select a service" nextBtnText="Next" @handle="handleClick" pageTitle=" Choose Services"
-        pageDesc=" select the multiple services that you can provide for your clients "
+        errorText="Please select a service" nextBtnText="Next" @handle="handleClick" :pageTitle="languageStore.getWord('chooseServices')"
+        :pageDesc="languageStore.getWord('descSP3')"
         componentLocation="selectionProcess">
 
 

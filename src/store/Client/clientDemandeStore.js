@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useAuthStore } from "../authStore";
+import { useLanguageStore } from "../AppBasic/languageStore";
 import { useProviderStore } from "../Provider/providerStore";
 import axios from "axios";
 export const useclientDemandeStore = defineStore("clientDemandeStore", {
@@ -42,35 +43,91 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
     urgencyState: [
       {
         id: 1,
-        name: "urgent",
-        description: "in 24 hours",
+        nameFr: "urgent",
+        nameAr: "عاجل",
+        nameEn: "urgent",
+
+        descriptionFr: "Dans les 24 heures",
+        descriptionAr: "في غضون 24 ساعة",
+        descriptionEn: "Within 24 hours",
+
         icon: "hourglass_full",
         isSelected: false,
       },
       {
         id: 2,
-        name: "low",
-        description: "this month",
+        nameFr: "Faible",
+        nameAr: "ضعيف",
+        nameEn: "low",
+        
+        descriptionFr: "Dans ce mois",
+        descriptionAr: "في هذا الشهر",
+        descriptionEn: "Within this month",
+
         icon: "hourglass_top",
         isSelected: false,
       },
       {
         id: 3,
-        name: "normal",
-        description: "in 48 hours",
+        nameFr: "normal",
+        nameAr: "عادي",
+        nameEn: "normal",
+
+        descriptionFr: "Dans 48 heures",
+        descriptionAr: "في غضون 48 ساعة",
+        descriptionEn: "in 48 hours",
+
         icon: "hourglass_empty",
         isSelected: false,
       },
       {
         id: 4,
-        name: "unplanned",
-        description: "time is flexible",
+        nameFr: "non planifié",
+        nameAr: "غير مخطط",
+        nameEn: "unplanned",
+
+        descriptionFr: "le temps est flexible",
+        descriptionAr: "الوقت غير محدد",
+        descriptionEn: "time is flexible",
+
         icon: "hourglass_disabled",
         isSelected: false,
       },
     ],
   }),
   actions: {
+
+    //get name of the urgency based on the language
+    getUrgencyName(urgency) {
+      let urgencyName = "";
+      if (useLanguageStore().$state.lang === "fr") {
+        urgencyName = urgency.nameFr;
+      } else if (useLanguageStore().$state.lang === "ar") {
+        urgencyName = urgency.nameAr;
+      } else {
+        urgencyName = urgency.nameEn;
+      }
+      return urgencyName;
+    },
+
+    //get description of the urgency based on the language
+    getUrgencyDescription(urgency) {
+      let urgencyDescription = "";
+      if (useLanguageStore().$state.lang === "fr") {
+        urgencyDescription = urgency.descriptionFr;
+      }
+      if (useLanguageStore().$state.lang === "ar") {
+        urgencyDescription = urgency.descriptionAr;
+      }
+      if (useLanguageStore().$state.lang === "en") {
+        urgencyDescription = urgency.descriptionEn;
+      }
+      return urgencyDescription;
+    },
+
+
+
+
     async getClientPosts() {
       try {
         this.loadingClientDemande = true;

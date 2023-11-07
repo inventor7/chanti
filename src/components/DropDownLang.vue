@@ -18,6 +18,9 @@
                 <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
             </svg>
 
+            <span class="material-icons hidden md:block p-0 mr-1 ">
+                language
+            </span>
             <span class="hidden md:inline-block  "> {{ languageStore.getWord('lang') }} </span>
             <span class="material-icons hidden md:block p-0 m-0 ">
                 keyboard_arrow_down
