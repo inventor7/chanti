@@ -71,11 +71,9 @@
 
             <!-- not loggedin -->
             <div v-if="authStore.$state.isAuthenticated" class="dropdown dropdown-end  ">
-                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full">
-                        <img v-if="userStore.$state.userType === 'provider'" src="../assets/OIG2.jpg">
-                        <img v-else src="../assets/OIG.jpg">
-                    </div>
+                <label tabindex="0" class="btn btn-ghost bg-sky-700 text-white btn-circle avatar">
+                    <!-- get the first letter of the firstname and lastname -->
+                        {{ authStore.$state.userAuth.firstName[0] }}{{ authStore.$state.userAuth.lastName[0] }}
                 </label>
                 <ul tabindex="0"
                     class="menu menu-compact shadow-2xl border-2 font-semibold dropdown-right  dropdown-content gap-1 py-2 px-1  bg-base-100 rounded-box w-52">
@@ -100,7 +98,7 @@
                             <span class="material-icons">
                                 g_translate
                             </span>
-                            language
+                        {{ languageStore.getWord('language')  }}
                         </label>
                     </li>
                     <li>

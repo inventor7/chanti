@@ -55,7 +55,7 @@
 
 
         <div class="h-full w-full pt-8  px-2 md:p-6 lg:p-8 flex flex-col justify-center items-start gap-4  ">
-            <h2 class=" text-xl md:text-4xl font-bold ">Browse categories</h2>
+            <h2 class=" text-xl md:text-4xl font-bold ">{{ languageStore.getWord('browse') }}</h2>
             <div
                 class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1.5">
                 <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"

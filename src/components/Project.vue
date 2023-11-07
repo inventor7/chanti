@@ -6,7 +6,8 @@
             <div id="info" class=" flex flex-col justify-start items-start w-full gap-2 ">
                 <h1 class="text-xl font-bold text-gray-700 ">{{ project.id }}</h1>
                 <p>{{ formatTime(project.createdAt) }}</p>
-                <p class="text-gray-500 text-sm ">Project Description</p>
+                <p class="text-gray-500 text-sm ">{{ getWord(getCategoryById(project.categoryId)) }}</p>
+                <p class="text-gray-500 text-sm ">{{ project.description }}</p>
             </div>
         </div>
         <div id="action-section" class=" flex flex-row justify-between items-center  w-full gap-2 ">
@@ -23,6 +24,8 @@
 
 <script setup>
 import { useTimeDifference } from "../composables/timeDifference"
+import { useCategoriesStore } from "../store/categoriesStore";
+import { useLanguageStore } from "../store/AppBasic/languageStore";
 import { computed, defineProps } from "vue"
 
 //props
@@ -71,6 +74,10 @@ let backgImg = computed(() => {
 
 //stores
 const { timeDifference } = useTimeDifference()
+const { getCategoryById } = useCategoriesStore()
+const { getWord } = useLanguageStore()
+
+
 
 //methods
 const formatTime = (date) => timeDifference(date)

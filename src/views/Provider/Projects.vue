@@ -41,7 +41,7 @@
             </div>
 
             <!-- else -->
-            <Project v-for="project in localProjects " :project="project" :key="project.id" />
+            <Project v-for="project in localProjects " :project="project.clientPost" :key="project.id" />
 
         </div>
 
@@ -77,12 +77,13 @@ onMounted(() => {
     })
 })
 
+
 watch(projectsStore.$state.projects, () => {
     if (projectsStore.$state.projects.notificationClientRequests) {
         localProjects = [
-            ...projectsStore.$state.projects.notificationClientRequests.map(project => ({ ...project, type: 'clientRequest' })),
-            ...projectsStore.$state.projects.notificationProviderInteresteds.map(project => ({ ...project, type: 'providerInterest' }))
-        ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            ...projectsStore.$state.projects.notificationClientRequests ,
+            ...projectsStore.$state.projects.notificationProviderInteresteds
+        ].sort((a, b) => new Date(b.clientPost.createdAt) - new Date(a.clientPost.createdAt))
     }
 })
 
@@ -91,23 +92,23 @@ watch(projectsStore.$state.projects, () => {
 
 let notStartedProjects = computed(() => {
     return localProjects = [
-        ...projectsStore.$state.projects.notificationClientRequests.map(project => ({ ...project, type: 'clientRequest' })),
-        ...projectsStore.$state.projects.notificationProviderInteresteds.map(project => ({ ...project, type: 'providerInterest' }))
-    ].filter(project => project.status == 'pending').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        ...projectsStore.$state.projects.notificationClientRequests,
+        ...projectsStore.$state.projects.notificationProviderInteresteds
+    ].filter(item => item.clientPost.status == 'pending').sort((a, b) => new Date(b.clientPost.createdAt) - new Date(a.clientPost.createdAt))
 })
 
 let inProgressProjects = computed(() => {
     return localProjects = [
-        ...projectsStore.$state.projects.notificationClientRequests.map(project => ({ ...project, type: 'clientRequest' })),
-        ...projectsStore.$state.projects.notificationProviderInteresteds.map(project => ({ ...project, type: 'providerInterest' }))
-    ].filter(project => project.status == 'accept' || project.status == 'accepted').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        ...projectsStore.$state.projects.notificationClientRequests,
+        ...projectsStore.$state.projects.notificationProviderInteresteds
+    ].filter(item => item.clientPost.status == 'accept' || item.clientPost.status == 'accepted').sort((a, b) => new Date(b.clientPost.createdAt) - new Date(a.clientPost.createdAt))
 })
 
 let doneProjects = computed(() => {
     return localProjects = [
-        ...projectsStore.$state.projects.notificationClientRequests.map(project => ({ ...project, type: 'clientRequest' })),
-        ...projectsStore.$state.projects.notificationProviderInteresteds.map(project => ({ ...project, type: 'providerInterest' }))
-    ].filter(project => project.status == 'done').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        ...projectsStore.$state.projects.notificationClientRequests,
+        ...projectsStore.$state.projects.notificationProviderInteresteds
+    ].filter(item => item.clientPost.status == 'done').sort((a, b) => new Date(b.clientPost.createdAt) - new Date(a.clientPost.createdAt))
 })
 
 //methods
@@ -132,5 +133,8 @@ const filterProjects = (filter) => {
             break;
     }
 }
+
+
 </script>
+
 
