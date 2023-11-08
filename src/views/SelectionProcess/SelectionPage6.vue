@@ -1,23 +1,24 @@
 <template>
     <SignupLayout prevLink="emergency" :pageNumber="6" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
-        @handle="handleClick" :pageTitle="languageStore.getWord('login')" pageDesc=" Write a description of your request "
-        componentLocation="selectionProcess">
+        @handle="handleClick" :pageTitle="languageStore.getWord('login')" componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-center ">
             <div class=" flex flex-col  justify-center items-center gap-3 w-full h-fit mb-16 md:mb-20  ">
 
 
-                <h2 class=" text-2xl md:text-4xl font-bold text-start pb-5 pt-2 ">{{ languageStore.getWord('login') }} </h2>
-                <form action="" class="main-container flex flex-col justify-between items-center font-semibold gap-4">
+                <form action=""
+                    class="main-container flex flex-col justify-between items-center w-full px-4 sm:w-1/2 md:w-1/3  font-semibold gap-4">
 
                     <!-- Email or Phone -->
                     <div class=" w-full h-fit ">
-                        <label class="block text-[16px] font-semibold mb-2 ">Email or Phone</label>
+                        <label :class="{ 'text-end': languageStore.getRtl }"
+                            class="block text-[16px] font-semibold mb-2 ">{{ languageStore.getWord('email_or_phone')
+                            }}</label>
                         <div class="relative   ">
                             <input type="text" autocomplete="email"
                                 class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
                                 :class="{ 'border-gray-300': isValidPhone, 'border-error focus:outline-error': !isValidPhone }"
-                                v-model="phone" placeholder="Enter your phone number">
+                                v-model="phone" placeholder="example@gmail.com">
 
                             <div v-if="!isValidPhone"
                                 class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
@@ -31,7 +32,7 @@
 
                         <div
                             :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPhone, 'block': !isValidPhone }">
-                            <Error error="Please enter a valid email or phone number." />
+                            <Error :error="languageStore.getWord('valid-email')" />
                         </div>
 
                     </div>
@@ -39,13 +40,14 @@
 
                     <!-- Password -->
                     <div class=" w-full h-fit ">
-                        <label class="block  text-[16px]  font-semibold mb-2 ">Password</label>
+                        <label :class="{ 'text-end': languageStore.getRtl }"
+                            class="block  text-[16px]  font-semibold mb-2">{{ languageStore.getWord('password') }}</label>
                         <div class="relative      ">
                             <input type="password" autocomplete="current-password"
                                 class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
                                 id="password"
                                 :class="{ 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword }"
-                                v-model="password" placeholder="Enter your Password">
+                                v-model="password" placeholder="******">
 
                             <div @click="togglePassword"
                                 class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
@@ -61,7 +63,7 @@
 
                         <div
                             :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPassword, 'block': !isValidPassword }">
-                            <Error error="Password should have at least 6 characters." />
+                            <Error :error="languageStore.getWord('valid-password')" />
                         </div>
 
                     </div>
@@ -72,7 +74,8 @@
                     <div dir="ltr" class="flex flex-row justify-between items-center w-full mt-2 gap-4">
                         <label dir="ltr" class="label gap-2 cursor-pointer">
                             <input type="checkbox" checked="checked" class="checkbox checkbox-xs checkbox-primary" />
-                            <span class="label-text text-xs whitespace-nowrap ">remember me ?</span>
+                            <span class="label-text text-xs whitespace-nowrap ">{{ languageStore.getWord('remember_me') }}
+                                ?</span>
                         </label>
 
                         <span class="link text-xs whitespace-nowrap link-primary no-underline">{{
@@ -214,7 +217,7 @@ export default {
                             for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
                                 formData.append("images", clientDemandeStore.$state.request.images[i]);
                             }
-                           
+
 
                             clientStore.postRequest(formData)
 
@@ -248,7 +251,7 @@ export default {
                             for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
                                 formData.append("images", clientDemandeStore.$state.request.images[i]);
                             }
-                           
+
 
                             clientStore.postRequest(formData)
 

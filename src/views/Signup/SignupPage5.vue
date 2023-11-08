@@ -1,25 +1,30 @@
 <template>
     <div>
         <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 5 : 3" nextBtnText="Next" @handle="handleClick"
-            @handleBack="handleBack" pageTitle="Idendity"
-            pageDesc=" Enter your full name so we can ensure your idendity for clients ">
+            @handleBack="handleBack" :pageTitle="languageStore.getWord('PersonalInfo')"
+            :pageDesc="languageStore.getWord('descSP5')">
             <div
-                class=" flex flex-col  justify-center px-4 sm:px-8 pt-3 sm:pt-1 items-center font-semibold text-md w-full h-full ">
-                <img v-if="userStore.$state.user.userType == 'client'" class="rounded-full w-24  "
-                    src="../../assets/patient.png" alt="">
-                <img v-else class="rounded-full w-24   " src="../../assets/handyman.png" alt="">
-                <div class=" flex flex-col   sm:w-3/5 lg:w-3/6  sm:gap-x-2   w-full h-full ">
+                class=" flex flex-col md:flex-row  items-center justify-start md:justify-start px-4 pt-10  gap-10  sm:pt-1 font-semibold text-md w-full h-full ">
+                <div class=" flex-col justify-center items-center hidden md:flex  w-1/2 p-10 ">
+                    <img v-if="userStore.$state.user.userType == 'client'" class=" text-center w-full    "
+                        src="../../assets/personal-info.svg" alt="client">
+                    <img v-else src="../../assets/personal-info.svg" alt="pro pic" class=" w-full   ">
+                </div>
+                <img class=" flex md:hidden w-28 " src="../../assets/info.svg" alt="">
+                <div class=" flex flex-col justify-center max-w-xs w-full  h-fit ">
                     <!-- input for the first name of the user -->
-                    <div class=" w-full  mt-2 ">
-                        <label class="block text-[16px]  font-semibold mb-2 ">First Name</label>
+                    <div class=" w-full    mt-2 ">
+                        <label :class="{ 'text-end': languageStore.getRtl }" class="block text-sm  font-semibold mb-2 ">{{
+                            languageStore.getWord('first_name') }}</label>
                         <div class="relative">
                             <input type="text"
-                                class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
-                                :class="{ 'border-gray-300  ': isValidFirstName, 'border-error focus:outline-error': !isValidFirstName }"
-                                v-model="firstName" @input="validateFirstName" placeholder="Enter your name">
+                                class="py-2.5 px-3    w-full rounded-lg outline-primary  text-sm  border-[1px] "
+                                :class="{ 'border-gray-300  ': isValidFirstName, 'border-error focus:outline-error': !isValidFirstName, 'text-end': languageStore.getRtl }"
+                                v-model="firstName" @input="validateFirstName" placeholder="">
 
                             <div v-if="!isValidFirstName"
-                                class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
+                                :class="{ ' left-2 ': languageStore.getRtl, 'right-0': !languageStore.getRtl }"
+                                class="absolute inset-y-0  flex items-center pointer-events-none pr-3">
                                 <svg class="h-5 w-5 text-red-600 " width="16" height="16" fill="currentColor"
                                     viewBox="0 0 16 16" aria-hidden="true">
                                     <path
@@ -31,7 +36,7 @@
 
                         <div
                             :class="{ 'transition-all duration-300 ease-in-out ': true, 'opacity-0': isValidFirstName, 'opacity-100': !isValidFirstName }">
-                            <Error error="Please enter a valid Name." />
+                            <Error :error="languageStore.getWord('valid-first_name')" />
                         </div>
 
                     </div>
@@ -42,14 +47,16 @@
 
                     <!-- input for  last name of the user -->
                     <div class=" w-full  mt-2 ">
-                        <label class="block text-[16px]  font-semibold mb-2 ">Last Name</label>
+                        <label :class="{ 'text-end': languageStore.getRtl }" class="block text-sm font-semibold mb-2 ">{{
+                            languageStore.getWord('last_name') }}</label>
                         <div class="relative">
                             <input type="text"
-                                class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
-                                :class="{ 'border-gray-300  ': isValidLastName, 'border-error focus:outline-error': !isValidLastName }"
-                                v-model="lastName" @input="validateLastName" placeholder="Enter your last name">
+                                class="py-2.5 px-3    w-full rounded-lg outline-primary  text-sm  border-[1px] "
+                                :class="{ 'border-gray-300  ': isValidLastName, 'border-error focus:outline-error': !isValidLastName, 'text-end': languageStore.getRtl }"
+                                v-model="lastName" @input="validateLastName" placeholder="">
 
                             <div v-if="!isValidLastName"
+                                :class="{ ' left-2 ': languageStore.getRtl, 'right-0': !languageStore.getRtl }"
                                 class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                                 <svg class="h-5 w-5 text-red-600 " width="16" height="16" fill="currentColor"
                                     viewBox="0 0 16 16" aria-hidden="true">
@@ -61,7 +68,7 @@
 
                         <div
                             :class="{ 'transition-all duration-300 ease-in-out ': true, 'opacity-0': isValidLastName, 'opacity-100': !isValidLastName }">
-                            <Error error="Please enter a valid Name." />
+                            <Error :error="languageStore.getWord('valid-last_name')" />
                         </div>
 
                     </div>
@@ -79,6 +86,7 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import Error from '../../components/Error.vue'
 import { ref, computed, onMounted, onBeforeMount } from 'vue';
 import { useUserStore } from '../../store/userStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useRouter } from 'vue-router'
 
 
@@ -88,6 +96,7 @@ export default {
     setup() {
         // intialize the user store
         const userStore = useUserStore()
+        const languageStore = useLanguageStore()
         const router = useRouter()
 
         const firstName = ref("")
@@ -155,7 +164,8 @@ export default {
             handleBack,
 
             //Store
-            userStore
+            userStore,
+            languageStore
         }
     }
 }

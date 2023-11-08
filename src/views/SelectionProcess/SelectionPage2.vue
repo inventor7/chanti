@@ -2,7 +2,7 @@
     <div>
         <SignupLayout :pageNumber="2" :isError="notSelectedError" errorText="please select a wilaya and commune"
             @handle="handleClick" @handleBack="handleBack" :pageTitle="languageStore.getWord('selectLocation')"
-            :pageDesc="languageStore.getWord('descP3')"
+           
             componentLocation="selectionProcess">
             <div class=" flex overflow-y-scroll flex-row justify-start w-full h-full  flex-1 gap-3  items-start ">
                 <div
@@ -12,7 +12,6 @@
                     <transition>
                         <div v-if="!wilayassStore.error.status"
                             class=" box flex flex-col  justify-center  items-center gap-3 w-full h-full ">
-                            <h2 class="text-2xl font-bold"> Wilaya </h2>
                             <div class="dropdown   dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
                                 <div
@@ -66,7 +65,6 @@
 
                     <div v-show="!wilayassStore.error.status && wilayaValidate"
                         class=" box flex flex-col  justify-center items-center w-full h-full gap-3 ">
-                        <h2 class="text-2xl font-bold "> City</h2>
                         <div class="dropdown  dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
                             <div

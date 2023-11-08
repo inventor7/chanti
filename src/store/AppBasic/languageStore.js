@@ -12,8 +12,20 @@ export const useLanguageStore = defineStore("languageStore", {
       status: false,
       message: "",
     },
+    rtl: false,
     loading: false,
   }),
+
+  getters: {
+    getRtl() {
+      if (this.lang === "ar") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+
   actions: {
     async getLang() {
       this.loading = true;
@@ -23,7 +35,7 @@ export const useLanguageStore = defineStore("languageStore", {
           url: `${useAuthStore().baseUrl}/translation/get/${this.lang}`,
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
           },
           timeout: 25000, // 13 seconds
         });
@@ -31,8 +43,8 @@ export const useLanguageStore = defineStore("languageStore", {
         this.words = response.data.result;
         useUserStore().user.language = this.lang;
         this.loading = false;
-       
-        if(response.data.result.length == 0){
+
+        if (response.data.result.length == 0) {
           this.errorLang.status = true;
           this.errorLang.message = "server error";
         } else {
@@ -65,6 +77,7 @@ export const useLanguageStore = defineStore("languageStore", {
       }
     },
   },
+
   persist: {
     enabled: true,
     strategies: [

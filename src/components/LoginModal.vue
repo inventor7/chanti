@@ -12,7 +12,7 @@
                         <input type="text" autocomplete="email"
                             class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
                             :class=" { 'border-gray-300': isValidPhone, 'border-error focus:outline-error': !isValidPhone } "
-                            v-model=" phone " :placeholder="languageStore.getWord('email_or_phone')">
+                            v-model=" phone " placeholder="07 XX XX XX XX">
 
                         <div v-if=" !isValidPhone "
                             class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
@@ -26,7 +26,7 @@
 
                     <div
                         :class=" { 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPhone, 'block': !isValidPhone } ">
-                        <Error error="Please enter a valid email or phone number." />
+                        <Error :error="languageStore.getWord('valid-email')" />
                     </div>
 
                 </div>
@@ -34,13 +34,13 @@
 
                 <!-- Password -->
                 <div class=" w-full h-fit ">
-                    <label class="block  text-[16px]  font-semibold mb-2 ">Password</label>
+                    <label class="block  text-[16px]  font-semibold mb-2 ">{{  languageStore.getWord('password')  }}</label>
                     <div class="relative      ">
                         <input type="password" autocomplete="current-password"
                             class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
                             id="password"
                             :class=" { 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword } "
-                            v-model=" password " placeholder="Enter your Password">
+                            v-model=" password " placeholder="******">
 
                         <div @click=" togglePassword "
                             class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
@@ -56,7 +56,7 @@
 
                     <div
                         :class=" { 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPassword, 'block': !isValidPassword } ">
-                        <Error error="Password should have at least 6 characters." />
+                        <Error :error="languageStore.getWord('valid-password')" />
                     </div>
 
                 </div>
@@ -67,7 +67,7 @@
                 <div dir="ltr" class="flex flex-row justify-between items-center w-full mt-2 gap-4">
                     <label dir="ltr" class="label gap-2 cursor-pointer">
                         <input type="checkbox" checked="checked" class="checkbox checkbox-xs checkbox-primary" />
-                        <span class="label-text text-xs whitespace-nowrap ">remember me ?</span>
+                        <span class="label-text text-xs whitespace-nowrap ">{{  languageStore.getWord('remember_me')}} ?</span>
                     </label>
 
                     <span class="link text-xs whitespace-nowrap link-primary no-underline">{{
@@ -105,7 +105,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>{{ authStore.error.message }}</span>
+                    <span>{{ languageStore.getWord(authStore.error.message) }}</span>
                 </div>
             </div>
         </div>

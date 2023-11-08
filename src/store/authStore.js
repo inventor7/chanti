@@ -130,16 +130,20 @@ export const useAuthStore = defineStore("authStore", {
         this.loading = false;
         return response;
       } catch (error) {
+        console.log(error);
         this.loading = false;
         this.error.status = true;
-        if (error.response) {
-          this.error.message = error.response.data.message;
-        } else if (error.request) {
-          this.error.message =
-            "Network error: please check your internet connection and try again";
-        } else {
-          this.error.message =
-            "Network error: please check your internet connection and try again";
+        if (error.response.status === 404) {
+          this.error.message = "not_found";
+        } else if (error.response.status === 401) {
+          this.error.message = "unauthorized";
+        } else if (error.response.status === 403) {
+          this.error.message = "forbidden";
+        } else if (error.response.status === 500) {
+          this.error.message = "server_error";
+        } //internet error
+        else {
+          this.error.message = "error_network";
         }
       }
     },

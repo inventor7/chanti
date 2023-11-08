@@ -1,10 +1,10 @@
 <template>
     <div>
         <SignupLayout prevLink="home" :pageNumber="1" @handle="handleClick" :backBtnVisibility="true"
-            :pageTitle="languageStore.getWord('howItWorks')" :pageDesc="languageStore.getWord('descSP1')">
+            :pageTitle="languageStore.getWord('howItWorks')" :pageDesc="languageStore.getWord('signup_desc_1')">
 
             <div class="slide-next flex flex-col justify-center items-center h-full ">
-                bitt of illustration
+                <img class=" max-w-xs " src="../../assets/steps.svg" alt="">
             </div>
 
         </SignupLayout>

@@ -1,7 +1,7 @@
 <template>
     <SignupLayout prevLink="selection-location" :pageNumber="3" :isError="notSelectedError"
         errorText="Please select the time " nextBtnText="Next" @handle="handleClick" :pageTitle="languageStore.getWord('ch_urgency')"
-        :pageDesc="languageStore.getWord('desc_urgency')" componentLocation="selectionProcess">
+         componentLocation="selectionProcess">
 
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-center ">
             <div class=" flex flex-col  justify-center items-center gap-3 w-full h-full mb-16 md:mb-0  ">

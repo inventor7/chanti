@@ -2,8 +2,8 @@
     <div>
         <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 4 : 2" :isError="notSelectedError"
             errorText="please select a wilaya and commune" @handle="handleClick" @handleBack="handleBack"
-            pageTitle=" Select location "
-            pageDesc=" select your wilaya and commune so we can provide you with the clients in your area ">
+            :pageTitle="languageStore.getWord('selectLocation')"
+            :pageDesc="languageStore.getWord('location_desc_client')">
             <div class=" flex overflow-y-scroll flex-row justify-start w-full h-full  flex-1 gap-3  items-start ">
                 <div
                     class=" flex flex-col sm:flex-row   justify-start items-start w-full mb-20 md:mb-0  sm:gap-2 h-[70%] md:h-1/2 ">
@@ -12,14 +12,13 @@
                     <transition>
                         <div v-if="!wilayassStore.error.status"
                             class=" box flex flex-col  justify-center  items-center gap-3 w-full h-full ">
-                            <h2 class="text-2xl font-bold"> Wilaya </h2>
                             <div class="dropdown   dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
                                 <div
                                     class="flex flex-row justify-between items-center px-1 w-full border border-primary rounded-xl ">
                                     <input v-model="searchedWilaya"
                                         class=" input focus:border-none border-none outline-none focus:outline-none input-md w-full input-primary text-lg font-semibold text-black  "
-                                        type="text" placeholder="Choose a wilaya"
+                                        type="text" :placeholder="languageStore.getWord('ch_wilaya')"
                                         oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
                                         @focus="openW = true" @blur="openW = false">
 
@@ -67,14 +66,13 @@
 
                     <div v-show="!wilayassStore.error.status && wilayaValidate"
                         class=" box flex flex-col  justify-center items-center w-full h-full gap-3 ">
-                        <h2 class="text-2xl font-bold "> City</h2>
                         <div class="dropdown  dropdown-open dropdown-bottom flex flex-col justify-start items-start  ">
 
                             <div
                                 class="flex flex-row justify-between items-center px-1 w-full border border-primary rounded-xl ">
                                 <input v-model="searchedCommune"
                                     class=" input focus:border-none border-none outline-none focus:outline-none input-md w-full input-primary text-lg font-semibold text-black"
-                                    type="text" placeholder="Choose a commune"
+                                    type="text" :placeholder="languageStore.getWord('ch_city')"
                                     oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
                                     @focus="openC = true">
 
@@ -133,6 +131,7 @@
 <script>
 import SignupLayout from '../Layouts/SignupLayout.vue';
 import { useWilayasStore } from '../../store/wilayasStore.js'
+import { useLanguageStore } from '../../store/AppBasic/languageStore.js'
 import { useUserStore } from '../../store/userStore';
 import { computed, ref, onBeforeMount, watchEffect,watch, onMounted } from 'vue';
 import Error from '../../components/Error.vue'
@@ -147,6 +146,7 @@ export default {
         const wilayassStore = useWilayasStore()
         const userStore = useUserStore()
         const router = useRouter()
+        const languageStore = useLanguageStore()
 
         const buttonDisabled = ref(true)
         const notSelectedError = ref(false)
@@ -275,7 +275,9 @@ export default {
             //store
             wilayassStore,
             userStore,
+            languageStore,
 
+            //vars
             openC, openW,
             buttonDisabled,
             searchedWilaya, searchedCommune,

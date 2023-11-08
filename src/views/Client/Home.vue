@@ -8,20 +8,20 @@
                     class="w-full absolute top-0 left-0 z-0  h-full object-cover sm:object-cotain rounded-2xl " />
 
                 <!-- add a gradient -->
-                <div class="absolute top-0 left-0 z-20 w-full h-full  bg-black opacity-40 rounded-2xl "></div>
+                <div class="absolute top-0 left-0 z-20 w-full h-full  bg-black opacity-30 rounded-2xl "></div>
 
                 <div class="px-2 z-20 flex-1  sm:px-4 w-full h-fit  flex flex-row justify-start items-center py-0  ">
                     <div class="w-flex max-w-5xl  flex-col py-4 md:gap-6 justify-between items-start ">
-                        <h1 v-if="authStore.$state.isAuthenticated == false"
-                            class="  text-2xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-white whitespace-normal mb-5 font-bold">
+                        <h1 v-if="authStore.$state.isAuthenticated == false" :class="{ 'text-end': languageStore.getRtl }"
+                            class="  text-2xl  sm:text-4xl md:text-5xl    text-white whitespace-normal mb-5 font-bold">
                             {{ languageStore.getWord('title') }}
                             <span class="underline underline-offset-4 text-primary">
                                 {{ languageStore.getWord('endTitle') }}
                             </span>
                         </h1>
                         <h1 v-else
-                            class="  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl   text-white whitespace-normal mb-5 font-bold">
-                           Welcome Back
+                            class="  text-3xl  sm:text-4xl md:text-5xl  text-white whitespace-normal mb-5 font-bold">
+                            Welcome Back
                             <span class="underline underline-offset-4 text-primary">
                                 {{ authStore.$state.userAuth.lastName.toUpperCase() }}
                             </span>
@@ -34,12 +34,12 @@
                 <div v-if="authStore.$state.isAuthenticated === false"
                     class="md:hidden z-20 flex flex-row justify-between bg-primary rounded-b-xl px-2 md:p-1.5 items-center w-full  ">
                     <span class="text-white text-sm md:text-xl  font-semibold ">
-                        are you a pro ?
+                        {{ languageStore.getWord('r_u_pro') }} ?
                     </span>
                     <div @click="handleJoinNetwork"
                         class="flex  flex-row justify-between  items-center w-fit cursor-pointer ">
                         <span class="text-white underline-offset-1 text-sm md:text-xl  font-semibold ">
-                            join our network
+                            {{ languageStore.getWord('JoinTheChantiTeam') }}
                         </span>
                         <span class="material-icons self-center text-white text-sm sm:text-2xl">
                             chevron_right
@@ -55,15 +55,15 @@
 
 
         <div class="h-full w-full pt-8  px-2 md:p-6 lg:p-8 flex flex-col justify-center items-start gap-4  ">
-            <h2 class=" text-xl md:text-4xl font-bold ">{{ languageStore.getWord('browse_cat') }} </h2>
-            <div
-                class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1.5">
+            <h2 :class="{ 'text-end': languageStore.getRtl }" class=" text-xl md:text-2xl  w-full font-bold ">{{
+                languageStore.getWord('browse_cat') }} </h2>
+            <div class="grid grid-cols-2 grid-rows-5 h-full  sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  rounded-md  w-full gap-2">
                 <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
                     @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
                     :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress"
                     :iconName="category.iconName"
                     :class="{ 'bg-black   text-sky-700 scale-[103%]   ': category === categoriesStore.selectedCategory && !clientDemandeStore.$state.requestinProgress }"
-                    class=" text-center cursor-pointer rounded-md bg-slate-300/20 border-gray-300  hover:shadow-2xl   border-[1px]   transition-all duration-300 ease-in-out">
+                    class=" text-center cursor-pointer rounded-md shadow-md   hover:shadow-xl border-gray-300 border-t border-l md:shadow-none md:border     transition-all duration-300 ease-in-out">
                 </Category>
             </div>
         </div>

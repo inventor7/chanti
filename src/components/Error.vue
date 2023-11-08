@@ -1,7 +1,7 @@
 <template>
     <div :data-theme="themeStore.theme"
-        class="text-sm h-full text-error w-fit whitespace-nowrap rounded-full mt-2  antialiased flex flex-row gap-1.5 justify-start items-center">
-        <span class="text-md pr-2 ">{{ error }}</span>
+        class="text-sm  h-full text-error w-fit whitespace-nowrap rounded-full mt-2  antialiased flex flex-row gap-1.5 justify-start items-center">
+        <span class="text-xs text-end md:text-sm pr-2 ">{{ error }}</span>
     </div>
 </template>
 

@@ -2,34 +2,31 @@
     <div>
         <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 6 : 4" nextBtnText="next"
             :isError="notSelectedError" :errorText="msg" @handle="handleClick" @handleBack="handleBack"
-            pageTitle=" Register " pageDesc=" so you can login to our platform wherever you are whenever you want ">
+            :pageTitle="languageStore.getWord('register')" :pageDesc="languageStore.getWord('descSP6')">
             <div
-                class=" flex flex-col overflow-y-scroll h-[100vh]   justify-center py-2 items-center font-semibold text-md w-full md:h-full ">
+                class=" flex flex-col justify-start sm:justify-center  py-2 items-center font-semibold text-md w-full h-[100vh] sm:h-full overflow-y-scroll ">
                 <!-- when it's loading -->
                 <Loading v-if="userStore.loading" />
                 <!-- the loading has stopped -->
-                <div v-else class="w-full h-full">
+                <div v-else class=" flex flex-col justify-center items-center min-w-full   ">
                     <!-- when ther's an error -->
                     <div v-if="userStore.error.status" class="w-full ">
                         <Error :error="userStore.error.message" />
                     </div>
-                    <!-- when there's no error  -->
-                    <form v-else
-                        class=" flex flex-col md:justify-start md:h-full md:gap-4   justify-between items-center px-4   sm:px-10 md:px-10    w-full  ">
-                        <img v-if="userStore.$state.user.userType == 'client'" class="rounded-full w-24 md:pb-10 "
-                            src="../../assets/patient.png" alt="">
-                        <img v-else class="rounded-full w-24 md:pb-10  " src="../../assets/handyman.png" alt="">
 
-                        <div
-                            class=" flex flex-col md:flex-row md:justify-between justify-center items-center w-full h-fit gap-4 ">
-                            <!-- Phone Number -->
+                    <form v-else
+                        class=" flex flex-col sm:flex-row justify-center  items-center px-4 gap-4 sm:gap-8 h-full w-full   ">
+                        <img class=" max-w-[10em]   sm:max-w-xs " src="../../assets/Sign_in.svg" alt="">
+                        <!-- Phone Number -->
+                        <div class=" w-full max-w-sm  h-full flex flex-col justify-center items-center space-y-2 ">
+
                             <div class=" w-full h-fit ">
-                                <label class="block text-[16px] font-semibold mb-2 ">Phone</label>
-                                <div class="relative   ">
+                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs font-semibold mb-2 ">{{ languageStore.getWord('phone') }}</label>
+                                <div class="relative w-full   ">
                                     <input type="text" autocomplete="phone"
-                                        class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
+                                        class="py-2.5 px-3  w-full rounded-lg outline-primary  text-sm  border-[1px] "
                                         :class="{ 'border-gray-300': isValidPhone, 'border-error focus:outline-error': !isValidPhone }"
-                                        v-model="phone" placeholder="Enter your phone number">
+                                        v-model="phone" placeholder="0X XX XX XX XX">
 
                                     <div v-if="!isValidPhone"
                                         class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
@@ -43,19 +40,20 @@
 
                                 <div
                                     :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPhone, 'block': !isValidPhone }">
-                                    <Error error="Please enter a valid algerian number." />
+                                    <Error :error="languageStore.getWord('valid-phone')" />
                                 </div>
 
                             </div>
                             <!-- Email-->
                             <div class=" w-full h-fit ">
-                                <label class="block  text-[16px]  font-semibold mb-2 ">Email <span
-                                        class=" text-xs text-red-600">optional</span> </label>
+                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('email') }} 
+                                    <span :class="{ 'hidden' : languageStore.getRtl  }" class=" text-xs text-red-600">optional</span> 
+                                    <span :class="{ 'hidden' : !languageStore.getRtl  }" class=" text-xs text-start text-red-600">اختياري</span> </label>
                                 <div class="relative      ">
                                     <input type="text" autocomplete="email"
-                                        class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
+                                        class="py-2.5 px-3   w-full rounded-lg outline-primary  text-sm  border-[1px] "
                                         :class="{ 'border-gray-300': isValidEmail, 'border-error focus:outline-error': !isValidEmail }"
-                                        v-model="email" placeholder="Enter your Email">
+                                        v-model="email" placeholder="example@gmail.com">
 
                                     <div v-if="!isValidEmail"
                                         class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
@@ -69,23 +67,22 @@
 
                                 <div
                                     :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidEmail, 'block': !isValidEmail }">
-                                    <Error error="Please enter a valid Email." />
+                                    <Error :error="languageStore.getWord('valid-email')" />
                                 </div>
 
                             </div>
-                        </div>
 
-                        <div
-                            class=" flex flex-col md:flex-row md:justify-between justify-center items-center w-full h-fit gap-4 ">
+
+
                             <!-- Password -->
                             <div class=" w-full h-fit ">
-                                <label class="block  text-[16px]  font-semibold mb-2 ">Password</label>
+                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('password') }}</label>
                                 <div class="relative      ">
                                     <input type="password" autocomplete="new-password"
-                                        class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
+                                        class="py-2.5 px-3   w-full rounded-lg outline-primary  text-sm  border-[1px] "
                                         id="password"
                                         :class="{ 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword }"
-                                        v-model="password" placeholder="Enter your Password">
+                                        v-model="password" placeholder="******">
 
                                     <div @click="togglePassword"
                                         class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
@@ -101,7 +98,7 @@
 
                                 <div
                                     :class="{ 'transition-all duration-300 ease-in-out ': true, 'hidden': isValidPassword, 'block': !isValidPassword }">
-                                    <Error error="Password should have at least 6 characters." />
+                                    <Error :error="languageStore.getWord('valid-password')" />
                                 </div>
 
                             </div>
@@ -110,13 +107,13 @@
 
                             <!-- confirmation password -->
                             <div class=" w-full h-fit ">
-                                <label class="block  text-[16px]  font-semibold mb-2 ">Confirme Password</label>
+                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('confirm_password') }}</label>
                                 <div class="relative       ">
                                     <input type="password" autocomplete="new-password"
-                                        class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
+                                        class="py-2.5 px-3  w-full rounded-lg outline-primary  text-sm  border-[1px] "
                                         id="passwordC"
                                         :class="{ 'border-gray-300 ': isValidPasswordC, 'border-error focus:outline-error': !isValidPasswordC }"
-                                        v-model="passwordC" placeholder=" confirme password ">
+                                        v-model="passwordC" placeholder="******">
 
                                     <div @click="togglePasswordC"
                                         class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
@@ -135,7 +132,9 @@
                                     <Error error="Confirmation password doesn't match the password" />
                                 </div>
                             </div>
+
                         </div>
+
 
                     </form>
                 </div>
@@ -153,6 +152,7 @@ import Loading from '../../components/Loading.vue'
 import { ref, computed, onBeforeMount } from 'vue';
 import { useUserStore } from '../../store/userStore';
 import { useAuthStore } from '../../store/authStore';
+import { useLanguageStore } from '../../store/AppBasic/languageStore'
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
 import { useClientStore } from '../../store/Client/clientStore'
 import { useRouter } from 'vue-router';
@@ -166,6 +166,7 @@ export default {
         const router = useRouter()
         const authStore = useAuthStore()
         const clientDemandeStore = useclientDemandeStore()
+        const languageStore = useLanguageStore()
         const clientStore = useClientStore()
 
         // props
@@ -303,7 +304,7 @@ export default {
                                         for (let i = 0; i < clientDemandeStore.$state.request.images.length; i++) {
                                             formData.append("images", clientDemandeStore.$state.request.images[i]);
                                         }
-                                        
+
                                         clientStore.postRequest(formData)
                                         router.push({ name: 'results' })
                                     } else {
@@ -391,6 +392,7 @@ export default {
 
             // stores
             userStore,
+            languageStore
 
 
 
