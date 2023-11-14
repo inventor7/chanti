@@ -25,6 +25,7 @@ import ErrorPage from "../views/ErrorPage.vue";
 import UnauthorisedPage from "../views/UnauthorisedPage.vue";
 
 const router = createRouter({
+  mode: "history",
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     ////////////Signup Pages////////////
