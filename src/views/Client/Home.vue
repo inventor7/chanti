@@ -20,8 +20,10 @@
                                 {{ languageStore.getWord('endTitle') }}
                             </span>
                         </h1>
-                        <h1 v-else class="  text-3xl  sm:text-4xl md:text-5xl  text-white whitespace-normal mb-5 font-bold">
-                            Welcome Back
+                        <h1 v-else 
+                        :class="{ 'text-end': languageStore.getRtl }"
+                        class="  text-3xl  sm:text-4xl md:text-5xl  text-white whitespace-normal mb-5 font-bold">
+                          {{ languageStore.getWord('welcome_back')  }}
                             <span class="underline underline-offset-4 text-primary">
                                 {{ authStore.$state.userAuth.lastName.toUpperCase() }}
                             </span>
