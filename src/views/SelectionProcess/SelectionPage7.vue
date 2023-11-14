@@ -30,31 +30,50 @@
 
 
                             <div v-for="provider in  providerStore.$state.providers" :key="provider.id"
-                                class="flex flex-col w-full h-fit  border-2 rounded-xl p-3  md:p-2 bg-white gap-1  drop-shadow-lg  hover:border-primary  border-gray-100">
+                                class="flex flex-col w-full h-fit  border-2 rounded-xl p-3  md:p-2 bg-white gap-2  drop-shadow-lg  hover:border-primary  border-gray-100">
                                 <div class="flex items-center">
                                     <!-- <img class="rounded-full w-20 h-20" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description"> -->
+                                    <div
+                                        class=" w-16 h-16 rounded-full bg-sky-800 mr-4 flex flex-col justify-center items-center ">
+                                        <p class=" text-white text-base ">
+                                            {{ provider.firstName.slice(0, 1).upperCase() }}
+                                            {{ provider.lastName.slice(0, 1).upperCase() }}
+                                        </p>
+                                    </div>
                                     <div @click="showProfile(provider)" class="grow hover:cursor-pointer ">
-                                        <h3 class=" text-lg md:text-xl sm:text-lg font-medium  text-gray-800">
+                                        <h3 class=" text-xl md:text-xl sm:text-lg font-medium  text-gray-800">
                                             {{ provider.firstName }} {{ provider.lastName }}
                                         </h3>
 
+                                        <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1">
 
+                                            <span class=" text-black  ">
+                                                {{ provider.rating }}
+                                            </span>
+
+                                            <span class="material-icons text-primary text-sm">
+                                                star
+                                            </span>
+                                        </div>
+
+                                        <p class=" text-xs md:text-sm font-semibold text-gray-400">
+                                            <span class="material-icons text-primary text-sm">
+                                                location_on
+                                            </span>
+                                            {{ provider.CityName }}
+                                        </p>
                                     </div>
-                                    <div v-if="provider.verified === 1"
-                                        class="flex flex-col justify-center items-center w-fit ">
-                                        <span class="material-icons text-secondary text-3xl">
+                                    <div class="flex flex-col justify-center items-center w-fit ">
+                                        <span class="material-icons text-xl"
+                                            :class="{ 'text-secondary': provider.verified === 1, ' text-gray-300 ': provider.verified === 0 }">
                                             verified
                                         </span>
-                                        <span class="text-xs text-gray-400">Verified</span>
                                     </div>
 
 
                                 </div>
 
-                                <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1">
-                                    <Rating
-                                        v-bind="{ rating: provider.rating, isIndicatorActive: true, ratingNumber: provider.ratingCount }" />
-                                </div>
+
                                 <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
                                     class="btn  w-full btn-sm sm:btn-md  btn-primary rounded-xl text-white">
@@ -209,7 +228,7 @@ export default {
             })
 
             portfolioStore.getProviderPosts(provider.id).then((res) => {
-             
+
                 providerStore.$state.provider.btnVisible = provider.btnVisible
             })
             router.push({
