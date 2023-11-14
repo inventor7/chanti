@@ -35,9 +35,9 @@
                                     <!-- <img class="rounded-full w-20 h-20" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description"> -->
                                     <div
                                         class=" w-16 h-16 rounded-full bg-sky-800 mr-4 flex flex-col justify-center items-center ">
-                                        <p class=" text-white text-base ">
-                                            {{ provider.firstName.slice(0, 1).upperCase() }}
-                                            {{ provider.lastName.slice(0, 1).upperCase() }}
+                                        <p class=" text-white text-base uppercase font-bold ">
+                                            {{ provider.firstName.slice(0, 1)}}
+                                            {{ provider.lastName.slice(0, 1) }}
                                         </p>
                                     </div>
                                     <div @click="showProfile(provider)" class="grow hover:cursor-pointer ">
