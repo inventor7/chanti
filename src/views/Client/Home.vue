@@ -10,7 +10,8 @@
                 <!-- add a gradient -->
                 <div class="absolute top-0 left-0 z-20 w-full h-full  bg-black opacity-30 rounded-2xl "></div>
 
-                <div class="px-2 z-20 flex-1  sm:px-4 w-full h-fit  flex flex-row justify-start items-center py-0  ">
+                <div class="px-2 z-20 flex-1  sm:px-4 w-full h-fit  flex flex-row items-center py-0  "
+                    :class="{ 'justify-end': languageStore.getRtl, 'justify-start': !languageStore.getRtl }">
                     <div class="w-flex max-w-5xl  flex-col py-4 md:gap-6 justify-between items-start ">
                         <h1 v-if="authStore.$state.isAuthenticated == false" :class="{ 'text-end': languageStore.getRtl }"
                             class="  text-2xl  sm:text-4xl md:text-5xl    text-white whitespace-normal mb-5 font-bold">
@@ -19,8 +20,7 @@
                                 {{ languageStore.getWord('endTitle') }}
                             </span>
                         </h1>
-                        <h1 v-else
-                            class="  text-3xl  sm:text-4xl md:text-5xl  text-white whitespace-normal mb-5 font-bold">
+                        <h1 v-else class="  text-3xl  sm:text-4xl md:text-5xl  text-white whitespace-normal mb-5 font-bold">
                             Welcome Back
                             <span class="underline underline-offset-4 text-primary">
                                 {{ authStore.$state.userAuth.lastName.toUpperCase() }}
@@ -57,7 +57,8 @@
         <div class="h-full w-full pt-8  px-2 md:p-6 lg:p-8 flex flex-col justify-center items-start gap-4  ">
             <h2 :class="{ 'text-end': languageStore.getRtl }" class=" text-xl md:text-2xl  w-full font-bold ">{{
                 languageStore.getWord('browse_cat') }} </h2>
-            <div class="grid grid-cols-2 grid-rows-5 h-full  sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  rounded-md  w-full gap-2">
+            <div
+                class="grid grid-cols-2 grid-rows-5 h-full  sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  rounded-md  w-full gap-2">
                 <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
                     @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
                     :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress"

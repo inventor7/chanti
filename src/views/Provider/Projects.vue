@@ -3,7 +3,7 @@
 
         <!-- Filters -->
         <div
-            class=" flex flex-row justify-between items-center w-full h-full gap-1 rounded-3xl border border-gray-300 my-2 p-1 font-semibold ">
+            class=" flex flex-row justify-between items-center w-full h-full gap-1 rounded-3xl border border-gray-300 my-2 p-1 text-sm font-semibold ">
 
             <div @click="filterProjects('notStarted')"
                 class=" cursor-pointer w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "

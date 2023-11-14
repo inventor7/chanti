@@ -4,7 +4,7 @@
         <div id="info-section" class=" flex flex-row justify-start items-start w-full gap-2 ">
             <img class=" w-1/2 " src="../assets/carpenter.svg" alt="">
             <div id="info" class=" flex flex-col justify-start items-start w-full gap-2 ">
-                <h1 class="text-xl font-bold text-gray-700 ">{{ project.id }}</h1>
+                <h1 class="text-xl font-bold text-gray-700 ">{{ project.id.slice(0,2) }}</h1>
                 <p>{{ formatTime(project.createdAt) }}</p>
                 <p class="text-gray-500 text-sm ">{{ getWord(getCategoryById(project.categoryId)) }}</p>
                 <p class="text-gray-500 text-sm ">{{ project.description }}</p>

@@ -2,12 +2,12 @@
     <div :data-theme="themeStore.theme" ref="loginModal " @click.self="modalStore.toggleModalLogin();"
         :class="{ 'modal-open': modalVisibleLogin }" class="modal backdrop-blur-sm   bg-gray-700/80">
         <div class="modal-box   bg-base-100  w-full py-4 mx-2 md:px-10 md:mx-10 relative">
-            <h2 class=" text-2xl md:text-4xl font-bold text-start pb-5 pt-2 ">{{ languageStore.getWord('login') }}</h2>
+            <h2 :class="{ 'text-end': languageStore.getRtl }" class=" text-2xl md:text-4xl font-bold  pb-5 pt-2 ">{{ languageStore.getWord('login') }}</h2>
             <form action="" class="main-container flex flex-col justify-between items-center font-semibold gap-4">
 
                 <!-- Email or Phone -->
                 <div class=" w-full h-fit ">
-                    <label class="block text-[16px] font-semibold mb-2 ">{{ languageStore.getWord('email_or_phone') }}</label>
+                    <label :class="{ 'text-end': languageStore.getRtl }" class="block text-[16px] font-semibold mb-2 ">{{ languageStore.getWord('email_or_phone') }}</label>
                     <div class="relative   ">
                         <input type="text" autocomplete="email"
                             class="py-2.5 px-3 sm:py-3 sm:px-4  w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
@@ -34,7 +34,7 @@
 
                 <!-- Password -->
                 <div class=" w-full h-fit ">
-                    <label class="block  text-[16px]  font-semibold mb-2 ">{{  languageStore.getWord('password')  }}</label>
+                    <label :class="{ 'text-end': languageStore.getRtl }" class="block  text-[16px]  font-semibold mb-2 ">{{  languageStore.getWord('password')  }}</label>
                     <div class="relative      ">
                         <input type="password" autocomplete="current-password"
                             class="py-2.5 px-3 sm:py-3 sm:px-4   w-full rounded-lg outline-gray-500  text-sm  border-[2.5px] "
@@ -84,14 +84,18 @@
                     </button>
                     <div class="divider"> {{ languageStore.getWord('dont_have_account') }} </div>
                     <router-link @click=" toggleModalLogin " :to=" { name: 'howitworks' } ">
-                        <span class="btn btn-sm md:btn-md btn-ghost w-full border-2">{{ languageStore.getWord('register')
+                        <span class="btn border-[1px] bg-gray-200 border-gray-200 btn-sm md:btn-md btn-ghost w-full ">{{ languageStore.getWord('register')
                             }}</span>
                     </router-link>
                 </div>
 
             </form>
             <label @click=" modalStore.toggleModalLogin() "
-                class="btn  btn-xs md:btn-sm btn-primary btn-circle absolute top-2 right-2  ">✕</label>
+                class="btn  btn-xs md:btn-sm btn-primary btn-circle absolute top-2"
+                :class="{ 'left-2': languageStore.getRtl , 'right-2': !languageStore.getRtl }"
+                >
+                ✕
+            </label>
         </div>
 
 
