@@ -2,9 +2,9 @@
      <div v-if="languageStore.loading" >
           <Loading />
      </div>
-     <!-- <div v-else-if="languageStore.errorLang.status" >
+     <div v-else-if="languageStore.errorLang.status" >
           <ErrorPage :error="languageStore.errorLang.message" />
-     </div> -->
+     </div>
      <div v-else>
           <router-view />
      </div>
