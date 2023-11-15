@@ -11,6 +11,11 @@ export const requireRole = (to, from, next) => {
     return;
   }
 
+  if ((userRole === "client" || userRole === "") && to.meta.mixed === 1) {
+    next();
+    return;
+  }
+
   if (requiredRole && requiredRole !== userRole) {
     next({ name: "unauthorised" });
     return;
