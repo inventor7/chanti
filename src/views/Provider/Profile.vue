@@ -235,7 +235,7 @@
                             <span class="material-icons">
                                 work
                             </span>
-                            <span class="ml-2">portfolio</span>
+                            <span class="ml-2">{{ languageStore.getWord('portfolio') }}</span>
                         </button>
 
                         <!-- Tab 2 -->
@@ -245,7 +245,7 @@
                             <span class="material-icons">
                                 reviews
                             </span>
-                            <span class="ml-2">avis</span>
+                            <span class="ml-2">{{ languageStore.getWord('proj_&_review') }}</span>
                         </button>
                     </nav>
                 </div>
