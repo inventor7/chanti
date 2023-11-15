@@ -2,8 +2,7 @@
     <div>
         <SignupLayout :pageNumber="userStore.user.userType === 'provider' ? 4 : 2" :isError="notSelectedError"
             errorText="please select a wilaya and commune" @handle="handleClick" @handleBack="handleBack"
-            :pageTitle="languageStore.getWord('selectLocation')"
-            :pageDesc="languageStore.getWord('location_desc_client')">
+            :pageTitle="languageStore.getWord('selectLocation')" :pageDesc="languageStore.getWord('location_desc_client')">
             <div class=" flex overflow-y-scroll flex-row justify-start w-full h-full  flex-1 gap-3  items-start ">
                 <div
                     class=" flex flex-col sm:flex-row   justify-start items-start w-full mb-20 md:mb-0  sm:gap-2 h-[70%] md:h-1/2 ">
@@ -44,8 +43,9 @@
                                         <ul tabindex="0"
                                             class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                             <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
-                                                :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0 }"><a>No such
-                                                    wilaya with this name </a></li>
+                                                :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0, 'text-end': languageStore.getRtl }">
+                                                <a>{{ languageStore.getWord('no_state') }}</a>
+                                            </li>
                                             <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   "
                                                 @click="selectWilaya(wilaya)"
                                                 v-for="wilaya in wilayassStore.filteredWilayas" :key="wilaya.id">
@@ -98,8 +98,8 @@
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                         <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
-                                            :class="{ 'hidden': wilayassStore.filteredCommunes.length !== 0 }"><a>No such
-                                                communes with this name </a></li>
+                                            :class="{ 'hidden': wilayassStore.filteredCommunes.length !== 0, 'text-end': languageStore.getRtl }">
+                                            <a>{{ languageStore.getWord('no_city') }} </a></li>
                                         <li class=" dropdown-open  z-10  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
                                             @click="selectCommune(commune)"
                                             v-for="commune in wilayassStore.filteredCommunes" :key="commune.id">
@@ -133,7 +133,7 @@ import SignupLayout from '../Layouts/SignupLayout.vue';
 import { useWilayasStore } from '../../store/wilayasStore.js'
 import { useLanguageStore } from '../../store/AppBasic/languageStore.js'
 import { useUserStore } from '../../store/userStore';
-import { computed, ref, onBeforeMount, watchEffect,watch, onMounted } from 'vue';
+import { computed, ref, onBeforeMount, watchEffect, watch, onMounted } from 'vue';
 import Error from '../../components/Error.vue'
 import { useRouter } from 'vue-router';
 

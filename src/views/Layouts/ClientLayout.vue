@@ -39,6 +39,7 @@
                 </div>
             </div>
         </Alert>
+        <ConfirmationModal />
         <NotificationPage />
         <ClientPostDetailsPage />
         <RatingClientPage />
@@ -80,6 +81,7 @@ export default {
         ProviderCard: defineAsyncComponent(() => import("../../components/ProviderCard.vue")),
         Rating: defineAsyncComponent(() => import("../../components/Rating.vue")),
         Toast: defineAsyncComponent(() => import("../../components/Toast.vue")),
+        ConfirmationModal : defineAsyncComponent(() => import("../../components/ConfirmationModal.vue")),
     },
     setup() {
         const themeStore = useThemeStore();

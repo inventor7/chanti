@@ -8,8 +8,9 @@
                 <transition name="fade">
                     <!-- type in an area text -->
                     <div class="h-4/6 w-full flex flex-col justify-center items-start sm:items-center gap-2 ">
-                        <textarea v-model="descText" rows="4" cols="50" maxlength="100" placeholder="another details..."
-                            class=" w-full sm:w-2/3 font-semibold  h-full rounded-2xl border-2 border-gray-300 p-4">
+                        <textarea v-model="descText" rows="4" cols="50" maxlength="100" :placeholder="languageStore.getWord('additonal_datails')"
+                        :class="{'text-end' : languageStore.getRtl}"    
+                        class=" w-full  sm:w-2/3 font-semibold  h-full rounded-2xl border-2 border-gray-300 p-4">
                                             </textarea>
                     </div>
 

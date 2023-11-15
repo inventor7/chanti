@@ -90,8 +90,8 @@
 
 
         </div>
-        <Alert @handleCloseBtn="handleCancelDemande" closeBtnText="ok" toggleBtnText="Delete"
-            message="do you really want to clear the Demeande ?" />
+        <Alert @handleCloseBtn="handleCancelDemande" :closeBtnText="languageStore.getWord('ok')" :toggleBtnText="languageStore.getWord('cancel')"
+            :message="languageStore.getWord('clear_request')" />
     </div>
 </template>
 <script>

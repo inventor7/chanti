@@ -109,7 +109,7 @@ export default {
 
 
         let t1 = computed(() => {
-            const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
+            const nameRegex = /^[a-zA-Z\u0600-\u06FF]+(?:\s[a-zA-Z\u0600-\u06FF]+)?$/;
             validF.value = nameRegex.test(firstName.value.trim()) && firstName.value.trim().length > 2
             if (validF.value) {
                 userStore.user.firstName = firstName.value
@@ -121,7 +121,7 @@ export default {
 
 
         let t2 = computed(() => {
-            const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
+            const nameRegex = /^[a-zA-Z\u0600-\u06FF]+(?:\s[a-zA-Z\u0600-\u06FF]+)?$/;
             let validL = nameRegex.test(lastName.value.trim()) && lastName.value.trim().length > 2
             if (validL) {
                 userStore.user.lastName = lastName.value

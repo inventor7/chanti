@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios"; 
+import axios from "axios";
 import { useUserStore } from "./userStore";
 import { useAuthStore } from "./authStore";
 export const useWilayasStore = defineStore("wilayasStore", {
@@ -8,10 +8,17 @@ export const useWilayasStore = defineStore("wilayasStore", {
     //filter wilayas by searechedWilaya
     filterWilayas(searchedWilaya) {
       this.filteredWilayas = this.wilayas.filter((wilaya) => {
-        if(useUserStore().$state.user.language === 'ar'){
-          return wilaya.ascciName.toLowerCase().includes(searchedWilaya.toLowerCase());
+        if (useUserStore().$state.user.language === "ar") {
+          if (wilaya.ascciName === "") {
+            return "لا توجد  ولاية بهذا الاسم";
+          }
+          return wilaya.ascciName
+            .toLowerCase()
+            .includes(searchedWilaya.toLowerCase());
         } else {
-          return wilaya.name.toLowerCase().includes(searchedWilaya.toLowerCase());
+          return wilaya.name
+            .toLowerCase()
+            .includes(searchedWilaya.toLowerCase());
         }
       });
     },
@@ -19,10 +26,14 @@ export const useWilayasStore = defineStore("wilayasStore", {
     //filter communes by searechedCommune
     filterCommunes(searchedCommune) {
       this.filteredCommunes = this.communes.filter((commune) => {
-        if(useUserStore().$state.user.language === 'ar'){
-          return commune.CityName.toLowerCase().includes(searchedCommune.toLowerCase());
+        if (useUserStore().$state.user.language === "ar") {
+          return commune.CityName.toLowerCase().includes(
+            searchedCommune.toLowerCase()
+          );
         } else {
-          return commune.CityNameAscii.toLowerCase().includes(searchedCommune.toLowerCase());
+          return commune.CityNameAscii.toLowerCase().includes(
+            searchedCommune.toLowerCase()
+          );
         }
       });
     },
@@ -63,56 +74,55 @@ export const useWilayasStore = defineStore("wilayasStore", {
     },
     //get wilaya by id depend on the language
     getWilayaById(id) {
-    if(useUserStore().$state.user.language === 'ar'){
-      let wilaya = this.wilayas.find((wilaya) => wilaya.id === id);
-      return wilaya.ascciName;
-    } else {
-      let wilaya = this.wilayas.find((wilaya) => wilaya.id === id);
-      return wilaya.name;
-    }
+      if (useUserStore().$state.user.language === "ar") {
+        let wilaya = this.wilayas.find((wilaya) => wilaya.id === id);
+        return wilaya.ascciName;
+      } else {
+        let wilaya = this.wilayas.find((wilaya) => wilaya.id === id);
+        return wilaya.name;
+      }
     },
 
     //get commune by id depend on the language
     getCommuneById(id) {
-     if(useUserStore().$state.user.language === 'ar'){
-      let commune = this.communes.find((commune) => commune.id === id);
-      return commune.CityName;
+      if (useUserStore().$state.user.language === "ar") {
+        let commune = this.communes.find((commune) => commune.id === id);
+
+        return commune.CityName;
       } else {
-      let commune = this.communes.find((commune) => commune.id === id);
-      return commune.CityNameAscii;
+        let commune = this.communes.find((commune) => commune.id === id);
+        return commune.CityNameAscii;
       }
-    }
+    },
   },
   getters: {
     //get the selected wilaya if it's not an empty object
     getSelectedWilaya(state) {
       if (Object.keys(state.selectedWilaya).length !== 0) {
-        if(useUserStore().$state.user.language === 'ar'){
+        if (useUserStore().$state.user.language === "ar") {
           return state.selectedWilaya.ascciName;
-        } else {  
+        } else {
           return state.selectedWilaya.name;
         }
-      }
-      else return "";
+      } else return "";
     },
     //get the selected commune if it's not an empty object
     getSelectedCommune(state) {
       if (Object.keys(state.selectedCommune).length !== 0) {
-        if(useUserStore().$state.user.language === 'ar'){
+        if (useUserStore().$state.user.language === "ar") {
           return state.selectedCommune.CityName;
-        } else {  
+        } else {
           return state.selectedCommune.CityNameAscii;
         }
-      }
-      else return "";
-    }
+      } else return "";
+    },
   },
 
   state: () => ({
     loading: false,
-    error:{
-      status :false,
-      message : ''
+    error: {
+      status: false,
+      message: "",
     },
 
     selectedWilaya: {},
@@ -184,4 +194,3 @@ export const useWilayasStore = defineStore("wilayasStore", {
     ],
   }),
 });
- 

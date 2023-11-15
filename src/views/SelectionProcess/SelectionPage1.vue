@@ -116,7 +116,7 @@ export default {
     },
 
     beforeRouteEnter(to, from, next) {
-        // Call the checkSubcategories function before the route enters
+        // called before the route that renders this component is confirmed.
         next(vm => vm.checkSubcategory())
     }
 

@@ -1,7 +1,8 @@
 <template  >
     <div class=" border-2  bg-base-100 rounded-full flex   flex-row justify-center  items-center px-[3px] py-[3px]">
         <input type="text" :placeholder="languageStore.getWord('searchPlaceHolder')"
-            class="flex-1 w-full  input input-md text-[15px] sm:text-xl md:text-2xl font-semibold pl-4  md:pl-8   rounded-full focus:outline-none outline-none "
+        :class="{ 'text-end': languageStore.getRtl }"   
+        class="flex-1 w-full input input-md text-[15px] sm:text-xl md:text-2xl font-semibold pl-4  md:pl-8   rounded-full focus:outline-none outline-none "
             v-model="searchInput" @keyup.enter="handleSearchClick" @focus="handleFocusSearchBar" ref="searchInputRef" />
 
         <button @click="handleSearchClick"
@@ -11,8 +12,6 @@
             </span>
             <span class=" hidden  sm:block  "> {{ languageStore.getWord('searchButton') }} </span>
         </button>
-
-
     </div>
 </template>
 

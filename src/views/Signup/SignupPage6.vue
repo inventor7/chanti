@@ -21,7 +21,8 @@
                         <div class=" w-full max-w-sm  h-full flex flex-col justify-center items-center space-y-2 ">
 
                             <div class=" w-full h-fit ">
-                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs font-semibold mb-2 ">{{ languageStore.getWord('phone') }}</label>
+                                <label :class="{ 'text-end': languageStore.getRtl }"
+                                    class="block text-xs font-semibold mb-2 ">{{ languageStore.getWord('phone') }}</label>
                                 <div class="relative w-full   ">
                                     <input type="text" autocomplete="phone"
                                         class="py-2.5 px-3  w-full rounded-lg outline-primary  text-sm  border-[1px] "
@@ -46,9 +47,12 @@
                             </div>
                             <!-- Email-->
                             <div class=" w-full h-fit ">
-                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('email') }} 
-                                    <span :class="{ 'hidden' : languageStore.getRtl  }" class=" text-xs text-red-600">optional</span> 
-                                    <span :class="{ 'hidden' : !languageStore.getRtl  }" class=" text-xs text-start text-red-600">اختياري</span> </label>
+                                <label :class="{ 'text-end': languageStore.getRtl }"
+                                    class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('email') }}
+                                    <span :class="{ 'hidden': languageStore.getRtl }"
+                                        class=" text-xs text-red-600">optional</span>
+                                    <span :class="{ 'hidden': !languageStore.getRtl }"
+                                        class=" text-xs text-start text-red-600">اختياري</span> </label>
                                 <div class="relative      ">
                                     <input type="text" autocomplete="email"
                                         class="py-2.5 px-3   w-full rounded-lg outline-primary  text-sm  border-[1px] "
@@ -76,16 +80,19 @@
 
                             <!-- Password -->
                             <div class=" w-full h-fit ">
-                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('password') }}</label>
+                                <label :class="{ 'text-end': languageStore.getRtl }"
+                                    class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('password')
+                                    }}</label>
                                 <div class="relative      ">
                                     <input type="password" autocomplete="new-password"
-                                        class="py-2.5 px-3   w-full rounded-lg outline-primary  text-sm  border-[1px] "
+                                        class="py-2.5 px-3   w-full rounded-lg outline-primary text-sm  border-[1px] "
                                         id="password"
-                                        :class="{ 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword }"
+                                        :class="{ 'border-gray-300 ': isValidPassword, 'border-error focus:outline-error': !isValidPassword, 'text-end': languageStore.getRtl }"
                                         v-model="password" placeholder="******">
 
                                     <div @click="togglePassword"
-                                        class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
+                                        :class="{ 'right-3': !languageStore.getRtl, 'left-3': languageStore.getRtl }"
+                                        class="absolute inset-y-0    flex items-center    cursor-pointer">
                                         <span v-if="eyeIcon" class="material-icons  -none "
                                             :class="{ 'text-gray-500  ': isValidPassword, 'text-error ': !isValidPassword }">
                                             visibility
@@ -107,16 +114,19 @@
 
                             <!-- confirmation password -->
                             <div class=" w-full h-fit ">
-                                <label :class="{ 'text-end' : languageStore.getRtl  }" class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('confirm_password') }}</label>
+                                <label :class="{ 'text-end': languageStore.getRtl }"
+                                    class="block text-xs  font-semibold mb-2 ">{{ languageStore.getWord('confirm_password')
+                                    }}</label>
                                 <div class="relative       ">
                                     <input type="password" autocomplete="new-password"
                                         class="py-2.5 px-3  w-full rounded-lg outline-primary  text-sm  border-[1px] "
                                         id="passwordC"
-                                        :class="{ 'border-gray-300 ': isValidPasswordC, 'border-error focus:outline-error': !isValidPasswordC }"
+                                        :class="{ 'border-gray-300 ': isValidPasswordC, 'border-error focus:outline-error': !isValidPasswordC ,'text-end' : languageStore.getRtl }"
                                         v-model="passwordC" placeholder="******">
 
                                     <div @click="togglePasswordC"
-                                        class="absolute inset-y-0  right-0 flex items-center   pr-3 cursor-pointer">
+                                        :class="{ 'right-3': !languageStore.getRtl, 'left-3': languageStore.getRtl }"
+                                        class="absolute inset-y-0  flex items-center  cursor-pointer">
                                         <span v-if="eyeIconC" class="material-icons  -none "
                                             :class="{ 'text-gray-500  ': isValidPasswordC, 'text-error ': !isValidPasswordC }">
                                             visibility

@@ -139,7 +139,7 @@
                                     <span class="material-icons">
                                         send
                                     </span>
-                                    request
+                                  {{ languageStore.getWord('request') }}
                                 </button>
 
                                 <button @click="makePhoneCall"

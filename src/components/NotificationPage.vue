@@ -57,7 +57,7 @@
     <!-- </div> -->
 
     <Alert @handleCloseBtn="handleCloseBtn" closeBtnText="ok" toggleBtnText="close"
-        message="do you really want to clear the Demeande ?" />
+        :message="languageStore.getWord('clear_request')" />
 </template>
 
 <script>

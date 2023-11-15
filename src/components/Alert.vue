@@ -8,18 +8,17 @@
             </div>
             <p class="py-4 font-semibold text-lg ">{{ message }}</p>
             <slot></slot>
-            <div v-if="btnsVisibility" class="modal-action"
-            :class="{'-ml-2 flex-col-reverse gap-2' : w === 'full'}">
-                <label :for="modalName" class="btn btn-ghost bg-gray-400/30 "
-                :class="{'ml-2  w-full' : w === 'full'}"
-                >
-                    Annuler
+            <div v-if="btnsVisibility" class="modal-action" :class="{ '-ml-2 flex-col-reverse gap-2': w === 'full' }">
+                <label :for="modalName" class="btn btn-ghost bg-gray-400/30 " :class="{ 'ml-2  w-full': w === 'full' }">
+                    {{ useLanguageStore().getWord('cancel') }}
                 </label>
-                <label @click="handleCloseBtn" :for="modalName" class="btn  text-white " :class="{'w-full' : w === 'full',
-                        'btn-primary': closeBtnColor === 'primary',
-                        'btn-secondary': closeBtnColor === 'secondary',
-                        'btn-success': closeBtnColor === 'success',
-                        'btn-error': closeBtnColor === 'error',}">
+                <label @click="handleCloseBtn" :for="modalName" class="btn  text-white " :class="{
+                    'w-full': w === 'full',
+                    'btn-primary': closeBtnColor === 'primary',
+                    'btn-secondary': closeBtnColor === 'secondary',
+                    'btn-success': closeBtnColor === 'success',
+                    'btn-error': closeBtnColor === 'error',
+                }">
                     {{ closeBtnText }}
                 </label>
             </div>
@@ -28,6 +27,7 @@
 </template>
 
 <script >
+import { useLanguageStore } from '../store/AppBasic/languageStore'
 export default {
     name: 'Alert',
     props: {
@@ -54,7 +54,7 @@ export default {
             type: String,
             default: 'normal'
         },
-        width :{
+        width: {
             type: String,
             default: 'normal'
         },
@@ -62,9 +62,9 @@ export default {
             type: String,
             default: 'alert-modal'
         },
-        btnsVisibility :{
-            type:Boolean,
-            default :true
+        btnsVisibility: {
+            type: Boolean,
+            default: true
         }
     },
     emits: ['handleCloseBtn'],
@@ -75,7 +75,9 @@ export default {
         }
 
         return {
-            handleCloseBtn
+            handleCloseBtn,
+            useLanguageStore
+
         }
     }
 }
