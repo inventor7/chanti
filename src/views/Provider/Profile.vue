@@ -27,8 +27,8 @@
             <!-- Card -->
             <div class="bg-white rounded-xl shadow ">
                 <div class="relative top-0 h-52 md:h-[60vh] rounded-t-xl   bg-cover bg-center bg-no-repeat">
-                    <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl" :src="`../assets/${backgImg}`"
-                        alt="Image Description">
+                    <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl"
+                        :src="`../assets/${backgImg}`" alt="Image Description">
 
 
                     <!-- <div class="absolute top-1 btn  btn-circle left-1">
@@ -139,7 +139,7 @@
                                     <span class="material-icons">
                                         send
                                     </span>
-                                  {{ languageStore.getWord('request') }}
+                                    {{ languageStore.getWord('request') }}
                                 </button>
 
                                 <button @click="makePhoneCall"
@@ -230,22 +230,24 @@
                     <nav class="flex space-x-2" aria-label="Tabs">
                         <!-- Tab 1 -->
                         <button
-                            class="flex items-center justify-center border-2 transition-all duration-300 ease-in-out w-full h-full py-2 text-sm font-medium text-gray-500 rounded-t-xl "
-                            :class="{ ' text-primary border-2 bg-white ': selectedTab === 2 }" @click="selectedTab = 2">
+                            class="flex items-center justify-center border-2 transition-all duration-300 ease-in-out w-full h-full py-2 text-sm font-medium text-gray-500 rounded-t-xl gap-1 "
+                            :class="{ ' text-primary border-2 bg-white ': selectedTab === 2, 'flex-row-reverse': languageStore.getRtl }"
+                            @click="selectedTab = 2">
                             <span class="material-icons">
                                 work
                             </span>
-                            <span class="ml-2">{{ languageStore.getWord('portfolio') }}</span>
+                            <span class=" text-xs">{{ languageStore.getWord('portfolio') }}</span>
                         </button>
 
                         <!-- Tab 2 -->
                         <button
-                            class="flex items-center justify-center border-2 transition-all duration-300 ease-in-out w-full h-full py-2 text-sm font-medium text-gray-500 rounded-t-xl "
-                            :class="{ ' text-primary border-2 bg-white ': selectedTab === 1 }" @click="selectedTab = 1">
+                            class="flex items-center justify-center border-2 transition-all duration-300 ease-in-out w-full h-full py-2 text-sm font-medium text-gray-500 rounded-t-xl gap-1 "
+                            :class="{ ' text-primary border-2 bg-white ': selectedTab === 1, 'flex-row-reverse': languageStore.getRtl }"
+                            @click="selectedTab = 1">
                             <span class="material-icons">
                                 reviews
                             </span>
-                            <span class="ml-2">{{ languageStore.getWord('proj_&_review') }}</span>
+                            <span class=" text-xs">{{ languageStore.getWord('proj_&_review') }}</span>
                         </button>
                     </nav>
                 </div>
@@ -256,8 +258,10 @@
                         <RatingSection :rating="provider.rating" />
                     </div>
                     <div v-if="selectedTab === 2">
-                        <ProviderPosts :key="1" />
+                        <Loading v-if="portfolioStore.loadingPortfolioPosts" />
+                        <ProviderPosts v-else :key="1" />
                     </div>
+
                 </div>
             </div>
         </div>
@@ -393,6 +397,7 @@ export default {
                     }
                 });
             }
+
             if (provider.value.type === 'responsed') {
                 clientDemandeStore.$state.selectedPost.providersSentResponse.forEach((pro) => {
                     if (pro.id === provider.value.id) {

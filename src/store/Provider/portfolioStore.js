@@ -23,12 +23,11 @@ export const usePortfolioStore = defineStore("portfolioStore", {
       status: false,
     },
 
-    loadingPortfolioPosts : false ,
-    errorPortfolioPosts : {
-      message : "" ,
-      status : false
-    } ,
-
+    loadingPortfolioPosts: false,
+    errorPortfolioPosts: {
+      message: "",
+      status: false,
+    },
 
     //portfolio posts
     portfolioPosts: [],
@@ -82,6 +81,7 @@ export const usePortfolioStore = defineStore("portfolioStore", {
 
     async getProviderPosts(providerId) {
       try {
+        this.loadingPortfolioPosts = true;
         const response = await axios({
           method: "post",
           url: `${useAuthStore().baseUrl}/profile/portfolio`,
@@ -89,12 +89,12 @@ export const usePortfolioStore = defineStore("portfolioStore", {
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "providerId" :providerId
+            providerId: providerId,
           },
           timeout: 13000, // 13 seconds
         });
 
-        this.portfolioPosts = response.data.result
+        this.portfolioPosts = response.data.result;
         this.loadingPortfolioPosts = false;
         this.errorPortfolioPosts.status = false;
         this.errorPortfolioPosts.message = "";
@@ -115,7 +115,6 @@ export const usePortfolioStore = defineStore("portfolioStore", {
       }
     },
 
-
     //Posts
     async deletePost(portfolioPostId) {
       try {
@@ -128,7 +127,7 @@ export const usePortfolioStore = defineStore("portfolioStore", {
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            portfolioPostId:portfolioPostId,
+            portfolioPostId: portfolioPostId,
           },
           timeout: 13000, // 13 seconds
         });
@@ -164,9 +163,9 @@ export const usePortfolioStore = defineStore("portfolioStore", {
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {
-            "portfolioPostId":postToEdit.id,
-            "details":postToEdit.details,
-            "images":postToEdit.images,
+            portfolioPostId: postToEdit.id,
+            details: postToEdit.details,
+            images: postToEdit.images,
           },
           timeout: 13000, // 13 seconds
         });

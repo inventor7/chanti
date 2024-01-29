@@ -1,8 +1,8 @@
 <template>
     <SignupLayout prevLink="desc" :pageNumber="7" :isError="notSelectedError" :errorText="errorText" nextBtnText="Next"
         @handle="handleClick" :pageTitle="languageStore.getWord('pros')"
-        :pageDesc="languageStore.getWord('consult_&_request')"
-        componentLocation="selectionProcess" :navigationVisibility="false" :deleteBtnVisibility="false">
+        :pageDesc="languageStore.getWord('consult_&_request')" componentLocation="selectionProcess"
+        :navigationVisibility="false" :deleteBtnVisibility="false">
 
 
 
@@ -36,7 +36,7 @@
                                     <div
                                         class=" w-16 h-16 rounded-full bg-sky-800 mr-4 flex flex-col justify-center items-center ">
                                         <p class=" text-white text-base uppercase font-bold ">
-                                            {{ provider.firstName.slice(0, 1)}}
+                                            {{ provider.firstName.slice(0, 1) }}
                                             {{ provider.lastName.slice(0, 1) }}
                                         </p>
                                     </div>
@@ -45,7 +45,8 @@
                                             {{ provider.firstName }} {{ provider.lastName }}
                                         </h3>
 
-                                        <div class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-1">
+                                        <div
+                                            class=" flex flex-row justify-start items-center w-full sm:mt-3 space-x-[0.5px]">
 
                                             <span class=" text-black  ">
                                                 {{ provider.rating }}
@@ -54,6 +55,7 @@
                                             <span class="material-icons text-primary text-sm">
                                                 star
                                             </span>
+                                            <p class=" text-xs text-gray-400 pl-1 "> ({{ provider.ratingCount }})</p>
                                         </div>
 
                                         <p class=" text-xs md:text-sm font-semibold text-gray-400">
@@ -77,7 +79,7 @@
                                 <button v-show="!provider.btnLoading" v-if="provider.btnVisible"
                                     @click="handleSendRequest(provider.id)"
                                     class="btn  w-full btn-sm sm:btn-md  btn-primary rounded-xl text-white">
-                                {{ languageStore.getWord('send_request') }}
+                                    {{ languageStore.getWord('send_request') }}
                                 </button>
                                 <button v-show="!provider.btnLoading" @click="makePhoneCall(provider)" v-else
                                     class="btn h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success w-full gap-2">
@@ -86,8 +88,8 @@
                                     </span>
                                     {{ provider.phoneNumber }}
                                 </button>
-                                <button v-show="provider.btnLoading"
-                                    class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
+                                <button v-show="provider.btnLoading" class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
+                                    Loading...
                                 </button>
                             </div>
 
@@ -107,7 +109,7 @@
     <div class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
         <button v-show="!clientStore.btnLoadingAll && clientStore.$state.btnVisibleAll" @click="handleSendRequest('all')"
             class="btn self-center text-white   w-full md:w-1/3  btn-primary mt-2 rounded-xl btn-md ">
-           {{ languageStore.getWord('publish') }}
+            {{ languageStore.getWord('publish') }}
         </button>
         <!-- Loading button -->
         <button v-show="clientStore.btnLoadingAll && !clientStore.$state.btnVisibleAll"
@@ -223,18 +225,20 @@ export default {
         }
 
         const showProfile = (provider) => {
+
+            router.push({
+                name: 'profile',
+                params: { name: provider.firstName + '-' + provider.lastName }
+            })
+
             //show profile based on the provider id
             portfolioStore.getProviderInfo(provider.id).then(() => {
             })
 
             portfolioStore.getProviderPosts(provider.id).then((res) => {
-
                 providerStore.$state.provider.btnVisible = provider.btnVisible
             })
-            router.push({
-                name: 'profile',
-                params: { name: provider.firstName + '-' + provider.lastName }
-            })
+
         }
 
         return {
