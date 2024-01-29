@@ -10,14 +10,15 @@
             <div class=" flex flex-col  justify-center  items-center  w-full h-full   ">
                 <Loading v-if="clientStore.loadingPosting" />
                 <!-- results -->
-                <div v-else class=" w-full md:w-1/2 h-full  rounded-2xl my-2 md:p-2">
+                <div v-else class=" w-full md:w-1/2 h-full   rounded-2xl my-2 md:p-2">
 
 
                     <!-- if providers empty -->
-                    <div class="w-full h-[50vh] flex flex-col justify-center  items-center ">
+                    <div class="w-full h-full flex justify-center items-center  ">
                         <div v-if="!providerStore.$state.providers || providerStore.$state.providers.length == 0" class="w-full h-full flex flex-col justify-center items-center ">
-                            <Error class=" text-base md:text-xl font-semibold whitespace-pre-line "
+                            <Error class=" h-fit text-base md:text-xl font-semibold mt-20 md:mt-0  "
                                 error="No compatible providers found." />
+                                <img class="w-4/6" src="../../assets/no_data.svg" alt="empty">
                         </div>
 
                         <!-- showing results -->
