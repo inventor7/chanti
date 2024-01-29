@@ -67,6 +67,7 @@ export const useClientStore = defineStore("clientStore", {
           provider.btnVisible = true;
           provider.btnLoading = false;
         });
+        
         return response;
       } catch (error) {
         this.loadingPosting = false;

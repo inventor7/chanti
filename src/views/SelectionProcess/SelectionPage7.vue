@@ -11,22 +11,18 @@
                 <Loading v-if="clientStore.loadingPosting" />
                 <!-- results -->
                 <div v-else class=" w-full md:w-1/2 h-full  rounded-2xl my-2 md:p-2">
-                    <div v-if="clientStore.errorPosting.status"
-                        class=" h-full w-full flex flex-col justify-center items-center ">
-                        <Error class=" text-xl font-semibold " :error="clientStore.errorPosting.message" />
-                    </div>
+
 
                     <!-- if providers empty -->
-                    <div v-else class="w-full flex flex-col justify-center  items-center ">
-                        <div v-if="!providerStore.$state.providers || providerStore.$state.providers.length == 0"
-                            class="w-full h-full flex flex-col justify-center items-center ">
-                            <Error class=" text-xl font-semibold whitespace-pre-line "
+                    <div class="w-full h-[50vh] flex flex-col justify-center  items-center ">
+                        <div v-if="!providerStore.$state.providers || providerStore.$state.providers.length == 0" class="w-full h-full flex flex-col justify-center items-center ">
+                            <Error class=" text-base md:text-xl font-semibold whitespace-pre-line "
                                 error="No compatible providers found." />
                         </div>
 
                         <!-- showing results -->
-                        <div class=" flex flex-col justify-start items-center gap-2 w-full md:max-w-sm  overflow-auto  h-[70%]  "
-                            v-else>
+                        <div v-else
+                            class=" flex flex-col justify-start items-center gap-2 w-full md:max-w-sm  overflow-auto  h-[70%]  ">
 
 
                             <div v-for="provider in  providerStore.$state.providers" :key="provider.id"
@@ -88,7 +84,8 @@
                                     </span>
                                     {{ provider.phoneNumber }}
                                 </button>
-                                <button v-show="provider.btnLoading" class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
+                                <button v-show="provider.btnLoading"
+                                    class="btn loading btn-sm sm:btn-md btn-primary rounded-3xl text-white">
                                     Loading...
                                 </button>
                             </div>
@@ -106,7 +103,7 @@
 
     </SignupLayout>
 
-    <div class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
+    <div v-if="providerStore.$state.providers && providerStore.$state.providers.length != 0" class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
         <button v-show="!clientStore.btnLoadingAll && clientStore.$state.btnVisibleAll" @click="handleSendRequest('all')"
             class="btn self-center text-white   w-full md:w-1/3  btn-primary mt-2 rounded-xl btn-md ">
             {{ languageStore.getWord('publish') }}
