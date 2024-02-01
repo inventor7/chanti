@@ -1,9 +1,9 @@
 <template>
     <transition name="slideRight">
         <div v-if="RatingPageVisibility"
-            class="bg-white right-0 top-0 w-screen md:w-1/2 overflow-y-scroll h-screen    z-50 fixed">
+            class="bg-white right-0 top-0 w-screen md:w-1/3 overflow-y-scroll h-screen    z-50 fixed">
             <div
-                class=" flex fixed px-2 shadow-xl  w-screen md:w-1/2 rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
+                class=" flex fixed px-2 shadow-xl  w-screen md:w-1/3 rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
                 <button class=" btn-circle " @click="handleBack">
                     <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
                         arrow_back_ios

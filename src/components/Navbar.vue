@@ -75,6 +75,7 @@
                     <!-- get the first letter of the firstname and lastname -->
                         {{ authStore.$state.userAuth.firstName[0] }}{{ authStore.$state.userAuth.lastName[0] }}
                 </label>
+             
                 <ul tabindex="0"
                     class="menu menu-compact shadow-2xl border-2 font-semibold dropdown-right  dropdown-content gap-1 py-2 px-1  bg-base-100 rounded-box w-52">
                     <div class="py-2 px-4 overflow-hidden -mx-2 -mt-2 bg-gray-200 rounded-t-lg ">

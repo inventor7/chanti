@@ -5,31 +5,30 @@
             <div class=" relative flex flex-col justify-between w-full h-[50vh] sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
                 <!-- add an overlay image -->
                 <img src="../../assets/OIG.jpg"
-                    class="w-full absolute top-0 left-0 z-0  h-full object-cover sm:object-cotain rounded-2xl " />
+                    class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain rounded-2xl " />
 
                 <!-- add a gradient -->
-                <div class="absolute top-0 left-0 z-20 w-full h-full  bg-black opacity-30 rounded-2xl "></div>
+                <div class="absolute top-0 left-0 z-10 w-full h-full rounded-2xl bg-gradient-to-r from-secondary backdrop-blur-[1px]  to-transparent "></div>
 
                 <div class="px-2 z-20 flex-1  sm:px-4 w-full h-fit  flex flex-row items-center py-0  "
                     :class="{ 'justify-end': languageStore.getRtl, 'justify-start': !languageStore.getRtl }">
-                    <div class="w-flex max-w-5xl  flex-col py-4 md:gap-6 justify-between items-start ">
+                    <div class="flex flex-col justify-between items-start py-4 w-full md:w-2/3 max-w-5xl h-1/2 md:h-2/3  ">
                         <h1 v-if="authStore.$state.isAuthenticated == false" :class="{ 'text-end': languageStore.getRtl }"
                             class="  text-2xl  sm:text-4xl md:text-5xl    text-white whitespace-normal mb-5 font-bold">
                             {{ languageStore.getWord('title') }}
-                            <span class="underline underline-offset-4 text-primary">
+                            <span class="text-primary">
                                 {{ languageStore.getWord('endTitle') }}
                             </span>
                         </h1>
-                        <h1 v-else 
-                        :class="{ 'text-end': languageStore.getRtl }"
-                        class="  text-3xl  sm:text-4xl md:text-5xl  text-white whitespace-normal mb-5 font-bold">
-                          {{ languageStore.getWord('welcome_back')  }}
-                            <span class="underline underline-offset-4 text-primary">
+                        <h1 v-else :class="{ 'text-end': languageStore.getRtl }"
+                            class=" first-letter:uppercase  text-3xl  sm:text-6xl  text-white whitespace-normal mb-5 font-bold">
+                            {{ languageStore.getWord('welcome_back') }}
+                            <span class="text-primary">
                                 {{ authStore.$state.userAuth.lastName.toUpperCase() }}
                             </span>
                         </h1>
 
-                        <SearchBar componentLocation="home" class=" w-full  shadow-black shadow-lg" />
+                        <SearchBar componentLocation="home" class=" w-full shadow-xl" />
                     </div>
                 </div>
 

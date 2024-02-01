@@ -8,9 +8,9 @@
 
     <transition name="slideRight">
         <div v-if="clientDemandeStore.clientPostPageVisibility"
-            class="bg-white right-0 top-0 w-screen md:w-1/2  shadow-2xl overflow-y-scroll h-screen   z-[80] fixed">
+            class="bg-white right-0 top-0 w-screen md:w-1/3  shadow-2xl overflow-y-scroll h-screen   z-[80] fixed">
             <div
-                class=" flex fixed px-2 shadow-xl  w-screen md:w-1/2 rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
+                class=" flex fixed px-2 shadow-xl  w-screen md:w-1/3 rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
                 <button class=" btn-circle " @click="handleClosePostPage">
                     <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
                         arrow_back_ios
@@ -150,22 +150,25 @@
                 </div>
             </div>
 
+
+
+
             <div v-if="post.status === 'pending'"
-                class="w-full md:w-[50vw]  fixed flex flex-col items-center justify-center right-0 z-50 bottom-0 px-2 py-2 bg-white   ">
-                <div class="grid grid-rows-1 grid-cols-12 bg-transparent w-full  ">
-                    <label for="delete-modal" @click="handleWorkStatus('delete')"
-                        class="btn  btn-sm text-error btn-ghost hover:bg-error hover:text-white col-span-5  w-full px-0  ">
-                       supprimer
-                    </label>
-                    <div class="divider col-span-2 mx-0 divider-horizontal "></div>
+                class="w-full md:w-[33.33vw]  fixed flex flex-col items-center justify-center right-0 z-50 bottom-0 px-2 py-2 bg-white   ">
+                <div class=" post_action flex justify-between items-center  w-[95%] h-full py-1 gap-2 ">
                     <button
                         :disabled="(providersSentResponse && providersSentResponse.length === 0 && providersInterest && providersInterest.length === 0)"
                         @click="handleWorkStatus('done')"
-                        class="btn  btn-sm  whitespace-nowrap text-success hover:bg-success hover:text-white col-span-5 btn-ghost  w-full  px-0  ">
-                        marque faite
+                        class=" btn btn-secondary text-white btn-sm btn-outline rounded-lg text-xs w-1/2 ">
+                        End Project
                     </button>
-                </div>
 
+                    <label for="delete-modal"
+                     @click="handleWorkStatus('delete')"
+                        class=" btn btn-primary btn-sm text-white rounded-lg text-xs w-1/2  ">
+                        Delete
+                    </label>
+                </div>
             </div>
 
         </div>
@@ -220,7 +223,7 @@ export default defineComponent({
         const handleClosePostPage = () => {
             clientDemandeStore.clientPostPageVisibility = false
             clientDemandeStore.selectedPost.images = []
-            
+
         }
 
         const handleWorkStatus = (status) => {

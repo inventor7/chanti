@@ -1,7 +1,7 @@
 <template>
-    <div
+    <div @click="showProfile(provider)"
         class=" flex flex-col justify-start items-start shadow-md rounded-xl bg-white  border-t-2 border-x-2 mb-2 p-2 w-full  h-fit cursor-pointer ">
-        <div @click="showProfile(provider)" class="relative flex flex-row justify-start items-end w-full p-1  gap-2 ">
+        <div  class="relative flex flex-row justify-start items-end w-full p-1  gap-2 ">
             <label v-if="componentLocation === 'RatingClientPage'" class="absolute w-full z-30 cursor-pointer h-full  "
                 for="alert-modal"></label>
             <div class="flex flex-col justify-start items-start w-full h-full font-semibold ">

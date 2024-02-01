@@ -132,8 +132,9 @@
                             <div
                                 class="mt-4 sm:mt-auto sm:mb-1.5 flex flex-1 w-full flex-row justify-center md:justify-start items-center  gap-2">
 
+                                
                                 <!-- request buttons -->
-                                <button v-if="provider.btnVisible && !provider.btnLoading && !provider.interestedIndicator"
+                                <button v-if="provider.btnVisible && !provider.btnLoading "
                                     @click="handleSendRequest(provider.id)"
                                     class="btn w-full sm:w-1/2 md:w-fit btn-sm h-10 py-2  font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
                                     <span class="material-icons">
@@ -143,7 +144,7 @@
                                 </button>
 
                                 <button @click="makePhoneCall"
-                                    v-if="!provider.btnVisible && (provider.status === 'accepted' || provider.status === 'pending') && !provider.btnLoading && !provider.interestedIndicator"
+                                    v-if="!provider.btnVisible && !provider.btnLoading"
                                     class="btn w-full sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success gap-2">
                                     <span class="material-icons text-xl ">
                                         phone
@@ -151,17 +152,18 @@
                                     {{ provider.phoneNumber }}
                                 </button>
 
-                                <button
-                                    v-if="!provider.btnVisible && provider.status === 'declined' && !provider.btnLoading && !provider.interestedIndicator"
-                                    class="btn w-full btn-error sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-error btn-sm md:btn-md z-20 bg-error/20 btn-disabled  gap-2">
-                                    <span class="material-icons text-error text-xl ">
-                                        cancel
-                                    </span>
-                                    Declined
+                                <button v-if="provider.btnLoading"
+                                    class="btn w-full  loading sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-error btn-sm md:btn-md z-20 bg-error/20 btn-disabled  gap-2">
+                                    Loading...
                                 </button>
 
-                                <!-- Interested or no -->
-                                <button v-if="provider.interestedIndicator && !provider.btnLoading"
+
+
+
+
+
+                                <!-- Accept Interested or Decline -->
+                                <!-- <button v-if="provider.interestedIndicator && !provider.btnLoading"
                                     @click="handleCallPro(provider, 'accepted')"
                                     class="btn btn-sm h-10 w-full md:w-fit flex-1 btn-success flex flex-row justify-center items-center gap-2 text-white">
                                     Accept
@@ -171,15 +173,13 @@
                                     class="btn btn-sm h-10 btn-primary w-full md:w-fit flex-1   flex flex-row justify-center items-center gap-2 text-white">
                                     Decline
                                 </button>
-                                <!-- end Interested or no -->
 
-                                <!-- loading  button -->
                                 <button v-if="!provider.btnVisible && provider.btnLoading"
                                     class="py-2 loading btn w-full sm:w-1/2 md:w-fit btn-sm h-10 font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
                                     <span class="material-icons">
                                         loop
                                     </span>
-                                </button>
+                                </button> -->
 
                                 <!-- end request buttons -->
 
@@ -199,30 +199,8 @@
 
 
 
-            <!-- <div
-                class="flex flex-row rounded-xl bg-gray-400/20 text-center justify-between md:justify-around  p-2 items-center w-full  sm:w-full mt-3 gap-1 ">
-                Stats
-                <div>
-                    <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">2,00+</p>
-                    <p class="  text-gray-400">projects with Chanti</p>
-                </div>
-                End Stats
 
-                Stats
-                <div >
-                        <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">2,000+</p>
-                        <p class="mt-1 text-gray-400">partner with Preline</p>
-                    </div>
-                End Stats
 
-                Stats
-                <div>
-                    <p class="mt-2 sm:mt-3 text-xl font-bold text-blue-500">85%</p>
-                    <p class=" text-gray-400">saying it's worth it</p>
-                </div>
-                End Stats
-            </div> -->
-            <!-- End Grid -->
 
 
             <div class="flex px-1 mt-4 flex-col bg-white  shadow-sm rounded-xl">
@@ -317,7 +295,21 @@ export default {
 
 
         const handleSendRequest = (providerId) => {
+            
+            provider.value.btnLoading = true
+
             clientStore.sendRequest(providerId, clientDemandeStore.$state.clientPostId).then((res) => {
+
+                provider.value.btnLoading = false
+                provider.value.btnVisible = false
+
+                providerStore.$state.providers.map((provider) => {
+                    if (provider.id == providerId) {
+                        provider.btnVisible = false
+                        provider.btnLoading = false
+                    }
+                })
+
                 if (res.status == 200) {
                     clientStore.$state.isSent = true
                     setTimeout(() => {
@@ -327,13 +319,7 @@ export default {
 
             })
 
-            provider.value.btnVisible = false
 
-            providerStore.$state.providers.map((provider) => {
-                if (provider.id == providerId) {
-                    provider.btnVisible = false
-                }
-            })
         }
 
 

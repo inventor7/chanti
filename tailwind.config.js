@@ -2,15 +2,23 @@
 module.exports = {
   content: ["./public/**/*.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+       // add a font family from google fonts
+    fontFamily: {
+      'sans': ['Rubik', 'sans-serif'],
+
+    },
+
+  }
+
   },
   daisyui: {
     themes: [
       {
         clientTheme: {
-          "primary": "#EB5323",
+          "primary": "#FF731D",
 
-          "secondary": "#2c5cc5",
+          "secondary": "#0a2463",
 
           "accent": "#aaaaaa",
 

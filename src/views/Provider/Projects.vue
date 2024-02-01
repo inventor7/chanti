@@ -31,12 +31,10 @@
             <Loading />
         </div>
 
-        <!-- End Loading -->
         <div v-else class=" flex flex-col justify-between items-center gap-4 lg:gap-6 w-full h-full">
-
             <!-- if projects empty -->
             <div v-if="localProjects.length <= 0" class=" flex flex-col justify-center items-center w-full h-[50vh] ">
-                <img class="w-full" src="../../assets/no-data.svg" alt="">
+                <img class="w-full" src="../../assets/no_projects.svg" alt="">
                 <h2 class=" font-semibold mt-2 ">No Project under this tab</h2>
             </div>
 

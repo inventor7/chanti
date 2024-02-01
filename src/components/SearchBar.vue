@@ -1,5 +1,5 @@
 <template  >
-    <div class=" border-2  bg-base-100 rounded-full flex   flex-row justify-center  items-center px-[3px] py-[3px]">
+    <div class=" flex flex-row justify-center  items-center w-full px-[1px] py-[1px]  border-2  bg-base-100 rounded-full">
         <input type="text" :placeholder="languageStore.getWord('searchPlaceHolder')"
         :class="{ 'text-end': languageStore.getRtl }"   
         class="flex-1 w-full input input-md text-[15px] sm:text-xl md:text-2xl font-semibold pl-4  md:pl-8   rounded-full focus:outline-none outline-none "

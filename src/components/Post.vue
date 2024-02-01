@@ -87,7 +87,7 @@ import { useclientDemandeStore } from '../store/Client/clientDemandeStore';
 import { useTimeDifference } from '../composables/timeDifference';
 
 export default {
-    name: 'Project',
+    name: 'Post',
     props: {
         post: {
             type: Object,

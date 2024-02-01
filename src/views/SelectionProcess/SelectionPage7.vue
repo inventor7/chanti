@@ -15,10 +15,11 @@
 
                     <!-- if providers empty -->
                     <div class="w-full h-full flex justify-center items-center  ">
-                        <div v-if="!providerStore.$state.providers || providerStore.$state.providers.length == 0" class="w-full h-full flex flex-col justify-center items-center ">
+                        <div v-if="!providerStore.$state.providers || providerStore.$state.providers.length == 0"
+                            class="w-full h-full flex flex-col justify-center items-center ">
                             <Error class=" h-fit text-base md:text-xl font-semibold mt-20 md:mt-0  "
                                 error="No compatible providers found." />
-                                <img class="w-4/6" src="../../assets/no_data.svg" alt="empty">
+                            <img class="w-4/6" src="../../assets/no_data.svg" alt="empty">
                         </div>
 
                         <!-- showing results -->
@@ -104,7 +105,7 @@
 
     </SignupLayout>
 
-    <div v-if="providerStore.$state.providers && providerStore.$state.providers.length != 0" class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
+    <div class="fixed z-50 md:bottom-8 bg-white  flex justify-center    bottom-4 w-full px-4">
         <button v-show="!clientStore.btnLoadingAll && clientStore.$state.btnVisibleAll" @click="handleSendRequest('all')"
             class="btn self-center text-white   w-full md:w-1/3  btn-primary mt-2 rounded-xl btn-md ">
             {{ languageStore.getWord('publish') }}
@@ -132,6 +133,8 @@
 
     <Toast class=" z-50 bottom-0 " :isVisible="clientStore.$state.isSentAll" color="success"
         message="request sent successfully" />
+
+    <LoadingIndicator class="w-10 h-10 top-4 right-2" v-if="isLoad" />
 </template>
 
 <script>
@@ -140,6 +143,7 @@ import Error from '../../components/Error.vue'
 import Loading from '../../components/Loading.vue'
 import Toast from '../../components/Toast.vue';
 import Rating from '../../components/Rating.vue';
+import LoadingIndicator from '../../components/LoadingIndicator.vue';
 import { useUserStore } from '../../store/userStore';
 import { useLanguageStore } from '../../store/AppBasic/languageStore';
 import { useCategoriesStore } from '../../store/categoriesStore';
@@ -154,7 +158,7 @@ import Category from '../../components/Category/Category.vue';
 
 export default {
     name: 'SelectionPage7',
-    components: { SignupLayout, Category, Error, Loading, Toast, Rating },
+    components: { SignupLayout, Category, Error, Loading, Toast, Rating, LoadingIndicator },
     setup() {
         //props
         const notSelectedError = ref(false)
@@ -172,13 +176,16 @@ export default {
 
         //vars
         const errorText = ref('')
+        const isLoad = ref(false)
 
         const handleClick = () => {
 
         }
 
         const handleSendRequest = (providerId) => {
+            isLoad.value = true
             clientStore.sendRequest(providerId, clientDemandeStore.$state.clientPostId).then((res) => {
+                isLoad.value = false
                 if (res.status == 200) {
                     if (providerId == 'all') {
                         clientStore.$state.isSentAll = true
@@ -224,18 +231,30 @@ export default {
 
         const showProfile = (provider) => {
 
-            router.push({
-                name: 'profile',
-                params: { name: provider.firstName + '-' + provider.lastName }
-            })
+
 
             //show profile based on the provider id
+            isLoad.value = true
             portfolioStore.getProviderInfo(provider.id).then(() => {
+
+                portfolioStore.getProviderPosts(provider.id).then((res) => {
+                    isLoad.value = false
+                    if (res.status == 200) {
+                        providerStore.$state.provider.btnVisible = provider.btnVisible
+                        router.push({
+                            name: 'profile',
+                            params: { name: provider.firstName + '-' + provider.lastName }
+                        })
+                    } else {
+                        portfolioStore.$state.errorPortfolioPosts.status = true
+                        portfolioStore.$state.errorPortfolioPosts.message = res.data.message
+                        setTimeout(() => {
+                            portfolioStore.$state.errorPortfolioPosts.status = false
+                        }, 3000);
+                    }
+                })
             })
 
-            portfolioStore.getProviderPosts(provider.id).then((res) => {
-                providerStore.$state.provider.btnVisible = provider.btnVisible
-            })
 
         }
 
@@ -244,7 +263,8 @@ export default {
             notSelectedError,
             errorText,
 
-
+            //var
+            isLoad,
 
             //store
             router,
