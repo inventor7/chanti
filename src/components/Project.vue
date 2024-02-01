@@ -2,7 +2,7 @@
     <!-- project card -->
     <div id="main" class=" flex flex-col justify-start items-center w-[97%] gap-4 p-2 border border-gray-300 rounded-xl ">
         <div id="info-section" class=" flex flex-row justify-start items-start w-full gap-2 ">
-            <img class=" w-1/2 " src="../assets/carpenter.svg" alt="">
+            <img class=" w-1/2 " :src="`../assets/${backgImg}`"  alt="">
             <div id="info" class=" flex flex-col justify-start items-start w-full gap-2 ">
                 <h1 class="text-xl font-bold text-gray-700 ">{{ project.id.slice(0,2) }}</h1>
                 <p>{{ formatTime(project.createdAt) }}</p>
@@ -38,39 +38,40 @@ const props = defineProps({
 
 //computed
 let backgImg = computed(() => {
-    switch (project) {
-        case 'moving_storage_services':
-            return 'moving.svg'
+    switch (props.project.categoryId) {
+        case 10:
+            return 'moving_storage_services.svg'
 
-        case 'home_inspection_appraisal':
-            return 'maintenance.svg'
+        case 9:
+            return 'home_inspection_appraisal.svg'
 
-        case 'painting_finishing':
-            return 'painting.svg'
+        case 8:
+            return 'painting_finishing.svg'
 
-        case 'landscape_outdoor_living':
-            return 'gardening.svg'
+        case 7:
+            return 'landscape_outdoor_living.svg'
 
-        case 'plumbing_water_management':
-            return 'plumber.svg'
+        case 6:
+            return 'plumbing_water_management.svg'
 
-        case 'electrical_hvac':
-            return 'electrecian.svg'
+        case 5:
+            return 'electrical_hvac.svg'
 
-        case 'cleaning_house_keeping':
-            return 'cleaning.svg'
+        case 4:
+            return 'cleaning_house_keeping.svg'
 
-        case 'interior_design_decorating':
-            return 'design.svg'
+        case 3:
+            return 'interior_design_decorating.svg'
 
-        case 'construction_remodelling':
-            return 'remodeling.svg'
+        case 2:
+            return 'construction_remodelling.svg'
 
-        case 'home_improvement_maintenance':
-            return 'maintenance.svg'
+        case 1:
+            return 'home_improvement_maintenance.svg'
 
     }
 })
+
 
 //stores
 const { timeDifference } = useTimeDifference()
