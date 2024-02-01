@@ -132,9 +132,9 @@
                             <div
                                 class="mt-4 sm:mt-auto sm:mb-1.5 flex flex-1 w-full flex-row justify-center md:justify-start items-center  gap-2">
 
-                                
+
                                 <!-- request buttons -->
-                                <button v-if="provider.btnVisible && !provider.btnLoading "
+                                <button v-if="provider.btnVisible && !provider.btnLoading"
                                     @click="handleSendRequest(provider.id)"
                                     class="btn w-full sm:w-1/2 md:w-fit btn-sm h-10 py-2  font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
                                     <span class="material-icons">
@@ -143,8 +143,7 @@
                                     {{ languageStore.getWord('request') }}
                                 </button>
 
-                                <button @click="makePhoneCall"
-                                    v-if="!provider.btnVisible && !provider.btnLoading"
+                                <button @click="makePhoneCall" v-if="!provider.btnVisible && !provider.btnLoading"
                                     class="btn w-full sm:w-1/2 md:w-fit h-12 text-lg font-semibold text-white btn-sm md:btn-md z-20 bg-success btn-success gap-2">
                                     <span class="material-icons text-xl ">
                                         phone
@@ -295,7 +294,7 @@ export default {
 
 
         const handleSendRequest = (providerId) => {
-            
+
             provider.value.btnLoading = true
 
             clientStore.sendRequest(providerId, clientDemandeStore.$state.clientPostId).then((res) => {
@@ -333,35 +332,26 @@ export default {
         let backgImg = computed(() => {
             switch (provider.value.category.name) {
                 case 'moving_storage_services':
-                    return 'moving.svg'
+                    return 'moving_storage_services.svg'
 
                 case 'home_inspection_appraisal':
-                    return 'maintenance.svg'
-
+                    return 'home_inspection_appraisal.svg'
                 case 'painting_finishing':
-                    return 'painting.svg'
-
+                    return 'painting_finishing.svg'
                 case 'landscape_outdoor_living':
-                    return 'gardening.svg'
-
+                    return 'landscape_outdoor_living.svg'
                 case 'plumbing_water_management':
-                    return 'plumber.svg'
-
+                    return 'plumbing_water_management.svg'
                 case 'electrical_hvac':
-                    return 'electrecian.svg'
-
+                    return 'electrical_hvac.svg'
                 case 'cleaning_house_keeping':
-                    return 'cleaning.svg'
-
+                    return 'cleaning_house_keeping.svg'
                 case 'interior_design_decorating':
-                    return 'design.svg'
-
+                    return 'interior_design_decorating.svg'
                 case 'construction_remodelling':
-                    return 'remodeling.svg'
-
+                    return 'construction_remodelling.svg'
                 case 'home_improvement_maintenance':
-                    return 'maintenance.svg'
-
+                    return 'home_improvement_maintenance.svg'
             }
         })
 

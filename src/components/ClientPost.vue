@@ -114,34 +114,34 @@ const clientDemandeStore = useclientDemandeStore()
 let backgImg = computed(() => {
     switch (props.post.categoryId) {
         case 10:
-            return 'moving.svg'
+            return 'moving_storage_services.svg'
 
         case 9:
-            return 'maintenance.svg'
+            return 'home_inspection_appraisal.svg'
 
         case 8:
-            return 'painting.svg'
+            return 'painting_finishing.svg'
 
         case 7:
-            return 'gardening.svg'
+            return 'landscape_outdoor_living.svg'
 
         case 6:
-            return 'plumber.svg'
+            return 'plumbing_water_management.svg'
 
         case 5:
-            return 'electrecian.svg'
+            return 'electrical_hvac.svg'
 
         case 4:
-            return 'cleaning.svg'
+            return 'cleaning_house_keeping.svg'
 
         case 3:
-            return 'design.svg'
+            return 'interior_design_decorating.svg'
 
         case 2:
-            return 'remodeling.svg'
+            return 'construction_remodelling.svg'
 
         case 1:
-            return 'maintenance.svg'
+            return 'home_improvement_maintenance.svg'
 
     }
 })
