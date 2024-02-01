@@ -6,6 +6,7 @@
 
     <div v-if="!notificationStore.errorNotification.status" class="w-full h-full"> -->
 
+
     <transition name="slideRight">
         <div v-if="clientDemandeStore.clientPostPageVisibility"
             class="bg-white right-0 top-0 w-screen md:w-1/3  shadow-2xl overflow-y-scroll h-screen   z-[80] fixed">
@@ -67,25 +68,15 @@
                 <!------------------------------------ Post Images ------------------------------------>
 
 
-                <div class="pt-1 mb-6 rounded-b-lg  border-2 ">
-                    <h2 class="font-bold pt-2 pl-1 mb-1  text-xl">{{
+                <div class=" my-6 space-y-4 rounded-b-lg  ">
+                    <h2 class="font-bold  text-2xl">{{
                         languageStore.getWord(categoriesStore.getCategoryById(post.categoryId)) }}
                     </h2>
-                    <div class="w-full h-fit bg-gray-300/30  rounded-lg px-2 pt-3 ">
-                        <p class="text-xs text-gray-500 mb-2 ">{{ post.id }}</p>
-                        <div class="flex flex-row  justify-between items-center w-full">
-                            <div class="flex  px-2 rounded-full flex-row gap-1 items-center self-start " :class="{
-                                'text-red-500 bg-red-500/20': post.urgency === 'urgent',
-                                'text-yellow-500 bg-yellow-500/20': post.urgency === 'normal',
-                                'text-green-500 bg-green-500/20': post.urgency === 'low',
-                                'text-blue-500 bg-blue-500/20': post.urgency === 'unplanned',
-                            }">
-                                <span class="material-icons text-sm" :class="{
-                                    'text-red-500': post.urgency === 'urgent',
-                                    'text-yellow-500': post.urgency === 'normal',
-                                    'text-green-500': post.urgency === 'low',
-                                    'text-blue-500': post.urgency === 'unplanned',
-                                }">
+                    <div class="w-full h-fit p-2 text-gray-400 rounded-md ">
+                        <p class="text-xs  mb-2 ">#{{ post.id }}</p>
+                        <div class="flex flex-col  justify-between items-start gap-2 w-full">
+                            <div class="flex rounded-full flex-row gap-1  items-center self-start ">
+                                <span class="material-icons text-primary text-sm" >
                                     {{ post.urgency === 'urgent' ? 'hourglass_full' : post.urgency === 'low' ?
                                         'hourglass_empty' : post.urgency === 'normal' ? 'hourglass_bottom' :
                                             'hourglass_disabled' }}
@@ -95,59 +86,74 @@
                                 <span class="text-sm">{{ post.urgency }}</span>
                             </div>
 
-                            <p class="text-xs flex items-center text-gray-400 mr-2 ">
-                                <span class="material-icons text-center text-sm text-primary">
+                            <p class="text-xs flex items-center gap-1  ">
+                                <span class="material-icons text-center  text-sm text-primary">
                                     location_on
                                 </span>
                                 {{ wilayasStore.getWilayaById(post.stateId) }}
                             </p>
-                            <p class="text-xs  text-gray-400">{{ formatTime(post.createdAt) }}</p>
+                            <p class="text-xs  flex items-center gap-1  text-gray-400">
+                                <span class="material-icons text-center text-sm text-primary">
+                                    access_time
+                                </span>{{ formatTime(post.createdAt) }}
+                            </p>
                         </div>
-                        <p class="pl-1 pb-2  mt-4">{{ post.description }}</p>
+                        <p class="">{{ post.description }}</p>
+                    </div>
+                </div>
+
+
+                <h2 class=" text-xl text-black/70 font-bold mb-3 ">Your Pros for the project</h2>
+                <div class=" w-full flex flex-col gap-4"
+                    v-if="providersSentResponse && providersSentResponse.length === 0 && providersInterest && providersInterest.length === 0">
+                    <p class="text-center text-gray-400 text-sm my-6 ">No providers responsed yet</p>
+                    <div class=" w-full bg-info/20 p-4 rounded-md space-y-2 " v-if="!post.publish">
+                        <p class=" flex flex-row justify-start items-center text-info text-sm gap-2 ">
+                            <span class="material-icons text-info text-lg">
+                                info
+                            </span>
+                            You can publish the post to get more
+                            providers
+                        </p>
+                        <button @click="publish(post.id)"
+                            class="btn gap-2 btn-secondary btn-sm ml-4 sm:ml-0 text-white rounded-lg text-xs   ">
+                            <span class="text-white text-sm">
+                                {{ languageStore.getWord('publish') }}
+                            </span>
+                            <div v-if="isLoading" class="loading animate-spin ">
+                                <svg class="animate-spin h-5 w-5 md:h-6 md:w-6" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0
+                  3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </div>
+                        </button>
                     </div>
                 </div>
 
 
 
                 <!-- Providers Responsed -->
-                <h3 class="font-semibold text-secondary  rounded-t-xl bg-secondary/10 w-fit px-2 py-0.5   ">Providers
-                    Responsed</h3>
-                <div class=" border-secondary p-1 bg-secondary/10 rounded-b-xl rounded-tr-xl  ">
-                    <div v-if="providersSentResponse && providersSentResponse.length === 0"
-                        class="flex flex-col items-center justify-center w-full min-h-[50vh] ">
-                        <span class="material-icons text-secondary text-6xl">sentiment_dissatisfied</span>
-                        <p class="text-secondary text-sm">No providers responsed yet</p>
-                    </div>
-                    <div v-if="!clientDemandeStore.loadingClientDemande" class="w-full space-y-3 box ">
-                        <ProviderCard v-for="provider in providersSentResponse " :key="provider.id" :provider="provider"
-                            type="responsed" componentLocation="ClientPostDetailsPage" />
-                    </div>
+                <div v-if="!clientDemandeStore.loadingClientDemande" class="w-full space-y-3 box ">
+                    <ProviderCard v-for="provider in providersSentResponse " :key="provider.id" :provider="provider"
+                        type="responsed" componentLocation="ClientPostDetailsPage" />
                 </div>
-
-
                 <!-- Providers Interested -->
-                <h3 class="mt-8 font-semibold text-primary  rounded-t-xl bg-primary/10 w-fit px-2 py-0.5   ">Providers
-                    Interested </h3>
-                <div class=" border-primary p-1 bg-primary/10 rounded-b-xl rounded-tr-xl  ">
-                    <div v-if="providersInterest && providersInterest.length === 0"
-                        class="flex flex-col items-center justify-center w-full min-h-[50vh] ">
-                        <span class="material-icons text-primary text-6xl">sentiment_dissatisfied</span>
-                        <p class="text-primary text-sm">No providers interested yet</p>
-                    </div>
-                    <div v-if="!clientDemandeStore.loadingClientDemande" class="w-full space-y-3 box ">
-                        <ProviderCard v-for="provider in providersInterest" :key="provider.id" :provider="provider"
-                            type="interested" componentLocation="ClientPostDetailsPage" />
-                    </div>
+                <div v-if="!clientDemandeStore.loadingClientDemande" class="w-full space-y-3 box ">
+                    <ProviderCard v-for="provider in providersInterest" :key="provider.id" :provider="provider"
+                        type="interested" componentLocation="ClientPostDetailsPage" />
                 </div>
 
+
+                <!-- Loading providers -->
                 <div v-if="clientDemandeStore.loadingClientDemande" class="w-full h-fit box">
                     <ProviderCardSqueleton />
                     <ProviderCardSqueleton />
                     <ProviderCardSqueleton />
-                    <ProviderCardSqueleton />
-                    <ProviderCardSqueleton />
-                    <ProviderCardSqueleton />
                 </div>
+
             </div>
 
 
@@ -156,18 +162,15 @@
             <div v-if="post.status === 'pending'"
                 class="w-full md:w-[33.33vw]  fixed flex flex-col items-center justify-center right-0 z-50 bottom-0 px-2 py-2 bg-white   ">
                 <div class=" post_action flex justify-between items-center  w-[95%] h-full py-1 gap-2 ">
-                    <button
+                    <label for="delete-modal" @click="handleWorkStatus('delete')"
+                        class=" btn btn-error btn-outline btn-sm text-white rounded-lg text-xs w-1/2  ">
+                        Delete
+                    </label> <button
                         :disabled="(providersSentResponse && providersSentResponse.length === 0 && providersInterest && providersInterest.length === 0)"
                         @click="handleWorkStatus('done')"
-                        class=" btn btn-secondary text-white btn-sm btn-outline rounded-lg text-xs w-1/2 ">
+                        class=" btn btn-primary text-white btn-sm  rounded-lg text-xs w-1/2 ">
                         End Project
                     </button>
-
-                    <label for="delete-modal"
-                     @click="handleWorkStatus('delete')"
-                        class=" btn btn-primary btn-sm text-white rounded-lg text-xs w-1/2  ">
-                        Delete
-                    </label>
                 </div>
             </div>
 
@@ -184,12 +187,12 @@ import Loading from './Loading.vue'
 import ProviderCard from './ProviderCard.vue';
 import Alert from './Alert.vue';
 
+
 import { useRouter } from 'vue-router';
 import { useclientDemandeStore } from '../store/Client/clientDemandeStore';
 import { useLanguageStore } from '../store/AppBasic/languageStore';
 import { useCategoriesStore } from '../store/categoriesStore';
-import { useAuthStore } from '../store/authStore';
-import { useNotificationStore } from '../store/notificationStore';
+import { useClientStore } from '../store/Client/clientStore';
 import { useTimeDifference } from '../composables/timeDifference';
 import { computed, ref, defineComponent, onBeforeMount } from 'vue'
 import { useWilayasStore } from '../store/wilayasStore';
@@ -208,11 +211,13 @@ export default defineComponent({
         //store
         const clientDemandeStore = useclientDemandeStore()
         const languageStore = useLanguageStore()
-        const notificationStore = useNotificationStore()
+        const clientStore = useClientStore()
         const categoriesStore = useCategoriesStore()
-        const authStore = useAuthStore()
         const wilayasStore = useWilayasStore()
         const router = useRouter()
+
+        //vars
+        const isLoading = ref(false)
 
         //composables
         const { timeDifference } = useTimeDifference()
@@ -224,6 +229,17 @@ export default defineComponent({
             clientDemandeStore.clientPostPageVisibility = false
             clientDemandeStore.selectedPost.images = []
 
+        }
+
+        const publish = (id) => {
+            isLoading.value = true
+            clientStore.sendRequest('all', id).then((res) => {
+                isLoading.value = false
+                if (res.status === 200) {
+                    clientDemandeStore.$state.selectedPost.publish = 1
+                }
+
+            })
         }
 
         const handleWorkStatus = (status) => {
@@ -282,12 +298,14 @@ export default defineComponent({
             //vars
             post,
             postImages,
+            isLoading,
 
             //methods
             handleClosePostPage,
             formatTime,
             handleWorkStatus,
             getBase64Image,
+            publish,
 
 
             //computed

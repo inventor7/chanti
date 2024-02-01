@@ -134,7 +134,7 @@
     <Toast class=" z-50 bottom-0 " :isVisible="clientStore.$state.isSentAll" color="success"
         message="request sent successfully" />
 
-    <LoadingIndicator class="w-10 h-10 top-4 right-2" v-if="isLoad" />
+    <LoadingIndicator class="w-10 h-10 top-3 right-3 text-white md:text-primary md:top-4 md:right-2" v-if="isLoad" />
 </template>
 
 <script>

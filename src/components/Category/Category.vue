@@ -15,10 +15,7 @@
 
 
     <div class=" flex flex-1 flex-center justify-start md:justify-center items-center ">
-      <span :class="{ 'text-white    ': isActive, 'text-primary ': !isActive }"
-        class="material-icons  text-4xl md:text-5xl     ">
-        {{ iconName }}
-      </span>
+     <img  :src="`../assets/${backgImg}`" alt="">
     </div>
 
     <div class="    ">
@@ -33,6 +30,7 @@
 import { useCategoriesStore } from '../../store/categoriesStore';
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore';
 import { useRouter } from 'vue-router';
+import { computed } from 'vue';
 export default {
   name: "Category",
   props: {
@@ -47,17 +45,51 @@ export default {
     },
     iconName: String,
   },
-  setup() {
+  setup(props) {
     const categoriesStore = useCategoriesStore();
     const clientDemandeStore = useclientDemandeStore();
     const router = useRouter();
 
     const isHome = router.currentRoute.value.name === "home";
+    let backgImg = computed(() => {
+    switch (props.categoryId) {
+        case 10:
+            return 'moving_storage_services.svg'
+
+        case 9:
+            return 'home_inspection_appraisal.svg'
+
+        case 8:
+            return 'painting_finishing.svg'
+
+        case 7:
+            return 'landscape_outdoor_living.svg'
+
+        case 6:
+            return 'plumbing_water_management.svg'
+
+        case 5:
+            return 'electrical_hvac.svg'
+
+        case 4:
+            return 'cleaning_house_keeping.svg'
+
+        case 3:
+            return 'interior_design_decorating.svg'
+
+        case 2:
+            return 'construction_remodelling.svg'
+
+        case 1:
+            return 'home_improvement_maintenance.svg'
+
+    }
+})
+
 
     return {
       categoriesStore,
       clientDemandeStore,
-
       isHome,
     };
   },

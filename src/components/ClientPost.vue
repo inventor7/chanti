@@ -1,6 +1,5 @@
 <template>
     <div class=" flex flex-col justify-center items-center gap-2 w-full p-2 border rounded-lg shadow-md ">
-
         <div @click="showPost(post.id)"
             class=" post_content flex flex-col sm:flex-row justify-between items-start gap-4 w-full h-full ">
             <img class=" sm:w-1/3 w-2/3 object-cover  self-center " :src="`../assets/${backgImg}`" alt="">
@@ -24,12 +23,12 @@
                     </div>
 
                     <!-- More options -->
-                    <button class=" flex flex-col justify-start items-start h-full   ">
+                    <!-- <button class=" flex flex-col justify-start items-start h-full   ">
                         <span class="material-icons  text-gray-400">
                             more_horiz
                         </span>
                         <span class="opacity-0">.</span>
-                    </button>
+                    </button> -->
                 </div>
 
                 <!-- Description -->
