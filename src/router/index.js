@@ -30,6 +30,12 @@ const router = createRouter({
   
 
   routes: [
+
+    {
+      path: "/settings",
+      name: "settings",
+      component: () => import("../views/Settings.vue"),
+    },
     ////////////Signup Pages////////////
     {
       path: "/signup/howitworks",
@@ -117,6 +123,11 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: Home,
+    },
+    {
+      path: "/profile",
+      name: "clientProfile",
+      component: () => import("../views/Client/Profile.vue"),
     },
     {
       path: "/Posts",
