@@ -31,7 +31,7 @@ jobs:
           username: ayb@chanti-dz.com
           password: ${{ secrets.CPANEL_FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: public_html/
+          remote-dir: public_html/
           exclude: |
             **/.git*
             **/.git*/**
