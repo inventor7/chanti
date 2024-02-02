@@ -12,7 +12,7 @@
                 <div v-else
                     class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1.5">
                     <Category v-for=" subCategory in  categoriesStore.subCategories  " :key="subCategory.id"
-                    :categoryId="category.id"
+                    :categoryId="subCategory.id"
                         :categoryName="languageStore.getWord(subCategory.name)" @click="selectSubCategory(subCategory)"
                         :class="{ 'bg-primary text-white scale-[103%] shadow-2xl  ': selectedSubCategories.includes(subCategory) }"
                         :isActive="selectedSubCategories.includes(subCategory)" iconName="home"

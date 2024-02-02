@@ -1,14 +1,14 @@
 <template>
     <!-- navigation back -->
     <div
-        class="w-full fixed z-50 top-0 bg-white rounded-b-xl shadow-xl h-fit flex flex-row justify-between items-center px-3 py-2 ">
+        class="w-full fixed z-50 top-0 bg-white rounded-b-md shadow h-fit flex flex-row justify-between items-center px-1 py-2 ">
         <button class=" btn-circle " @click="handleGoHome">
-            <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
+            <span class="material-icons text-primary font-bold  text-lg ">
                 arrow_back_ios
             </span>
         </button>
 
-        <span v-if="providerIsAuth" class="material-icons md:text-3xl text-2xl  text-secondary cursor-pointer"
+        <span v-if="providerIsAuth" class="material-icons  text-lg  text-secondary cursor-pointer"
             @click="router.push({ name: 'editProfile', params: { id: provider.id } })">
             edit_square
         </span>
@@ -25,10 +25,11 @@
         <div class="max-w-4xl mt-20 px-1 sm:px-6 lg:px-8 lg:py-1 mx-auto">
 
             <!-- Card -->
-            <div class="bg-white rounded-xl shadow ">
-                <div class="relative top-0 h-52 md:h-[60vh] rounded-t-xl   bg-cover bg-center bg-no-repeat">
-                    <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl"
-                        :src="`${backgImg}`" alt="Image Description">
+            <div class="bg-white rounded-xl  ">
+                <div class="relative top-0   rounded-t-xl   bg-cover bg-center bg-no-repeat">
+                <!-- h-52 md:h-[60vh] -->
+                    <!-- <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl"
+                        :src="`${backgImg}`" alt="Image Description"> -->
 
 
                     <!-- <div class="absolute top-1 btn  btn-circle left-1">
@@ -136,7 +137,7 @@
                                 <!-- request buttons -->
                                 <button v-if="provider.btnVisible && !provider.btnLoading"
                                     @click="handleSendRequest(provider.id)"
-                                    class="btn w-full sm:w-1/2 md:w-fit btn-sm h-10 py-2  font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow-sm align-middle  ">
+                                    class="btn w-full sm:w-1/2 md:w-fit btn-sm h-10 py-2  font-bold text-white  px-3 inline-flex justify-center items-center gap-2  border btn-primary  shadow align-middle  ">
                                     <span class="material-icons">
                                         send
                                     </span>
@@ -202,7 +203,7 @@
 
 
 
-            <div class="flex px-1 mt-4 flex-col bg-white  shadow-sm rounded-xl">
+            <div class="flex px-1 mt-4 flex-col bg-white  shadow rounded-xl">
                 <div class=" border-b rounded-t-xl pt-3 pb-2 ">
                     <nav class="flex space-x-2" aria-label="Tabs">
                         <!-- Tab 1 -->

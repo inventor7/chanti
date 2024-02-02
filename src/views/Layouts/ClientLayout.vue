@@ -1,7 +1,7 @@
 <template>
     <Navbar :pageTitle="pageTitle" />
     <NavClient v-if="authStore.$state.isAuthenticated" class=" fixed left-0 right-0 bottom-0" />
-    <div data-theme="clientTheme" class="main-content  flex flex-col justify-center mt-[4.5rem] items-start w-full ">
+    <div data-theme="clientTheme" class="main-content  flex flex-col justify-center mt-[4rem] items-start w-full ">
 
         <div class="flex flex-col  self-center gap-2 overflow-y-scroll mb-20  justify-center items-center w-full h-full ">
             <slot></slot>
@@ -14,7 +14,7 @@
 
                 <div
                     class="flex flex-row justify-start items-start shadow-lg rounded-xl bg-white/40 border-t-2 border-x-2 mb-2 p-2 gap-2 w-full  h-fit cursor-pointer">
-                    <img class="w-fit h-12 rounded-full" src="../../assets/OIG.jpg" alt="profile picture" />
+                    <img class="w-fit h-12 rounded-full" src="wall.svg" alt="profile picture" />
                     <div class="flex flex-col justify-start items-start w-full h-full font-semibold ">
                         <p class="text-lg first-letter:uppercase  ">{{ provider.firstName }} {{ provider.lastName }}</p>
 

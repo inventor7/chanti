@@ -1,14 +1,14 @@
 <template>
     <ClientLayout>
-        <div class="grid place-items-center rounded-2xl w-full h-full px-2   ">
+        <div class="grid place-items-center  w-full h-full    ">
 
-            <div class=" relative flex flex-col justify-between w-full h-[50vh] sm:h-[50vh] md:h-[70vh] rounded-2xl    ">
+            <div class=" relative flex flex-col justify-between w-full min-h-[60vh] md:min-h-[80vh]      ">
                 <!-- add an overlay image -->
-                <img src="../../assets/OIG.jpg"
-                    class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain rounded-2xl " />
+                <img src="wall.svg"
+                    class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain  " />
 
                 <!-- add a gradient -->
-                <div class="absolute top-0 left-0 z-10 w-full h-full rounded-2xl bg-gradient-to-r from-secondary backdrop-blur-[1px]  to-transparent "></div>
+                <div class="absolute top-0 left-0 z-10 w-full h-full  bg-gradient-to-b from-secondary  to-white/30 "></div>
 
                 <div class="px-2 z-20 flex-1  sm:px-4 w-full h-fit  flex flex-row items-center py-0  "
                     :class="{ 'justify-end': languageStore.getRtl, 'justify-start': !languageStore.getRtl }">

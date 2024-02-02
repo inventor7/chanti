@@ -18,7 +18,8 @@
                     <div v-else
                         class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-3">
                         <Category v-for=" subCategory in  categoriesStore.subCategories  " :key="subCategory.id"
-                            :categoryName="languageStore.getWord(subCategory.name)" :categoryId="category.id"
+                            :categoryName="languageStore.getWord(subCategory.name)" 
+                            :categoryId="subCategory.id"
                             @click="selectSubCategoryRequest(subCategory)"
                             :class="{ 'bg-primary text-white scale-[103%] shadow-2xl  ': subCategory.id === clientDemandeStore.request.subCategoryId }"
                             :isActive="subCategory.id === clientDemandeStore.request.subCategoryId" iconName="home"

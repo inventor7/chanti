@@ -1,5 +1,5 @@
 <template>
-    <div :data-theme="theme" dir="ltr" class="navbar border-b-2  -xl mb-6 fixed  top-0  fd  py-1 bg-base-100  z-50 "
+    <div :data-theme="theme" dir="ltr" class="navbar border-b-2  -xl mb-6 fixed  top-0  fd   py-1 bg-base-100  z-50 "
         ref="navbar">
         <div class="navbar-start  ">
 

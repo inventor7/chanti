@@ -17,7 +17,7 @@
                     class="  post-container flex flex-col h-full w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
                     <div class="  relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
                         <img class="notification-item w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
-                            src="../assets/OIG.jpg" alt="Image Description">
+                            src="wall.svg" alt="Image Description">
 
                     </div>
                     <div class="p-2  md:p-3 notification-item ">

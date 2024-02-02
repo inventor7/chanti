@@ -1,5 +1,5 @@
 <template>
-  <div class="flex relative flex-col lg:flex-col  justify-center h-full  items-center px-2 py-8  gap-2  w-full   ">
+  <div class="flex relative flex-col lg:flex-col  justify-center h-full  items-center p-2  gap-2  w-full   ">
 
     <div v-if="!clientDemandeStore.$state.requestinProgress && !isHome">
       <span :class="{ 'block  ': isActive, 'hidden ': !isActive }"
@@ -14,7 +14,7 @@
 
 
 
-    <div class=" flex flex-1 flex-center justify-start md:justify-center items-center ">
+    <div class=" flex  flex-center justify-start md:justify-center items-center h-fit ">
       <img :src="`${backgImg}`" alt="">
     </div>
 
