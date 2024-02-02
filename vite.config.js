@@ -7,7 +7,9 @@ import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   // include all the assets
-  assetsInclude: ["assets/**/*"],
+  build: {
+    assetsInclude: ["assets/**/*"],
+  },
   base: "/",
   plugins: [vue()],
   resolve: {
