@@ -28,7 +28,7 @@
             <div class="bg-white rounded-xl shadow ">
                 <div class="relative top-0 h-52 md:h-[60vh] rounded-t-xl   bg-cover bg-center bg-no-repeat">
                     <img class="w-full h-full object-cover object-top md:object-cover rounded-t-xl"
-                        :src="`../assets/${backgImg}`" alt="Image Description">
+                        :src="`${backgImg}`" alt="Image Description">
 
 
                     <!-- <div class="absolute top-1 btn  btn-circle left-1">

@@ -9,12 +9,6 @@
             <div
                 class=" sticky bg-gray-100/20 px-1  z-30  flex flex-row justify-between w-full   items-center  h- gap-1 rounded-3xl border border-gray-300 my-2 p-1 text-sm font-semibold ">
 
-                <div @click="filterPosts('notStarted')"
-                    class=" cursor-pointer w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "
-                    :class="{ 'bg-primary  text-white': Tab === 'notStarted', 'text-black': Tab !== 'notStarted' }">
-                    Not started
-                </div>
-
                 <div @click="filterPosts('inProgress')"
                     class=" cursor-pointer  w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "
                     :class="{ 'bg-primary  text-white': Tab === 'inProgress', 'text-black': Tab !== 'inProgress' }">
@@ -95,7 +89,7 @@ export default {
 
         //vars
         const Posts = ref([]);
-        let Tab = ref('notStarted');
+        let Tab = ref('inProgress');
         const position = ref(1);
         const errorStatus = ref(false)
         const errorMessage = ref('')
@@ -108,7 +102,7 @@ export default {
         //hooks
         onMounted(() => {
             clientDemandeStore.getClientPosts().then((res) => {
-                Posts.value = notStartedProjects.value
+                Posts.value = inProgressProjects.value
             })
         });
 
@@ -117,13 +111,9 @@ export default {
 
         //computed
 
-        let notStartedProjects = computed(() => {
-            Posts.value = clientDemandeStore.$state.clientPosts.filter(item => item.status === 'pending').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            return Posts.value
-        })
 
         let inProgressProjects = computed(() => {
-            Posts.value = clientDemandeStore.$state.clientPosts.filter(item => item.status === 'accept' || item.status == 'accepted').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            Posts.value = clientDemandeStore.$state.clientPosts.filter(item => item.status === 'pending').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             return Posts.value
         })
 
@@ -143,10 +133,6 @@ export default {
 
         const filterPosts = (filter) => {
             switch (filter) {
-                case 'notStarted':
-                    Posts.value = notStartedProjects.value
-                    Tab.value = 'notStarted'
-                    break;
 
                 case 'inProgress':
                     Posts.value = inProgressProjects.value
@@ -218,7 +204,6 @@ export default {
 
             //computed
             Posts,
-            notStartedProjects,
             inProgressProjects,
             doneProjects,
             Tab,

@@ -1,8 +1,8 @@
 <template>
     <div class=" flex flex-col justify-center items-center gap-2 w-full p-2 border rounded-lg shadow-md ">
-        <div @click="showPost(post.id)"
+        <div @click="showPost(post.id, post.status, 'done')"
             class=" post_content flex flex-col sm:flex-row justify-between items-start gap-4 w-full h-full ">
-            <img class=" sm:w-1/3 w-2/3 object-cover  self-center " :src="`../assets/${backgImg}`" alt="">
+            <img class=" sm:w-1/3 w-2/3 object-cover  self-center " :src="`${backgImg}`" alt="">
             <div class=" flex flex-col justify-between items-start w-full gap-2 ">
                 <div class=" flex flex-row justify-between items-center w-full  ">
                     <div class=" flex flex-col justify-start items-start">
@@ -84,12 +84,14 @@
         </div>
 
         <div class=" post_action flex items-center justify-end w-full h-full py-1 gap-2 ">
-            <button class=" btn btn-primary btn-sm gap-2 text-white rounded-lg text-xs w-full sm:w-fit   ">
+            <button @click="showPost(post.id, post.status, 'pending')" v-if="post.status === 'pending'"
+                class=" btn btn-primary btn-sm gap-2 text-white rounded-lg text-xs w-full sm:w-fit   ">
                 Next step
                 <span class="material-icons text-sm text-end ">
                     arrow_forward_ios
                 </span>
             </button>
+
         </div>
 
     </div>
@@ -160,14 +162,17 @@ const props = defineProps({
 //methods
 const formatTime = (date) => timeDifference(date)
 
-const showPost = (clientPostId) => {
+const showPost = (clientPostId, postStatus, status) => {
 
-    clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(clientPostId)
-    clientDemandeStore.getClientPostProviders(clientPostId).then((res) => {
-    })
-    clientDemandeStore.getClientPostImages(clientPostId).then((res) => {
-    })
-    clientDemandeStore.clientPostPageVisibility = true;
+    if (postStatus === status) {
+        clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(clientPostId)
+        clientDemandeStore.getClientPostProviders(clientPostId).then((res) => {
+        })
+        clientDemandeStore.getClientPostImages(clientPostId).then((res) => {
+        })
+        clientDemandeStore.clientPostPageVisibility = true;
+    }
+
 
 }
 
