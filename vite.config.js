@@ -9,9 +9,6 @@ export default defineConfig({
   // include all the assets
   build: {
     assetsInclude: ["assets/**/*"],
-    rollupOptions: {
-      external: ["/wall.svg"],
-    },
   },
   base: "/",
   plugins: [vue()],
