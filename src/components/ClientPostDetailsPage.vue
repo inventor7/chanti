@@ -98,7 +98,7 @@
                                 </span>{{ formatTime(post.createdAt) }}
                             </p>
                         </div>
-                        <p class="">{{ post.description }}</p>
+                        <p class=" text-black/70 mt-4">{{ post.description }}</p>
                     </div>
                 </div>
 

@@ -6,6 +6,8 @@ import vue from "@vitejs/plugin-vue";
 //i'm delpoying to cpanel at the doamin chanti-dz.com
 
 export default defineConfig({
+  // include all the assets
+  assetsInclude: ["assets/**/*"],
   base: "/",
   plugins: [vue()],
   resolve: {
@@ -14,5 +16,4 @@ export default defineConfig({
     },
   },
   publicDir: "public",
-
 });
