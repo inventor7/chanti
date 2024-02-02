@@ -3,7 +3,7 @@
         href="#">
         <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
             <img class=" w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
-                src="wall.svg" alt="Image Description">
+                src="/wall.svg" alt="Image Description">
 
             <!-- verified post -->
             <span class="material-icons absolute top-0 right-0  text-3xl z-10 text-secondary">
@@ -45,7 +45,7 @@
         href="#">
         <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
             <img class=" w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
-                src="wall.svg" alt="Image Description">
+                src="/wall.svg" alt="Image Description">
 
             <!-- verified post -->
             <span class="material-icons absolute top-0 right-0  text-3xl z-10 text-secondary">

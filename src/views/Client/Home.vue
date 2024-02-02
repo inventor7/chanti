@@ -4,8 +4,7 @@
 
             <div class=" relative flex flex-col justify-between w-full min-h-[60vh] md:min-h-[80vh]      ">
                 <!-- add an overlay image -->
-                <img src="wall.svg"
-                    class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain  " />
+                <img src="/wall.svg" class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain  " />
 
                 <!-- add a gradient -->
                 <div class="absolute top-0 left-0 z-10 w-full h-full  bg-gradient-to-b from-secondary  to-white/30 "></div>
@@ -63,8 +62,7 @@
                 <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
                     @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
                     :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress"
-                    :iconName="category.iconName"
-                    :categoryId="category.id"
+                    :iconName="category.iconName" :categoryId="category.id"
                     :class="{ 'bg-black   text-sky-700 scale-[103%]   ': category === categoriesStore.selectedCategory && !clientDemandeStore.$state.requestinProgress }"
                     class=" text-center cursor-pointer rounded-md shadow-md   hover:shadow-xl border-gray-300 border-t border-l md:shadow-none md:border     transition-all duration-300 ease-in-out">
                 </Category>

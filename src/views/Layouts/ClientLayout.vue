@@ -14,7 +14,7 @@
 
                 <div
                     class="flex flex-row justify-start items-start shadow-lg rounded-xl bg-white/40 border-t-2 border-x-2 mb-2 p-2 gap-2 w-full  h-fit cursor-pointer">
-                    <img class="w-fit h-12 rounded-full" src="wall.svg" alt="profile picture" />
+                    <img class="w-fit h-12 rounded-full" src="/wall.svg" alt="profile picture" />
                     <div class="flex flex-col justify-start items-start w-full h-full font-semibold ">
                         <p class="text-lg first-letter:uppercase  ">{{ provider.firstName }} {{ provider.lastName }}</p>
 
@@ -81,7 +81,7 @@ export default {
         ProviderCard: defineAsyncComponent(() => import("../../components/ProviderCard.vue")),
         Rating: defineAsyncComponent(() => import("../../components/Rating.vue")),
         Toast: defineAsyncComponent(() => import("../../components/Toast.vue")),
-        ConfirmationModal : defineAsyncComponent(() => import("../../components/ConfirmationModal.vue")),
+        ConfirmationModal: defineAsyncComponent(() => import("../../components/ConfirmationModal.vue")),
     },
     setup() {
         const themeStore = useThemeStore();
