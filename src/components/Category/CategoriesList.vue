@@ -1,12 +1,12 @@
 <template>
     <div
-        class="grid grid-cols-2 grid-rows-5 h-full  md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1">
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  h-full md:max-h-[600px]  w-full gap-1  ">
         <Category v-for=" category in categoriesStore.$state.categories  " :key="category.id"
             @click="selectCategory(category)" :categoryName="languageStore.getWord(category.name)"
             :categoryId="category.id"
             :isActive="category === selectedCategory && !clientDemandeStore.$state.requestinProgress " :iconName="category.iconName"
             :class="{ 'bg-primary shadow-2xl  text-white scale-[103%]   ': category === categoriesStore.selectedCategory && !clientDemandeStore.$state.requestinProgress }"
-            class=" text-center cursor-pointer rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400    transition-all duration-300 ease-in-out">
+            class=" h-full w-full text-center cursor-pointer rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400    transition-all duration-300 ease-in-out">
         </Category>
     </div>
 </template>

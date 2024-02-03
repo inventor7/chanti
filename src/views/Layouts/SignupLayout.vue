@@ -1,6 +1,6 @@
 <template>
     <div class=" h-screen " :data-theme="themeStore.$state.theme">
-        <div class=" md:flex md:flex-col md:justify-center md:items-center    md:py-6 max-h-screen  h-full w-full ">
+        <div class=" md:flex md:flex-col md:justify-center md:items-center  pb-16   md:py-6 min-h-screen  h-full w-full ">
             <div
                 class=" flex flex-col  justify-start items-start w-full md:w-11/12  h-full  gap-2 sm:pb-2  rounded-2xl sm:shadow-2xl ">
                 <!-- Title and description -->

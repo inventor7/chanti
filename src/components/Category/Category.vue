@@ -15,7 +15,7 @@
 
 
     <div class=" flex  flex-center justify-start md:justify-center items-center h-fit ">
-      <img :src="`${backgImg}`" alt="">
+      <img :src="`/${backgImg}`" alt="">
     </div>
 
     <div class="    ">

@@ -4,7 +4,6 @@
         :pageTitle="languageStore.getWord('chooseServices')" :pageDesc="languageStore.getWord('descSP3')"
         componentLocation="selectionProcess">
 
-
         <div class=" flex flex-row justify-around w-full h-full flex-1 gap-3  items-start ">
             <div class=" flex flex-col  justify-start items-start gap-3 w-full h-full ">
                 <div v-if="loading"
@@ -16,14 +15,14 @@
                         <Error class=" text-xl font-semibold whitespace-pre-line " :error="errorList.message" />
                     </div>
                     <div v-else
-                        class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-3">
+                        class="grid grid-cols-2  h-full md:max-h-[600px] sm:grid-cols-4   md:grid-cols-4   lg:grid-cols-5  w-full gap-3">
                         <Category v-for=" subCategory in  categoriesStore.subCategories  " :key="subCategory.id"
                             :categoryName="languageStore.getWord(subCategory.name)" 
-                            :categoryId="subCategory.id"
+                            :categoryId="clientDemandeStore.request.categoryId"
                             @click="selectSubCategoryRequest(subCategory)"
                             :class="{ 'bg-primary text-white scale-[103%] shadow-2xl  ': subCategory.id === clientDemandeStore.request.subCategoryId }"
                             :isActive="subCategory.id === clientDemandeStore.request.subCategoryId" iconName="home"
-                            class=" text-center  cursor-pointer   rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400   transition-all duration-300 ease-in-out">
+                            class=" h-full w-full text-center  cursor-pointer   rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400   transition-all duration-300 ease-in-out">
                         </Category>
                     </div>
                 </div>

@@ -10,13 +10,13 @@
                     <Error class=" text-xl font-semibold whitespace-pre-line " :error="errorList.message" />
                 </div>
                 <div v-else
-                    class="grid grid-cols-2 grid-rows-5 h-full md:max-h-[600px] sm:grid-cols-4 sm:grid-rows-3   md:grid-cols-4  md:grid-rows-3 lg:grid-cols-5 lg:grid-rows-2  w-full gap-1.5">
+                    class=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  h-full md:max-h-[600px]  w-full gap-2">
                     <Category v-for=" subCategory in  categoriesStore.subCategories  " :key="subCategory.id"
-                    :categoryId="subCategory.id"
+                    :categoryId="categoriesStore.selectedCategory.id"
                         :categoryName="languageStore.getWord(subCategory.name)" @click="selectSubCategory(subCategory)"
                         :class="{ 'bg-primary text-white scale-[103%] shadow-2xl  ': selectedSubCategories.includes(subCategory) }"
                         :isActive="selectedSubCategories.includes(subCategory)" iconName="home"
-                        class=" text-center  cursor-pointer  rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400   transition-all duration-300 ease-in-out">
+                        class=" h-full w-full text-center  cursor-pointer  rounded-lg  hover:shadow-2xl   border-[1px] border-gray-400   transition-all duration-300 ease-in-out">
                     </Category>
                 </div>
             </div>
