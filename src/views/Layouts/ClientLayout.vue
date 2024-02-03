@@ -1,7 +1,7 @@
 <template>
     <Navbar :pageTitle="pageTitle" />
     <NavClient v-if="authStore.$state.isAuthenticated" class=" fixed left-0 right-0 bottom-0" />
-    <div data-theme="clientTheme" class="main-content  flex flex-col justify-center mt-[4rem] items-start w-full ">
+    <div data-theme="clientTheme" class="main-content  flex flex-col justify-center mt-[1rem] items-start w-full ">
 
         <div class="flex flex-col  self-center gap-2 overflow-y-scroll mb-20  justify-center items-center w-full h-full ">
             <slot></slot>

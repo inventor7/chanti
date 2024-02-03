@@ -43,11 +43,16 @@
                 <div v-if="postImages.length != 0 || !clientDemandeStore.loadingPostImage" class="w-full h-full ">
                     <div v-if="postImages.length === 3" class="grid grid-cols-12 gap-1   grid-rows-1 w-full max-h-[40vh] ">
                         <img class=" object-cover h-full w-full max-h-[40vh] rounded-tl-xl  col-span-6 "
-                            :src="getBase64Image(postImages[0].data)">
+                        alt="post image"    
+                        :src="getBase64Image(postImages[0].data)">
                         <div class="w-full col-span-6 gap-1 h-full overflow-hidden flex flex-col  ">
-                            <img class=" object-cover h-full max-h-[20vh] rounded-tr-xl rounded "
+                            <img 
+                            alt="post image"
+                            class=" object-cover h-full max-h-[20vh] rounded-tr-xl rounded "
                                 :src="getBase64Image(postImages[1].data)">
-                            <img class=" object-cover h-full max-h-[20vh] " :src="getBase64Image(postImages[2].data)">
+                            <img
+                            alt="post image"
+                            class=" object-cover h-full max-h-[20vh] " :src="getBase64Image(postImages[2].data)">
                         </div>
                     </div>
 

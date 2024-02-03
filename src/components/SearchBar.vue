@@ -1,16 +1,20 @@
 <template  >
-    <div class=" flex flex-row justify-center  items-center w-full px-[1px] py-[1px]  border-2  bg-base-100 rounded-full">
-        <input type="text" :placeholder="languageStore.getWord('searchPlaceHolder')"
-        :class="{ 'text-end': languageStore.getRtl }"   
-        class="flex-1 w-full input input-md text-[15px] sm:text-xl md:text-2xl font-semibold pl-4  md:pl-8   rounded-full focus:outline-none outline-none "
+    <div   class=" flex  justify-center  items-center w-full px-[1px] py-[1px]  border-2  bg-base-100 rounded-full"
+    :class="{ 'flex-row': !languageStore.getRtl ,'flex-row-reverse' : languageStore.getRtl }"
+    >
+        <input :dir="languageStore.getRtl ? 'rtl' : 'ltr'"
+        
+        type="text" :placeholder="languageStore.getWord('searchPlaceHolder')"
+       
+        class="flex-1 w-full input input-xs sm:input-md 2xl:input-lg 2xl:text-2xl  text-sm sm:text-xl   font-semibold pl-4  xl:pl-8   rounded-full focus:outline-none outline-none "
             v-model="searchInput" @keyup.enter="handleSearchClick" @focus="handleFocusSearchBar" ref="searchInputRef" />
 
         <button @click="handleSearchClick"
-            class=" btn btn-primary whitespace-nowrap btn-md   md:btn-lg  rounded-full text-white ">
-            <span class=" sm:hidden text-3xl  material-icons">
+            class=" btn btn-primary whitespace-nowrap btn-sm  sm:btn-md 2xl:btn-lg  rounded-full text-white ">
+            <span class=" sm:hidden text-2xl sm:text-3xl  material-icons">
                 search
             </span>
-            <span class=" hidden  sm:block  "> {{ languageStore.getWord('searchButton') }} </span>
+            <span class=" hidden py-3 sm:block   "> {{ languageStore.getWord('searchButton') }} </span>
         </button>
     </div>
 </template>

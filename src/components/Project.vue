@@ -2,7 +2,7 @@
     <!-- project card -->
     <div id="main" class=" flex flex-col justify-start items-center w-[97%] gap-4 p-2 border border-gray-300 rounded-xl ">
         <div id="info-section" class=" flex flex-row justify-start items-start w-full gap-2 ">
-            <img class=" w-1/2 " :src="`${backgImg}`"  alt="">
+            <img class=" w-1/2 " :src="`${backgImg}`"  :alt="`${backgImg}`">
             <div id="info" class=" flex flex-col justify-start items-start w-full gap-2 ">
                 <h1 class="text-xl font-bold text-gray-700 ">{{ project.id.slice(0,2) }}</h1>
                 <p>{{ formatTime(project.createdAt) }}</p>

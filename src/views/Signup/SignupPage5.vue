@@ -10,7 +10,7 @@
                         src="../../assets/personal-info.svg" alt="client">
                     <img v-else src="../../assets/personal-info.svg" alt="pro pic" class=" w-full   ">
                 </div>
-                <img class=" flex md:hidden w-28 " src="../../assets/info.svg" alt="">
+                <img class=" flex md:hidden w-28 " src="../../assets/info.svg" alt="Info Image">
                 <div class=" flex flex-col justify-center max-w-xs w-full  h-fit ">
                     <!-- input for the first name of the user -->
                     <div class=" w-full    mt-2 ">

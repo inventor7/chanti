@@ -60,17 +60,15 @@ export default {
       fullStar: 1,
       totalStars: 5,
       // Binded Nested Props registered as data/computed and not props
-      styleStarWidth: props.styleStarWidth,
-      styleStarHeight: props.styleStarHeight,
       styleEmptyStarColor: "gray",
       styleFullStarColor: "orange",
-      rating: props.rating
     };
   },
   directives: {},
   computed: {
     getStarPoints: function () {
       let centerX = this.styleStarWidth / 2;
+    
       let centerY = this.styleStarWidth / 2;
 
       let innerCircleArms = 5; // a 5 arms star

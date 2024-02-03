@@ -34,7 +34,7 @@
                 class=" posts-list flex flex-col justify-between items-center px-1  gap-4 lg:gap-6 w-full  h-screen overflow-y-scroll ">
                 <!-- if projects empty -->
                 <div v-if="Posts.length <= 0" class=" flex flex-col justify-center items-center w-full h-screen ">
-                    <img class="w-full  " src="../../assets/no_posts.svg" alt="">
+                    <img class="w-full  " src="../../assets/no_posts.svg" alt="no_posts">
                     <h2 class=" font-semibold mt-2 ">No Project under this tab</h2>
                 </div>
 

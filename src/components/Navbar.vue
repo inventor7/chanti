@@ -1,12 +1,13 @@
 <template>
-    <div :data-theme="theme" dir="ltr" class="navbar border-b-2  -xl mb-6 fixed  top-0  fd   py-1 bg-base-100  z-50 "
+    <div :data-theme="theme" dir="ltr"
+        class="flex flex-row justify-between items-center px-1 w-full py-1 md:py-2 xl:py-2.5 border-b-2    fixed  top-0  fd bg-base-100  z-50 "
         ref="navbar">
-        <div class="navbar-start  ">
+        <div class=" h-fit  ">
 
             <!-- when loggedin -->
             <router-link v-if="!authStore.$state.isAuthenticated" :to="{ name: 'home' }">
-                <svg class="  px-0 w-20 h-auto object-contain btn btn-link font fill-primary " data-v-423bf9ae=""
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224.78573364505993 60">
+                <svg class="  p-0 w-20 md:w-24 lg:w-28 h-fit object-contain btn btn-sm btn-link font fill-primary "
+                    data-v-423bf9ae="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224.78573364505993 60">
                     <g data-v-423bf9ae="" id="4543de12-aaf0-4125-a132-5fbdb5bbcecc"
                         transform="matrix(5.357142948374458,0,0,5.357142948374458,-5.035717750082384,-9.000001226152698)">
                         <path
@@ -53,13 +54,13 @@
         </div>
 
 
-        <div class="navbar-end gap-2   md:gap-4">
+        <div class=" flex flex-row justify-between items-center w-fit gap-2   md:gap-4">
 
 
             <!-- loggedin -->
             <DropDownLang v-if="!authStore.$state.isAuthenticated" />
             <button v-if="!authStore.$state.isAuthenticated" @click="modalStore.toggleModal"
-                class=" btn btn-primary btn-xs gap-2 sm:btn-sm btn-outline ">
+                class=" btn btn-primary  btn-xs gap-2 sm:btn-sm btn-outline ">
                 <span class="material-icons text-[18px] hidden sm:block ">
                     login
                 </span>
@@ -121,42 +122,41 @@
     <label for="lang-modal"
         class="modal w-full h-full bg-black/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
         <ul tabindex="0" class="p-2 modal-box  shadow menu menu-compact bg-base-100 rounded-box w-52 z-50 transform ">
-            <li selected="true" @click="changeLang('en')">
-                <span class="">English
-                    <img src="https://flagcdn.com/16x12/us.png"
-                        srcset="https://flagcdn.com/32x24/us.png 2x, https://flagcdn.com/48x36/us.png 3x" width="16"
-                        height="12" alt="United States">
-                    <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
-                        v-if="languageStore.$state.lang === 'en'">
-                        check_circle
-                    </span>
+            <li  selected="true" @click="changeLang('en')">
+                English
+                <img src="https://flagcdn.com/16x12/us.png"
+                    srcset="https://flagcdn.com/32x24/us.png 2x, https://flagcdn.com/48x36/us.png 3x" width="16" height="12"
+                    alt="United States">
+                <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
+                    v-if="languageStore.$state.lang === 'en'">
+                    check_circle
                 </span>
             </li>
 
 
             <li @click="changeLang('ar')">
-                <a>العربية
-                    <img src="https://flagcdn.com/40x30/dz.png"
-                        srcset="https://flagcdn.com/80x60/dz.png 2x, https://flagcdn.com/120x90/dz.png 3x" width="20"
-                        height="24" alt="Algeria">
-                    <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
-                        v-if="languageStore.$state.lang === 'ar'">
-                        check_circle
-                    </span>
-                </a>
+                العربية
+                <img src="https://flagcdn.com/40x30/dz.png"
+                    srcset="https://flagcdn.com/80x60/dz.png 2x, https://flagcdn.com/120x90/dz.png 3x" width="20"
+                    height="24" alt="Algeria">
+                <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
+                    v-if="languageStore.$state.lang === 'ar'">
+                    check_circle
+                </span>
+
 
             </li>
 
             <li @click="changeLang('fr')">
-                <a>Français
-                    <img src="https://flagcdn.com/16x12/fr.png"
-                        srcset="https://flagcdn.com/32x24/fr.png 2x, https://flagcdn.com/48x36/fr.png 3x" width="16"
-                        height="12" alt="France">
-                    <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
-                        v-if="languageStore.$state.lang === 'fr'">
-                        check_circle
-                    </span>
-                </a>
+                Français
+                <img src="https://flagcdn.com/16x12/fr.png"
+                    srcset="https://flagcdn.com/32x24/fr.png 2x, https://flagcdn.com/48x36/fr.png 3x" width="16" height="12"
+                    alt="France">
+                <span class="material-icons flex-1 md:block p-0 m-0 text-green-600 flex items-end justify-end"
+                    v-if="languageStore.$state.lang === 'fr'">
+                    check_circle
+                </span>
+
 
             </li>
 

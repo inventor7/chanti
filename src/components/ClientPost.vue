@@ -2,7 +2,7 @@
     <div class=" flex flex-col justify-center items-center gap-2 w-full p-2 border rounded-lg shadow-md ">
         <div @click="showPost(post.id, post.status, 'done')"
             class=" post_content flex flex-col sm:flex-row justify-between items-start gap-4 w-full h-full ">
-            <img class=" sm:w-1/3 w-2/3 object-cover  self-center " :src="`${backgImg}`" alt="">
+            <img class=" sm:w-1/3 w-2/3 object-cover  self-center " :src="`${backgImg}`" :alt="`${backgImg}`">
             <div class=" flex flex-col justify-between items-start w-full gap-2 ">
                 <div class=" flex flex-row justify-between items-center w-full  ">
                     <div class=" flex flex-col justify-start items-start">

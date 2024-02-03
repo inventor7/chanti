@@ -2,40 +2,40 @@
     <ClientLayout>
         <div class="grid place-items-center  w-full h-full    ">
 
-            <div class=" relative flex flex-col justify-between w-full min-h-[60vh] md:min-h-[80vh]      ">
+            <div class=" relative flex flex-col justify-center w-full h-[60vh] md:h-[75vh] lg:h-[85vh]      ">
                 <!-- add an overlay image -->
-                <img src="/wall.svg" class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain  " />
+                <img src="/wall.svg" class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain   "
+                alt="wallpaper" />
+                />
 
                 <!-- add a gradient -->
                 <div class="absolute top-0 left-0 z-10 w-full h-full  bg-gradient-to-b from-secondary  to-white/30 "></div>
 
-                <div class="px-2 z-20 flex-1  sm:px-4 w-full h-fit  flex flex-row items-center py-0  "
-                    :class="{ 'justify-end': languageStore.getRtl, 'justify-start': !languageStore.getRtl }">
-                    <div class="flex flex-col justify-between items-start py-4 w-full md:w-2/3 max-w-5xl h-1/2 md:h-2/3  ">
-                        <h1 v-if="authStore.$state.isAuthenticated == false" :class="{ 'text-end': languageStore.getRtl }"
-                            class="  text-2xl  sm:text-4xl md:text-5xl    text-white whitespace-normal mb-5 font-bold">
+                
+                    
+                    <div class=" z-20 flex flex-col justify-between items-center w-full h-1/2 md:gap-6 lg:gap-10  px-1 md:px-10  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-9xl  ">
+                        <h1 v-if="authStore.$state.isAuthenticated == false" 
+                            class=" w-full xl:w-[75%]   text-center    text-white  mb-5 font-bold">
                             {{ languageStore.getWord('title') }}
-                            <span class="text-primary">
+                            <span class="text-primary whitespace-nowrap  ">
                                 {{ languageStore.getWord('endTitle') }}
                             </span>
                         </h1>
-                        <h1 v-else :class="{ 'text-end': languageStore.getRtl }"
-                            class=" first-letter:uppercase  text-3xl  sm:text-6xl  text-white whitespace-normal mb-5 font-bold">
+                        <h1 v-else 
+                            class=" first-letter:uppercase   w-full xl:w-[75%]   text-center    text-white  mb-5 font-bold">
                             {{ languageStore.getWord('welcome_back') }}
                             <span class="text-primary">
                                 {{ authStore.$state.userAuth.lastName.toUpperCase() }}
                             </span>
                         </h1>
 
-                        <SearchBar componentLocation="home" class=" w-full shadow-xl" />
+                        <SearchBar componentLocation="home" class=" w-5/6 xl:w-1/2  shadow-xl" />
                     </div>
-                </div>
+              
 
-                <div v-if="authStore.$state.isAuthenticated === false"
+                <!-- <div v-if="authStore.$state.isAuthenticated === false"
                     class="md:hidden z-20 flex flex-row justify-between bg-primary rounded-b-xl px-2 md:p-1.5 items-center w-full  ">
-                    <span class="text-white text-sm md:text-xl  font-semibold ">
-                        {{ languageStore.getWord('r_u_pro') }} ?
-                    </span>
+
                     <div @click="handleJoinNetwork"
                         class="flex  flex-row justify-between  items-center w-fit cursor-pointer ">
                         <span class="text-white underline-offset-1 text-sm md:text-xl  font-semibold ">
@@ -46,7 +46,7 @@
                         </span>
                     </div>
 
-                </div>
+                </div> -->
             </div>
             <!-- join our network -->
 
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <Howitworks />
+      
         <SearchPage />
         <LoginModal />
         <Modal class=" flex flex-col justify-center items-center gap-4  sm:gap-8 md:gap-10  h-full ">

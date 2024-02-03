@@ -4,7 +4,7 @@
             :pageTitle="languageStore.getWord('howItWorks')" :pageDesc="languageStore.getWord('signup_desc_1')">
 
             <div class="slide-next flex flex-col justify-center items-center h-full ">
-                <img class=" max-w-xs " src="../../assets/steps.svg" alt="">
+                <img class=" max-w-xs " src="../../assets/steps.svg" alt="steps">
             </div>
 
         </SignupLayout>

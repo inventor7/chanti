@@ -16,7 +16,7 @@ module.exports = {
     themes: [
       {
         clientTheme: {
-          "primary": "#ff651d",
+          "primary": "#ff7c24",
 
           "secondary": "#0a2463",
 

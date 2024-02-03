@@ -16,7 +16,7 @@
 
                     <form v-else
                         class=" flex flex-col sm:flex-row justify-center  items-center px-4 gap-4 sm:gap-8 h-full w-full   ">
-                        <img class=" max-w-[10em]   sm:max-w-xs " src="../../assets/Sign_in.svg" alt="">
+                        <img class=" max-w-[10em]   sm:max-w-xs " src="../../assets/Sign_in.svg" alt="Sign In">
                         <!-- Phone Number -->
                         <div class=" w-full max-w-sm  h-full flex flex-col justify-center items-center space-y-2 ">
 
