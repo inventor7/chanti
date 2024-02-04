@@ -236,15 +236,16 @@ export default {
             //show profile based on the provider id
             isLoad.value = true
             portfolioStore.getProviderInfo(provider.id).then(() => {
+                isLoad.value = false
+                providerStore.$state.provider.btnVisible = provider.btnVisible
+                router.push({
+                    name: 'profile',
+                    params: { name: provider.firstName + '-' + provider.lastName }
+                })
 
                 portfolioStore.getProviderPosts(provider.id).then((res) => {
-                    isLoad.value = false
                     if (res.status == 200) {
-                        providerStore.$state.provider.btnVisible = provider.btnVisible
-                        router.push({
-                            name: 'profile',
-                            params: { name: provider.firstName + '-' + provider.lastName }
-                        })
+
                     } else {
                         portfolioStore.$state.errorPortfolioPosts.status = true
                         portfolioStore.$state.errorPortfolioPosts.message = res.data.message
