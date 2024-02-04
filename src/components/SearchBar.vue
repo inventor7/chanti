@@ -6,11 +6,11 @@
         
         type="text" :placeholder="languageStore.getWord('searchPlaceHolder')"
        
-        class="flex-1 w-full input input-xs sm:input-md 2xl:input-lg 2xl:text-2xl  text-sm sm:text-xl   font-semibold pl-4  xl:pl-8   rounded-full focus:outline-none outline-none "
+        class="flex-1 w-full input input-sm sm:input-md 2xl:input-lg 2xl:text-2xl  text-sm sm:text-xl   font-semibold pl-4  xl:pl-8   rounded-full focus:outline-none outline-none "
             v-model="searchInput" @keyup.enter="handleSearchClick" @focus="handleFocusSearchBar" ref="searchInputRef" />
 
         <button @click="handleSearchClick"
-            class=" btn btn-primary whitespace-nowrap btn-sm  sm:btn-md 2xl:btn-lg  rounded-full text-white ">
+            class=" btn btn-primary whitespace-nowrap btn-sm h-10  sm:btn-md 2xl:btn-lg  rounded-full text-white ">
             <span class=" sm:hidden text-2xl sm:text-3xl  material-icons">
                 search
             </span>
