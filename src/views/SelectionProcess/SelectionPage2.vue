@@ -2,7 +2,6 @@
     <div>
         <SignupLayout :pageNumber="2" :isError="notSelectedError" errorText="please select a wilaya and commune"
             @handle="handleClick" @handleBack="handleBack" :pageTitle="languageStore.getWord('selectLocation')"
-           
             componentLocation="selectionProcess">
             <div class=" flex overflow-y-scroll flex-row justify-start w-full h-full  flex-1 gap-3  items-start ">
                 <div
@@ -44,7 +43,8 @@
                                         <ul tabindex="0"
                                             class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                             <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
-                                                :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0 ,'text-end' : languageStore.getRtl  }"><a> {{ languageStore.getWord('no_state') }} </a>
+                                                :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0, 'text-end': languageStore.getRtl }">
+                                                <span> {{ languageStore.getWord('no_state') }} </span>
                                             </li>
                                             <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   "
                                                 @click="selectWilaya(wilaya)"
@@ -98,8 +98,8 @@
                                     <ul tabindex="0"
                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                         <li v-if="wilayassStore.filteredCommunes.length == 0 && !wilayassStore.loading"
-                                        :class="{'text-end' : languageStore.getRtl }"    
-                                        class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl ">
+                                            :class="{ 'text-end': languageStore.getRtl }"
+                                            class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl ">
                                             <p>{{ languageStore.getWord('no_city') }}</p>
                                         </li>
                                         <li v-if="wilayassStore.loading"
@@ -306,4 +306,5 @@ export default {
 .dropdown-content::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-}</style>
+}
+</style>

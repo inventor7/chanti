@@ -170,7 +170,7 @@
                                                         class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                                         <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
                                                             :class="{ 'hidden': wilayassStore.filteredWilayas.length !== 0 }">
-                                                            <a>{{ languageStore.getWord('no_state') }}</a>
+                                                            <span>{{ languageStore.getWord('no_state') }}</span>
                                                         </li>
                                                         <li class=" dropdown-open  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold  py-1 sm:py-2  transition-all duration-200 ease-in-out  rounded-xl   "
                                                             @click="selectWilaya(wilaya)"
@@ -225,7 +225,7 @@
                                                     class="dropdown-content   w-full max-h-32 sm:max-h-64 p-2 sm:shadow-2xl bg-base-100 rounded-box border-y-2 overflow-y-scroll">
                                                     <li class="text-error px-3 font-semibold  py-1 sm:py-2 rounded-xl "
                                                         :class="{ 'hidden': wilayassStore.filteredCommunes.length !== 0 }">
-                                                        <a>{{ languageStore.getWord('no_city') }} </a>
+                                                        <span>{{ languageStore.getWord('no_city') }} </span>
                                                     </li>
                                                     <li class=" dropdown-open  z-10  px-3 cursor-pointer hover:bg-gray-400/30 font-semibold py-1 sm:py-2 transition-all duration-200 ease-in-out  rounded-xl   "
                                                         @click="selectCommune(commune)"

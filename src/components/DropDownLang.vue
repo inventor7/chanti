@@ -43,7 +43,7 @@
 
 
             <li @click="changeLang('ar')">
-                <a>العربية
+                <span>العربية
                     <img src="https://flagcdn.com/40x30/dz.png"
                         srcset="https://flagcdn.com/80x60/dz.png 2x, https://flagcdn.com/120x90/dz.png 3x" width="20"
                         height="24" alt="Algeria">
@@ -51,12 +51,12 @@
                         v-if="languageStore.$state.lang === 'ar'">
                         check_circle
                     </span>
-                </a>
+                </span>
 
             </li>
 
             <li @click="changeLang('fr')">
-                <a>Français
+                <span>Français
                     <img src="https://flagcdn.com/16x12/fr.png"
                         srcset="https://flagcdn.com/32x24/fr.png 2x, https://flagcdn.com/48x36/fr.png 3x" width="16"
                         height="12" alt="France">
@@ -64,7 +64,7 @@
                         v-if="languageStore.$state.lang === 'fr'">
                         check_circle
                     </span>
-                </a>
+                </span>
 
             </li>
 
