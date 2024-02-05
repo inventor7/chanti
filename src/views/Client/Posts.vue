@@ -40,7 +40,6 @@
 
                 <!-- else -->
                 <ClientPost class="w-full " v-for="post in Posts" :key="post.id" :post="post" />
-                <Post class="w-full " v-for="post in Posts" :key="post.id"  :post="post" />
 
             </div>
 
@@ -56,7 +55,6 @@
 
 <script>
 //layout
-import Post from '../../components/Post.vue';
 import ClientPost from '../../components/ClientPost.vue';
 import Loading from '../../components/Loading.vue';
 import Error from '../../components/Error.vue';
@@ -76,7 +74,6 @@ export default {
         ClientPostDetailsPage,
         ClientLayout,
         ClientPost,
-        Post,
         RatingClientPage,
         Loading,
         Error,
