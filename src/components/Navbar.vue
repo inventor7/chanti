@@ -86,6 +86,18 @@
                         <p class="text-xs text-gray-500 ">{{ authStore.$state.userAuth.email }}</p>
                     </div>
 
+                    <!-- profile/:name -->
+
+                    <li v-if="userStore.$state.userType === 'provider'">
+                        <div @click="handleGoProfile">
+                            <span class="flex flex-row justify-start gap-2 items-center">
+                                <span class="material-icons">
+                                    person
+                                </span>
+                                Profile
+                            </span>
+                        </div>
+                    </li>
                     <li>
                         <label for="lang-modal" class="justify-start gap-2 items-center">
                             <span class="material-icons">
@@ -122,7 +134,7 @@
     <label for="lang-modal"
         class="modal w-full h-full bg-black/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
         <ul tabindex="0" class="p-2 modal-box  shadow menu menu-compact bg-base-100 rounded-box w-52 z-50 transform ">
-            <li  selected="true" @click="changeLang('en')">
+            <li selected="true" @click="changeLang('en')">
                 English
                 <img src="https://flagcdn.com/16x12/us.png"
                     srcset="https://flagcdn.com/32x24/us.png 2x, https://flagcdn.com/48x36/us.png 3x" width="16" height="12"
@@ -209,6 +221,20 @@ export default {
             })
         }
 
+        const handleGoProfile = () => {
+            router.push({
+                name: 'profile',
+                params: { name: authStore.$state.userAuth.firstName + '-' + authStore.$state.userAuth.lastName }
+            })
+
+
+            portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => { })
+            portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => { })
+
+
+        }
+
+
         onBeforeMount(() => {
             if (authStore.$state.isAuthenticated) {
                 if (userStore.$state.userType === 'provider') {
@@ -294,9 +320,10 @@ export default {
             changeLang,
             handleGetNotification,
             handleGoSettings,
+            handleGoProfile,
         };
     },
 
-}
+};
 
 </script>

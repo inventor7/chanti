@@ -15,10 +15,10 @@
                     <transition-group name="post" tag="div" mode="out-in">
                         <div v-for="post in portfolioPosts.portfolioPostsWithImages" :key="post.id"
                             class="relative h-fit mb-4 w-full flex flex-col md:max-w-xl self-center group  bg-gray-100 border  rounded-xl drop-shadow-md transition">
-                            <div class="carousel carousel-center  h-full max-h-[55vh] w-full ">
+                            <div class="carousel carousel-center  h-[55vh] overflow-y-hidden w-full ">
                                 <div v-for="(image, index) in post.images" :key="index"
-                                    class="relative carousel-item h-full  w-full border  border-white ">
-                                    <img class=" h-full rounded-t-xl  w-full object-cover" :src="getBase64Image(image.data)"
+                                    class="relative carousel-item h-full  w-full border    border-white ">
+                                    <img class=" h-full rounded-t-xl  w-full object-contain" :src="getBase64Image(image.data)"
                                         :alt="image.type">
                                     <label
                                         class="material-icons z-10 text-3xl absolute top-1 right-1 bg-white/50 w-fit h-fit rounded-full px-0.5 "
