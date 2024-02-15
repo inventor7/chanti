@@ -1,6 +1,6 @@
 <template>
-    <ClientLayout>
-        <div class=" flex flex-col justify-start items-center w-full h-full p-2">
+    <ProviderLayout>
+        <div class=" flex flex-col justify-start items-center w-full h-full p-2  max-w-2xl ">
             <div class="profile_pic_section flex flex-col justify-between items-center w-full gap-3 my-4 ">
                 <div
                     class=" relative h-24 w-24 rounded-full bg-sky-700 text-4xl text-white flex justify-center items-center ">
@@ -24,7 +24,8 @@
 
             <div class="settings_list_section space-y-2 w-full ">
                 <!-- Elemenet 1 -->
-                <div  @click="navigateTo('clientProfile')" class=" flex flex-row justify-between items-center w-full px-2 py-4  ">
+                <div @click="handleGoProfile()"
+                    class=" flex flex-row justify-between items-center w-full px-2 py-4 cursor-pointer  ">
                     <div class="flex flex-row items-center justify-start gap-3">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -48,14 +49,14 @@
                             </clipPath>
                         </defs>
                     </svg>
-
                 </div>
                 <div class=" bg-gray-200 h-[0.25px] ">
                 </div>
                 <!-- End Elemant 1 -->
 
                 <!-- Elemenet 2 -->
-                <div @click="navigateTo('idendityVerification')" class=" flex flex-row justify-between items-center w-full px-2 py-4 ">
+                <div @click="navigatetoVerify()"
+                    class=" flex flex-row justify-between items-center w-full px-2 py-4 cursor-pointer ">
                     <div class="flex flex-row items-center justify-start gap-3">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -87,7 +88,7 @@
                 <!-- End Elemant 2 -->
 
                 <!-- Elemenet 3 -->
-                <div @click="navigateTo('account_settings')" class=" flex flex-row justify-between items-center w-full px-2 py-4 ">
+                <div class=" flex flex-row justify-between items-center w-full px-2 py-4 cursor-pointer ">
                     <div class="flex flex-row items-center justify-start gap-3">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -116,10 +117,11 @@
                 </div>
                 <div class=" bg-gray-200 h-[0.25px] ">
                 </div>
-                <!-- End Elemant 3 --> 
-                
+                <!-- End Elemant 3 -->
+
                 <!-- Elemenet 4 -->
-                <label for="lang-modal" class=" flex flex-row justify-between items-center w-full px-2 py-4 ">
+                <label for="lang-modal"
+                    class=" flex flex-row justify-between items-center w-full px-2 py-4 cursor-pointer ">
                     <div class="flex flex-row items-center justify-start gap-3">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -151,7 +153,7 @@
                 <!-- End Elemant 4 -->
 
                 <!-- Elemenet 5 -->
-                <div @click="navigateTo('help_center')" class=" flex flex-row justify-between items-center w-full px-2 py-4 ">
+                <div class=" flex flex-row justify-between items-center w-full px-2 py-4 cursor-pointer ">
                     <div class="flex flex-row items-center justify-start gap-3">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -183,7 +185,7 @@
                 <!-- End Elemant 5 -->
 
                 <!-- Elemenet 6 -->
-                <div @click="navigateTo('logout')" class=" flex flex-row justify-between items-center w-full px-2 py-4 ">
+                <div class=" flex flex-row justify-between items-center w-full px-2 py-4 cursor-pointer ">
                     <div class="flex flex-row items-center justify-start gap-3">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -219,19 +221,40 @@
 
 
         </div>
-    </ClientLayout>
+    </ProviderLayout>
 </template>
 
 <script setup>
-import ClientLayout from './Layouts/ClientLayout.vue';
-import { useAuthStore } from '../store/authStore';
+import ProviderLayout from '../Layouts/ProviderLayout.vue'
+import { useAuthStore } from '../../store/authStore'
 import { useRouter } from 'vue-router';
+import { usePortfolioStore } from '../../store/Provider/portfolioStore'
+import { useUserStore } from '../../store/userStore'
 
 const authStore = useAuthStore();
 const router = useRouter();
+const portfolioStore = usePortfolioStore();
+const userStore = useUserStore();
 
-const navigateTo = (route) => {
-    router.push({ name: route });
+
+const handleGoProfile = () => {
+
+    router.push({
+        name: 'profile',
+        params: { name: authStore.$state.userAuth.firstName + '-' + authStore.$state.userAuth.lastName }
+    })
+
+    portfolioStore.getProviderInfo(authStore.$state.userAuth.id).then((res) => { })
+    portfolioStore.getProviderPosts(authStore.$state.userAuth.id).then((res) => { })
+
+
+}
+
+
+const navigatetoVerify = () => {
+    router.push({
+        name: 'verifyidendity'
+    })
 }
 
 </script>

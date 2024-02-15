@@ -89,7 +89,7 @@
                     <!-- profile/:name -->
 
                     <li v-if="userStore.$state.userType === 'provider'">
-                        <div @click="handleGoProfile">
+                        <div @click="handleGoProfile()">
                             <span class="flex flex-row justify-start gap-2 items-center">
                                 <span class="material-icons">
                                     person
@@ -277,7 +277,12 @@ export default {
         }
 
         const handleGoSettings = () => {
-            router.push({ name: 'settings' })
+            if (userStore.$state.userType === 'provider') {
+                router.push({ name: 'providerSettings' })
+            } else {
+                router.push({ name: 'clientSettings' })
+            }
+
         }
 
 

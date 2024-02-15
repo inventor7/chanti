@@ -13,7 +13,7 @@
 
                 
                     
-                    <div class=" z-20 flex flex-col justify-between items-center w-full h-1/2 md:gap-6 lg:gap-10  px-1 md:px-10  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-9xl  ">
+                    <div class=" z-20 flex flex-col justify-between items-center w-full h-1/2 md:gap-6 lg:gap-10  px-1 md:px-10  text-3xl  sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl  ">
                         <h1 v-if="authStore.$state.isAuthenticated == false" 
                             class=" w-full xl:w-[75%]   text-center    text-white  mb-5 font-bold">
                             {{ languageStore.getWord('title') }}

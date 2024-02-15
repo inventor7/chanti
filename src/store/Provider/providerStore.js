@@ -8,6 +8,11 @@ export const useProviderStore = defineStore("providerStore", {
   state: () => ({
     //basic vars
     loading: false,
+    verifyLoading: false,
+    verifyError: {
+      message: "",
+      status: false,
+    },
     errorrProvider: {
       message: "",
       status: false,
@@ -128,6 +133,33 @@ export const useProviderStore = defineStore("providerStore", {
         } else {
           this.errorrProvider.message =
             "Network error: please check your internet connection and try again";
+        }
+      }
+    },
+
+
+    async verifyIdendity(data) {
+      this.verifyLoading = true;
+      try {
+        const response = await axios({
+          method: "post",
+          url: `${useAuthStore().baseUrl}/profile/send-identity-verify`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          data: data,
+          timeout: 13000, // 13 seconds
+        });
+
+        this.verifyLoading = false;
+        return response;
+      } catch (error) {
+        this.verifyLoading = false;
+        if (error.response) {
+          return error.response;
+        } else {
+          return error;
         }
       }
     },

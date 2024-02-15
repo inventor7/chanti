@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useUserStore } from '../store/userStore.js';
 
 import { requireAuth } from "./authMiddlware.js";
 import { requireRole } from "./roleMiddlware.js";
@@ -27,170 +28,182 @@ import UnauthorisedPage from "../views/UnauthorisedPage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
-  
+
 
   routes: [
-
     {
       path: "/settings",
-      name: "settings",
-      component: () => import("../views/Settings.vue"),
-    },
-    ////////////Signup Pages////////////
-    {
-      path: "/signup/howitworks",
-      name: "howitworks",
-      component: SignupPage1,
-      meta: { auth: false },
+      name: "providerSettings",
+      meta: { auth: true },
+      component: () => import("../views/Provider/Settings.vue"),
     },
     {
-      path: "/signup/field",
-      name: "field",
-      component: SignupPage2,
-      meta: { auth: false },
+      path: "/setting",
+      name: "clientSettings",
+      meta: { auth: true },
+      component: () => import("../views/Client/Settings.vue"),
     },
-    {
-      path: "/signup/profession",
-      name: "profession",
-      component: SignupPage3,
-      meta: { auth: false },
-    },
-    {
-      path: "/signup/location",
-      name: "location",
-      component: SignupPage4,
-      meta: { auth: false },
-    },
-    {
-      path: "/signup/idendity",
-      name: "idendity",
-      component: SignupPage5,
-      meta: { auth: false },
-    },
-    {
-      path: "/signup/registrations",
-      name: "registrations",
-      component: SignupPage6,
-      meta: { auth: false },
-    },
+  ////////////Signup Pages////////////
+  {
+    path: "/signup/howitworks",
+    name: "howitworks",
+    component: SignupPage1,
+    meta: { auth: false },
+  },
+  {
+    path: "/signup/field",
+    name: "field",
+    component: SignupPage2,
+    meta: { auth: false },
+  },
+  {
+    path: "/signup/profession",
+    name: "profession",
+    component: SignupPage3,
+    meta: { auth: false },
+  },
+  {
+    path: "/signup/location",
+    name: "location",
+    component: SignupPage4,
+    meta: { auth: false },
+  },
+  {
+    path: "/signup/idendity",
+    name: "idendity",
+    component: SignupPage5,
+    meta: { auth: false },
+  },
+  {
+    path: "/signup/registrations",
+    name: "registrations",
+    component: SignupPage6,
+    meta: { auth: false },
+  },
 
-    // ///////////SelectionProcess Pages/////////////
-    {
-      path: "/selection/services",
-      name: "services",
-      component: SelectionPage1,
-      meta: { role: "client" , mixed : 1 },
-    },
-    {
-      path: "/selection/location",
-      name: "selection-location",
-      component: SelectionPage2,
-      meta: { role: "client" , mixed : 1 },
-    },
-    {
-      path: "/selection/emergency",
-      name: "emergency",
-      component: SelectionPage3,
-      meta: { role: "client" , mixed : 1 },
-    },
-    {
-      path: "/selection/images",
-      name: "images",
-      component: SelectionPage4,
-      meta: { role: "client" , mixed : 1 },
-    },
-    {
-      path: "/selection/desc",
-      name: "desc",
-      component: SelectionPage5,
-      meta: { role: "client" , mixed : 1 },
-    },
-    {
-      path: "/selection/login",
-      name: "loginSelection",
-      component: SelectionPage6,
-      meta: { role: "client", auth: false },
-    },
-    {
-      path: "/selection/results",
-      name: "results",
-      component: SelectionPage7,
-      meta: { role: "client", auth: true },
-    },
+  // ///////////SelectionProcess Pages/////////////
+  {
+    path: "/selection/services",
+    name: "services",
+    component: SelectionPage1,
+    meta: { role: "client", mixed: 1 },
+  },
+  {
+    path: "/selection/location",
+    name: "selection-location",
+    component: SelectionPage2,
+    meta: { role: "client", mixed: 1 },
+  },
+  {
+    path: "/selection/emergency",
+    name: "emergency",
+    component: SelectionPage3,
+    meta: { role: "client", mixed: 1 },
+  },
+  {
+    path: "/selection/images",
+    name: "images",
+    component: SelectionPage4,
+    meta: { role: "client", mixed: 1 },
+  },
+  {
+    path: "/selection/desc",
+    name: "desc",
+    component: SelectionPage5,
+    meta: { role: "client", mixed: 1 },
+  },
+  {
+    path: "/selection/login",
+    name: "loginSelection",
+    component: SelectionPage6,
+    meta: { role: "client", auth: false },
+  },
+  {
+    path: "/selection/results",
+    name: "results",
+    component: SelectionPage7,
+    meta: { role: "client", auth: true },
+  },
 
-    // ///////////////client Pages///////////////
-    {
-      path: "/",
-      name: "home",
-      component: Home,
-    },
-    {
-      path: "/profile",
-      name: "clientProfile",
-      component: () => import("../views/Client/Profile.vue"),
-    },
-    {
-      path: "/Posts",
-      name: "clientPosts",
-      component: () => import("../views/Client/Posts.vue"),
-      meta: { auth: true, role: "client" },
-    },
+  // ///////////////client Pages///////////////
+  {
+    path: "/",
+    name: "home",
+    component: Home,
+  },
+  {
+    path: "/profile",
+    name: "clientProfile",
+    component: () => import("../views/Client/Profile.vue"),
+  },
+  {
+    path: "/Posts",
+    name: "clientPosts",
+    component: () => import("../views/Client/Posts.vue"),
+    meta: { auth: true, role: "client" },
+  },
 
-    // ///////////////provider Pages///////////////
+  // ///////////////provider Pages///////////////
 
-    {
-      path: "/profile/:name",
-      name: "profile",
-      component: () => import("../views/Provider/Profile.vue"),
-      meta: { auth: true},
-    },
+  {
+    path: "/profile/:name",
+    name: "profile",
+    component: () => import("../views/Provider/Profile.vue"),
+    meta: { auth: true },
+  },
 
-    {
-      path: "/profile/edit/:id",
-      name: "editProfile",
-      component: () => import("../views/Provider/EditProfile.vue"),
-      meta: { auth: true, role: "provider" },
-    },
+  {
+    path: "/profile/edit/:id",
+    name: "editProfile",
+    component: () => import("../views/Provider/EditProfile.vue"),
+    meta: { auth: true, role: "provider" },
+  },
 
-    //navigation
-    {
-      path: "/home",
-      name: "providerHome",
-      //lazy loading
-      component: () => import("../views/Provider/Home.vue"),
-      meta: { auth: true, role: "provider" },
-    },
+  //navigation
+  {
+    path: "/home",
+    name: "providerHome",
+    //lazy loading
+    component: () => import("../views/Provider/Home.vue"),
+    meta: { auth: true, role: "provider" },
+  },
 
-    {
-      path: "/Pro/projects",
-      name: "providerProjects",
-      component: () => import("../views/Provider/Projects.vue"),
-      meta: { auth: true, role: "provider" },
-    },
+  {
+    path: "/Pro/projects",
+    name: "providerProjects",
+    component: () => import("../views/Provider/Projects.vue"),
+    meta: { auth: true, role: "provider" },
+  },
 
-    {
-      path: "/Post/create",
-      name: "createPost",
-      component: () => import("../views/Provider/PostCreation.vue"),
-      meta: { auth: true, role: "provider" },
-    },
+  {
+    path: "/Post/create",
+    name: "createPost",
+    component: () => import("../views/Provider/PostCreation.vue"),
+    meta: { auth: true, role: "provider" },
+  },
 
-    //error page
-    {
-      path: "/:catchALL(.*)",
-      redirect: "/error",
-    },
-    {
-      path: "/error",
-      name: "error",
-      component: ErrorPage,
-    },
-    // unauthorised page
-    {
-      path: "/unauthorised",
-      name: "unauthorised",
-      component: UnauthorisedPage,
-    },
+  {
+    path: "/settings/verifyidendity",
+    name: "verifyidendity",
+    component: () => import("../views/Provider/VerifyIdendity.vue"),
+    meta: { auth: true, role: "provider" },
+  },
+  //error page
+  {
+    path: "/:catchALL(.*)",
+    redirect: "/error",
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: ErrorPage,
+  },
+  // unauthorised page
+  {
+    path: "/unauthorised",
+    name: "unauthorised",
+    component: UnauthorisedPage,
+  },
   ],
 });
 

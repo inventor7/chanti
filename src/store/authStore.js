@@ -87,7 +87,6 @@ export const useAuthStore = defineStore("authStore", {
 
         useUserStore().$state.userType = "client";
 
-        window.location.reload();
         useRouter().push({ name: "home" });
         return response;
       } catch (error) {

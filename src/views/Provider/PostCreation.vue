@@ -152,7 +152,6 @@ import { reactive, ref, watch, watchEffect, computed } from 'vue'
 
 //store
 import { useclientDemandeStore } from '../../store/Client/clientDemandeStore'
-import { defineAsyncComponent } from 'vue';
 import { useAuthStore } from '../../store/authStore.js'
 import { useProviderStore } from '../../store/Provider/providerStore';
 import { usePortfolioStore } from '../../store/Provider/portfolioStore';
