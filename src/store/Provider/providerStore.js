@@ -6,18 +6,20 @@ import { useclientDemandeStore } from "../Client/clientDemandeStore";
 export const useProviderStore = defineStore("providerStore", {
   id: "provider",
   state: () => ({
-    //basic vars
-    loading: false,
+
     verifyLoading: false,
     verifyError: {
       message: "",
       status: false,
     },
+
+    loading: false,
     errorrProvider: {
       message: "",
       status: false,
     },
 
+    //basic vars
     provider: {},
     selecteddProvider: {},
     providers: [],
@@ -145,7 +147,7 @@ export const useProviderStore = defineStore("providerStore", {
           method: "post",
           url: `${useAuthStore().baseUrl}/profile/send-identity-verify`,
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: data,
@@ -156,6 +158,29 @@ export const useProviderStore = defineStore("providerStore", {
         return response;
       } catch (error) {
         this.verifyLoading = false;
+        if (error.response) {
+          return error.response;
+        } else {
+          return error;
+        }
+      }
+    },
+
+
+    async getVerificationStatus() {
+      try {
+        const response = await axios({
+          method: "get",
+          url: `${useAuthStore().baseUrl}/profile/get-identity-verify/${useAuthStore().$state.userAuth.id}`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${useAuthStore().$state.token}`,
+          },
+          timeout: 13000, // 13 seconds
+        });
+
+        return response;
+      } catch (error) {
         if (error.response) {
           return error.response;
         } else {
