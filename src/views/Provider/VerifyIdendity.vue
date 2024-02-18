@@ -1,10 +1,25 @@
 <template>
     <ProviderLayout>
-        <div class="flex flex-col justify-start items-center w-full h-screen md:mt-10 px-2 gap-16 max-w-md">
+
+
+        <div v-if="isLoading" class="flex flex-col justify-start items-center w-full h-[70vh]">
+            <div class="flex flex-col justify-center items-center w-full h-full">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A8.001 8.001 0 0112 4.472V0C6.477 0 2 4.477 2 10h4v2.291z">
+                    </path>
+                </svg>
+                <p class="text-primary">Loading...</p>
+            </div>
+        </div>
+
+        <div v-else class="flex flex-col justify-start items-center w-full h-screen md:mt-10 px-2 gap-16 max-w-md">
 
             <!------ If demande is not requested yet ------>
             <div v-if="!isDemande" class="space-y-2 w-full h-1/3">
-                <h1 class="font-bold text-2xl text-start w-full">Idendity Verification</h1>
+                <h1 class="font-bold text-2xl text-start w-full">Vérification d'identité</h1>
 
                 <div class="relative flex flex-col justify-center items-center w-full h-full p-2">
                     <div class="absolute rounded-lg -z-10 w-full h-full bg-green-700/20"></div>
@@ -47,7 +62,7 @@
 
             <!----- If Demande is Requested ----->
             <div v-if="isDemande" class=" flex flex-col justify-start items-center gap-6 w-full h-1/3">
-                <h1 class="font-bold text-2xl text-start w-full">Idendity Verification</h1>
+                <h1 class="font-bold text-2xl text-start w-full">Statut de la demande</h1>
 
                 <div class="flex flex-col justify-center items-center mt-8 w-2/3 h-full mask mask-circle   " :class="{
                     'bg-warning/10': Demande.status === 'pending' || Demande.status === 'none',
@@ -72,16 +87,16 @@
                     </span>
                 </div>
 
-             
+
 
                 <p class="text-xl w-full text-center mt-2 ">
-                    Votre demande est 
-                    <span class="font-bold" :class="{
+                    votre demande est
+                    <span class="font-bold underline " :class="{
                         'text-warning': Demande.status === 'pending' || Demande.status === 'none',
                         'text-red-500': Demande.status === 'declined',
                         'text-success': Demande.status === 'verified'
                     }">
-                       <span v-if="Demande.status === 'pending' || Demande.status === 'none'">
+                        <span v-if="Demande.status === 'pending' || Demande.status === 'none'">
                             en attente
                         </span>
                         <span v-else-if="Demande.status === 'declined'">
@@ -170,12 +185,13 @@
                 </div>
             </div>
         </Alert>
-
-        <Toast class="z-[70] top-0" :color="errorState" :message="errorMessage" :isVisible="errorStatus" />
     </ProviderLayout>
+
+    <Toast class="z-[70] top-0" :color="errorState" :message="errorMessage" :isVisible="errorStatus" />
 </template>
 
 <script setup>
+import ProviderLayout from  '../Layouts/ProviderLayout.vue'
 import { useRouter } from "vue-router";
 import { usePortfolioStore } from "../../store/Provider/portfolioStore";
 import { useProviderStore } from "../../store/Provider/providerStore";
@@ -184,7 +200,6 @@ import { useclientDemandeStore } from "../../store/Client/clientDemandeStore";
 
 import { reactive, ref, onMounted, watchEffect, computed, toRefs } from "vue";
 
-import ProviderLayout from "../../views/layouts/ProviderLayout.vue";
 import Toast from "../../components/Toast.vue";
 import Alert from "../../components/Alert.vue";
 //store
@@ -200,6 +215,7 @@ const errorState = ref("");
 
 
 const isDemande = ref(false);
+const isLoading = ref(false);
 
 const Demande = reactive({
     images: [],
@@ -208,34 +224,36 @@ const Demande = reactive({
 });
 
 onMounted(() => {
+    isLoading.value = true;
     providerStore.getVerificationStatus().then((res) => {
+        isLoading.value = false;
         console.log(res.data);
         // check if the res.data has a result or not
-        if (res.data.result) {
+        if (res.data?.result) {
             Demande.status = res.data.result.identityVerify.status;
             Demande.demandeDate = res.data.result.identityVerify.createdAt;
-            
+
 
             isDemande.value = true;
         }
     });
-}),
-    //image upload
-    function handleFileUpload(event) {
-        const files = event.target.files;
-    
-        // if files >3 return error
-        if (clientDemandeStore.request.images.length > 1) {
-            errorStatus.value = true;
-            errorMessage.value = "tu ne peux pas télécharger plus de 1 image";
-            errorState.value = "error";
-        } else {
-            for (let i = 0; i < files.length; i++) {
-                selectedFiles.push(files[i]);
-            }
-            clientDemandeStore.request.images = selectedFiles;
+})
+//image upload
+const handleFileUpload = (event) => {
+    const files = event.target.files;
+
+    // if files >3 return error
+    if (clientDemandeStore.request.images.length > 1) {
+        errorStatus.value = true;
+        errorMessage.value = "tu ne peux pas télécharger plus de 1 image";
+        errorState.value = "error";
+    } else {
+        for (let i = 0; i < files.length; i++) {
+            selectedFiles.push(files[i]);
         }
-    };
+        clientDemandeStore.request.images = selectedFiles;
+    }
+};
 
 const selectedFileUrls = computed(() => {
     return selectedFiles.map((file) => URL.createObjectURL(file));
@@ -263,7 +281,9 @@ const SendPost = () => {
                 errorStatus.value = true;
                 errorMessage.value = "la demande a été envoyée avec succès";
                 errorState.value = "success";
-
+                isDemande.value = true;
+                Demande.status = "pending";
+                Demande.demandeDate = new Date().toISOString();
 
             }
         });
@@ -275,7 +295,6 @@ watchEffect(() => {
     if (errorStatus.value) {
         setTimeout(() => {
             errorStatus.value = false;
-            window.location.reload();
         }, 3000);
     }
 });
