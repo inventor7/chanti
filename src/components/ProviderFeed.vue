@@ -7,7 +7,7 @@
         <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status" class="w-full min-h-[85vh]">
             <div v-if="feedPosts === null || feedPosts.length === 0"
                 class=" flex flex-col justify-center items-center h-[80vh] ">
-                <img class="w-full" src="../assets/no_projects.svg" alt="no_projects">
+                <img class=" w-2/3 md:w-1/3" src="../assets/no_projects.svg" alt="no_projects">
                 <span class="text-gray-400 text-lg font-semibold">No posts yet in your area</span>
             </div>
 

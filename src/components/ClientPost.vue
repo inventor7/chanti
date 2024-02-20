@@ -165,12 +165,11 @@ const formatTime = (date) => timeDifference(date)
 const showPost = (clientPostId, postStatus, status) => {
 
     if (postStatus === status) {
+        clientDemandeStore.clientPostPageVisibility = true;
         clientDemandeStore.$state.selectedPost = clientDemandeStore.getClientPostById(clientPostId)
         clientDemandeStore.getClientPostProviders(clientPostId).then((res) => {
         })
-        clientDemandeStore.getClientPostImages(clientPostId).then((res) => {
-        })
-        clientDemandeStore.clientPostPageVisibility = true;
+        clientDemandeStore.getClientPostImages(clientPostId).then((res) => {})
     }
 
 

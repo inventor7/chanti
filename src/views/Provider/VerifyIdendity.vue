@@ -243,7 +243,7 @@ const handleFileUpload = (event) => {
     const files = event.target.files;
 
     // if files >3 return error
-    if (clientDemandeStore.request.images.length > 1) {
+    if (clientDemandeStore.request.images.length > 2) {
         errorStatus.value = true;
         errorMessage.value = "tu ne peux pas télécharger plus de 1 image";
         errorState.value = "error";
@@ -266,14 +266,15 @@ const handleFileClick = () => {
 //send post
 const SendPost = () => {
     const formData = new FormData();
-    if (selectedFiles.length == 0) {
+    if (selectedFiles.length == 1) {
         errorStatus.value = true;
-        errorMessage.value = "Please select 1 image to upload";
+        errorMessage.value = "Please select 2 image to upload";
         errorState.value = "error";
     } else {
         formData.append("providerId", authStore.$state.userAuth.id);
 
         formData.append("images", selectedFiles[0]);
+        formData.append("images", selectedFiles[1]);
 
         providerStore.verifyIdendity(formData).then((res) => {
             if (res.status == 200) {

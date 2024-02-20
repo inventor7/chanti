@@ -3,7 +3,7 @@
 
         <!-- Filters -->
         <div
-            class=" flex flex-row justify-between items-center w-full h-full gap-1 rounded-3xl border border-gray-300 my-2 p-1 text-sm font-semibold ">
+            class=" flex flex-row justify-between items-center w-full h-full gap-1 rounded-3xl border border-gray-300 my-2 p-1 text-sm font-semibold max-w-2xl ">
 
             <div @click="filterProjects('notStarted')"
                 class=" cursor-pointer w-full text-center p-2 rounded-3xl transition-all duration-300 ease-in-out "
@@ -31,9 +31,9 @@
             <Loading />
         </div>
 
-        <div v-else class=" flex flex-col justify-between items-center gap-4 lg:gap-6 w-full h-full">
+        <div v-else class=" flex flex-col justify-between items-center gap-4 lg:gap-6 w-full h-full max-w-2xl ">
             <!-- if projects empty -->
-            <div v-if="localProjects.length <= 0" class=" flex flex-col justify-center items-center w-full h-[50vh] ">
+            <div v-if="localProjects.length <= 0" class=" flex flex-col justify-center items-center w-full  max-w-md ">
                 <img class="w-full" src="../../assets/no_projects.svg" alt="no projects">
                 <h2 class=" font-semibold mt-2 ">No Project under this tab</h2>
             </div>
