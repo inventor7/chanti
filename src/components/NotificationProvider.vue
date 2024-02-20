@@ -1,5 +1,5 @@
 <template>
-    <div
+    <div @click="showProject()"
         class=" relative sm:px-1    notification-item hover:bg-gray-300/40 transition-all duration-300 ease-in-out cursor-pointer  border-2  rounded-2xl   ">
         <!-- an alert model to show details -->
         <label class=" cursor-pointer  absolute rounded-xl -left-0 z-10  w-full h-full "></label>
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 import { useLanguageStore } from '../store/AppBasic/languageStore'
 import { useTimeDifference } from '../composables/timeDifference'
 import { useProviderStore } from '../store/Provider/providerStore'
@@ -104,6 +105,7 @@ export default defineComponent({
         const notificationStore = useNotificationStore()
         const providerStore = useProviderStore()
         const userStore = useUserStore()
+        const clientDemandeStore = useclientDemandeStore()
 
         //composables
         const { timeDifference } = useTimeDifference()
@@ -132,7 +134,7 @@ export default defineComponent({
                     if (!isRead) {
                         props.notif.status = descision
                         props.notif.isRead = true
-                        
+
                     } else {
                         props.notif.status = descision
                     }
@@ -140,6 +142,12 @@ export default defineComponent({
             })
         }
 
+
+        const showProject = () => {
+            clientDemandeStore.clientPostPageVisibility = true;
+            clientDemandeStore.$state.selectedPost = notification.value
+            clientDemandeStore.getClientPostImages(notification.value.id).then((res) => { })
+        }
 
 
 
@@ -158,7 +166,8 @@ export default defineComponent({
 
             //methods
             formatTime,
-            selectResponse
+            selectResponse,
+            showProject
         }
     }
 })
