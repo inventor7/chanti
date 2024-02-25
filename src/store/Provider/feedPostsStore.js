@@ -30,7 +30,7 @@ export const useFeedPostsStore = defineStore("feedPostsStore", {
             Authorization: `Bearer ${useAuthStore().$state.token}`,
           },
           data: {},
-          timeout: 13000, // 13 seconds
+          timeout: 60000, // 30 seconds timeout
         });
 
         this.feedPosts = response.data.result;

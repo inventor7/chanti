@@ -9,9 +9,9 @@
 
     <transition name="slideRight">
         <div v-if="clientDemandeStore.clientPostPageVisibility"
-            class="bg-white right-0 top-0 w-screen md:w-1/3  shadow-2xl overflow-y-scroll h-screen   z-[80] fixed">
+            class="bg-white right-0 top-0 w-screen md:w-5/12 xl:w-1/3  shadow-2xl overflow-y-scroll h-screen   z-[80] fixed">
             <div
-                class=" flex fixed px-2 shadow-xl  w-screen md:w-1/3 rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
+                class=" flex fixed px-2 shadow-xl  w-screen md:w-5/12 xl:w-1/3 rounded-b-xl  bg-white h-16 z-10 top-0 flex-row justify-between items-center  ">
                 <button class=" btn-circle " @click="handleClosePostPage">
                     <span class="material-icons text-primary font-bold md:text-2xl text-lg ">
                         arrow_back_ios

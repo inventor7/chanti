@@ -163,7 +163,6 @@ const showProject = (clientPostId, postStatus, status) => {
         clientDemandeStore.getClientPostImages(clientPostId).then((res) => { })
     }
 
-
 }
 
 

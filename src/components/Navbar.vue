@@ -72,9 +72,9 @@
 
             <!-- loggedin -->
             <div v-if="authStore.$state.isAuthenticated" class="dropdown dropdown-end  ">
-                <label tabindex="0" class="btn btn-ghost bg-sky-700 text-white btn-circle avatar">
+                <label tabindex="0" class=" md:mr-2 ">
                     <!-- get the first letter of the firstname and lastname -->
-                    {{ authStore.$state.userAuth.firstName[0] }}{{ authStore.$state.userAuth.lastName[0] }}
+                    <span class="  bg-primary text-white text-xs p-3 md:p-4 cursor-pointer aspect-square  rounded-full " > {{ authStore.$state.userAuth.firstName[0] }}{{ authStore.$state.userAuth.lastName[0] }}</span>
                 </label>
 
                 <ul tabindex="0"

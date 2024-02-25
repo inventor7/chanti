@@ -1,10 +1,11 @@
 <template>
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col max-w-lg gap-6 w-full">
         <Loading v-if="feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status"
             class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
         <Error v-if="feedPostsStore.errorFeedPosts.status && !feedPostsStore.loadingFeed"
             class=" fixed right-0 left-0 top-0 bottom-0 z-50" />
-        <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status" class="w-full min-h-[85vh]">
+        <div v-if="!feedPostsStore.loadingFeed && !feedPostsStore.errorFeedPosts.status"
+            class="w-full min-h-[85vh] pt-0 md:pt-6 ">
             <div v-if="feedPosts === null || feedPosts.length === 0"
                 class=" flex flex-col justify-center items-center h-[80vh] ">
                 <img class=" w-2/3 md:w-1/3" src="../assets/no_projects.svg" alt="no_projects">
@@ -13,16 +14,19 @@
 
             <transition-group v-else name="post" tag="div" mode="out-in">
 
-                <div v-for="post in feedPosts" :key="post.id"
-                    class="  post-container flex flex-col h-full w-full group mb-4 bg-white border-2 shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition">
-                    <div class="  relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
-                        <img class="notification-item w-full h-full absolute top-0 left-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
-                            src="/wall.svg" alt="Image Description">
-
+                <div @click="showProject(post)" v-for="post in feedPosts" :key="post.id"
+                    class=" group hover:border-primary border border-black/10 post-container flex flex-col w-full group mb-4 bg-white  shadow-sm rounded-xl overflow-hidden hover:shadow-lg cursor-pointer  transition">
+                    <div class="   h-[40vh] rounded-t-xl overflow-hidden">
+                        <img v-if="!post?.image"
+                            class="notification-item h-full group-hover:scale-[1.05]  w-full aspect-auto  object-cover object-center  transition-transform duration-500 ease-in-out rounded-t-xl"
+                            :src="`/${backgImg}`" :alt="`${backgImg}`">
+                        <img v-else
+                            class="notification-item h-full  group-hover:scale-[1.05] w-full  object-cover object-center  transition-transform duration-500 ease-in-out rounded-t-xl"
+                            :src="getPostImage(post)" :alt="getPostImage(post)">
                     </div>
-                    <div class="p-2  md:p-3 notification-item ">
+                    <div class="notification-item space-y-2 p-2 md:p-3">
                         <div class="flex flex-col gap-2">
-                            <div class="flex flex-row justify-between items-center">
+                            <div class="flex flex-row justify-between items-center  ">
                                 <div>
                                     <h3 class="text-2xl font-semibold text-gray-800">
                                         {{ languageStore.getWord(post.subcategoryName) }}</h3>
@@ -43,7 +47,7 @@
                         </div>
 
 
-                        <div class="flex mt-1 flex-row gap-1">
+                        <div class="flex  flex-row gap-1">
                             <span class="material-icons text-primary text-lg">
                                 location_on
                             </span>
@@ -52,7 +56,7 @@
                                 wilayasStore.getWilayaById(post.stateId)
                             }},{{ post.cityName }}</span>
                         </div>
-                        <div class="flex flex-row pb-1 justify-between items-center">
+                        <div class="flex flex-row  justify-between items-center">
                             <div class="flex pl-0.5 flex-row gap-1">
                                 <span class="material-icons text-primary self-center text-lg">
                                     schedule
@@ -81,7 +85,7 @@
                             </div>
                         </div>
 
-                        <div class="py-0.5 w-full h-full   ">
+                        <div class=" w-full h-full   ">
                             <div class="w-full">
                                 <button v-if="post.btnVisible && !post.btnLoading" @click="sendInterest(post.id)"
                                     class="btn flex-1 font-bold w-full  cursor-pointer z-20  gap-1 btn-sm sm:btn-md text-white btn-primary rounded-lg -white">
@@ -113,111 +117,120 @@
     <Toast :duration="5000" class="bottom-0 z-50" :color="errorColor" :isVisible="errorStatus" :message="errorMessage" />
 </template>
 
-<script>
+<script setup >
 
 import Loading from './Loading.vue'
 import Error from './Error.vue'
 import Toast from './Toast.vue'
-import { ref, onMounted, watch, onBeforeMount } from 'vue'
+import { ref, computed, onMounted, watch, onBeforeMount } from 'vue'
 import { useTimeDifference } from '../composables/timeDifference.js'
-import { useUserStore } from '../store/userStore';
-import { useClientStore } from '../store/Client/clientStore';
-import { usePortfolioStore } from '../store/Provider/portfolioStore'
+import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 import { useFeedPostsStore } from '../store/Provider/feedPostsStore';
 import { useProviderStore } from '../store/Provider/providerStore';
 import { useWilayasStore } from '../store/wilayasStore';
 import { useLanguageStore } from '../store/AppBasic/languageStore';
 import { useAuthStore } from '../store/authStore';
-import { useCategoriesStore } from '../store/categoriesStore'
+
+//store
+const providerStore = useProviderStore();
+const clientDemandeStore = useclientDemandeStore()
+const wilayasStore = useWilayasStore();
+const languageStore = useLanguageStore();
+const feedPostsStore = useFeedPostsStore();
+const authStore = useAuthStore();
+
+//vars 
+const feedPosts = ref([])
+const errorStatus = ref(false)
+const errorMessage = ref('')
+const errorColor = ref('')
 
 
-export default {
-    name: 'ProviderFeed',
-    components: {
-        Loading,
-        Error,
-        Toast
-    },
-    setup() {
-        //store
-        const userStore = useUserStore();
-        const providerStore = useProviderStore();
-        const portfolioStore = usePortfolioStore();
-        const wilayasStore = useWilayasStore();
-        const clientStore = useClientStore();
-        const languageStore = useLanguageStore();
-        const categoriesStore = useCategoriesStore();
-        const feedPostsStore = useFeedPostsStore();
-        const authStore = useAuthStore();
+//composables
+const { timeDifference } = useTimeDifference()
 
-        //vars 
-        const feedPosts = ref([])
-        const errorStatus = ref(false)
-        const errorMessage = ref('')
-        const errorColor = ref('')
+//methods
+const formatTime = (date) => timeDifference(date)
 
-        //composables
-        const { timeDifference } = useTimeDifference()
+const showProject = (post) => {
+        clientDemandeStore.clientPostPageVisibility = true;
+        clientDemandeStore.$state.selectedPost = post
+        clientDemandeStore.getClientPostImages(post.id).then((res) => { })
+}
 
-        //methods
-        const formatTime = (date) => timeDifference(date)
+const getPostImage = (post) => {
+    const arrayBuffer = post.image.data
+    const bytes = new Uint8Array(arrayBuffer);
+    const blob = new Blob([bytes], { type: "image/jpeg" });
+    const url = URL.createObjectURL(blob);
+    return url
+}
 
-        const sendInterest = (clientPostId) => {
-            providerStore.sendInterest(clientPostId).then((res) => {
-                if (res.data.status == 200) {
-                    errorColor.value = 'error'
-                    errorStatus.value = true;
-                    errorMessage.value = res.data.message
-                } else {
-                    errorColor.value = 'success'
-                    errorStatus.value = true;
-                    errorMessage.value = res.data.message + ' ' + 'the post will be added to your projects tab'
+const sendInterest = (clientPostId) => {
+    providerStore.sendInterest(clientPostId).then((res) => {
+        if (res.data.status == 200) {
+            errorColor.value = 'error'
+            errorStatus.value = true;
+            errorMessage.value = res.data.message
+        } else {
+            errorColor.value = 'success'
+            errorStatus.value = true;
+            errorMessage.value = res.data.message + ' ' + 'the post will be added to your projects tab'
 
-                    feedPostsStore.feedPosts = feedPostsStore.$state.feedPosts.filter((post) => post.id != clientPostId)
-                }
-            })
+            feedPostsStore.feedPosts = feedPostsStore.$state.feedPosts.filter((post) => post.id != clientPostId)
         }
+    })
+}
+
+let backgImg = computed(() => {
+    switch (authStore.$state.userAuth.categoryId) {
+        case 10:
+            return 'moving_storage_services.svg'
+
+        case 9:
+            return 'home_inspection_appraisal.svg'
+
+        case 8:
+            return 'painting_finishing.svg'
+
+        case 7:
+            return 'landscape_outdoor_living.svg'
+
+        case 6:
+            return 'plumbing_water_management.svg'
+
+        case 5:
+            return 'electrical_hvac.svg'
+
+        case 4:
+            return 'cleaning_house_keeping.svg'
+
+        case 3:
+            return 'interior_design_decorating.svg'
+
+        case 2:
+            return 'construction_remodelling.svg'
+
+        case 1:
+            return 'home_improvement_maintenance.svg'
+
+    }
+})
+
+
+watch(() => feedPostsStore.$state.feedPosts, (newVal, oldVal) => {
+    feedPosts.value = newVal
+}, { deep: true }
+)
+
+onBeforeMount(() => {
+    //get the feed posts 
+    feedPostsStore.getFeedPosts().then((res) => {
+    })
+})
 
 
 
-        watch(() => feedPostsStore.$state.feedPosts, (newVal, oldVal) => {
-            feedPosts.value = newVal
-        }, { deep: true }
-        )
-
-        onBeforeMount(() => {
-            //get the feed posts 
-            feedPostsStore.getFeedPosts().then((res) => {
-            })
-        })
-
-
-
-        return {
-
-            //store
-            userStore,
-            providerStore,
-            wilayasStore,
-            categoriesStore,
-            authStore,
-            clientStore,
-            languageStore,
-            feedPostsStore,
-
-            //vars
-            feedPosts,
-            errorStatus,
-            errorMessage,
-            errorColor,
-
-            //methods
-            sendInterest,
-            formatTime,
-
-        };
-    },
-};
 
 
 </script>
