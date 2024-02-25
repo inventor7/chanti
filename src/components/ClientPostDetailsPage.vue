@@ -99,7 +99,8 @@
                                 </span>{{ formatTime(post.createdAt) }}
                             </p>
                         </div>
-                        <p class=" text-black/70 mt-4">{{ post.description }}</p>
+                        <h2 class=" text-base text-black font-semibold mt-5  " v-if="locationComponent != 'client'" >Description</h2>
+                        <p class=" pl-1 text-black/40 text-xs mt-1">{{ post.description }}</p>
                     </div>
                 </div>
 
@@ -164,8 +165,8 @@
 
 
             <!-- Action section -->
-            <div v-if="post.status === 'pending'"
-                class="w-full md:w-[33.33vw]  fixed flex flex-col items-center justify-center right-0 z-50 bottom-0 px-2 py-2 bg-white   ">
+            <div v-if="locationComponent==='client'"
+                class=" w-screen md:w-5/12 xl:w-1/3  fixed flex flex-col items-center justify-center right-0 z-50 bottom-0 px-2 py-2 bg-white   ">
                 <div class=" post_action flex justify-between items-center  w-[95%] h-full py-1 gap-2 ">
                     <label for="delete-modal" @click="handleWorkStatus('delete')"
                         class=" btn btn-error btn-outline btn-sm text-white rounded-lg text-xs w-1/2  ">

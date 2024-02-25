@@ -91,7 +91,7 @@ export default {
                 urgency.isSelected = false
             })
             urgency.isSelected = true
-            clientDemandeStore.request.urgency = urgency.name
+            clientDemandeStore.request.urgency = clientDemandeStore.getUrgencyName(urgency)
         }
 
 

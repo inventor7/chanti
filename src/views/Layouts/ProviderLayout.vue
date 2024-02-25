@@ -14,28 +14,13 @@
     <ClientPostDetailsPage locationComponent="provider" data-theme="providerTheme" />
 </template>
 
-<script>
+<script setup >
 import Navbar from '../../components/Navbar.vue';
 import ClientPostDetailsPage from '../../components/ClientPostDetailsPage.vue';
 import NavProvider from '../../components/NavProvider.vue';
 import NotificationPage from '../../components/NotificationPage.vue';
 import { useThemeStore } from '../../store/AppBasic/themeStore';
 
-
-export default {
-    name: 'ProviderLayout',
-    components: {
-        Navbar,
-        NavProvider,
-        NotificationPage,
-        ClientPostDetailsPage,
-    },
-    setup() {
-        const themeStore = useThemeStore();
-        return {
-            themeStore,
-        };
-    },
-};
+const themeStore = useThemeStore();
 
 </script>

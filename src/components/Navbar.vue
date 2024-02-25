@@ -68,8 +68,6 @@
             </button>
 
 
-
-
             <!-- loggedin -->
             <div v-if="authStore.$state.isAuthenticated" class="dropdown dropdown-end  ">
                 <label tabindex="0" class=" md:mr-2 ">
