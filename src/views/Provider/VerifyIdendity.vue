@@ -148,8 +148,8 @@
             <div class="w-full bg-white border-2 p-2 rounded-2xl overflow-y-scroll h-full">
                 <div
                     class="flex flex-col justify-center items-center md:flex-row w-full h-full rounded-2xl p-2 gap-2 font-semibold">
-                    <div class="w-full h-full space-y-2">
-                        <label for="af-submit-app-upload-images" v-if="!selectedFiles.length"
+                    <div class="w-full h-full space-y-2"  v-if="selectedFiles.length != 2" >
+                        <label for="af-submit-app-upload-images"
                             class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2">
                             <input id="af-submit-app-upload-images" name="af-submit-app-upload-images" type="file"
                                 class="sr-only" @change="handleFileUpload" />
@@ -171,9 +171,9 @@
                     <div class="h-full rounded-2xl" :class="{ 'border-2': !selectedFiles.length }">
                         <div v-if="selectedFiles.length"
                             class="max-w-xs h-full flex flex-row justify-around items-center gap-2">
-                            <div class="relative h-full max-h-32 w-fit md:w-full" v-for="(url, index) in selectedFileUrls"
+                            <div class="relative h-full  w-full" v-for="(url, index) in selectedFileUrls"
                                 :key="index">
-                                <img class="object-fil max-h-32" :src="url" :alt="'Image ' + (index + 1)" />
+                                <img class="object-cover w-36 h-36  md:h-64 md:w-64 " :src="url" :alt="'Image ' + (index + 1)" />
                                 <span
                                     class="absolute rounded-full w-6 h-6 flex justify-center items-center cursor-pointer -top-1.5 -right-1.5"
                                     @click="selectedFiles.splice(index, 1)">
