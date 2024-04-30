@@ -12,20 +12,17 @@
   
 <script>
 import Loading from './components/Loading.vue'
-import Error from './components/Error.vue';
 import { useLanguageStore } from './store/AppBasic/languageStore';
 import { useThemeStore } from './store/AppBasic/themeStore';
-import { useUserStore } from './store/userStore';
-import { onBeforeMount, onUpdated } from 'vue';
+import { onBeforeMount } from 'vue';
 import ErrorPage from './views/ErrorPage.vue';
 export default {
      name: 'App',
-     components: { Loading, Error, ErrorPage },
+     components: { Loading, ErrorPage },
      setup() {
           // initialize the store//
           const languageStore = useLanguageStore()
           const themeStore = useThemeStore()
-          const userStore = useUserStore()
 
           //parse the local storage to get the language and theme//
           onBeforeMount(() => {
