@@ -32,7 +32,7 @@
                                     <div>
                                         <button type="button"
                                             class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border-2  font-medium bg-white text-gray-700 shadow-sm align-middle       transition-all text-sm ">
-                                            <span class="material-icons-outlined ">
+                                            <span class="material-icons ">
                                                 edit
                                             </span>
                                             Upload photo

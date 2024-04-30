@@ -41,7 +41,7 @@ export default {
             if (route.name == name) {
                 return 'material-icons';
             } else {
-                return 'material-icons-outlined';
+                return 'material-icons';
             }
         };
 
