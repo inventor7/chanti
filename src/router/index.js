@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from '../store/userStore.js';
+import NProgress from 'nprogress'
 
 import { requireAuth } from "./authMiddlware.js";
 import { requireRole } from "./roleMiddlware.js";
@@ -206,6 +207,16 @@ const router = createRouter({
   },
   ],
 });
+
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
+})
 
 router.beforeEach(requireAuth);
 router.beforeEach(requireRole);

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import axios from "../../composables/axios";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "../authStore";
 export const useFeedPostsStore = defineStore("feedPostsStore", {
@@ -22,9 +22,8 @@ export const useFeedPostsStore = defineStore("feedPostsStore", {
         this.loadingFeed = true;
         const response = await axios({
           method: "get",
-          url: `${useAuthStore().baseUrl}/client-post/feed/${
-            useAuthStore().$state.userAuth.categoryId
-          }/${useAuthStore().$state.userAuth.stateId}`,
+          url: `${useAuthStore().baseUrl}/client-post/feed/${useAuthStore().$state.userAuth.categoryId
+            }/${useAuthStore().$state.userAuth.stateId}`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
@@ -39,7 +38,7 @@ export const useFeedPostsStore = defineStore("feedPostsStore", {
           post["btnVisible"] = true;
           post["btnLoading"] = false;
         });
-        
+
         this.errorFeedPosts.status = false;
         this.errorFeedPosts.message = "";
         this.loadingFeed = false;

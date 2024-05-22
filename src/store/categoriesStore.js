@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "./authStore";
 export const useCategoriesStore = defineStore("categoriesStore", {
@@ -99,7 +99,7 @@ export const useCategoriesStore = defineStore("categoriesStore", {
       }
     },
 
-   
+
     async fetchSubCategories(selectedCategory) {
       this.loading = true;
       try {
@@ -112,12 +112,12 @@ export const useCategoriesStore = defineStore("categoriesStore", {
         }
         this.subCategories = response.data.result;
         this.loading = false;
-        this.error.status=false,
-        this.error.message=""
+        this.error.status = false,
+          this.error.message = ""
 
       } catch (error) {
         this.loading = false;
-        this.error.status=true
+        this.error.status = true
         if (error.response) {
           this.error.message = "Server Error : Please try again";
         } else if (error.request) {
@@ -133,12 +133,12 @@ export const useCategoriesStore = defineStore("categoriesStore", {
 
 
     //getters
-    
+
     // get category by id
     getCategoryById(id) {
       return this.categories.find((item) => item.id === id).name;
     },
-    
+
     //get sub category by id
     getSubCategoryById(id) {
       return this.subCategories.find((item) => item.id === id);

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useAuthStore } from "./authStore";
 
 export const useNotificationStore = defineStore("notificationStore", {
@@ -129,9 +129,8 @@ export const useNotificationStore = defineStore("notificationStore", {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: `${
-            useAuthStore().baseUrl
-          }/notifications/requests-to-provider-number`,
+          url: `${useAuthStore().baseUrl
+            }/notifications/requests-to-provider-number`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,
@@ -168,9 +167,8 @@ export const useNotificationStore = defineStore("notificationStore", {
         this.loading = true;
         const response = await axios({
           method: "post",
-          url: `${
-            useAuthStore().baseUrl
-          }/notifications/response-to-client-number`,
+          url: `${useAuthStore().baseUrl
+            }/notifications/response-to-client-number`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,

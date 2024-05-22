@@ -6,7 +6,7 @@
                 <!-- add an overlay image -->
                 <img src="/wall.svg" class="w-full object-cover absolute top-0 right-0 z-0  h-full  sm:object-cotain   "
                 alt="wallpaper" />
-                />
+                
 
                 <!-- add a gradient -->
                 <div class="absolute top-0 left-0 z-10 w-full h-full  bg-gradient-to-b from-secondary  to-white/30 "></div>

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useAuthStore } from "./authStore";
 
 export const useRatingStore = defineStore("ratingStore", {
@@ -16,14 +16,13 @@ export const useRatingStore = defineStore("ratingStore", {
     errorState: 'success', //color of error message
   }),
   actions: {
-    async ratePro(clientPostId,providerId, rating, comment) {
+    async ratePro(clientPostId, providerId, rating, comment) {
       try {
         this.loadingRating = true;
         const response = await axios({
           method: "post",
-          url: `${
-            useAuthStore().baseUrl
-          }/client-post/rating-work`,
+          url: `${useAuthStore().baseUrl
+            }/client-post/rating-work`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${useAuthStore().$state.token}`,

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import axios from "../../composables/axios";
 import { useAuthStore } from "../authStore";
 import { useFeedPostsStore } from "./feedPostsStore";
 import { useclientDemandeStore } from "../Client/clientDemandeStore";

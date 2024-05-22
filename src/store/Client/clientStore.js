@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { useAuthStore } from "../authStore";
 import { useProviderStore } from "../Provider/providerStore";
 import { useclientDemandeStore } from "./clientDemandeStore";
-import axios from "axios";
+import axios from "../../composables/axios";
 export const useClientStore = defineStore("clientStore", {
   id: "client",
   state: () => ({
@@ -21,7 +21,7 @@ export const useClientStore = defineStore("clientStore", {
       status: false,
     },
 
-    
+
     isSent: false,
     isSentAll: false,
 
@@ -67,7 +67,7 @@ export const useClientStore = defineStore("clientStore", {
           provider.btnVisible = true;
           provider.btnLoading = false;
         });
-        
+
         return response;
       } catch (error) {
         this.loadingPosting = false;

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useRouter } from "vue-router";
 export const useAuthStore = defineStore("authStore", {
   id: "auth",

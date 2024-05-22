@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { useAuthStore } from "../authStore";
 import { useLanguageStore } from "../AppBasic/languageStore";
 import { useProviderStore } from "../Provider/providerStore";
-import axios from "axios";
+import axios from "../../composables/axios";
 export const useclientDemandeStore = defineStore("clientDemandeStore", {
   id: "clientDemande",
   state: () => ({
@@ -59,7 +59,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         nameFr: "Faible",
         nameAr: "ضعيف",
         nameEn: "low",
-        
+
         descriptionFr: "Dans ce mois",
         descriptionAr: "في هذا الشهر",
         descriptionEn: "Within this month",
@@ -148,7 +148,7 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         this.errorClientDemande.message = "";
 
         this.clientPosts = response.data.result;
-       
+
         return response;
       } catch (error) {
         this.loadingClientDemande = false;
@@ -189,8 +189,8 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
         this.selectedPost.providersSentResponse =
           response.data.result.providersSentResponse;
 
-          //make all providers in one array
-          this.selectedPost.providers = this.selectedPost.providersSentInterest.concat(this.selectedPost.providersSentResponse);
+        //make all providers in one array
+        this.selectedPost.providers = this.selectedPost.providersSentInterest.concat(this.selectedPost.providersSentResponse);
 
         // this.selectedPost.providersSentInterest.forEach((provider) => {
         //   provider.btnVisible = false;
@@ -335,8 +335,8 @@ export const useclientDemandeStore = defineStore("clientDemandeStore", {
       return post;
     },
 
-   
-    
+
+
 
     uploadFiles(files) {
       this.request.images = files;

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useUserStore } from "./userStore";
 import { useAuthStore } from "./authStore";
 export const useWilayasStore = defineStore("wilayasStore", {

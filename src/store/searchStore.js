@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useAuthStore } from "./authStore";
 import { useclientDemandeStore } from '../store/Client/clientDemandeStore'
 
@@ -25,8 +25,7 @@ export const useSearchStore = defineStore("searchStore", {
       this.loading = true;
       try {
         const response = await axios.get(
-          `${useAuthStore().baseUrl}/search/${this.searchInput}/${
-            this.pageNumber
+          `${useAuthStore().baseUrl}/search/${this.searchInput}/${this.pageNumber
           }/${useUserStore().user.language}`,
           { timeout: 15000 }
         );

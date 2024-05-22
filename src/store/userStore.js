@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import axios from "../composables/axios";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "./authStore";
 export const useUserStore = defineStore("userStore", {
@@ -69,7 +69,7 @@ export const useUserStore = defineStore("userStore", {
   actions: {
     //extract the sub categories ids from the sub categories array and pass them to subCategoriesIds
     extractSubCategoriesIds() {
-     this.user.subCategoriesIds = this.user.subCategories.map(
+      this.user.subCategoriesIds = this.user.subCategories.map(
         (subCategory) => subCategory.id
       );
     },
