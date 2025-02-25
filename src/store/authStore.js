@@ -67,7 +67,7 @@ export const useAuthStore = defineStore("authStore", {
           method: "get",
           url: `${this.baseUrl}/auth/logout`,
           headers: {
-            "Acces-Control-Allow-Origin": "*", // Required for CORS support to work
+            // "Acces-Control-Allow-Origin": "*", // Required for CORS support to work
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${this.token}`,
