@@ -9,8 +9,8 @@
             </div>
 
             <!-- Hero content -->
-            <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center gap-8 py-20">
-                <div class="text-center max-w-4xl mx-auto">
+            <div class="container mx-auto px-4 z-10 flex flex-col items-center justify-center gap-8 py-24">
+                <div class="text-center max-w-4xl mx-auto pt-12">
                     <h1 v-if="authStore.$state.isAuthenticated == false" 
                         class="text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold text-white mb-6 leading-tight">
                         {{ languageStore.getWord('title') }}
